@@ -1,31 +1,19 @@
-
-
 import { Box, GridItem, useColorModeValue, VStack } from "@chakra-ui/react";
 import React from "react";
-import { FiAlertCircle, FiSettings, FiUser } from "react-icons/fi";
+import { FiSettings, FiUser } from "react-icons/fi";
 import SidebarSection, { SideBarItems } from "../Home/SidebarSection";
 
 const SettingsSidebar = () => {
   const general: SideBarItems = [
     {
-      title: "General",
+      title: "Общие",
       icon: FiSettings,
       link: "/settings"
     },
     {
-      title: "Account",
+      title: "Аккаунт",
       icon: FiUser,
       link: "/settings/account"
-    },
-    // {
-    //   title: "Preferences",
-    //   icon: FiCheckCircle,
-    //   link: "",
-    // },
-    {
-      title: "Advanced",
-      icon: FiAlertCircle,
-      link: "/settings/advanced"
     }
   ];
   return (

@@ -1,9 +1,9 @@
 
 
+import { updateArray } from "@/src/utils";
 import produce from "immer";
 import create, { GetState, SetState } from "zustand";
 import { devtools } from "zustand/middleware";
-import { updateArray } from "../../../src/utils";
 import { ContactDataObject, ContactStore } from "./types";
 
 const contactStore = <T>(

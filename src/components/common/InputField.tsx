@@ -1,5 +1,3 @@
-
-
 import { Input, InputGroup, InputProps } from "@chakra-ui/input";
 import { Box, Text, TextProps } from "@chakra-ui/layout";
 import React, { useState } from "react";
@@ -26,7 +24,7 @@ const InputField: React.FC<Props & InputProps> = ({
 }) => {
   const [show, setShow] = useState(false);
 
-  const handleType = (value) => {
+  const handleType = (value: any) => {
     if (value !== "password") return value;
 
     if (show) return "text";

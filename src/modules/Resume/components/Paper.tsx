@@ -1,7 +1,7 @@
+import useGlobalStore from "@/src/store/global.store";
 import { Box, BoxProps } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useResizeDetector } from "react-resize-detector";
-import useGlobalStore from "../../../src/store/global.store";
 
 const Paper: React.FC<BoxProps> = ({ children, ...props }) => {
   const grayscaleFilter = useGlobalStore((state) => state.grayscaleFilter);

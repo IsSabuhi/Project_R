@@ -1,3 +1,4 @@
+import { Status } from "@/src/utils/constants";
 import { Box, Button, ButtonGroup, Divider, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -6,7 +7,6 @@ import InputField from "../../../components/common/InputField";
 import { useCustomToast } from "../../../hooks/useCustomToast";
 import { usePasswordValidation } from "../../../hooks/usePasswordValidation";
 import mp from "../../../services/mixpanel";
-import { Status } from "../../../src/utils/constants";
 import { useAuth } from "../../Auth/AuthContext";
 import PasswordHints from "../../Auth/PasswordHints";
 
@@ -39,38 +39,42 @@ const ChangePassword = () => {
       return await auth.user
         .updatePassword(password.new)
         .then(() => {
-          mp.track("Account Settings", {
+          mp.track("Настройки учетной записи", {
             action: "password update",
             status: "success"
           });
           setStatus(Status.success);
           setPassword({ new: "", confirm: "" });
           return createToast(
-            "Password updated successfully",
+            "Пароль успешно обновлен",
             "success",
-            "You can now sign in with your new password"
+            "Теперь вы можете войти в систему, используя свой новый пароль"
           );
         })
         .catch((err) => {
-          mp.track("Account Settings", {
+          mp.track("Настройки учетной записи", {
             action: "password update",
             status: "error",
             source: "Firebase"
           });
           setStatus(Status.error);
-          return createToast("Couldn't update password", "error", err.message);
+          return createToast(
+            "Не удалось обновить пароль",
+            "error",
+            err.message
+          );
         });
     } catch {
       setStatus(Status.error);
       return createToast(
-        "Couldn't update password",
+        "Не удалось обновить пароль",
         "error",
-        "An error occured while performin this request"
+        "При выполнении этого запроса произошла ошибка"
       );
     }
   };
 
-  //Condition for keeping the update password button disabled
+  //Условие для сохранения кнопки обновления пароля отключенной
   const isDisabled =
     Object.values(password).some((v) => !v.length) ||
     !(validLength && hasNumber && upperCase && lowerCase && match);
@@ -78,19 +82,19 @@ const ChangePassword = () => {
   return (
     <Box mb="8">
       <BoxHeader
-        title="Change Password"
+        title="Поменять пароль"
         size={{ title: "lg", subtitle: "sm" }}
         mb="2.5"
       />
       <InputField
-        label="Password"
+        label="Пароль"
         name="new"
         value={password.new}
         type="password"
         onChange={handleForm}
         onFocus={() => setShowHints(true)}
         onBlur={() => setShowHints(false)}
-        placeholder="8+ characters"
+        placeholder="8+ символов"
       />
       {showHints ? (
         <PasswordHints
@@ -98,7 +102,7 @@ const ChangePassword = () => {
         />
       ) : null}
       <InputField
-        label="Confirm Password"
+        label="Подтвердите пароль"
         name="confirm"
         value={password.confirm}
         type="password"
@@ -108,7 +112,7 @@ const ChangePassword = () => {
       />
       {showConfirmHint && !match ? (
         <PasswordHints
-          hints={[{ message: "Passwords don't match", validator: match }]}
+          hints={[{ message: "Пароли не совпадают", validator: match }]}
         />
       ) : null}
       <ButtonGroup spacing="4">
@@ -119,9 +123,9 @@ const ChangePassword = () => {
           onClick={handleSubmit}
           isDisabled={isDisabled}
           isLoading={status === Status.loading}
-          loadingText="Updating Password"
+          loadingText="Обновление пароля"
         >
-          Update password
+          Обновить пароль
         </Button>
         <Link href="/LoginHelp">
           <Button
@@ -131,14 +135,10 @@ const ChangePassword = () => {
             my="2"
             size="sm"
           >
-            Forgot Password?
+            Забыли пароль?
           </Button>
         </Link>
       </ButtonGroup>
-      <Text fontSize="sm" color="gray" mb="2">
-        You will be logged out of Resuminator on all the other devices once you
-        successfully update your password
-      </Text>
       <Divider />
     </Box>
   );

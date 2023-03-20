@@ -1,5 +1,3 @@
-
-
 import { Avatar, Button, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
@@ -25,14 +23,14 @@ const ProfilePhoto = () => {
     auth.user
       .updateProfile({ photoURL: url })
       .then(() => {
-        mp.track("Photo Uploaded", {
+        mp.track("Загруженная фотография", {
           target: "user profile",
           status: "success"
         });
-        return createToast("Image Uploaded Successfully", "success");
+        return createToast("Изображение успешно загружено", "success");
       })
       .catch(() => {
-        mp.track("Photo Uploaded", {
+        mp.track("Загруженная фотография", {
           target: "user profile",
           status: "error",
           source: "Firebase"
@@ -43,7 +41,7 @@ const ProfilePhoto = () => {
   return (
     <VStack>
       <Text fontSize="sm" fontWeight="semibold" colorScheme="gray" mb="2">
-        Profile Picture
+        Фотография профиля
       </Text>
       <Avatar size="2xl" src={avatar} />
       <Button
@@ -54,7 +52,7 @@ const ProfilePhoto = () => {
         onClick={onOpen}
         isDisabled={!auth.user}
       >
-        {avatar.length ? "Upload New" : "Upload"}
+        {avatar.length ? "Загрузить новый" : "Загружать"}
       </Button>
       <PhotoUploadModal
         isOpen={isOpen}

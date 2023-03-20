@@ -1,14 +1,14 @@
+import patchContact from "@/apis/patchContact";
+import { Status } from "@/src/utils/constants";
 import { Button, ButtonGroup, useDisclosure } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { FiUpload } from "react-icons/fi";
-import patchContact from "../../../apis/patchContact";
 import Section from "../../../components/layouts/Section";
 import { useCustomToast } from "../../../hooks/useCustomToast";
 import { usePatchParams } from "../../../hooks/usePatchParams";
 import firebaseSDK from "../../../services/firebase";
 import mp from "../../../services/mixpanel";
-import { Status } from "../../../src/utils/constants";
 import { useAuth } from "../../Auth/AuthContext";
 import useContactStore from "./store";
 const PhotoUploadModal = dynamic(() => import("../../Shared/PhotoUploadModal"));

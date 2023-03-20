@@ -26,12 +26,7 @@ interface HomePageProps {
   token: string;
 }
 
-const Home: NextPage<HomePageProps> = ({ token }) => {
-  const { data, status } = useQuery<UserObject, Error>(
-    "getUserData",
-    () => getUserData(token),
-    { placeholderData: userPlaceholder }
-  );
+const Home = () => {
   const { _id, isBanned, active } = useUserStore();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -41,8 +36,8 @@ const Home: NextPage<HomePageProps> = ({ token }) => {
 
   return (
     <>
-      <SEO title="Create new resume" />
-      <InitUserStore data={data} status={status} />
+      <SEO title="Создать новое резюме" />
+      {/* <InitUserStore data={data} status={status} /> */}
       <Header />
       <Grid
         height="100vh"
@@ -51,11 +46,9 @@ const Home: NextPage<HomePageProps> = ({ token }) => {
         mx={{ md: "4rem", lg: "7rem" }}
         my={{ base: "2rem" }}
       >
-        {/**Each component under Grid must be wrapped inside a GridItem component */}
         <Sidebar />
         <ResumeList handleNew={onOpen} />
 
-        {/* Will be uncommented when we'll launch the template gallery */}
         {/* <TemplateList /> */}
       </Grid>
       <Footer />
@@ -70,28 +63,28 @@ const Home: NextPage<HomePageProps> = ({ token }) => {
 
 export default Home;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  //Try to get token from cookies.
-  const cookies = nookies.get(ctx);
-  const token = cookies.token;
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   //Try to get token from cookies.
+//   const cookies = nookies.get(ctx);
+//   const token = cookies.token;
 
-  //If the token does not exist or is cleared then redirect to login page.
-  if (!token) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login"
-      }
-    };
-  }
+//   //If the token does not exist or is cleared then redirect to login page.
+//   if (!token) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/login"
+//       }
+//     };
+//   }
 
-  //If token is present, pass it to the query to fetch data from API
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery("getUserData", () => getUserData(token));
-  return {
-    props: {
-      token,
-      dehydratedState: dehydrate(queryClient)
-    }
-  };
-};
+//   //If token is present, pass it to the query to fetch data from API
+//   const queryClient = new QueryClient();
+//   await queryClient.prefetchQuery("getUserData", () => getUserData(token));
+//   return {
+//     props: {
+//       token,
+//       dehydratedState: dehydrate(queryClient)
+//     }
+//   };
+// };

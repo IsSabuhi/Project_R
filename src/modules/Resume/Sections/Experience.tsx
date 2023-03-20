@@ -1,7 +1,7 @@
+import { dateDisplay, sanitizeHTML } from "@/src/utils";
 import dynamic from "next/dynamic";
 import React from "react";
 import DataRow from "../../../components/elements/DataRow";
-import { dateDisplay, sanitizeHTML } from "../../../src/utils";
 import useExperienceStore from "../../UserInput/Experience/store";
 import { ExperienceDataObject } from "../../UserInput/Experience/types";
 import ExternalLink from "../components/ExternalLink";

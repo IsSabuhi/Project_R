@@ -1,10 +1,10 @@
+import useGlobalStore from "@/src/store/global.store";
+import { Status } from "@/src/utils/constants";
 import { HStack, Spinner, Text, TextProps } from "@chakra-ui/react";
 import TimeDiff from "js-time-diff";
 import React from "react";
 import { FaAsterisk } from "react-icons/fa";
 import { FiAlertTriangle, FiCheck } from "react-icons/fi";
-import useGlobalStore from "../../src/store/global.store";
-import { Status } from "../../src/utils/constants";
 
 interface Props {}
 

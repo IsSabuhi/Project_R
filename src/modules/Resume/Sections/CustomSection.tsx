@@ -1,8 +1,8 @@
+import { dateDisplay, sanitizeHTML } from "@/src/utils";
 import { Text } from "@chakra-ui/layout";
 import dynamic from "next/dynamic";
 import React, { Fragment } from "react";
 import DataRow from "../../../components/elements/DataRow";
-import { dateDisplay, parseDate, sanitizeHTML } from "../../../src/utils";
 import { useCustomSectionStore } from "../../UserInput/Custom/store";
 import SectionBox, { SectionBoxProps } from "../components/SectionBox";
 import SectionContent from "../components/SectionContent";

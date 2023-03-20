@@ -1,3 +1,9 @@
+import { getUserData } from "@/apis/meta";
+import { getResumeData } from "@/apis/resume";
+import InitStore from "@/src/store/InitStore";
+import InitUserStore from "@/src/store/InitUserStore";
+import useResumeStore from "@/src/store/resume.store";
+import { InputSectionKeys, Result } from "@/src/store/types";
 import { Box } from "@chakra-ui/layout";
 import { GetServerSidePropsContext, NextPage } from "next";
 import nookies from "nookies";
@@ -5,8 +11,7 @@ import React, { Fragment } from "react";
 import { useEffect } from "react";
 import { QueryClient, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
-import { getUserData } from "../../apis/meta";
-import { getResumeData } from "../../apis/resume";
+
 import Layout from "../../components/layouts";
 import placeholderData, { userPlaceholder } from "../../data/placeholderData";
 import SEO from "../../modules/SEO";
@@ -27,10 +32,6 @@ import CustomSectionInputs from "../../modules/UserInput/Custom/CustomSectionInp
 import Viewer from "../../modules/Viewer";
 import mp from "../../services/mixpanel";
 import Papercups from "../../services/papercups";
-import InitStore from "../../src/store/InitStore";
-import InitUserStore from "../../src/store/InitUserStore";
-import useResumeStore from "../../src/store/resume.store";
-import { InputSectionKeys, Result } from "../../src/store/types";
 
 const getInputSection = (key: InputSectionKeys) => {
   switch (key) {

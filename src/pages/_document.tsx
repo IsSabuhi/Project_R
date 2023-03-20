@@ -1,31 +1,22 @@
+import { ColorModeScript } from "@chakra-ui/react";
+import { Html, Head, Main, NextScript } from "next/document";
+import theme from "../styles/theme";
 
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from 'next/document';
-import { resetServerContext } from 'react-beautiful-dnd';
+export default function Document() {
+  return (
+    <Html lang="ru">
+      <Head>
+        <title>Project R</title>
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-    resetServerContext();
-    return { ...initialProps };
-  }
-
-  render() {
-    return (
-      <Html>
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
+        <meta name="description" content="Project R" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <body>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  );
 }
-
-export default MyDocument;

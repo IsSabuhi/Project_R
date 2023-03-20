@@ -1,3 +1,4 @@
+import { getUniqueID } from "@/src/utils";
 import {
   Button,
   ButtonGroup,
@@ -14,7 +15,6 @@ import {
 import produce from "immer";
 import { useState } from "react";
 import { FiArrowLeft, FiArrowRight, FiCheck } from "react-icons/fi";
-import { getUniqueID } from "../../../src/utils";
 import ModalStep1 from "./ModalStep1";
 import ModalStep2 from "./ModalStep2";
 import { useCustomSectionStore } from "./store";

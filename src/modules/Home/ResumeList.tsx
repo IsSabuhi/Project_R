@@ -1,5 +1,3 @@
-
-
 import { GridItem, HStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
@@ -22,8 +20,8 @@ const ResumeList: React.FC<ResumeListProps> = ({ handleNew }) => {
   return (
     <GridItem colStart={2}>
       <BoxHeader
-        title="My Resumes"
-        subtitle="Select a resume to start editing"
+        title="Мои резюме"
+        subtitle="Выберите резюме, чтобы начать редактирование"
         size={{ title: "4xl", subtitle: "md" }}
         titleProps={{ as: "h1", letterSpacing: "tight" }}
         spacing="0"

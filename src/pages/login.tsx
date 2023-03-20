@@ -1,24 +1,19 @@
 import { Box } from "@chakra-ui/layout";
-import { GetServerSidePropsContext, NextPage } from "next";
 import { useRouter } from "next/router";
-import nookies from "nookies";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCustomToast } from "../hooks/useCustomToast";
-import SEO from "../modules/SEO";
-import { loginSeo } from "../modules/SEO/pages.config";
-import mp from "../services/mixpanel";
 import WideLayout from "../components/layouts/WideLayout";
 import { loginBenefits } from "../data/LoginBenefits";
 import InfoGraphic from "../modules/Auth/AuthBenefits";
-import AuthFormFooter from "../modules/Auth/FormFooter";
 import AuthFormHeader from "../modules/Auth/FormHeader";
 import divider from "../styles/dividerWithText.module.css";
-import { Button } from "@chakra-ui/react";
-import { coldStartServer } from "@/apis/server";
-import MotionBox from "../components/layouts/MotionBox";
-import VerifyEmailNotice from "../modules/Auth/VerifyEmailNotice";
-import InputField from "../components/common/InputField";
+import { Button, Input } from "@chakra-ui/react";
 import LinkText from "../components/common/LinkText";
+import { useAuthContext } from "../hooks/use-auth-context";
+import { useMutationAuthUserMutation } from "../generated/projectR-hasura";
+import { useFormik } from "formik";
+import { Status } from "../utils/constants";
+import { CustomInput } from "../components/styled/CustomInput";
 
 interface IAuth {
   login: string;
@@ -27,15 +22,40 @@ interface IAuth {
 
 const initialAuth: IAuth = { login: "", password: "" };
 
-const Login: NextPage = () => {
-  const [withEmail, setWithEmail] = useState<boolean>(false);
+const Login = () => {
   const { createToast } = useCustomToast();
-  const router = useRouter();
 
-  useEffect(() => {
-    coldStartServer();
-    mp.track("Просмотр страницы входа в систему");
-  }, []);
+  const router = useRouter();
+  const { userId: myUserId, startAuthSession } = useAuthContext();
+  const [status, setStatus] = useState<Status>(Status.idle);
+
+  const formik = useFormik({
+    initialValues: initialAuth,
+    enableReinitialize: true,
+    onSubmit: () => {
+      mutationAuthUserMutation({
+        variables: {
+          login: formik.values.login,
+          password: formik.values.password
+        }
+      });
+    }
+  });
+
+  const [mutationAuthUserMutation, { data, loading, error }] =
+    useMutationAuthUserMutation({
+      onCompleted(data) {
+        startAuthSession(data.login_handler?.access_token!);
+        createToast("Успешно вошел в систему", "success");
+        return router.push("/home");
+      },
+      onError(error) {
+        createToast("Неверный логин или пароль", "error");
+        console.log(error.message);
+      }
+    });
+
+  console.log(formik.values);
 
   const LoginForm = () => {
     return (
@@ -48,51 +68,48 @@ const Login: NextPage = () => {
       >
         <AuthFormHeader
           title="Добро пожаловать! Составьте свое резюме и подайте заявку на работу своей мечты в 2 раза быстрее!"
-          hideTitle={withEmail}
+          hideTitle={false}
         />
         <div className={divider.separator}>Авторизация</div>
-        <MotionBox
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <VerifyEmailNotice />
-          <form>
-            <InputField label="Логин" name="login" type="text" />
-            <InputField label="Пароль" name="password" type="password" />
-            <Button
-              type="submit"
-              isFullWidth
-              variant="solid"
-              colorScheme="blue"
-              textAlign="center"
-              mb="4"
-              loadingText="Logging in"
-            >
-              Войти
-            </Button>
-          </form>
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
+        <form onSubmit={formik.handleSubmit}>
+          <CustomInput
+            id="login"
+            name="login"
+            type="text"
+            placeholder="Логин"
+            onChange={formik.handleChange}
+            value={formik.values.login}
+          />
+          <CustomInput
+            id="password"
+            name="password"
+            placeholder="Пароль"
+            type="password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+          <Button
+            type="submit"
+            isFullWidth
+            variant="solid"
+            colorScheme="blue"
+            textAlign="center"
             mb="4"
-            color="GrayText"
+            isLoading={status === Status.loading}
+            loadingText="Вход в систему"
           >
-            <LinkText fontSize="sm" href="/LoginHelp">
-              Забыли пароль?
-            </LinkText>
-          </Box>
-        </MotionBox>
-        <AuthFormFooter page="LOGIN" />
+            Войти
+          </Button>
+          <LinkText fontSize="sm" href="/LoginHelp">
+            Забыли пароль?
+          </LinkText>
+        </form>
       </Box>
     );
   };
 
   return (
     <>
-      <SEO {...loginSeo} />
       <WideLayout>
         <InfoGraphic
           title="Войдите в систему, чтобы создать свое первое резюме"
@@ -106,23 +123,23 @@ const Login: NextPage = () => {
 
 export default Login;
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  //получение токена из файлов cookie.
-  const cookies = nookies.get(ctx);
-  const token = cookies.token;
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   //получение токена из файлов cookie.
+//   const cookies = nookies.get(ctx);
+//   const token = cookies.token;
 
-  //Если токен существует, всегда направляйтесь на /домашнюю страницу.
-  if (!token) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/home"
-      }
-    };
-  }
+//   //Если токен существует, всегда направляйтесь на /домашнюю страницу.
+//   if (!token) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: "/home"
+//       }
+//     };
+//   }
 
-  //Если токена нет, то ничего не делаем
-  return {
-    props: {} as never
-  };
-};
+//   //Если токена нет, то ничего не делаем
+//   return {
+//     props: {} as never
+//   };
+// };

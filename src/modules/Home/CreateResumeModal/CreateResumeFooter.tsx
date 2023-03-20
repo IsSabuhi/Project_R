@@ -38,10 +38,10 @@ const CreateResumeFooter: React.FC<Props> = ({
           loadingText="Creating new resume"
           onClick={() => actionCallback(method)}
         >
-          Get Started
+          Начать
         </Button>
         <Button onClick={onCloseCallback} variant="ghost">
-          Cancel
+          Отменить
         </Button>
       </HStack>
     </ModalFooter>

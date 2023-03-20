@@ -1,6 +1,6 @@
+import API_URL, { API_VERSION } from "@/src/config/server";
+import { SkillDataObject } from "@/src/modules/UserInput/Skills/types";
 import axios from "axios";
-import API_URL, { API_VERSION } from "../config/server";
-import { SkillDataObject } from "../modules/UserInput/Skills/types";
 import getHeaders from "../src/utils/headers";
 
 /**

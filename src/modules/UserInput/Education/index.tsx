@@ -1,15 +1,15 @@
+import { patchEducation } from "@/apis/patchSection";
+import { getMidMonthDate, getUniqueID } from "@/src/utils";
 import { Icon, Text } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import React from "react";
 import { FiAlertTriangle, FiEyeOff, FiPlus } from "react-icons/fi";
-import { patchEducation } from "../../../apis/patchSection";
 import TooltipIconButton from "../../../components/common/TooltipIconButton";
 import ExpandableCard from "../../../components/layouts/Cards/ExpandableCard";
 import DndWrapper from "../../../components/layouts/DndWrapper";
 import Section from "../../../components/layouts/Section";
 import EducationHints from "../../../data/Hints/education";
 import { useCustomToast } from "../../../hooks/useCustomToast";
-import { getMidMonthDate, getUniqueID } from "../../../src/utils";
 import Autosave from "../Autosave";
 import {
   handleChange,

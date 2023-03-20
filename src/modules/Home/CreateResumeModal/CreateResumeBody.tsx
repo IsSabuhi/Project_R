@@ -1,5 +1,3 @@
-
-
 import {
   ModalBody,
   Text,
@@ -63,14 +61,14 @@ const CreateResumeBody: React.FC<CreateResumeBodyProps> = ({
       {data.active.length ? (
         <ToggleCard id="EXISTING" method={method} callback={callback}>
           <BoxHeader
-            title="Start with existing resume"
-            subtitle="Duplicate an existing resume to get started quickly than ever."
+            title="Начните с существующего резюме"
+            subtitle="Продублируйте существующее резюме, чтобы начать работу быстрее, чем когда-либо."
             size={{ title: "md", subtitle: "sm" }}
             titleProps={titleProps}
             subtitleProps={subtitleProps}
           />
           <Text color={textColor} fontSize="sm" mb="2">
-            Select a resume to use as template
+            Выберите резюме для использования в качестве шаблона
           </Text>
           <ResumeTemplateDropdown
             data={data}
@@ -81,8 +79,8 @@ const CreateResumeBody: React.FC<CreateResumeBodyProps> = ({
       ) : null}
       <ToggleCard id="SCRATCH" method={method} callback={callback}>
         <BoxHeader
-          title="Start from scratch"
-          subtitle="Start with a fresh blank paper. Customize as you like."
+          title="Начните с нуля"
+          subtitle="Начните с чистого листа. Настраивайте так, как вам нравится."
           size={{ title: "md", subtitle: "sm" }}
           titleProps={useColorModeValue(
             titleLightModeProps("SCRATCH"),

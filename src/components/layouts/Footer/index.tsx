@@ -1,5 +1,3 @@
-
-
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { GridItem, SimpleGrid, Stack } from "@chakra-ui/react";
 import React from "react";
@@ -26,7 +24,7 @@ const Footer = () => {
         }}
       >
         <GridItem>
-          <LogoWithText variant="light" />
+          {/* <LogoWithText variant="light" /> */}
           <Copyright py="4" />
         </GridItem>
         <GridItem justifySelf={{ md: "center" }}>

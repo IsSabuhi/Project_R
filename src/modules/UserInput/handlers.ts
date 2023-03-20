@@ -1,10 +1,10 @@
 
 
+import { UpdateAction } from "@/src/store/types";
+import { getMidMonthDate } from "@/src/utils";
 import { Content } from "@tiptap/core";
 import React from "react";
 import { DropResult } from "react-beautiful-dnd";
-import { UpdateAction } from "../../src/store/types";
-import { getMidMonthDate } from "../../src/utils";
 
 /**
  * Handles the input element change for the current object using `key:value` pair

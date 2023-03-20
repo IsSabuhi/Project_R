@@ -6,6 +6,7 @@ import React, { useCallback, useContext, useEffect } from "react";
 import client from "../../apollo-client";
 import { APP_URLS } from "../config/urls";
 import { AUTH_TOKEN } from "../constants";
+import { useMutationAuthUserMutation } from "../generated/projectR-hasura";
 import { parseJwt } from "../utils/parse-jwt";
 
 const KEY = AUTH_TOKEN;

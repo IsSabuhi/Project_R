@@ -1,7 +1,7 @@
+import useResumeStore from "@/src/store/resume.store";
 import { BoxProps, TextProps } from "@chakra-ui/layout";
 import { ColorProps } from "@chakra-ui/styled-system";
 import { createContext } from "react";
-import useResumeStore from "../../src/store/resume.store";
 import { isCustom } from "./Colors/ColorSelector";
 import Fonts from "./Fonts/legend";
 import { FontProps } from "./Fonts/types";

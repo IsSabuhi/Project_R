@@ -1,6 +1,6 @@
+import { baseUrl } from "@/src/config/apis";
+import { ContactDataObject } from "@/src/modules/UserInput/Contact/types";
 import axios from "axios";
-import { baseUrl } from "../config/apis";
-import { ContactDataObject } from "../modules/UserInput/Contact/types";
 import getHeaders from "../src/utils/headers";
 
 /**

@@ -1,6 +1,6 @@
+import useResumeStore from "@/src/store/resume.store";
 import { Box, Text } from "@chakra-ui/layout";
 import React, { useContext } from "react";
-import useResumeStore from "../../../src/store/resume.store";
 import { StylePropsContext } from "../../Design/StylePropsProvider";
 import useContactStore from "../../UserInput/Contact/store";
 

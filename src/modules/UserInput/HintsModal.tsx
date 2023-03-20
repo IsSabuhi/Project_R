@@ -1,3 +1,4 @@
+import { getUniqueID } from "@/src/utils";
 import {
   Button,
   ListItem,
@@ -18,7 +19,6 @@ import { FiExternalLink, FiThumbsUp } from "react-icons/fi";
 import { SectionHints } from "../../data/Hints/types";
 import { CONTRIBUTE_HINTS } from "../../data/RefLinks";
 import mp from "../../services/mixpanel";
-import { getUniqueID } from "../../src/utils";
 
 interface Props {
   hintsData: SectionHints;

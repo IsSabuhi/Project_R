@@ -14,8 +14,8 @@ const AuthFormHeader: React.FC<{ title: string; hideTitle: boolean }> = ({
         marginBottom={"1.5rem"}
         spacing={"1rem"}
       >
-        <LogoSquare href="/" />
-        <LogoWithText />
+        {/* <LogoSquare href="/" /> */}
+        {/* <LogoWithText /> */}
       </HStack>
       {!hideTitle && (
         <Text fontSize={"36px"} mb="2rem" letterSpacing={"tight"}>

@@ -1,7 +1,7 @@
+import useResumeStore from "@/src/store/resume.store";
 import Icon from "@chakra-ui/icon";
 import { Box, Stack } from "@chakra-ui/layout";
 import React, { useContext } from "react";
-import useResumeStore from "../../../src/store/resume.store";
 import { StylePropsContext } from "../../Design/StylePropsProvider";
 import {
   generateLinkForLabel,

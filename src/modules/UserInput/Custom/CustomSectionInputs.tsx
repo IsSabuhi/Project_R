@@ -1,15 +1,11 @@
+import { patchCustomSections } from "@/apis/patchSection";
+import { getMidMonthDate, sanitizeHTML, truncateString } from "@/src/utils";
 import dynamic from "next/dynamic";
 import React, { Fragment } from "react";
 import { DropResult } from "react-beautiful-dnd";
-import { patchCustomSections } from "../../../apis/patchSection";
 import ExpandableCard from "../../../components/layouts/Cards/ExpandableCard";
 import DndWrapper from "../../../components/layouts/DndWrapper";
 import Section from "../../../components/layouts/Section";
-import {
-  getMidMonthDate,
-  sanitizeHTML,
-  truncateString
-} from "../../../src/utils";
 import Autosave from "../Autosave";
 import CustomSectionControls from "./CustomSectionControls";
 import { useCustomSectionStore } from "./store";

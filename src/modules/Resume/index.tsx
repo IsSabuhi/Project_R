@@ -1,14 +1,14 @@
+import { patchLayout } from "@/apis/patchTemplate";
+import useResumeStore from "@/src/store/resume.store";
+import { Result, ResumeLayoutObject } from "@/src/store/types";
 import { Box } from "@chakra-ui/layout";
 import { BoxProps, useColorModeValue } from "@chakra-ui/react";
 import produce from "immer";
 import React from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
-import { patchLayout } from "../../apis/patchTemplate";
 import ColoredDivider from "../../components/common/ColoredDivider";
 import { useCustomToast } from "../../hooks/useCustomToast";
 import { usePatchParams } from "../../hooks/usePatchParams";
-import useResumeStore from "../../src/store/resume.store";
-import { Result, ResumeLayoutObject } from "../../src/store/types";
 import { isCustom } from "../Design/Colors/ColorSelector";
 import StylePropsProvider from "../Design/StylePropsProvider";
 import BodyBox from "./components/BodyBox";

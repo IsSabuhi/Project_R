@@ -1,15 +1,15 @@
+import { patchPublication } from "@/apis/patchSection";
+import { getUniqueID } from "@/src/utils";
 import { HStack } from "@chakra-ui/layout";
 import dynamic from "next/dynamic";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
-import { patchPublication } from "../../../apis/patchSection";
 import TooltipIconButton from "../../../components/common/TooltipIconButton";
 import ExpandableCard from "../../../components/layouts/Cards/ExpandableCard";
 import DndWrapper from "../../../components/layouts/DndWrapper";
 import Section from "../../../components/layouts/Section";
 import PublicationHints from "../../../data/Hints/publication";
 import { useCustomToast } from "../../../hooks/useCustomToast";
-import { getUniqueID } from "../../../src/utils";
 import Autosave from "../Autosave";
 import { handleChange, handleDragEnd } from "../handlers";
 import SectionControls from "../SectionControls";

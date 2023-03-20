@@ -1,8 +1,8 @@
+import useResumeStore from "@/src/store/resume.store";
 import { Box, BoxProps } from "@chakra-ui/layout";
 import { useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
-import useResumeStore from "../../../src/store/resume.store";
 
 export interface SectionBoxProps {
   draggableId?: string;

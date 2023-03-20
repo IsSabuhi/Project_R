@@ -1,9 +1,9 @@
+import { Status } from "@/src/utils/constants";
 import { Box, Button, Divider, Input } from "@chakra-ui/react";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BoxHeader from "../../../components/common/BoxHeader";
 import { useCustomToast } from "../../../hooks/useCustomToast";
 import mp from "../../../services/mixpanel";
-import { Status } from "../../../src/utils/constants";
 import { useAuth } from "../../Auth/AuthContext";
 
 const PersonalDetails = () => {
@@ -33,22 +33,22 @@ const PersonalDetails = () => {
     return await auth.user
       .updateProfile({ displayName: user.displayName })
       .then(() => {
-        mp.track("General Settings", {
+        mp.track("Общие настройки", {
           action: "name change",
           status: "success"
         });
         setUnsavedChanges(false);
         setStatus(Status.success);
-        createToast("Changes Saved", "success");
+        createToast("Сохраненные изменения", "success");
       })
       .catch((err) => {
-        mp.track("General Settings", {
+        mp.track("Общие настройки", {
           action: "name change",
           status: "error",
           source: "Firebase"
         });
         setStatus(Status.error);
-        createToast("Couldn't save changes", "error", err.message);
+        createToast("Не удалось сохранить изменения", "error", err.message);
       });
   };
 
@@ -56,8 +56,8 @@ const PersonalDetails = () => {
     <Box mb="8">
       <Box mb="8">
         <BoxHeader
-          title="Full Name"
-          subtitle="This is the name which shows on your public profile"
+          title="Полное имя"
+          subtitle="Это имя, которое отображается в вашем общедоступном профиле"
           size={{ title: "lg", subtitle: "sm" }}
           mb="2.5"
         />
@@ -71,9 +71,8 @@ const PersonalDetails = () => {
       </Box>
       <Box mb="8">
         <BoxHeader
-          title="Primary Email"
-          // subtitle="Updating your email means you will be logged out and will have to verify your email again."
-          subtitle="This is the email used for all primary communication. It cannot be changed."
+          title="Основной адрес электронной почты"
+          subtitle="Это электронная почта, используемая для всех основных сообщений. Это не может быть изменено."
           size={{ title: "lg", subtitle: "sm" }}
           mb="2.5"
         />
@@ -95,7 +94,7 @@ const PersonalDetails = () => {
         isLoading={status === Status.loading}
         loadingText="Saving changes"
       >
-        Save Changes
+        Сохранить изменения
       </Button>
       <Divider />
     </Box>

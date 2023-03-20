@@ -10,7 +10,6 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import useResumeStore from "@/src/store/resume.store";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();

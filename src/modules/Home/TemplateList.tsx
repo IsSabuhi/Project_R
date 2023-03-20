@@ -1,5 +1,3 @@
-
-
 import { GridItem } from "@chakra-ui/react";
 import React from "react";
 import BoxHeader from "../../components/common/BoxHeader";
@@ -8,9 +6,8 @@ const TemplateList = () => {
   return (
     <GridItem colSpan={3}>
       <BoxHeader
-        title="Start with a template"
-        subtitle="Select from a template below. Click on &ldquo;Show all&rdquo; to
-            open template gallery"
+        title="Начните с шаблона"
+        subtitle="Выберите из приведенного ниже шаблона. Нажмите на 'Показать все', чтобы открыть галерею шаблонов"
         size={{ title: "4xl", subtitle: "md" }}
         titleProps={{
           as: "h1",

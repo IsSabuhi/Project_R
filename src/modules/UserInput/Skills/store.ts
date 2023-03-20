@@ -1,8 +1,8 @@
 
 
+import { updateArray } from "@/src/utils";
 import create, { GetState, SetState } from "zustand";
 import { devtools } from "zustand/middleware";
-import { updateArray } from "../../../src/utils";
 import { SkillDataObject, SkillStore } from "./types";
 
 const skillStore = <T>(

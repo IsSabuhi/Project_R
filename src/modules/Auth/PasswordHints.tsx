@@ -17,15 +17,15 @@ interface Props {
 
 const DefaultHints = ({ validLength, hasNumber, upperCase, lowerCase }) => [
   {
-    message: "Minimum 8 Characters",
+    message: "Минимум 8 символов",
     validator: validLength
   },
   {
-    message: "At least one number 0-9",
+    message: "По крайней мере, одно число 0-9",
     validator: hasNumber
   },
   {
-    message: "1 uppercase and 1 lowercase character",
+    message: "1 заглавный и 1 строчный символ",
     validator: upperCase && lowerCase
   }
 ];

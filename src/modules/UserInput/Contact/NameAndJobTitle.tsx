@@ -1,7 +1,5 @@
-
-
+import patchContact from "@/apis/patchContact";
 import React from "react";
-import patchContact from "../../../apis/patchContact";
 import InputField from "../../../components/common/InputField";
 import Section from "../../../components/layouts/Section";
 import { usePatchParams } from "../../../hooks/usePatchParams";

@@ -1,9 +1,9 @@
+import { baseUrl } from "@/src/config/apis";
+import { CustomSectionObject } from "@/src/modules/UserInput/Custom/types";
+import { EducationDataObject } from "@/src/modules/UserInput/Education/types";
+import { ExperienceDataObject } from "@/src/modules/UserInput/Experience/types";
+import { ProjectDataObject } from "@/src/modules/UserInput/Projects/types";
 import axios from "axios";
-import { baseUrl } from "../config/apis";
-import { CustomSectionObject } from "../modules/UserInput/Custom/types";
-import { EducationDataObject } from "../modules/UserInput/Education/types";
-import { ExperienceDataObject } from "../modules/UserInput/Experience/types";
-import { ProjectDataObject } from "../modules/UserInput/Projects/types";
 import getHeaders from "../src/utils/headers";
 
 /**

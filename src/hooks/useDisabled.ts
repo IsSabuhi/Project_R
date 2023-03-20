@@ -1,11 +1,14 @@
 
 
+import { patchLayout } from "@/apis/patchTemplate";
 import produce from "immer";
 import { useState } from "react";
-import { patchLayout } from "../apis/patchTemplate";
+// import { patchLayout } from "../apis/patchTemplate";
 import { CustomSectionObject } from "../modules/UserInput/Custom/types";
-import useResumeStore from "../src/store/resume.store";
-import { Result, ResumeLayoutObject, Sections } from "../src/store/types";
+import useResumeStore from "../store/resume.store";
+import { ResumeLayoutObject, Sections } from "../store/types";
+// import useResumeStore from "../src/store/resume.store";
+// import { Result, ResumeLayoutObject, Sections } from "../src/store/types";
 import { useCustomToast } from "./useCustomToast";
 import { usePatchParams } from "./usePatchParams";
 
@@ -50,15 +53,15 @@ export const useDisabled = (
       })
       .catch(() =>
         createToast(
-          `Couldn't update resume layout`,
+          `Не удалось обновить макет резюме`,
           "error",
-          "Please try again in sometime"
+          "Пожалуйста, попробуйте еще раз как-нибудь"
         )
       );
   };
 
   /**
-   * Toggles the presence of `layoutKey` of an element in the `body` array.
+   *Переключает наличие `layoutKey` элемента в массиве `body`.
    */
   const toggleDisabled = async () => {
     if (getDisabledStatus(body, layoutKey)) {
@@ -68,7 +71,7 @@ export const useDisabled = (
       });
       return await handleLayoutUpdate(nextBody, layoutKey);
     } else {
-      //Saving last position of the element
+   //Сохранение последней позиции элемента
       const row = body.findIndex((row) => row.includes(layoutKey));
       const col = body[row].indexOf(layoutKey);
       setPos([row, col]);

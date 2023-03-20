@@ -25,7 +25,7 @@ const DefaultTheme: ChakraTheme = extendTheme({
     }
   },
   styles: {
-    global: (props) => ({
+    global: (props: any) => ({
       ...ProseMirror(props),
       ...ScrollBarTheme(props),
       ...Frost(props)

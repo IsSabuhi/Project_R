@@ -1,16 +1,15 @@
-import { Box } from "@chakra-ui/react";
+import React from "react";
 import { NextPage } from "next";
-import SEO from "../modules/SEO";
-import Footer from "../website/Footer";
-import Nav from "../website/Nav";
-import Login from "./login";
+import { useRouter } from "next/router";
+import { APP_URLS } from "../config/urls";
 
 const Index: NextPage = () => {
-  return (
-    <>
-      <Login />
-    </>
-  );
+  const router = useRouter();
+
+  React.useEffect(() => {
+    router.push(APP_URLS.SIGN_IN);
+  }, [router]);
+  return <div></div>;
 };
 
 export default Index;

@@ -1,7 +1,7 @@
 overwrite: true
 schema:
-  - 'http://172.30.30.51:8080/v1/graphql':
-      headers: { x-hasura-admin-secret: 'admin' }
+  - "http://172.30.30.51:8080/v1/graphql":
+      headers: { x-hasura-admin-secret: "admin" }
 documents: ./src/*.graphql
 extensions:
   codegen:
@@ -10,9 +10,9 @@ extensions:
         time: string
         timestamp: string
         uuid: string
-    generates:a
+    generates:
       ./src/generated/projectR-hasura.tsx:
         plugins:
-          - 'typescript'
-          - 'typescript-operations'
-          - 'typescript-react-apollo'
+          - "typescript"
+          - "typescript-operations"
+          - "typescript-react-apollo"

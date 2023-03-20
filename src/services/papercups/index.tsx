@@ -1,12 +1,10 @@
-
-
+import { useAuthContext } from "@/src/hooks/use-auth-context";
 import { ChatWidget } from "@papercups-io/chat-widget";
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../../modules/Auth/AuthContext";
 
 const Papercups = () => {
   const KEY = process.env.NEXT_PUBLIC_PAPERCUPS;
-  const auth = useAuth();
+  const { isAuthorized, accessToken, userId } = useAuthContext();
   const [user, setUser] = useState({
     uid: "",
     displayName: "",
@@ -14,14 +12,14 @@ const Papercups = () => {
   });
 
   useEffect(() => {
-    if (auth.user) {
+    if (isAuthorized) {
       setUser({
-        uid: auth.user.uid || "",
-        displayName: auth.user.displayName || "",
-        email: auth.user.email
+        uid: userId || "",
+        displayName: userId || " ",
+        email: userId!
       });
     }
-  }, [auth]);
+  }, [isAuthorized]);
 
   //Handling case when Papercups Account key is not present.
   //In that case do not load papercups at all.
@@ -46,6 +44,7 @@ const Papercups = () => {
         email: user.email,
         external_id: user.uid
       }}
+      token={accessToken!}
     />
   );
 };

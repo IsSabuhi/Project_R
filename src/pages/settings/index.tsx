@@ -19,13 +19,13 @@ const Settings: NextPage = () => {
 
   return (
     <>
-      <SEO title="General Settings" />
+      <SEO title="Общие настройки" />
       <Header />
       <SettingsLayoutGrid>
         <GridItem rowSpan={1} colSpan={4}>
           <BoxHeader
-            title="General Settings"
-            subtitle="Change how your profile looks, update your personal info."
+            title="Общие настройки"
+            subtitle="Измените внешний вид вашего профиля, обновите свою личную информацию."
           />
         </GridItem>
         <SettingsSidebar />

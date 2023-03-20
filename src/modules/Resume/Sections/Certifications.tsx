@@ -1,6 +1,6 @@
+import { parseDate } from "@/src/utils";
 import React from "react";
 import DataRow from "../../../components/elements/DataRow";
-import { parseDate } from "../../../src/utils";
 import useCertificationStore from "../../UserInput/Certification/store";
 import SectionBox from "../components/SectionBox";
 import SectionContent from "../components/SectionContent";

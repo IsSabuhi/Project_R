@@ -1,8 +1,8 @@
+import useGlobalStore from "@/src/store/global.store";
+import useResumeStore from "@/src/store/resume.store";
+import { Status } from "@/src/utils/constants";
 import Cookies from "js-cookie";
 import { memo, useEffect } from "react";
-import useGlobalStore from "../../src/store/global.store";
-import useResumeStore from "../../src/store/resume.store";
-import { Status } from "../../src/utils/constants";
 
 // type ServerKeys =
 //   | "education"

@@ -15,7 +15,7 @@ import { useEmailValidation } from "../hooks/useEmailValidation";
 import SEO from "../modules/SEO";
 import firebaseSDK from "../services/firebase";
 import mp from "../services/mixpanel";
-import { Status } from "../src/utils/constants";
+import { Status } from "../utils/constants";
 
 const LoginHelp: NextPage = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ const LoginHelp: NextPage = () => {
   const toast = useToast();
 
   useEffect(() => {
-    mp.track("Login Help Page View");
+    mp.track("Просмотр страницы справки по входу в систему");
   }, []);
 
   const handleInputField = (e) => {
@@ -45,8 +45,8 @@ const LoginHelp: NextPage = () => {
       .then(() => {
         setStatus(Status.success);
         toast({
-          title: "Password reset instructions sent",
-          description: `Check your inbox for further instructions. You may return to log in page now.`,
+          title: "Отправлены инструкции по сбросу пароля",
+          description: `Проверьте свой почтовый ящик для получения дальнейших инструкций. Теперь вы можете вернуться на страницу входа в систему.`,
           status: "success",
           duration: 5000,
           isClosable: true
@@ -55,7 +55,7 @@ const LoginHelp: NextPage = () => {
       .catch((err) => {
         setStatus(Status.error);
         toast({
-          title: "Could not send password reset instructions",
+          title: "Не удалось отправить инструкции по сбросу пароля",
           description: err.message,
           status: "error",
           duration: 5000,
@@ -66,7 +66,7 @@ const LoginHelp: NextPage = () => {
 
   return (
     <>
-      <SEO title="Forgot Password" />
+      <SEO title="Забыли пароль" />
       <ScreenCenter>
         <Box
           display="flex"
@@ -78,8 +78,8 @@ const LoginHelp: NextPage = () => {
           flexBasis={{ base: "90%", md: "60%", lg: "40%" }}
         >
           <BoxHeader
-            title="Forgot Password?"
-            subtitle="Enter your email for instructions on resetting your password"
+            title="Забыли пароль?"
+            subtitle="Введите свой адрес электронной почты для получения инструкций по сбросу пароля"
           />
           <InputField
             label="Email"
@@ -100,7 +100,8 @@ const LoginHelp: NextPage = () => {
             isDisabled={!validEmail}
             type="submit"
           >
-            <AiOutlineMail style={{ marginRight: "8px" }} /> Send Instructions
+            <AiOutlineMail style={{ marginRight: "8px" }} />
+            Отправить инструкции
           </Button>
           <Link href="/login">
             <Button
@@ -109,8 +110,8 @@ const LoginHelp: NextPage = () => {
               variant="ghost"
               my="4"
             >
-              <FaChevronLeft style={{ paddingRight: "8px" }} /> Back to log in
-              page
+              <FaChevronLeft style={{ paddingRight: "8px" }} /> Вернуться к
+              странице авторизации
             </Button>
           </Link>
         </Box>

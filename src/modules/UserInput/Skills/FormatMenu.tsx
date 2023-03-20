@@ -1,3 +1,5 @@
+import { patchSkillFormat } from "@/apis/patchSkills";
+import { Result } from "@/src/store/types";
 import { Button } from "@chakra-ui/button";
 import { HStack, Text } from "@chakra-ui/layout";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
@@ -5,10 +7,8 @@ import React from "react";
 import { AiFillTags } from "react-icons/ai";
 import { BsGridFill } from "react-icons/bs";
 import { FaChevronDown } from "react-icons/fa";
-import { patchSkillFormat } from "../../../apis/patchSkills";
 import { useCustomToast } from "../../../hooks/useCustomToast";
 import { usePatchParams } from "../../../hooks/usePatchParams";
-import { Result } from "../../../src/store/types";
 import useSkillStore from "./store";
 
 const FormatMenu = () => {

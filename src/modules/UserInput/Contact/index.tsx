@@ -1,5 +1,4 @@
-
-
+import patchContact from "@/apis/patchContact";
 import Icon from "@chakra-ui/icon";
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/input";
 import { HStack } from "@chakra-ui/layout";
@@ -7,7 +6,6 @@ import { Box } from "@chakra-ui/react";
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { GrDrag } from "react-icons/gr";
-import patchContact from "../../../apis/patchContact";
 import DndWrapper from "../../../components/layouts/DndWrapper";
 import Section from "../../../components/layouts/Section";
 import ContactHints from "../../../data/Hints/contact";

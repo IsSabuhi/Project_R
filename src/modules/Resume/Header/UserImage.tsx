@@ -1,7 +1,7 @@
+import useResumeStore from "@/src/store/resume.store";
 import { Avatar } from "@chakra-ui/avatar";
 import { Center } from "@chakra-ui/layout";
 import React from "react";
-import useResumeStore from "../../../src/store/resume.store";
 import useContactStore from "../../UserInput/Contact/store";
 
 const UserImageLayout = () => {

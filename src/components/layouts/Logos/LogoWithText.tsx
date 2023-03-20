@@ -1,5 +1,3 @@
-
-
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Box, BoxProps, Text } from "@chakra-ui/layout";
 import Image from "next/image";
@@ -38,7 +36,7 @@ const LogoWithText: React.FC<Props & BoxProps> = ({
       </Link>
       {hasTagline && (
         <Text fontSize="sm" fontWeight="medium" color={taglineColor}>
-          Build beautiful single-page resumes within minutes
+          Создавайте красивые одностраничные резюме за считанные минуты
         </Text>
       )}
     </Box>

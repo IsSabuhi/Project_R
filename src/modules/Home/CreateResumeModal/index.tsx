@@ -53,9 +53,9 @@ const CreateResumeModal: React.FC<CreateResumeModalProps> = ({
         setStatus(Status.success);
         setProperty("active", res.active);
         createToast(
-          "New resume created!",
+          "Создано новое резюме!",
           "success",
-          "You can now start editing your resume"
+          "Теперь вы можете приступить к редактированию своего резюме"
         );
 
         const newResumeId = res.active[res.active.length - 1]._id;
@@ -67,15 +67,15 @@ const CreateResumeModal: React.FC<CreateResumeModalProps> = ({
         //If the resume limit has been hit, return a different toast.
         if (err.response.status === 409) {
           return createToast(
-            "Couldn't create new resume",
+            "Не удалось создать новое резюме",
             "error",
             "You already have the maximum resumes which can be created on this plan."
           );
         }
         return createToast(
-          "Couldn't create new resume",
+          "Не удалось создать новое резюме",
           "error",
-          "Some unexpected error occured while creating your resume. Try again, and if this persists, please contact us over email"
+          "При создании вашего резюме произошла какая-то неожиданная ошибка. Попробуйте еще раз, и если это не повторится, пожалуйста, свяжитесь с нами по электронной почте"
         );
       });
   };
@@ -98,13 +98,13 @@ const CreateResumeModal: React.FC<CreateResumeModalProps> = ({
       <ModalContent minW="2xl">
         <ModalCloseButton />
         <ModalHeader>
-          <Text>Create new resume</Text>
+          <Text>Создать новое резюме</Text>
           <Text
             fontSize="sm"
             color={useColorModeValue("gray", "whiteAlpha")}
             fontWeight="normal"
           >
-            Select one to get started
+            Выберите один из них, чтобы начать
           </Text>
         </ModalHeader>
         <CreateResumeBody

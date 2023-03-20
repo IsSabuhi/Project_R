@@ -1,7 +1,7 @@
+import { dateDisplay, sanitizeHTML } from "@/src/utils";
 import dynamic from "next/dynamic";
 import React from "react";
 import DataRow from "../../../components/elements/DataRow";
-import { dateDisplay, sanitizeHTML } from "../../../src/utils";
 import useProjectStore from "../../UserInput/Projects/store";
 import { ProjectDataObject } from "../../UserInput/Projects/types";
 import SectionBox from "../components/SectionBox";

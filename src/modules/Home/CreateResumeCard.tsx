@@ -1,5 +1,3 @@
-
-
 import { Center, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import { FiPlusCircle } from "react-icons/fi";
 
@@ -27,8 +25,8 @@ const CreateResumeCard: React.FC<CreateResumeCardProps> = ({ onClick }) => {
       onClick={onClick}
     >
       <Icon as={FiPlusCircle} w={6} h={6} />
-      <Text my="2" fontWeight="semibold" fontSize="sm">
-        Create New Resume
+      <Text fontWeight="semibold" fontSize="sm" textAlign="center">
+        Создать новое резюме
       </Text>
     </Center>
   );

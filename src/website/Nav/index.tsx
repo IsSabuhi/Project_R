@@ -1,5 +1,3 @@
-
-
 import {
   Box,
   HStack,
@@ -46,12 +44,6 @@ const Nav = () => {
       _after={afterElement}
     >
       <Box display="flex" alignItems="center" justifyContent="space-between">
-        {/* <LogoWithText
-          mb="0"
-          letterSpacing={useBreakpointValue({ base: -1, md: -1.5, lg: -2 })}
-          width={120}
-          height={32}
-        /> */}
         <HStack>
           <NavLinks />
           <IconButton

@@ -1,7 +1,7 @@
+import useResumeStore from "@/src/store/resume.store";
 import { Box } from "@chakra-ui/layout";
 import { Tag } from "@chakra-ui/tag";
 import React, { useContext } from "react";
-import useResumeStore from "../../../src/store/resume.store";
 import { StylePropsContext } from "../../Design/StylePropsProvider";
 
 interface Props {

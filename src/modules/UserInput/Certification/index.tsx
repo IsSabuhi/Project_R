@@ -1,14 +1,14 @@
+import { patchCertifications } from "@/apis/patchSection";
+import { getMidMonthDate, getUniqueID } from "@/src/utils";
 import dynamic from "next/dynamic";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
-import { patchCertifications } from "../../../apis/patchSection";
 import TooltipIconButton from "../../../components/common/TooltipIconButton";
 import ExpandableCard from "../../../components/layouts/Cards/ExpandableCard";
 import DndWrapper from "../../../components/layouts/DndWrapper";
 import Section from "../../../components/layouts/Section";
 import CertificationHints from "../../../data/Hints/certification";
 import { useCustomToast } from "../../../hooks/useCustomToast";
-import { getMidMonthDate, getUniqueID } from "../../../src/utils";
 import Autosave from "../Autosave";
 import {
   handleChange,

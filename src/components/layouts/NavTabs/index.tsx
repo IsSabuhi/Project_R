@@ -1,5 +1,3 @@
-
-
 import { ButtonGroup } from "@chakra-ui/button";
 import { Box, Divider } from "@chakra-ui/layout";
 import React from "react";
@@ -18,10 +16,10 @@ interface Props {
 
 const NavTabs: React.FC<Props> = ({ id, currentRoute }) => {
   const getDefaultTabs = (id: Props["id"]): Array<TabItem> => [
-    { key: "home", label: "Home", link: "/home" },
-    { key: "create", label: "Create", link: `/create/${id}` },
-    { key: "design", label: "Design", link: `/design/${id}` },
-    { key: "share", label: "Download", link: `/share/${id}` }
+    { key: "home", label: "Главная", link: "/home" },
+    { key: "create", label: "Создать", link: `/create/${id}` },
+    { key: "design", label: "Дизайн", link: `/design/${id}` },
+    { key: "share", label: "Скачать", link: `/share/${id}` }
   ];
 
   const tabs = getDefaultTabs(id);

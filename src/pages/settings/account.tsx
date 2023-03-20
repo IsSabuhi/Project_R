@@ -19,13 +19,13 @@ const SecuritySettings: NextPage = () => {
 
   return (
     <>
-      <SEO title="Account Settings" />
+      <SEO title="Настройки учетной записи" />
       <Header />
       <SettingsLayoutGrid>
         <GridItem rowSpan={1} colSpan={4}>
           <BoxHeader
-            title="Account Settings"
-            subtitle="Account related settings like passwords, and preferences."
+            title="Настройки учетной записи"
+            subtitle="Настройки, связанные с учетной записью, такие как пароли и предпочтения."
           />
         </GridItem>
         <SettingsSidebar />

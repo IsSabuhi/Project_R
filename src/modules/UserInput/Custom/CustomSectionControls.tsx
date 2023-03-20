@@ -1,13 +1,13 @@
+import useResumeStore from "@/src/store/resume.store";
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import RemoveItemButton from "../../../components/common/RemoveItem";
 import TooltipIconButton from "../../../components/common/TooltipIconButton";
 import { useCustomToast } from "../../../hooks/useCustomToast";
 import { useDisabled } from "../../../hooks/useDisabled";
-import useResumeStore from "../../../src/store/resume.store";
 import { getMidMonthDate, getUniqueID, toCamelCase } from "../../../utils";
 import SectionControls from "../SectionControls";
-import { useCustomSectionStore } from "./store";../../../src/utils
+import { useCustomSectionStore } from "./store";
 import {
   CustomSectionDataObject,
   CustomSectionInputObject,

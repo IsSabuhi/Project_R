@@ -1,5 +1,3 @@
-
-
 import { Box, GridItem, useColorModeValue, VStack } from "@chakra-ui/react";
 import React from "react";
 import { FaDiscord } from "react-icons/fa";
@@ -8,12 +6,11 @@ import BroadmapIcon from "../../components/layouts/Logos/Broadmap";
 import { HELP_CENTER } from "../../data/DocLinks";
 import { BROADMAP_HOMEPAGE, DISCORD_INVITE } from "../../data/RefLinks";
 import SidebarSection from "./SidebarSection";
-import SponsorCard from "./SponsorCard";
 
 const Sidebar = () => {
   const workspace = [
     {
-      title: "Settings",
+      title: "Настройки",
       icon: FiSettings,
       link: "/settings"
     }
@@ -34,24 +31,6 @@ const Sidebar = () => {
     // },
   ];
 
-  const resources = [
-    {
-      title: "Broadmap",
-      icon: BroadmapIcon,
-      link: BROADMAP_HOMEPAGE
-    },
-    {
-      title: "Help & Support",
-      icon: FiHelpCircle,
-      link: HELP_CENTER // /support
-    },
-    {
-      title: "Discord Server",
-      icon: FaDiscord,
-      link: DISCORD_INVITE // /support
-    }
-  ];
-
   return (
     <GridItem colSpan={1}>
       <Box
@@ -70,10 +49,8 @@ const Sidebar = () => {
           width="100%"
           mb="4"
         >
-          <SidebarSection sectionTitle="Workspace" items={workspace} />
-          <SidebarSection sectionTitle="Resources" items={resources} />
+          <SidebarSection sectionTitle="Меню" items={workspace} />
         </VStack>
-        <SponsorCard />
       </Box>
     </GridItem>
   );

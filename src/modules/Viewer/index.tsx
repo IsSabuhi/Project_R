@@ -1,9 +1,9 @@
+import useGlobalStore from "@/src/store/global.store";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Box } from "@chakra-ui/layout";
 import { BoxProps, Flex } from "@chakra-ui/react";
 import React from "react";
 import ColoredDivider from "../../components/common/ColoredDivider";
-import useGlobalStore from "../../src/store/global.store";
 import ResumePaper from "../Resume";
 import AutoSaveStatus from "./AutoSaveStatus";
 import OverflowWarning from "./OverflowWarning";

@@ -1,7 +1,7 @@
+import { dateDisplay, sanitizeHTML } from "@/src/utils";
 import dynamic from "next/dynamic";
 import React from "react";
 import DataRow from "../../../components/elements/DataRow";
-import { dateDisplay, sanitizeHTML } from "../../../src/utils";
 import useEducationStore from "../../UserInput/Education/store";
 import { EducationDataObject } from "../../UserInput/Education/types";
 import SectionBox, { SectionBoxProps } from "../components/SectionBox";

@@ -1,3 +1,4 @@
+import { Status } from "@/src/utils/constants";
 import {
   Button,
   HStack,
@@ -17,7 +18,6 @@ import React, { useState } from "react";
 import { FiUpload } from "react-icons/fi";
 import { useCustomToast } from "../../hooks/useCustomToast";
 import firebaseSDK from "../../services/firebase";
-import { Status } from "../../src/utils/constants";
 
 const MAX_FILE_SIZE = 524288; //512KB
 
@@ -66,9 +66,9 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
 
         //Return a warning with message
         return createToast(
-          "File too large",
+          "Файл слишком большой",
           "warning",
-          "Maximum file size allowed is 512KB"
+          "Максимальный разрешенный размер файла составляет 512 КБ"
         );
       }
 
@@ -131,7 +131,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
         }
       );
     } else {
-      createToast("Please select image first", "warning");
+      createToast("Пожалуйста, сначала выберите изображение", "warning");
     }
   };
 
@@ -141,13 +141,13 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
       <ModalContent minW="lg">
         <ModalCloseButton />
         <ModalHeader>
-          <Text>Upload New Photo</Text>
+          <Text>Загрузить новую фотографию</Text>
           <Text
             fontSize="sm"
             color={useColorModeValue("gray", "whiteAlpha")}
             fontWeight="normal"
           >
-            Choose a file to upload
+            Выберите файл для загрузки
           </Text>
         </ModalHeader>
         <ModalBody>
@@ -155,7 +155,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
             fontSize="sm"
             color={useColorModeValue("gray", "whiteAlpha.600")}
           >
-            Supported Format: PNG/JPEG. Max file size = 512KB
+            Поддерживаемый формат: PNG/JPEG. Максимальный размер файла = 512 КБ
           </Text>
           <Input
             type="file"
@@ -180,10 +180,10 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
               variant="solid"
               onClick={() => uploadToFirebase(image.file)}
               isLoading={status === Status.loading}
-              loadingText="Uploading"
+              loadingText="Загрузка"
               isDisabled={!image.file}
             >
-              Upload
+              Загружать
             </Button>
             <Button
               colorScheme="gray"
@@ -192,7 +192,7 @@ const PhotoUploadModal: React.FC<PhotoUploadModalProps> = ({
               onClick={handleModalClose}
               isDisabled={status === Status.loading}
             >
-              Cancel
+              Отменить
             </Button>
           </HStack>
         </ModalFooter>
