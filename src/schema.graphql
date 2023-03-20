@@ -1,0 +1,134 @@
+query GetJobseekerAccount($_eq: uuid = "") {
+  account(where: { account_id: { _eq: $_eq } }) {
+    RefreshToken
+    account_id
+    avatar
+    login
+    password
+    role
+  }
+}
+
+# Запрос на получения данных профиля Jobseeker
+query GetJobseekerProfile($_eq: uuid = "") {
+  jobseeker(where: { account_id: { _eq: $_eq } }) {
+    email
+    lastName
+    middleName
+    name
+    phone
+    gender
+    dateBirth
+  }
+}
+
+query GetResumes($_eq: uuid = "") {
+  resume(where: { jobseeker: { account_id: { _eq: $_eq } } }) {
+    date_create
+    desired_salary
+    job_position
+    kids
+    relocate
+    status
+    resume_id
+    jobseeker {
+      lastName
+      middleName
+      name
+      phone
+      email
+      gender
+      dateBirth
+      citizenship
+      jobseeker_id
+      work_experiences {
+        date_of_dismissal
+        date_of_employment
+        job_position
+        organization
+        work_experience_id
+        short_description
+      }
+    }
+    jobseeker_educations {
+      education_form
+      end_date
+      faculity
+      group
+      short_description
+      speciality
+      start_date
+    }
+    name_resume
+    short_description
+    work_experiences {
+      date_of_dismissal
+      date_of_employment
+      job_position
+      organization
+      short_description
+      work_experience_id
+    }
+    city_of_residence {
+      address
+      city
+      city_of_residence_id
+      postal_code
+      region
+      country
+    }
+  }
+}
+
+# Авторизация
+mutation MutationAuthUser($login: String = "", $password: String = "") {
+  login_handler(login: $login, password: $password) {
+    account_id
+    role
+    access_token
+  }
+}
+
+mutation UpdateJobseekerProfile(
+  $_eq: uuid = ""
+  $dateBirth: date = ""
+  $email: String = ""
+  $phone: String = ""
+) {
+  update_jobseeker(
+    where: { account_id: { _eq: $_eq } }
+    _set: { dateBirth: $dateBirth, email: $email, phone: $phone }
+  ) {
+    returning {
+      dateBirth
+      email
+      phone
+    }
+  }
+}
+
+mutation InsertResume(
+  $jobseeker_id: uuid = ""
+  $desired_salary: Int!
+  $job_position: String = ""
+  $kids: Boolean = false
+  $relocate: Boolean = false
+  $status: Boolean = false
+) {
+  insert_resume_one(
+    object: {
+      kids: $kids
+      relocate: $relocate
+      job_position: $job_position
+      desired_salary: $desired_salary
+      jobseeker_id: $jobseeker_id
+    }
+  ) {
+    resume_id
+    relocate
+    jobseeker_id
+    kids
+    job_position
+    desired_salary
+  }
+}
