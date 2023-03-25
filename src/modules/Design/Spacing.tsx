@@ -1,62 +1,60 @@
-import { SliderMark } from "@chakra-ui/react";
+import useResumeStore from '@/src/store/resume.store'
+import { SliderMark } from '@chakra-ui/react'
 import {
   Slider,
   SliderFilledTrack,
   SliderThumb,
-  SliderTrack
-} from "@chakra-ui/slider";
-import React from "react";
-import { patchSpacing } from "../../apis/patchTemplate";
-import Section from "../../components/layouts/Section";
-import { useCustomToast } from "../../hooks/useCustomToast";
-import { usePatchParams } from "../../hooks/usePatchParams";
-import useResumeStore from "../../src/store/resume.store";
-import { Result } from "../../src/store/types";
+  SliderTrack,
+} from '@chakra-ui/slider'
+import React from 'react'
+import Section from '../../components/layouts/Section'
+import { useCustomToast } from '../../hooks/useCustomToast'
+import { usePatchParams } from '../../hooks/usePatchParams'
 
 const Marker = ({ value, index }) => {
-  const display = ["Compact", "Normal", "Airy", "Large"];
+  const display = ['Compact', 'Normal', 'Airy', 'Large']
   return (
     <SliderMark fontSize="xs" color="gray" value={value} top="1.5rem">
       {display[index]}
     </SliderMark>
-  );
-};
+  )
+}
 
 const Spacing = () => {
-  const spacing = useResumeStore((state) => state.spacing);
-  const setSpacing = useResumeStore((state) => state.setSpacing);
-  const { token, resumeId } = usePatchParams();
-  const { createToast } = useCustomToast();
+  const spacing = useResumeStore((state) => state.spacing)
+  const setSpacing = useResumeStore((state) => state.setSpacing)
+  const { token, resumeId } = usePatchParams()
+  const { createToast } = useCustomToast()
 
   const handleSubmit = async (value: number) => {
-    setSpacing(value);
+    setSpacing(value)
 
     return await patchSpacing(token, resumeId, { spacing: value })
       .then((res: Result) => {
-        setSpacing(res.template.spacing);
+        setSpacing(res.template.spacing)
         return createToast(
-          "Resume spacing updated",
-          "success",
+          'Resume spacing updated',
+          'success',
           null,
-          "spacing-success"
-        );
+          'spacing-success'
+        )
       })
       .catch(() =>
         createToast(
           "Couldn't update resume spacing",
-          "error",
-          "Please try again in sometime",
-          "spacing-error"
+          'error',
+          'Please try again in sometime',
+          'spacing-error'
         )
-      );
-  };
+      )
+  }
 
   return (
     <Section
       header={{
-        title: "Resume spacing",
-        subtitle: "Adjust the slider to increase/decrease white space.",
-        mb: "2"
+        title: 'Resume spacing',
+        subtitle: 'Adjust the slider to increase/decrease white space.',
+        mb: '2',
       }}
     >
       <Slider
@@ -78,7 +76,7 @@ const Spacing = () => {
         <SliderThumb bg="cyan.500" boxSize={6} mb="2" />
       </Slider>
     </Section>
-  );
-};
+  )
+}
 
-export default Spacing;
+export default Spacing

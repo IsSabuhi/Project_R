@@ -1,52 +1,50 @@
-import { Button } from "@chakra-ui/button";
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
-import React from "react";
-import { FaChevronCircleDown } from "react-icons/fa";
-import { patchFont } from "../../../apis/patchTemplate";
-import Section from "../../../components/layouts/Section";
-import { useCustomToast } from "../../../hooks/useCustomToast";
-import { usePatchParams } from "../../../hooks/usePatchParams";
-import useResumeStore from "../../../src/store/resume.store";
-import { FontProfile, Result } from "../../../src/store/types";
-import { toCamelCase } from "../../../utils";
-import Fonts from "./legend";
-../../../src/utils
-const profiles: Array<FontProfile> = ["CLASSIC", "MAGAZINE", "POISE", "SENIOR"];
+import useResumeStore from '@/src/store/resume.store'
+import { FontProfile, Result } from '@/src/store/types'
+import { Button } from '@chakra-ui/button'
+import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/menu'
+import React from 'react'
+import { FaChevronCircleDown } from 'react-icons/fa'
+import Section from '../../../components/layouts/Section'
+import { useCustomToast } from '../../../hooks/useCustomToast'
+import { usePatchParams } from '../../../hooks/usePatchParams'
+import { toCamelCase } from '../../../utils'
+import Fonts from './legend'
+const profiles: Array<FontProfile> = ['CLASSIC', 'MAGAZINE', 'POISE', 'SENIOR']
 
 const FontSelector = () => {
-  const fontProfile = useResumeStore((state) => state.fontProfile);
-  const setFontProfile = useResumeStore((state) => state.setFontProfile);
-  const { token, resumeId } = usePatchParams();
-  const { createToast } = useCustomToast();
+  const fontProfile = useResumeStore((state) => state.fontProfile)
+  const setFontProfile = useResumeStore((state) => state.setFontProfile)
+  const { token, resumeId } = usePatchParams()
+  const { createToast } = useCustomToast()
 
   const handleSubmit = async (item: FontProfile) => {
-    setFontProfile(item);
+    setFontProfile(item)
     return await patchFont(token, resumeId, { fontProfile: item })
       .then((res: Result) => {
-        setFontProfile(res.template.fontProfile);
+        setFontProfile(res.template.fontProfile)
         return createToast(
-          "Resume font updated",
-          "success",
+          'Resume font updated',
+          'success',
           null,
-          "font-success"
-        );
+          'font-success'
+        )
       })
       .catch(() =>
         createToast(
           "Couldn't update resume font",
-          "error",
-          "Please try again in sometime",
-          "font-error"
+          'error',
+          'Please try again in sometime',
+          'font-error'
         )
-      );
-  };
+      )
+  }
 
   return (
     <Section
       header={{
-        title: "Font & Feel",
-        subtitle: "Select from the available fonts to change the feel",
-        mb: "2"
+        title: 'Font & Feel',
+        subtitle: 'Select from the available fonts to change the feel',
+        mb: '2',
       }}
     >
       <Menu>
@@ -73,7 +71,7 @@ const FontSelector = () => {
         </MenuList>
       </Menu>
     </Section>
-  );
-};
+  )
+}
 
-export default FontSelector;
+export default FontSelector

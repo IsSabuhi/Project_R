@@ -1,18 +1,18 @@
-import { Button, ButtonGroup, ButtonProps } from "@chakra-ui/react";
-import React from "react";
-import { patchLayout } from "../../apis/patchTemplate";
-import Section from "../../components/layouts/Section";
-import { useCustomToast } from "../../hooks/useCustomToast";
-import { usePatchParams } from "../../hooks/usePatchParams";
-import useResumeStore from "../../src/store/resume.store";
-import { Result, ResumeLayoutObject } from "../../src/store/types";
+import { patchLayout } from '@/apis/patchTemplate'
+import useResumeStore from '@/src/store/resume.store'
+import { Result, ResumeLayoutObject } from '@/src/store/types'
+import { Button, ButtonGroup, ButtonProps } from '@chakra-ui/react'
+import React from 'react'
+import Section from '../../components/layouts/Section'
+import { useCustomToast } from '../../hooks/useCustomToast'
+import { usePatchParams } from '../../hooks/usePatchParams'
 
 const Columns = () => {
-  const layout = useResumeStore((state) => state.properties.layout);
-  const { body } = layout;
-  const updateLayout = useResumeStore((state) => state.updateLayout);
-  const { token, resumeId } = usePatchParams();
-  const { createToast } = useCustomToast();
+  const layout = useResumeStore((state) => state.properties.layout)
+  const { body } = layout
+  const updateLayout = useResumeStore((state) => state.updateLayout)
+  const { token, resumeId } = usePatchParams()
+  const { createToast } = useCustomToast()
 
   /**
    * Saves the layout to DB
@@ -21,26 +21,26 @@ const Columns = () => {
    * @returns toast on success and error
    */
   const handleSubmit = async (
-    nextBody: ResumeLayoutObject["body"],
+    nextBody: ResumeLayoutObject['body'],
     columnType: string
   ) => {
-    updateLayout("body", nextBody);
+    updateLayout('body', nextBody)
 
     return await patchLayout(token, resumeId, {
-      layout: { ...layout, body: nextBody }
+      layout: { ...layout, body: nextBody },
     })
       .then((res: Result) => {
-        updateLayout("body", res.template.layout.body);
-        return createToast(`Resume converted to ${columnType}`, "success");
+        updateLayout('body', res.template.layout.body)
+        return createToast(`Resume converted to ${columnType}`, 'success')
       })
       .catch(() =>
         createToast(
           `Couldn't convert resume to ${columnType}`,
-          "error",
-          "Please try again in sometime"
+          'error',
+          'Please try again in sometime'
         )
-      );
-  };
+      )
+  }
 
   /**
    * Converts the two column body format to compatible single column format
@@ -48,11 +48,11 @@ const Columns = () => {
    */
   const convertToSingleColumn = async () => {
     //To prevent unintended side-effects if the body is already one-column
-    if (body.length === 1) return;
+    if (body.length === 1) return
 
-    const nextBody = body.reduce((initial, item) => [...initial, ...item]);
-    return await handleSubmit([nextBody], "single column");
-  };
+    const nextBody = body.reduce((initial, item) => [...initial, ...item])
+    return await handleSubmit([nextBody], 'single column')
+  }
 
   /**
    * Converts the single row body to two column format
@@ -60,13 +60,13 @@ const Columns = () => {
    */
   const convertToTwoColumn = async () => {
     //To prevent unintended side-effects if the body is already two-column
-    if (body.length === 2) return;
+    if (body.length === 2) return
 
-    const mid = Math.ceil(body[0].length / 2);
-    const [col1, col2] = [body[0].slice(0, mid), body[0].slice(mid)];
-    const nextBody = [col1, col2];
-    return await handleSubmit(nextBody, "two-column");
-  };
+    const mid = Math.ceil(body[0].length / 2)
+    const [col1, col2] = [body[0].slice(0, mid), body[0].slice(mid)]
+    const nextBody = [col1, col2]
+    return await handleSubmit(nextBody, 'two-column')
+  }
 
   /**
    * Generates the styling props depending on if the button is selected or not.
@@ -75,31 +75,31 @@ const Columns = () => {
    */
   const getRestProps = (isSelected: boolean): ButtonProps => {
     const baseProps: ButtonProps = {
-      colorScheme: "blue",
+      colorScheme: 'blue',
       _focus: {
-        border: "none"
-      }
-    };
+        border: 'none',
+      },
+    }
 
     const selectedProps: ButtonProps = {
-      variant: "solid",
-      ...baseProps
-    };
+      variant: 'solid',
+      ...baseProps,
+    }
 
     const defaultProps: ButtonProps = {
-      variant: "outline",
-      ...baseProps
-    };
+      variant: 'outline',
+      ...baseProps,
+    }
 
-    return isSelected ? selectedProps : defaultProps;
-  };
+    return isSelected ? selectedProps : defaultProps
+  }
 
   return (
     <Section
       header={{
-        title: "Body Style",
-        subtitle: "Select between one or two column resume",
-        mb: "2"
+        title: 'Body Style',
+        subtitle: 'Select between one or two column resume',
+        mb: '2',
       }}
     >
       <ButtonGroup my="2" isAttached>
@@ -117,7 +117,7 @@ const Columns = () => {
         </Button>
       </ButtonGroup>
     </Section>
-  );
-};
+  )
+}
 
-export default Columns;
+export default Columns

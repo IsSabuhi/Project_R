@@ -1,92 +1,92 @@
-import patchContact from "@/apis/patchContact";
-import { Status } from "@/src/utils/constants";
-import { Button, ButtonGroup, useDisclosure } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import { FiUpload } from "react-icons/fi";
-import Section from "../../../components/layouts/Section";
-import { useCustomToast } from "../../../hooks/useCustomToast";
-import { usePatchParams } from "../../../hooks/usePatchParams";
-import firebaseSDK from "../../../services/firebase";
-import mp from "../../../services/mixpanel";
-import { useAuth } from "../../Auth/AuthContext";
-import useContactStore from "./store";
-const PhotoUploadModal = dynamic(() => import("../../Shared/PhotoUploadModal"));
+import patchContact from '@/apis/patchContact'
+import { Status } from '@/src/utils/constants'
+import { Button, ButtonGroup, useDisclosure } from '@chakra-ui/react'
+import dynamic from 'next/dynamic'
+import React, { useState } from 'react'
+import { FiUpload } from 'react-icons/fi'
+import Section from '../../../components/layouts/Section'
+import { useCustomToast } from '../../../hooks/useCustomToast'
+import { usePatchParams } from '../../../hooks/usePatchParams'
+import firebaseSDK from '../../../services/firebase'
+import mp from '../../../services/mixpanel'
+import { useAuth } from '../../Auth/AuthContext'
+import useContactStore from './store'
+const PhotoUploadModal = dynamic(() => import('../../Shared/PhotoUploadModal'))
 
 const UserImage = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const auth = useAuth();
-  const { createToast } = useCustomToast();
-  const [status, setStatus] = useState<Status>(Status.idle);
-  const userImage = useContactStore((state) => state.userImage);
-  const setProperty = useContactStore((state) => state.setProperty);
-  const setUserImage = (value: string) => setProperty("userImage", value);
-  const { resumeId, setSaveStatus, setLastSavedAt, token } = usePatchParams();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const auth = useAuth()
+  const { createToast } = useCustomToast()
+  const [status, setStatus] = useState<Status>(Status.idle)
+  const userImage = useContactStore((state) => state.userImage)
+  const setProperty = useContactStore((state) => state.setProperty)
+  const setUserImage = (value: string) => setProperty('userImage', value)
+  const { resumeId, setSaveStatus, setLastSavedAt, token } = usePatchParams()
 
   const saveToDb = async (url: string) => {
-    const key = "userImage";
+    const key = 'userImage'
 
-    setSaveStatus(Status.loading);
+    setSaveStatus(Status.loading)
     return await patchContact(key)(token, resumeId, { [key]: url })
       .then(() => {
-        setLastSavedAt(new Date());
-        mp.track("Photo Uploaded", {
+        setLastSavedAt(new Date())
+        mp.track('Загруженная фотография', {
           target: `resume-${resumeId}`,
-          status: "success"
-        });
-        createToast("Image uploaded successfully", "success");
-        return setSaveStatus(Status.success);
+          status: 'success',
+        })
+        createToast('Изображение успешно загружено', 'success')
+        return setSaveStatus(Status.success)
       })
       .catch(() => {
-        mp.track("Photo Uploaded", {
+        mp.track('Загруженная фотография', {
           target: `resume-${resumeId}`,
-          status: "error",
-          source: "Internal"
-        });
-        setSaveStatus(Status.error);
-      });
-  };
+          status: 'error',
+          source: 'Internal',
+        })
+        setSaveStatus(Status.error)
+      })
+  }
 
   const clearImage = async () => {
-    setStatus(Status.loading);
-    const storageRef = firebaseSDK.storage().ref();
+    setStatus(Status.loading)
+    const storageRef = firebaseSDK.storage().ref()
 
     //Delete from Firebase Storage
     return await storageRef
       .child(auth.user.uid)
       .child(resumeId)
       .delete()
-      .then(() => saveToDb(""))
+      .then(() => saveToDb(''))
       .then(() => {
-        mp.track("Photo Delete", {
+        mp.track('Удаление фотографии', {
           target: `resume-${resumeId}`,
-          status: "success"
-        });
-        setUserImage("");
-        setStatus(Status.success);
-        return createToast("Photo Removed", "success");
+          status: 'success',
+        })
+        setUserImage('')
+        setStatus(Status.success)
+        return createToast('Фотография удалена', 'success')
       })
       .catch(() => {
-        setStatus(Status.error);
-        mp.track("Photo Delete", {
+        setStatus(Status.error)
+        mp.track('Удаление фотографии', {
           target: `resume-${resumeId}`,
-          status: "error",
-          source: "Firebase"
-        });
+          status: 'error',
+          source: 'Firebase',
+        })
         return createToast(
-          "Couldn't remove image",
-          "error",
-          "This could be either because the image has already been deleted, or due to some internal issue."
-        );
-      });
-  };
+          'Не удалось удалить изображение',
+          'error',
+          'Это может быть либо потому, что изображение уже было удалено, либо из-за какой-то внутренней проблемы.'
+        )
+      })
+  }
 
   return (
     <Section
       header={{
-        title: "Resume Photo",
-        subtitle: "Click on the button below to upload your photo",
-        mb: "2"
+        title: 'Фотография для резюме',
+        subtitle: 'Нажмите на кнопку ниже, чтобы загрузить свою фотографию',
+        mb: '2',
       }}
     >
       <ButtonGroup my="4">
@@ -98,7 +98,7 @@ const UserImage = () => {
           onClick={onOpen}
           isDisabled={status === Status.loading}
         >
-          {userImage.length ? "Select New" : "Upload"}
+          {userImage.length ? 'Выберите Новый' : 'Загрузить'}
         </Button>
         <Button
           size="sm"
@@ -109,7 +109,7 @@ const UserImage = () => {
           loadingText="Removing Image"
           isDisabled={!userImage}
         >
-          Remove Image
+          Удалить изображение
         </Button>
       </ButtonGroup>
       <PhotoUploadModal
@@ -121,7 +121,7 @@ const UserImage = () => {
         fileName={resumeId}
       />
     </Section>
-  );
-};
+  )
+}
 
-export default UserImage;
+export default UserImage

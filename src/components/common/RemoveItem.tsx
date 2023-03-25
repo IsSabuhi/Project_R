@@ -1,59 +1,57 @@
-
-
-import { useColorModeValue } from "@chakra-ui/color-mode";
-import { useDisclosure } from "@chakra-ui/hooks";
-import Icon from "@chakra-ui/icon";
-import { Text } from "@chakra-ui/layout";
-import dynamic from "next/dynamic";
-import React, { Fragment } from "react";
-import { FiEye } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import TooltipIconButton from "./TooltipIconButton";
-const ActionModal = dynamic(() => import("./ActionModal"));
+import { useColorModeValue } from '@chakra-ui/color-mode'
+import { useDisclosure } from '@chakra-ui/hooks'
+import Icon from '@chakra-ui/icon'
+import { Text } from '@chakra-ui/layout'
+import dynamic from 'next/dynamic'
+import React, { Fragment } from 'react'
+import { FiEye } from 'react-icons/fi'
+import { RiDeleteBin6Line } from 'react-icons/ri'
+import TooltipIconButton from './TooltipIconButton'
+const ActionModal = dynamic(() => import('./ActionModal'))
 
 interface Props {
-  itemType?: string;
-  handleDelete: () => void;
+  itemType?: string
+  handleDelete: () => void
 }
 
 const RemoveItemButton: React.FC<Props> = ({
-  itemType = "item",
-  handleDelete
+  itemType = 'item',
+  handleDelete,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Fragment>
       <TooltipIconButton
-        label="Remove Item"
+        label="Удалить элемент"
         colorScheme="red"
         aria-label="Remove-Item-From-Resume"
         icon={<RiDeleteBin6Line />}
         onClick={onOpen}
       />
       <ActionModal
-        title="Confirm delete"
-        buttonText="Delete"
+        title="Подтвердите удаление"
+        buttonText="Удалить"
         isOpen={isOpen}
         onClick={() => {
-          handleDelete();
-          onClose();
+          handleDelete()
+          onClose()
         }}
         onClose={onClose}
       >
-        Are you sure you want to delete this {itemType} from your resume? This
-        action is irreversible. <br />
+        Вы уверены, что хотите удалить это{itemType} из вашего резюме? Этот
+        действие необратимо. <br />
         <br />
         <Text
           fontSize="sm"
-          color={useColorModeValue("GrayText", "whiteAlpha.700")}
+          color={useColorModeValue('GrayText', 'whiteAlpha.700')}
         >
-          If you wished to just hide it from your resume but still keep the data
-          you can do it by using the eye icon (
-          <Icon as={FiEye} m="1" color="blue.500" />) button on the item.
+          Если бы вы хотели просто скрыть это из своего резюме, но при этом
+          сохранить данные вы можете сделать это, используя значок глаза (
+          <Icon as={FiEye} m="1" color="blue.500" />) кнопка на элементе.
         </Text>
       </ActionModal>
     </Fragment>
-  );
-};
+  )
+}
 
-export default RemoveItemButton;
+export default RemoveItemButton
