@@ -1,3 +1,6 @@
+import { useGetJobseekerProfileQuery } from '@/src/generated/projectR-hasura'
+import { useAuthContext } from '@/src/hooks/use-auth-context'
+import { comName } from '@/src/utils/comName'
 import {
   Avatar,
   Divider,
@@ -7,71 +10,43 @@ import {
   MenuList,
   Text,
   useColorModeValue,
-  VStack
-} from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import nookies from "nookies";
-import { useEffect, useState } from "react";
-import { FaDiscord } from "react-icons/fa";
-import { FiLogOut, FiSettings } from "react-icons/fi";
-import { DISCORD_INVITE } from "../../data/RefLinks";
-import { useCustomToast } from "../../hooks/useCustomToast";
-import firebaseSDK from "../../services/firebase";
-import mp from "../../services/mixpanel";
-import { useAuth } from "../Auth/AuthContext";
+  VStack,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { FiLogOut, FiSettings } from 'react-icons/fi'
+import { useCustomToast } from '../../hooks/useCustomToast'
+import mp from '../../services/mixpanel'
 
 const UserMenu = () => {
-  const auth = useAuth();
-  const router = useRouter();
-  const [user, setUser] = useState({
-    photoUrl: "",
-    displayName: "",
-    email: ""
-  });
-  const { createToast } = useCustomToast();
+  const router = useRouter()
+  const { isAuthorized, userId, stopAuthSession } = useAuthContext()
 
-  const trackMetric = (from: string, to: string) => {
-    mp.track("External Link Trigger", { from, to });
-  };
+  const { data, loading, error } = useGetJobseekerProfileQuery({
+    variables: {
+      _eq: userId,
+    },
+  })
+
+  const userData = data?.jobseeker[0]
+
+  const { createToast } = useCustomToast()
 
   const routeTo = (path: string) => {
-    router.push(path);
-  };
-
-  useEffect(() => {
-    if (auth.user) {
-      setUser({
-        displayName: auth.user.displayName || "",
-        photoUrl: auth.user.photoURL || "",
-        email: auth.user.email
-      });
-    }
-  }, [auth]);
+    router.push(path)
+  }
 
   const handleLogout = () => {
-    firebaseSDK
-      .auth()
-      .signOut()
-      .then(() => nookies.destroy(undefined, "token", { path: "/" }))
-      .then(() => router.push("/login"))
-      .then(() => {
-        mp.track("Log Out", {
-          status: "success"
-        });
-        return createToast("You have been successfully logged out", "success");
-      })
-      .catch(() => {
-        mp.track("Log Out", {
-          status: "error",
-          source: "Internal"
-        });
-      });
-  };
+    stopAuthSession()
+    mp.track('Log Out', {
+      status: 'success',
+    })
+    return createToast('Вы успешно вышли из системы', 'success')
+  }
 
   return (
     <Menu isLazy>
       <MenuButton>
-        <Avatar size="md" src={user.photoUrl} />
+        <Avatar size="md"></Avatar>
       </MenuButton>
       <MenuList>
         <MenuItem
@@ -88,39 +63,37 @@ const UserMenu = () => {
             textTransform="uppercase"
             fontWeight="semibold"
             mb="2"
-            color={useColorModeValue("blue.500", "blue.200")}
+            color={useColorModeValue('blue.500', 'blue.200')}
           >
-            Logged in as
+            Вошел в систему как
           </Text>
           <VStack alignItems="flex-start" spacing="1">
-            <Text fontSize="md">{user.displayName}</Text>
-            <Text fontSize="xs">{user.email}</Text>
+            <Text fontSize="md">
+              {comName(
+                userData?.lastName!,
+                userData?.name!,
+                userData?.middleName!
+              )}
+            </Text>
+            <Text fontSize="xs">{userData?.email}</Text>
           </VStack>
         </MenuItem>
         <Divider />
         {/* <MenuItem icon={<FiUser />}>Profile</MenuItem> */}
-        <MenuItem icon={<FiSettings />} onClick={() => routeTo("/settings")}>
-          Settings
+        <MenuItem icon={<FiSettings />} onClick={() => routeTo('/settings')}>
+          Настройки
         </MenuItem>
         {/* <Divider /> */}
         {/* <MenuItem icon={<FiBook />}>Guides</MenuItem> */}
-        <MenuItem
-          icon={<FaDiscord />}
-          as="a"
-          href={DISCORD_INVITE}
-          target="_blank"
-          onClick={() => trackMetric("User Menu", DISCORD_INVITE)}
-        >
-          Join Discord Server
-        </MenuItem>
+
         {/* <MenuItem icon={<FiHelpCircle />}>Help Center</MenuItem> */}
         {/* <Divider /> */}
         <MenuItem icon={<FiLogOut />} onClick={handleLogout}>
-          Logout
+          Выйти
         </MenuItem>
       </MenuList>
     </Menu>
-  );
-};
+  )
+}
 
-export default UserMenu;
+export default UserMenu

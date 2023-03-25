@@ -1,104 +1,171 @@
-import { Status } from "@/src/utils/constants";
-import { Box, Button, Divider, Input } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import BoxHeader from "../../../components/common/BoxHeader";
-import { useCustomToast } from "../../../hooks/useCustomToast";
-import mp from "../../../services/mixpanel";
-import { useAuth } from "../../Auth/AuthContext";
+import {
+  Jobseeker,
+  useGetJobseekerAccountQuery,
+  useGetJobseekerProfileQuery,
+  useUpdateJobseekerProfileMutation,
+} from '@/src/generated/projectR-hasura'
+import { useAuthContext } from '@/src/hooks/use-auth-context'
+import { comName } from '@/src/utils/comName'
+import { Status } from '@/src/utils/constants'
+import { Box, Button, Divider, Input } from '@chakra-ui/react'
+import { useFormik } from 'formik'
+import React, { useState } from 'react'
+import BoxHeader from '../../../components/common/BoxHeader'
+import { useCustomToast } from '../../../hooks/useCustomToast'
+import mp from '../../../services/mixpanel'
+import { useAuth } from '../../Auth/AuthContext'
+
+const initialProfile: Partial<Jobseeker> = {
+  lastName: '',
+  name: '',
+  middleName: '',
+  dateBirth: '',
+  phone: '',
+  email: ' ',
+}
 
 const PersonalDetails = () => {
-  const auth = useAuth();
-  const [user, setUser] = useState({ displayName: "", email: "" });
-  const [status, setStatus] = useState<Status>(Status.idle);
-  const [unsavedChanges, setUnsavedChanges] = useState<boolean>(false);
-  const { createToast } = useCustomToast();
+  const [status, setStatus] = useState<Status>(Status.idle)
 
-  useEffect(() => {
-    if (auth.user) {
-      setUser({
-        displayName: auth.user.displayName || "",
-        email: auth.user.email
-      });
-    }
-  }, [auth.user]);
+  const { userId } = useAuthContext()
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUnsavedChanges(true);
-    const [key, value] = [e.target.name, e.target.value];
-    setUser({ ...user, [key]: value });
-  };
+  const { createToast } = useCustomToast()
 
-  const saveChanges = async () => {
-    setStatus(Status.loading);
-    return await auth.user
-      .updateProfile({ displayName: user.displayName })
-      .then(() => {
-        mp.track("Общие настройки", {
-          action: "name change",
-          status: "success"
-        });
-        setUnsavedChanges(false);
-        setStatus(Status.success);
-        createToast("Сохраненные изменения", "success");
+  const [values, setValues] = React.useState(initialProfile)
+
+  const [updateJobseekerProfileMutation] = useUpdateJobseekerProfileMutation({
+    onCompleted() {
+      setStatus(Status.success)
+      return createToast('Данные успешно сохранены', 'success')
+    },
+  })
+
+  const { data, loading, error } = useGetJobseekerProfileQuery({
+    variables: {
+      _eq: userId,
+    },
+    onCompleted(data) {
+      setValues(data.jobseeker[0])
+      setStatus(Status.success)
+    },
+    onError(error) {
+      console.log(error.graphQLErrors)
+      setStatus(Status.error)
+      return createToast('Произошла неизвестная ошибка', 'error')
+    },
+  })
+
+  const userData = data?.jobseeker[0]
+
+  const formik = useFormik({
+    initialValues: values,
+    enableReinitialize: true,
+    onSubmit: () => {
+      updateJobseekerProfileMutation({
+        variables: {
+          _eq: userId,
+          dateBirth: formik.values.dateBirth,
+          email: formik.values.email,
+          phone: formik.values.phone,
+        },
       })
-      .catch((err) => {
-        mp.track("Общие настройки", {
-          action: "name change",
-          status: "error",
-          source: "Firebase"
-        });
-        setStatus(Status.error);
-        createToast("Не удалось сохранить изменения", "error", err.message);
-      });
-  };
+    },
+  })
+
+  const handleChangeField = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue(name, value)
+  }
 
   return (
     <Box mb="8">
-      <Box mb="8">
-        <BoxHeader
-          title="Полное имя"
-          subtitle="Это имя, которое отображается в вашем общедоступном профиле"
-          size={{ title: "lg", subtitle: "sm" }}
-          mb="2.5"
-        />
-        <Input
-          maxW="80"
-          variant="outline"
-          name="displayName"
-          value={user.displayName}
-          onChange={handleInput}
-        />
-      </Box>
-      <Box mb="8">
-        <BoxHeader
-          title="Основной адрес электронной почты"
-          subtitle="Это электронная почта, используемая для всех основных сообщений. Это не может быть изменено."
-          size={{ title: "lg", subtitle: "sm" }}
-          mb="2.5"
-        />
-        <Input
-          maxW="80"
-          variant="outline"
-          name="email"
-          value={user.email}
-          onChange={handleInput}
-          isDisabled
-        />
-      </Box>
-      <Button
-        colorScheme="green"
-        isDisabled={!unsavedChanges}
-        onClick={saveChanges}
-        mb="2"
-        size="sm"
-        isLoading={status === Status.loading}
-        loadingText="Saving changes"
-      >
-        Сохранить изменения
-      </Button>
+      <form onSubmit={formik.handleSubmit}>
+        <Box mb="8">
+          <BoxHeader
+            title="Полное имя"
+            subtitle="Это имя, которое отображается в вашем общедоступном профиле"
+            size={{ title: 'lg', subtitle: 'sm' }}
+            mb="2.5"
+          />
+          <Input
+            maxW="80"
+            variant="outline"
+            name="displayName"
+            value={comName(
+              userData?.lastName!,
+              userData?.name!,
+              userData?.middleName!
+            )}
+            disabled
+          />
+        </Box>
+        <Box mb="8">
+          <BoxHeader
+            title="Дата рождения"
+            size={{ title: 'lg', subtitle: 'sm' }}
+            mb="2.5"
+          />
+          <Input
+            maxW="80"
+            variant="outline"
+            name="dateBirth"
+            type="date"
+            onChange={(event) => {
+              handleChangeField(event as React.ChangeEvent<HTMLInputElement>)
+            }}
+            value={formik.values.dateBirth || ''}
+          />
+        </Box>
+        <Box mb="8">
+          <BoxHeader
+            title="Основной адрес электронной почты"
+            subtitle="Это электронная почта, используемая для всех основных сообщений."
+            size={{ title: 'lg', subtitle: 'sm' }}
+            mb="2.5"
+          />
+          <Input
+            maxW="80"
+            variant="outline"
+            name="email"
+            onChange={(event) => {
+              handleChangeField(event as React.ChangeEvent<HTMLInputElement>)
+            }}
+            value={formik.values.email || ''}
+          />
+        </Box>
+        <Box mb="8">
+          <BoxHeader
+            title="Телефон"
+            subtitle="Ваш номер телефона"
+            size={{ title: 'lg', subtitle: 'sm' }}
+            mb="2.5"
+          />
+          <Input
+            maxW="80"
+            variant="outline"
+            name="phone"
+            type="tel"
+            onChange={(event) => {
+              handleChangeField(event as React.ChangeEvent<HTMLInputElement>)
+            }}
+            value={formik.values.phone || ''}
+          />
+        </Box>
+        <Button
+          type="submit"
+          colorScheme="green"
+          mb="2"
+          size="sm"
+          isLoading={status === Status.loading}
+          loadingText="Saving changes"
+        >
+          Сохранить изменения
+        </Button>
+      </form>
       <Divider />
     </Box>
-  );
-};
+  )
+}
 
-export default PersonalDetails;
+export default PersonalDetails

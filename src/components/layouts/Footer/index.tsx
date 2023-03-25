@@ -28,7 +28,7 @@ const Footer = () => {
           <Copyright py="4" />
         </GridItem>
         <GridItem justifySelf={{ md: "center" }}>
-          <SocialButtons data={SocialLinks} />
+          {/* <SocialButtons data={SocialLinks} /> */}
         </GridItem>
         <GridItem justifySelf={{ md: "end" }}>
           <ColorModeMenu />

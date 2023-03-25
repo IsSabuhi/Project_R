@@ -1,16 +1,16 @@
-import { patchProjects } from "@/apis/patchSection";
-import { getMidMonthDate, getUniqueID } from "@/src/utils";
-import dynamic from "next/dynamic";
-import React from "react";
-import { FiPlus } from "react-icons/fi";
-import InputWithLabel from "../../../components/common/InputWithLabel";
-import TooltipIconButton from "../../../components/common/TooltipIconButton";
-import ExpandableCard from "../../../components/layouts/Cards/ExpandableCard";
-import DndWrapper from "../../../components/layouts/DndWrapper";
-import Section from "../../../components/layouts/Section";
-import ProjectHints from "../../../data/Hints/projects";
-import { useCustomToast } from "../../../hooks/useCustomToast";
-import Autosave from "../Autosave";
+import { patchProjects } from '@/apis/patchSection'
+import { getMidMonthDate, getUniqueID } from '@/src/utils'
+import dynamic from 'next/dynamic'
+import React from 'react'
+import { FiPlus } from 'react-icons/fi'
+import InputWithLabel from '../../../components/common/InputWithLabel'
+import TooltipIconButton from '../../../components/common/TooltipIconButton'
+import ExpandableCard from '../../../components/layouts/Cards/ExpandableCard'
+import DndWrapper from '../../../components/layouts/DndWrapper'
+import Section from '../../../components/layouts/Section'
+import ProjectHints from '../../../data/Hints/projects'
+import { useCustomToast } from '../../../hooks/useCustomToast'
+import Autosave from '../Autosave'
 import {
   handleChange,
   handleClearDate,
@@ -18,61 +18,61 @@ import {
   handleDragEnd,
   handleEditorChange,
   handlePresentCheckbox,
-  handleTagsInput
-} from "../handlers";
-import SectionControls from "../SectionControls";
-import useProjectStore from "./store";
-import { ProjectDataObject } from "./types";
+  handleTagsInput,
+} from '../handlers'
+import SectionControls from '../SectionControls'
+import useProjectStore from './store'
+import { ProjectDataObject } from './types'
 const EditorWithLabel = dynamic(
-  () => import("../../../components/common/EditorWithLabel")
-);
+  () => import('../../../components/common/EditorWithLabel')
+)
 const StartEndDatePicker = dynamic(
-  () => import("../../../components/common/StartEndDatePicker")
-);
+  () => import('../../../components/common/StartEndDatePicker')
+)
 
 const Projects = () => {
-  const data = useProjectStore((state) => state.data);
-  const setData = useProjectStore((state) => state.setData);
-  const addData = useProjectStore((state) => state.add);
-  const updateData = useProjectStore((state) => state.update);
-  const { createToast } = useCustomToast();
+  const data = useProjectStore((state) => state.data)
+  const setData = useProjectStore((state) => state.setData)
+  const addData = useProjectStore((state) => state.add)
+  const updateData = useProjectStore((state) => state.update)
+  const { createToast } = useCustomToast()
 
   //This will be removed when server is connected. For mock purposes only.
   const DummyData: ProjectDataObject = {
     _id: getUniqueID(),
     isHidden: false,
-    projectName: "",
-    additionalInfo: "",
+    projectName: '',
+    additionalInfo: '',
     start: getMidMonthDate(),
     end: getMidMonthDate(),
-    description: "",
-    link: "",
-    tags: []
-  };
+    description: '',
+    link: '',
+    tags: [],
+  }
 
   //mocking data from DB.
   const getNewObject = async () => {
-    return DummyData;
-  };
+    return DummyData
+  }
 
   //Mock async request
   const handleAdd = async () => {
-    await getNewObject().then((res) => addData(res));
-  };
+    await getNewObject().then((res) => addData(res))
+  }
 
   //Mocked delete request from server.
   const handleDelete = async (id: string) => {
-    const nextState = data.filter((item) => item._id !== id);
-    setData(nextState);
-    return createToast("Deleted Successfully", "success");
-  };
+    const nextState = data.filter((item) => item._id !== id)
+    setData(nextState)
+    return createToast('Удалено успешно', 'success')
+  }
 
   return (
     <Section
       header={{
-        title: "Projects",
-        subtitle: "Add relevant personal projects",
-        mb: "2"
+        title: 'Projects',
+        subtitle: 'Добавляйте соответствующие личные проекты',
+        mb: '2',
       }}
     >
       <Autosave data={data} patchFn={patchProjects} />
@@ -95,23 +95,23 @@ const Projects = () => {
               index: index,
               title: item.projectName,
               subtitle: item.link,
-              titlePlaceholder: "Project Name",
-              isHidden: item.isHidden
+              titlePlaceholder: 'Название проекта',
+              isHidden: item.isHidden,
             }}
             InputCardProps={{
-              itemType: "project",
+              itemType: 'project',
               visibilityHandler: {
                 value: item.isHidden,
-                setValue: () => updateData(index, "isHidden", !item.isHidden)
+                setValue: () => updateData(index, 'isHidden', !item.isHidden),
               },
-              deleteHandler: () => handleDelete(item._id)
+              deleteHandler: () => handleDelete(item._id),
             }}
             key={item._id}
           >
             <InputWithLabel
               label="Project Name"
               name="projectName"
-              placeholder="Resuminator"
+              placeholder="ProjectR"
               value={item.projectName}
               onChange={(e) => handleChange(e, index, updateData)}
             />
@@ -159,7 +159,7 @@ const Projects = () => {
         ))}
       </DndWrapper>
     </Section>
-  );
-};
+  )
+}
 
-export default Projects;
+export default Projects

@@ -1,10 +1,10 @@
 import client from "@/apollo-client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AppProps } from "next/app";
-
 import "../styles/globals.css";
 import DefaultTheme from "../styles/theme";
 import { ApolloProvider } from "@apollo/client";
+
 /* <--- Resume Font Imports ---> */
 import "@fontsource/inter";
 import "@fontsource/inter/500.css";

@@ -1,29 +1,26 @@
-
-
-import { Checkbox } from "@chakra-ui/checkbox";
-import { Box, HStack, Text } from "@chakra-ui/layout";
-import { DatePickerView } from "@material-ui/lab/DatePicker/shared";
-import { add, sub } from "date-fns";
-import MUIDatePicker, { TextField } from "../../widgets/DatePicker";
+import { Checkbox } from '@chakra-ui/checkbox'
+import { Box, HStack, Text } from '@chakra-ui/layout'
+import { DatePickerView } from '@material-ui/lab/DatePicker/shared'
+import { add, sub } from 'date-fns'
 
 interface Props {
-  labels?: { started: string; ended: string; checkbox: string };
-  values: { start: Date; end: Date };
-  onChangeHandler: (key: string) => (date: Date) => void;
-  checkboxHandler?: (e) => void;
-  clearDateHandler?: (e) => void;
-  views?: Array<DatePickerView>;
-  startClearable?: boolean;
+  labels?: { started: string; ended: string; checkbox: string }
+  values: { start: Date; end: Date }
+  onChangeHandler: (key: string) => (date: Date) => void
+  checkboxHandler?: (e) => void
+  clearDateHandler?: (e) => void
+  views?: Array<DatePickerView>
+  startClearable?: boolean
 }
 
 const StartEndDatePicker: React.FC<Props> = ({
-  labels = { started: "Started", ended: "Ended", checkbox: "Present" },
+  labels = { started: 'Started', ended: 'Ended', checkbox: 'Present' },
   values,
   onChangeHandler,
   checkboxHandler,
   clearDateHandler,
   startClearable,
-  views = ["year", "month"]
+  views = ['year', 'month'],
 }) => {
   return (
     <>
@@ -32,35 +29,35 @@ const StartEndDatePicker: React.FC<Props> = ({
           <Text fontSize="md" pb="2" color="gray.500">
             {labels.started}
           </Text>
-          <MUIDatePicker
+          {/* <MUIDatePicker
             renderInput={({ helperText, label, ...params }) => (
               <TextField label={null} {...params} />
             )}
             label={labels.started}
             value={values.start}
-            onChange={onChangeHandler("start")}
+            onChange={onChangeHandler('start')}
             views={views}
             minDate={sub(new Date(), { years: 30 })}
             maxDate={add(new Date(), { years: 5 })}
             clearable={startClearable}
-          />
+          /> */}
         </Box>
         <Box>
           <Text fontSize="md" pb="2" color="gray.500">
             {labels.ended}
           </Text>
-          <MUIDatePicker
+          {/* <MUIDatePicker
             renderInput={({ helperText, label, ...params }) => (
               <TextField label={null} {...params} />
             )}
             label={labels.ended}
             value={values.end}
-            onChange={onChangeHandler("end")}
+            onChange={onChangeHandler('end')}
             views={views}
             minDate={values.start}
             maxDate={add(new Date(), { years: 5 })}
             clearable
-          />
+          /> */}
         </Box>
       </HStack>
       <HStack mb="4" spacing="4">
@@ -85,7 +82,7 @@ const StartEndDatePicker: React.FC<Props> = ({
         </Checkbox>
       </HStack>
     </>
-  );
-};
+  )
+}
 
-export default StartEndDatePicker;
+export default StartEndDatePicker

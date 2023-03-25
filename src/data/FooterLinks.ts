@@ -5,23 +5,6 @@ interface FooterLinkObject {
   link?: string;
 }
 
-const FooterLinks: Array<FooterLinkObject> = [
-  // {
-  //   label: "Sponsor",
-  //   link: "",
-  // },
-  // {
-  //   label: "Broadmap",
-  //   link: "http://broadmap.resuminator.in/",
-  // },
-  // {
-  //   label: "Guides",
-  //   link: "",
-  // },
-  // {
-  //   label: "Docs",
-  //   link: "",
-  // },
-];
+const FooterLinks: Array<FooterLinkObject> = [];
 
 export default FooterLinks;

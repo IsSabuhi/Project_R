@@ -1,21 +1,21 @@
-import { Status } from "@/src/utils/constants";
-import { Button, HStack, ModalFooter } from "@chakra-ui/react";
-import React from "react";
-import { FiArrowRight } from "react-icons/fi";
-import { Method } from "../CreateResumeModal";
+import { Status } from '@/src/utils/constants'
+import { Button, HStack, ModalFooter } from '@chakra-ui/react'
+import React from 'react'
+import { FiArrowRight } from 'react-icons/fi'
+import { Method } from '../CreateResumeModal'
 
 interface Props {
-  method: Method;
-  actionCallback: (method: Method) => Promise<void>;
-  onCloseCallback: () => void;
-  status?: Status;
+  method: Method
+  actionCallback: (method: Method) => Promise<void>
+  onCloseCallback: () => void
+  status?: Status
 }
 
 const CreateResumeFooter: React.FC<Props> = ({
   method,
   onCloseCallback,
   actionCallback,
-  status
+  status,
 }) => {
   return (
     <ModalFooter display="flex" justifyContent="flex-end">
@@ -35,7 +35,7 @@ const CreateResumeFooter: React.FC<Props> = ({
           rightIcon={<FiArrowRight />}
           isDisabled={method === null}
           isLoading={status === Status.loading}
-          loadingText="Creating new resume"
+          loadingText="Создание нового резюме"
           onClick={() => actionCallback(method)}
         >
           Начать
@@ -45,7 +45,7 @@ const CreateResumeFooter: React.FC<Props> = ({
         </Button>
       </HStack>
     </ModalFooter>
-  );
-};
+  )
+}
 
-export default CreateResumeFooter;
+export default CreateResumeFooter

@@ -1,78 +1,78 @@
-import { patchExperience } from "@/apis/patchSection";
-import { getMidMonthDate, getUniqueID } from "@/src/utils";
-import dynamic from "next/dynamic";
-import React from "react";
-import { FiPlus } from "react-icons/fi";
-import InputWithLabel from "../../../components/common/InputWithLabel";
-import TooltipIconButton from "../../../components/common/TooltipIconButton";
-import ExpandableCard from "../../../components/layouts/Cards/ExpandableCard";
-import DndWrapper from "../../../components/layouts/DndWrapper";
-import Section from "../../../components/layouts/Section";
-import ExperienceHints from "../../../data/Hints/experience";
-import { useCustomToast } from "../../../hooks/useCustomToast";
-import Autosave from "../Autosave";
+import { patchExperience } from '@/apis/patchSection'
+import { getMidMonthDate, getUniqueID } from '@/src/utils'
+import dynamic from 'next/dynamic'
+import React from 'react'
+import { FiPlus } from 'react-icons/fi'
+import InputWithLabel from '../../../components/common/InputWithLabel'
+import TooltipIconButton from '../../../components/common/TooltipIconButton'
+import ExpandableCard from '../../../components/layouts/Cards/ExpandableCard'
+import DndWrapper from '../../../components/layouts/DndWrapper'
+import Section from '../../../components/layouts/Section'
+import ExperienceHints from '../../../data/Hints/experience'
+import { useCustomToast } from '../../../hooks/useCustomToast'
+import Autosave from '../Autosave'
 import {
   handleChange,
   handleDateChange,
   handleDragEnd,
   handleEditorChange,
   handlePresentCheckbox,
-  handleTagsInput
-} from "../handlers";
-import SectionControls from "../SectionControls";
-import useExperienceStore from "./store";
-import { ExperienceDataObject } from "./types";
+  handleTagsInput,
+} from '../handlers'
+import SectionControls from '../SectionControls'
+import useExperienceStore from './store'
+import { ExperienceDataObject } from './types'
 const EditorWithLabel = dynamic(
-  () => import("../../../components/common/EditorWithLabel")
-);
+  () => import('../../../components/common/EditorWithLabel')
+)
 const StartEndDatePicker = dynamic(
-  () => import("../../../components/common/StartEndDatePicker")
-);
+  () => import('../../../components/common/StartEndDatePicker')
+)
 
 const Experience = () => {
-  const data = useExperienceStore((state) => state.data);
-  const setData = useExperienceStore((state) => state.setData);
-  const addData = useExperienceStore((state) => state.add);
-  const updateData = useExperienceStore((state) => state.update);
-  const { createToast } = useCustomToast();
+  const data = useExperienceStore((state) => state.data)
+  const setData = useExperienceStore((state) => state.setData)
+  const addData = useExperienceStore((state) => state.add)
+  const updateData = useExperienceStore((state) => state.update)
+  const { createToast } = useCustomToast()
 
   //This will be removed when server is connected. For mock purposes only.
   const DummyData: ExperienceDataObject = {
     _id: getUniqueID(),
-    jobTitle: "",
-    company: "",
-    location: "",
-    description: "",
-    link: "",
+    jobTitle: '',
+    company: '',
+    location: '',
+    description: '',
+    link: '',
     tags: [],
     start: getMidMonthDate(),
     end: getMidMonthDate(),
-    isHidden: false
-  };
+    isHidden: false,
+  }
 
   //mocking data from DB.
   const getNewObject = async () => {
-    return DummyData;
-  };
+    return DummyData
+  }
 
   //Mock async request
   const handleAdd = async () => {
-    await getNewObject().then((res) => addData(res));
-  };
+    await getNewObject().then((res) => addData(res))
+  }
 
   //Mocked delete request from server.
   const handleDelete = async (id: string) => {
-    const nextState = data.filter((item) => item._id !== id);
-    setData(nextState);
-    return createToast("Deleted Successfully", "success");
-  };
+    const nextState = data.filter((item) => item._id !== id)
+    setData(nextState)
+    return createToast('Deleted Successfully', 'success')
+  }
 
   return (
     <Section
       header={{
-        title: "Work Experience",
-        subtitle: "Add your recent work experiences and internships.",
-        mb: "2"
+        title: 'Опыт работы',
+        subtitle: 'Добавьте свой недавний опыт работы и стажировки.',
+        mb: '2',
       }}
     >
       <Autosave data={data} patchFn={patchExperience} />
@@ -95,16 +95,16 @@ const Experience = () => {
               index: index,
               title: item.company,
               subtitle: item.jobTitle,
-              titlePlaceholder: "Organization Name",
-              isHidden: item.isHidden
+              titlePlaceholder: 'Название организации',
+              isHidden: item.isHidden,
             }}
             InputCardProps={{
-              itemType: "experience",
+              itemType: 'experience',
               visibilityHandler: {
                 value: item.isHidden,
-                setValue: () => updateData(index, "isHidden", !item.isHidden)
+                setValue: () => updateData(index, 'isHidden', !item.isHidden),
               },
-              deleteHandler: () => handleDelete(item._id)
+              deleteHandler: () => handleDelete(item._id),
             }}
             key={item._id}
           >
@@ -162,7 +162,7 @@ const Experience = () => {
         ))}
       </DndWrapper>
     </Section>
-  );
-};
+  )
+}
 
-export default Experience;
+export default Experience
