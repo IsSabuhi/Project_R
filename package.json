@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.10",
     "@chakra-ui/react": "^2.5.4",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -17,10 +18,30 @@
     "@types/react-dom": "18.0.11",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "formik": "^2.2.9",
     "framer-motion": "^10.9.1",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.0.2"
+    "react-icons": "^4.8.0",
+    "sass": "^1.60.0",
+    "typescript": "5.0.2",
+    "dayjs": "^1.11.7",
+    "jotai": "^2.0.3",
+    "@fontsource/inter": "^4.2.2",
+    "@fontsource/lora": "^4.4.2",
+    "@fontsource/manrope": "^4.2.2",
+    "@fontsource/nunito": "^4.4.2",
+    "@fontsource/poppins": "^4.4.2",
+    "@fontsource/pt-serif": "^4.5.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^2.16.4",
+    "@graphql-codegen/typescript": "^3.0.0",
+    "@graphql-codegen/typescript-operations": "^3.0.0",
+    "@types/graphql": "^14.5.0",
+    "apollo": "^2.11.1",
+    "graphql": "^16.6.0"
   }
 }
