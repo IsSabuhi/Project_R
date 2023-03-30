@@ -17,11 +17,28 @@ import '@fontsource/poppins';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/700.css';
 import '@fontsource/pt-serif';
+import { SnackbarProvider } from 'notistack';
+import { ApolloProvider } from '@apollo/client';
+import { AuthProvider } from '../hooks/use-auth-context';
+import client from '@/apollo-client';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider theme={DefaultTheme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <SnackbarProvider
+      maxSnack={3}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      autoHideDuration={4000}
+    >
+      <ApolloProvider client={client}>
+        <AuthProvider>
+          <ChakraProvider theme={DefaultTheme}>
+            <Component {...pageProps} />
+          </ChakraProvider>
+        </AuthProvider>
+      </ApolloProvider>
+    </SnackbarProvider>
   );
 }

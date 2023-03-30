@@ -1,0 +1,50 @@
+query GetJobseekerAccount($_eq: uuid = "") {
+  account(where: { account_id: { _eq: $_eq } }) {
+    RefreshToken
+    account_id
+    avatar
+    login
+    password
+    role
+  }
+}
+
+# Запрос на получения данных профиля Jobseeker
+query GetJobseekerProfile($_eq: uuid = "") {
+  jobseeker(where: { account_id: { _eq: $_eq } }) {
+    email
+    lastName
+    middleName
+    name
+    phone
+    gender
+    dateBirth
+  }
+}
+
+# Авторизация
+mutation MutationAuthUser($login: String = "", $password: String = "") {
+  login_handler(login: $login, password: $password) {
+    account_id
+    role
+    access_token
+  }
+}
+
+mutation UpdateJobseekerProfile(
+  $_eq: uuid = ""
+  $dateBirth: date = ""
+  $email: String = ""
+  $phone: String = ""
+) {
+  update_jobseeker(
+    where: { account_id: { _eq: $_eq } }
+    _set: { dateBirth: $dateBirth, email: $email, phone: $phone }
+  ) {
+    returning {
+      dateBirth
+      email
+      phone
+    }
+  }
+}
