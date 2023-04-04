@@ -1,12 +1,14 @@
+import Footer from '@/components/Footer/Footer';
 import Layout from '@/components/layouts';
 import { sectionEditor } from '@/configs/sectionEditor';
 import NameAndJobTitle from '@/modules/UserInput/NameAndJobTitle';
 import { Box } from '@chakra-ui/react';
 import React, { Fragment } from 'react';
+import styles from '@/styles/Create.module.scss';
 
 const Create = () => {
   return (
-    <div>
+    <div className={styles.container}>
       <Layout py='5'>
         <Box
           aria-label='Resume Inputs'
@@ -21,6 +23,8 @@ const Create = () => {
           ))}
         </Box>
       </Layout>
+      {/* <Viewer aria-label='Resume Preview' flexBasis='50%' withStatus /> */}
+      <Footer />
     </div>
   );
 };

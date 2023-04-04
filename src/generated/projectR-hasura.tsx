@@ -2,9 +2,15 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -139,7 +145,6 @@ export type Account_Aggregate_Fields = {
   min?: Maybe<Account_Min_Fields>;
 };
 
-
 /** aggregate fields of "account" */
 export type Account_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Account_Select_Column>>;
@@ -167,7 +172,7 @@ export enum Account_Constraint {
   /** unique or primary key constraint on columns "login" */
   AccountLoginKey = 'account_login_key',
   /** unique or primary key constraint on columns "account_id" */
-  AccountPkey = 'account_pkey'
+  AccountPkey = 'account_pkey',
 }
 
 /** input type for inserting data into table "account" */
@@ -255,7 +260,7 @@ export enum Account_Select_Column {
   /** column name */
   Password = 'password',
   /** column name */
-  Role = 'role'
+  Role = 'role',
 }
 
 /** input type for updating data in table "account" */
@@ -299,7 +304,7 @@ export enum Account_Update_Column {
   /** column name */
   Password = 'password',
   /** column name */
-  Role = 'role'
+  Role = 'role',
 }
 
 export type Account_Updates = {
@@ -323,7 +328,6 @@ export type Additional_Education = {
   year_of_graduation: Scalars['String'];
 };
 
-
 /** columns and relationships of "additional_education" */
 export type Additional_EducationJobseeker_Additional_EducationsArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
@@ -333,15 +337,17 @@ export type Additional_EducationJobseeker_Additional_EducationsArgs = {
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
 
-
 /** columns and relationships of "additional_education" */
-export type Additional_EducationJobseeker_Additional_Educations_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Jobseeker_Additional_Education_Order_By>>;
-  where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
-};
+export type Additional_EducationJobseeker_Additional_Educations_AggregateArgs =
+  {
+    distinct_on?: InputMaybe<
+      Array<Jobseeker_Additional_Education_Select_Column>
+    >;
+    limit?: InputMaybe<Scalars['Int']>;
+    offset?: InputMaybe<Scalars['Int']>;
+    order_by?: InputMaybe<Array<Jobseeker_Additional_Education_Order_By>>;
+    where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
+  };
 
 /** aggregated selection of "additional_education" */
 export type Additional_Education_Aggregate = {
@@ -357,7 +363,6 @@ export type Additional_Education_Aggregate_Fields = {
   max?: Maybe<Additional_Education_Max_Fields>;
   min?: Maybe<Additional_Education_Min_Fields>;
 };
-
 
 /** aggregate fields of "additional_education" */
 export type Additional_Education_Aggregate_FieldsCountArgs = {
@@ -382,7 +387,7 @@ export type Additional_Education_Bool_Exp = {
 /** unique or primary key constraints on table "additional_education" */
 export enum Additional_Education_Constraint {
   /** unique or primary key constraint on columns "additional_education_id" */
-  AdditionalEducationPkey = 'additional_education_pkey'
+  AdditionalEducationPkey = 'additional_education_pkey',
 }
 
 /** input type for inserting data into table "additional_education" */
@@ -464,7 +469,7 @@ export enum Additional_Education_Select_Column {
   /** column name */
   NameEducationalInstitution = 'name_educational_institution',
   /** column name */
-  YearOfGraduation = 'year_of_graduation'
+  YearOfGraduation = 'year_of_graduation',
 }
 
 /** input type for updating data in table "additional_education" */
@@ -504,7 +509,7 @@ export enum Additional_Education_Update_Column {
   /** column name */
   NameEducationalInstitution = 'name_educational_institution',
   /** column name */
-  YearOfGraduation = 'year_of_graduation'
+  YearOfGraduation = 'year_of_graduation',
 }
 
 export type Additional_Education_Updates = {
@@ -561,7 +566,6 @@ export type City_Of_Residence_Aggregate_Fields = {
   variance?: Maybe<City_Of_Residence_Variance_Fields>;
 };
 
-
 /** aggregate fields of "city_of_residence" */
 export type City_Of_Residence_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<City_Of_Residence_Select_Column>>;
@@ -590,7 +594,7 @@ export type City_Of_Residence_Bool_Exp = {
 /** unique or primary key constraints on table "city_of_residence" */
 export enum City_Of_Residence_Constraint {
   /** unique or primary key constraint on columns "city_of_residence_id" */
-  CityOfResidencePkey = 'city_of_residence_pkey'
+  CityOfResidencePkey = 'city_of_residence_pkey',
 }
 
 /** input type for incrementing numeric columns in table "city_of_residence" */
@@ -681,7 +685,7 @@ export enum City_Of_Residence_Select_Column {
   /** column name */
   PostalCode = 'postal_code',
   /** column name */
-  Region = 'region'
+  Region = 'region',
 }
 
 /** input type for updating data in table "city_of_residence" */
@@ -749,7 +753,7 @@ export enum City_Of_Residence_Update_Column {
   /** column name */
   PostalCode = 'postal_code',
   /** column name */
-  Region = 'region'
+  Region = 'region',
 }
 
 export type City_Of_Residence_Updates = {
@@ -794,7 +798,6 @@ export type Competencies_Of_Jobseekers = {
   subject_competence_info_aggregate: Subject_Competence_Info_Aggregate;
 };
 
-
 /** компетенции соискателей */
 export type Competencies_Of_JobseekersSubject_Competence_InfoArgs = {
   distinct_on?: InputMaybe<Array<Subject_Competence_Info_Select_Column>>;
@@ -803,7 +806,6 @@ export type Competencies_Of_JobseekersSubject_Competence_InfoArgs = {
   order_by?: InputMaybe<Array<Subject_Competence_Info_Order_By>>;
   where?: InputMaybe<Subject_Competence_Info_Bool_Exp>;
 };
-
 
 /** компетенции соискателей */
 export type Competencies_Of_JobseekersSubject_Competence_Info_AggregateArgs = {
@@ -839,7 +841,6 @@ export type Competencies_Of_Jobseekers_Aggregate_Fields = {
   max?: Maybe<Competencies_Of_Jobseekers_Max_Fields>;
   min?: Maybe<Competencies_Of_Jobseekers_Min_Fields>;
 };
-
 
 /** aggregate fields of "competencies_of_jobseekers" */
 export type Competencies_Of_Jobseekers_Aggregate_FieldsCountArgs = {
@@ -878,7 +879,7 @@ export type Competencies_Of_Jobseekers_Bool_Exp = {
 /** unique or primary key constraints on table "competencies_of_jobseekers" */
 export enum Competencies_Of_Jobseekers_Constraint {
   /** unique or primary key constraint on columns "competencies_of_jobseekers_id" */
-  CompetenciesOfJobseekersPkey = 'competencies_of_jobseekers_pkey'
+  CompetenciesOfJobseekersPkey = 'competencies_of_jobseekers_pkey',
 }
 
 /** input type for inserting data into table "competencies_of_jobseekers" */
@@ -972,7 +973,7 @@ export enum Competencies_Of_Jobseekers_Select_Column {
   /** column name */
   JobseekerEducationId = 'jobseeker_education_id',
   /** column name */
-  ReferenceName = 'reference_name'
+  ReferenceName = 'reference_name',
 }
 
 /** input type for updating data in table "competencies_of_jobseekers" */
@@ -1008,7 +1009,7 @@ export enum Competencies_Of_Jobseekers_Update_Column {
   /** column name */
   JobseekerEducationId = 'jobseeker_education_id',
   /** column name */
-  ReferenceName = 'reference_name'
+  ReferenceName = 'reference_name',
 }
 
 export type Competencies_Of_Jobseekers_Updates = {
@@ -1023,7 +1024,7 @@ export enum Cursor_Ordering {
   /** ascending ordering of the cursor */
   Asc = 'ASC',
   /** descending ordering of the cursor */
-  Desc = 'DESC'
+  Desc = 'DESC',
 }
 
 /** Boolean expression to compare columns of type "date". All fields are combined with logical 'AND'. */
@@ -1050,7 +1051,6 @@ export type Driving_License = {
   name: Scalars['String'];
 };
 
-
 /** columns and relationships of "driving_license" */
 export type Driving_LicenseDriving_License_Jobseeker_IdsArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
@@ -1059,7 +1059,6 @@ export type Driving_LicenseDriving_License_Jobseeker_IdsArgs = {
   order_by?: InputMaybe<Array<Driving_License_Jobseeker_Id_Order_By>>;
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
-
 
 /** columns and relationships of "driving_license" */
 export type Driving_LicenseDriving_License_Jobseeker_Ids_AggregateArgs = {
@@ -1085,7 +1084,6 @@ export type Driving_License_Aggregate_Fields = {
   min?: Maybe<Driving_License_Min_Fields>;
 };
 
-
 /** aggregate fields of "driving_license" */
 export type Driving_License_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Driving_License_Select_Column>>;
@@ -1108,7 +1106,7 @@ export enum Driving_License_Constraint {
   /** unique or primary key constraint on columns "name" */
   DrivingLicenseNameKey = 'driving_license_name_key',
   /** unique or primary key constraint on columns "driving_license_id" */
-  DrivingLicensePkey = 'driving_license_pkey'
+  DrivingLicensePkey = 'driving_license_pkey',
 }
 
 /** input type for inserting data into table "driving_license" */
@@ -1155,7 +1153,6 @@ export type Driving_License_Jobseeker_Id_Aggregate_Fields = {
   min?: Maybe<Driving_License_Jobseeker_Id_Min_Fields>;
 };
 
-
 /** aggregate fields of "driving_license_jobseeker_id" */
 export type Driving_License_Jobseeker_Id_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
@@ -1190,7 +1187,7 @@ export type Driving_License_Jobseeker_Id_Bool_Exp = {
 /** unique or primary key constraints on table "driving_license_jobseeker_id" */
 export enum Driving_License_Jobseeker_Id_Constraint {
   /** unique or primary key constraint on columns "driving_license_id", "jobseeker_id" */
-  DrivingLicenseJobseekerPkey = 'driving_license_jobseeker_pkey'
+  DrivingLicenseJobseekerPkey = 'driving_license_jobseeker_pkey',
 }
 
 /** input type for inserting data into table "driving_license_jobseeker_id" */
@@ -1262,7 +1259,7 @@ export enum Driving_License_Jobseeker_Id_Select_Column {
   /** column name */
   DrivingLicenseId = 'driving_license_id',
   /** column name */
-  JobseekerId = 'jobseeker_id'
+  JobseekerId = 'jobseeker_id',
 }
 
 /** input type for updating data in table "driving_license_jobseeker_id" */
@@ -1290,7 +1287,7 @@ export enum Driving_License_Jobseeker_Id_Update_Column {
   /** column name */
   DrivingLicenseId = 'driving_license_id',
   /** column name */
-  JobseekerId = 'jobseeker_id'
+  JobseekerId = 'jobseeker_id',
 }
 
 export type Driving_License_Jobseeker_Id_Updates = {
@@ -1354,7 +1351,7 @@ export enum Driving_License_Select_Column {
   /** column name */
   DrivingLicenseId = 'driving_license_id',
   /** column name */
-  Name = 'name'
+  Name = 'name',
 }
 
 /** input type for updating data in table "driving_license" */
@@ -1382,7 +1379,7 @@ export enum Driving_License_Update_Column {
   /** column name */
   DrivingLicenseId = 'driving_license_id',
   /** column name */
-  Name = 'name'
+  Name = 'name',
 }
 
 export type Driving_License_Updates = {
@@ -1428,7 +1425,6 @@ export type Educational_Institution_Aggregate_Fields = {
   min?: Maybe<Educational_Institution_Min_Fields>;
 };
 
-
 /** aggregate fields of "educational_institution" */
 export type Educational_Institution_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Educational_Institution_Select_Column>>;
@@ -1463,7 +1459,7 @@ export type Educational_Institution_Bool_Exp = {
 /** unique or primary key constraints on table "educational_institution" */
 export enum Educational_Institution_Constraint {
   /** unique or primary key constraint on columns "educational_institution_id" */
-  EducationalInstitutionPkey = 'educational_institution_pkey'
+  EducationalInstitutionPkey = 'educational_institution_pkey',
 }
 
 /** input type for inserting data into table "educational_institution" */
@@ -1540,7 +1536,7 @@ export enum Educational_Institution_Select_Column {
   /** column name */
   JobseekerEducationId = 'jobseeker_education_id',
   /** column name */
-  NameInstitution = 'name_institution'
+  NameInstitution = 'name_institution',
 }
 
 /** input type for updating data in table "educational_institution" */
@@ -1572,7 +1568,7 @@ export enum Educational_Institution_Update_Column {
   /** column name */
   JobseekerEducationId = 'jobseeker_education_id',
   /** column name */
-  NameInstitution = 'name_institution'
+  NameInstitution = 'name_institution',
 }
 
 export type Educational_Institution_Updates = {
@@ -1598,7 +1594,6 @@ export type Employer = {
   verified?: Maybe<Scalars['Boolean']>;
 };
 
-
 /** columns and relationships of "employer" */
 export type EmployerOrganizationsArgs = {
   distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
@@ -1607,7 +1602,6 @@ export type EmployerOrganizationsArgs = {
   order_by?: InputMaybe<Array<Organization_Order_By>>;
   where?: InputMaybe<Organization_Bool_Exp>;
 };
-
 
 /** columns and relationships of "employer" */
 export type EmployerOrganizations_AggregateArgs = {
@@ -1640,7 +1634,6 @@ export type Employer_Aggregate_Fields = {
   var_samp?: Maybe<Employer_Var_Samp_Fields>;
   variance?: Maybe<Employer_Variance_Fields>;
 };
-
 
 /** aggregate fields of "employer" */
 export type Employer_Aggregate_FieldsCountArgs = {
@@ -1679,7 +1672,7 @@ export enum Employer_Constraint {
   /** unique or primary key constraint on columns "inn_employer" */
   EmployerInnEmployerKey = 'employer_inn_employer_key',
   /** unique or primary key constraint on columns "employer_id" */
-  EmployerPkey = 'employer_pkey'
+  EmployerPkey = 'employer_pkey',
 }
 
 /** input type for incrementing numeric columns in table "employer" */
@@ -1776,7 +1769,7 @@ export enum Employer_Select_Column {
   /** column name */
   Phone = 'phone',
   /** column name */
-  Verified = 'verified'
+  Verified = 'verified',
 }
 
 /** input type for updating data in table "employer" */
@@ -1848,7 +1841,7 @@ export enum Employer_Update_Column {
   /** column name */
   Phone = 'phone',
   /** column name */
-  Verified = 'verified'
+  Verified = 'verified',
 }
 
 export type Employer_Updates = {
@@ -1922,7 +1915,6 @@ export type Jobseeker = {
   work_experiences_aggregate: Work_Experience_Aggregate;
 };
 
-
 /** columns and relationships of "jobseeker" */
 export type JobseekerDriving_License_Jobseeker_IdsArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
@@ -1931,7 +1923,6 @@ export type JobseekerDriving_License_Jobseeker_IdsArgs = {
   order_by?: InputMaybe<Array<Driving_License_Jobseeker_Id_Order_By>>;
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker" */
 export type JobseekerDriving_License_Jobseeker_Ids_AggregateArgs = {
@@ -1942,7 +1933,6 @@ export type JobseekerDriving_License_Jobseeker_Ids_AggregateArgs = {
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker" */
 export type JobseekerJobseeker_Additional_EducationsArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
@@ -1951,7 +1941,6 @@ export type JobseekerJobseeker_Additional_EducationsArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Additional_Education_Order_By>>;
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker" */
 export type JobseekerJobseeker_Additional_Educations_AggregateArgs = {
@@ -1962,7 +1951,6 @@ export type JobseekerJobseeker_Additional_Educations_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker" */
 export type JobseekerJobseeker_EducationsArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
@@ -1971,7 +1959,6 @@ export type JobseekerJobseeker_EducationsArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Education_Order_By>>;
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker" */
 export type JobseekerJobseeker_Educations_AggregateArgs = {
@@ -1982,7 +1969,6 @@ export type JobseekerJobseeker_Educations_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker" */
 export type JobseekerJobseeker_VacanciesArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
@@ -1991,7 +1977,6 @@ export type JobseekerJobseeker_VacanciesArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Vacancy_Order_By>>;
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker" */
 export type JobseekerJobseeker_Vacancies_AggregateArgs = {
@@ -2002,7 +1987,6 @@ export type JobseekerJobseeker_Vacancies_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker" */
 export type JobseekerResumesArgs = {
   distinct_on?: InputMaybe<Array<Resume_Select_Column>>;
@@ -2011,7 +1995,6 @@ export type JobseekerResumesArgs = {
   order_by?: InputMaybe<Array<Resume_Order_By>>;
   where?: InputMaybe<Resume_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker" */
 export type JobseekerResumes_AggregateArgs = {
@@ -2022,7 +2005,6 @@ export type JobseekerResumes_AggregateArgs = {
   where?: InputMaybe<Resume_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker" */
 export type JobseekerWork_ExperiencesArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
@@ -2031,7 +2013,6 @@ export type JobseekerWork_ExperiencesArgs = {
   order_by?: InputMaybe<Array<Work_Experience_Order_By>>;
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker" */
 export type JobseekerWork_Experiences_AggregateArgs = {
@@ -2079,7 +2060,6 @@ export type Jobseeker_Additional_Education_Aggregate_Fields = {
   min?: Maybe<Jobseeker_Additional_Education_Min_Fields>;
 };
 
-
 /** aggregate fields of "jobseeker_additional_education" */
 export type Jobseeker_Additional_Education_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
@@ -2114,7 +2094,7 @@ export type Jobseeker_Additional_Education_Bool_Exp = {
 /** unique or primary key constraints on table "jobseeker_additional_education" */
 export enum Jobseeker_Additional_Education_Constraint {
   /** unique or primary key constraint on columns "additional_education_id", "jobseeker_id" */
-  JobseekerAdditionalEducationPkey = 'Jobseeker_additional_education_pkey'
+  JobseekerAdditionalEducationPkey = 'Jobseeker_additional_education_pkey',
 }
 
 /** input type for inserting data into table "jobseeker_additional_education" */
@@ -2186,7 +2166,7 @@ export enum Jobseeker_Additional_Education_Select_Column {
   /** column name */
   AdditionalEducationId = 'additional_education_id',
   /** column name */
-  JobseekerId = 'jobseeker_id'
+  JobseekerId = 'jobseeker_id',
 }
 
 /** input type for updating data in table "jobseeker_additional_education" */
@@ -2214,7 +2194,7 @@ export enum Jobseeker_Additional_Education_Update_Column {
   /** column name */
   AdditionalEducationId = 'additional_education_id',
   /** column name */
-  JobseekerId = 'jobseeker_id'
+  JobseekerId = 'jobseeker_id',
 }
 
 export type Jobseeker_Additional_Education_Updates = {
@@ -2238,7 +2218,6 @@ export type Jobseeker_Aggregate_Fields = {
   max?: Maybe<Jobseeker_Max_Fields>;
   min?: Maybe<Jobseeker_Min_Fields>;
 };
-
 
 /** aggregate fields of "jobseeker" */
 export type Jobseeker_Aggregate_FieldsCountArgs = {
@@ -2287,7 +2266,7 @@ export enum Jobseeker_Constraint {
   /** unique or primary key constraint on columns "phone" */
   JobseekerPhoneKey = 'jobseeker_phone_key',
   /** unique or primary key constraint on columns "jobseeker_id" */
-  JobseekerPkey = 'jobseeker_pkey'
+  JobseekerPkey = 'jobseeker_pkey',
 }
 
 /** columns and relationships of "jobseeker_education" */
@@ -2322,7 +2301,6 @@ export type Jobseeker_Education = {
   start_date?: Maybe<Scalars['date']>;
 };
 
-
 /** columns and relationships of "jobseeker_education" */
 export type Jobseeker_EducationCompetencies_Of_JobseekersArgs = {
   distinct_on?: InputMaybe<Array<Competencies_Of_Jobseekers_Select_Column>>;
@@ -2331,7 +2309,6 @@ export type Jobseeker_EducationCompetencies_Of_JobseekersArgs = {
   order_by?: InputMaybe<Array<Competencies_Of_Jobseekers_Order_By>>;
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker_education" */
 export type Jobseeker_EducationCompetencies_Of_Jobseekers_AggregateArgs = {
@@ -2342,7 +2319,6 @@ export type Jobseeker_EducationCompetencies_Of_Jobseekers_AggregateArgs = {
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker_education" */
 export type Jobseeker_EducationEducational_InstitutionsArgs = {
   distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
@@ -2351,7 +2327,6 @@ export type Jobseeker_EducationEducational_InstitutionsArgs = {
   order_by?: InputMaybe<Array<Educational_Institution_Order_By>>;
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker_education" */
 export type Jobseeker_EducationEducational_Institutions_AggregateArgs = {
@@ -2362,7 +2337,6 @@ export type Jobseeker_EducationEducational_Institutions_AggregateArgs = {
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
 
-
 /** columns and relationships of "jobseeker_education" */
 export type Jobseeker_EducationJobseeker_PerformancesArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Performance_Select_Column>>;
@@ -2371,7 +2345,6 @@ export type Jobseeker_EducationJobseeker_PerformancesArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Performance_Order_By>>;
   where?: InputMaybe<Jobseeker_Performance_Bool_Exp>;
 };
-
 
 /** columns and relationships of "jobseeker_education" */
 export type Jobseeker_EducationJobseeker_Performances_AggregateArgs = {
@@ -2415,7 +2388,6 @@ export type Jobseeker_Education_Aggregate_Fields = {
   var_samp?: Maybe<Jobseeker_Education_Var_Samp_Fields>;
   variance?: Maybe<Jobseeker_Education_Variance_Fields>;
 };
-
 
 /** aggregate fields of "jobseeker_education" */
 export type Jobseeker_Education_Aggregate_FieldsCountArgs = {
@@ -2485,7 +2457,7 @@ export type Jobseeker_Education_Bool_Exp = {
 /** unique or primary key constraints on table "jobseeker_education" */
 export enum Jobseeker_Education_Constraint {
   /** unique or primary key constraint on columns "jobseeker_education_id" */
-  JobseekerEducationPkey = 'jobseeker_education_pkey'
+  JobseekerEducationPkey = 'jobseeker_education_pkey',
 }
 
 /** input type for incrementing numeric columns in table "jobseeker_education" */
@@ -2646,7 +2618,7 @@ export enum Jobseeker_Education_Select_Column {
   /** column name */
   Speciality = 'speciality',
   /** column name */
-  StartDate = 'start_date'
+  StartDate = 'start_date',
 }
 
 /** input type for updating data in table "jobseeker_education" */
@@ -2754,7 +2726,7 @@ export enum Jobseeker_Education_Update_Column {
   /** column name */
   Speciality = 'speciality',
   /** column name */
-  StartDate = 'start_date'
+  StartDate = 'start_date',
 }
 
 export type Jobseeker_Education_Updates = {
@@ -2948,7 +2920,6 @@ export type Jobseeker_Performance_Aggregate_Fields = {
   variance?: Maybe<Jobseeker_Performance_Variance_Fields>;
 };
 
-
 /** aggregate fields of "jobseeker_performance" */
 export type Jobseeker_Performance_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Jobseeker_Performance_Select_Column>>;
@@ -3008,7 +2979,7 @@ export type Jobseeker_Performance_Bool_Exp = {
 /** unique or primary key constraints on table "jobseeker_performance" */
 export enum Jobseeker_Performance_Constraint {
   /** unique or primary key constraint on columns "jobseeker_performance_id" */
-  JobseekerPerformancePkey = 'jobseeker_performance_pkey'
+  JobseekerPerformancePkey = 'jobseeker_performance_pkey',
 }
 
 /** input type for incrementing numeric columns in table "jobseeker_performance" */
@@ -3123,7 +3094,7 @@ export enum Jobseeker_Performance_Select_Column {
   /** column name */
   Mark = 'mark',
   /** column name */
-  Semester = 'semester'
+  Semester = 'semester',
 }
 
 /** input type for updating data in table "jobseeker_performance" */
@@ -3223,7 +3194,7 @@ export enum Jobseeker_Performance_Update_Column {
   /** column name */
   Mark = 'mark',
   /** column name */
-  Semester = 'semester'
+  Semester = 'semester',
 }
 
 export type Jobseeker_Performance_Updates = {
@@ -3302,7 +3273,7 @@ export enum Jobseeker_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  Phone = 'phone'
+  Phone = 'phone',
 }
 
 /** input type for updating data in table "jobseeker" */
@@ -3366,7 +3337,7 @@ export enum Jobseeker_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  Phone = 'phone'
+  Phone = 'phone',
 }
 
 export type Jobseeker_Updates = {
@@ -3413,7 +3384,6 @@ export type Jobseeker_Vacancy_Aggregate_Fields = {
   min?: Maybe<Jobseeker_Vacancy_Min_Fields>;
 };
 
-
 /** aggregate fields of "jobseeker_vacancy" */
 export type Jobseeker_Vacancy_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
@@ -3448,7 +3418,7 @@ export type Jobseeker_Vacancy_Bool_Exp = {
 /** unique or primary key constraints on table "jobseeker_vacancy" */
 export enum Jobseeker_Vacancy_Constraint {
   /** unique or primary key constraint on columns "vacancy_id", "jobseeker_id" */
-  JobseekerVacancyPkey = 'jobseeker_vacancy_pkey'
+  JobseekerVacancyPkey = 'jobseeker_vacancy_pkey',
 }
 
 /** input type for inserting data into table "jobseeker_vacancy" */
@@ -3520,7 +3490,7 @@ export enum Jobseeker_Vacancy_Select_Column {
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
-  VacancyId = 'vacancy_id'
+  VacancyId = 'vacancy_id',
 }
 
 /** input type for updating data in table "jobseeker_vacancy" */
@@ -3548,7 +3518,7 @@ export enum Jobseeker_Vacancy_Update_Column {
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
-  VacancyId = 'vacancy_id'
+  VacancyId = 'vacancy_id',
 }
 
 export type Jobseeker_Vacancy_Updates = {
@@ -3751,19 +3721,25 @@ export type Mutation_Root = {
   /** update single row of the table: "additional_education" */
   update_additional_education_by_pk?: Maybe<Additional_Education>;
   /** update multiples rows of table: "additional_education" */
-  update_additional_education_many?: Maybe<Array<Maybe<Additional_Education_Mutation_Response>>>;
+  update_additional_education_many?: Maybe<
+    Array<Maybe<Additional_Education_Mutation_Response>>
+  >;
   /** update data of the table: "city_of_residence" */
   update_city_of_residence?: Maybe<City_Of_Residence_Mutation_Response>;
   /** update single row of the table: "city_of_residence" */
   update_city_of_residence_by_pk?: Maybe<City_Of_Residence>;
   /** update multiples rows of table: "city_of_residence" */
-  update_city_of_residence_many?: Maybe<Array<Maybe<City_Of_Residence_Mutation_Response>>>;
+  update_city_of_residence_many?: Maybe<
+    Array<Maybe<City_Of_Residence_Mutation_Response>>
+  >;
   /** update data of the table: "competencies_of_jobseekers" */
   update_competencies_of_jobseekers?: Maybe<Competencies_Of_Jobseekers_Mutation_Response>;
   /** update single row of the table: "competencies_of_jobseekers" */
   update_competencies_of_jobseekers_by_pk?: Maybe<Competencies_Of_Jobseekers>;
   /** update multiples rows of table: "competencies_of_jobseekers" */
-  update_competencies_of_jobseekers_many?: Maybe<Array<Maybe<Competencies_Of_Jobseekers_Mutation_Response>>>;
+  update_competencies_of_jobseekers_many?: Maybe<
+    Array<Maybe<Competencies_Of_Jobseekers_Mutation_Response>>
+  >;
   /** update data of the table: "driving_license" */
   update_driving_license?: Maybe<Driving_License_Mutation_Response>;
   /** update single row of the table: "driving_license" */
@@ -3773,15 +3749,21 @@ export type Mutation_Root = {
   /** update single row of the table: "driving_license_jobseeker_id" */
   update_driving_license_jobseeker_id_by_pk?: Maybe<Driving_License_Jobseeker_Id>;
   /** update multiples rows of table: "driving_license_jobseeker_id" */
-  update_driving_license_jobseeker_id_many?: Maybe<Array<Maybe<Driving_License_Jobseeker_Id_Mutation_Response>>>;
+  update_driving_license_jobseeker_id_many?: Maybe<
+    Array<Maybe<Driving_License_Jobseeker_Id_Mutation_Response>>
+  >;
   /** update multiples rows of table: "driving_license" */
-  update_driving_license_many?: Maybe<Array<Maybe<Driving_License_Mutation_Response>>>;
+  update_driving_license_many?: Maybe<
+    Array<Maybe<Driving_License_Mutation_Response>>
+  >;
   /** update data of the table: "educational_institution" */
   update_educational_institution?: Maybe<Educational_Institution_Mutation_Response>;
   /** update single row of the table: "educational_institution" */
   update_educational_institution_by_pk?: Maybe<Educational_Institution>;
   /** update multiples rows of table: "educational_institution" */
-  update_educational_institution_many?: Maybe<Array<Maybe<Educational_Institution_Mutation_Response>>>;
+  update_educational_institution_many?: Maybe<
+    Array<Maybe<Educational_Institution_Mutation_Response>>
+  >;
   /** update data of the table: "employer" */
   update_employer?: Maybe<Employer_Mutation_Response>;
   /** update single row of the table: "employer" */
@@ -3795,7 +3777,9 @@ export type Mutation_Root = {
   /** update single row of the table: "jobseeker_additional_education" */
   update_jobseeker_additional_education_by_pk?: Maybe<Jobseeker_Additional_Education>;
   /** update multiples rows of table: "jobseeker_additional_education" */
-  update_jobseeker_additional_education_many?: Maybe<Array<Maybe<Jobseeker_Additional_Education_Mutation_Response>>>;
+  update_jobseeker_additional_education_many?: Maybe<
+    Array<Maybe<Jobseeker_Additional_Education_Mutation_Response>>
+  >;
   /** update single row of the table: "jobseeker" */
   update_jobseeker_by_pk?: Maybe<Jobseeker>;
   /** update data of the table: "jobseeker_education" */
@@ -3803,7 +3787,9 @@ export type Mutation_Root = {
   /** update single row of the table: "jobseeker_education" */
   update_jobseeker_education_by_pk?: Maybe<Jobseeker_Education>;
   /** update multiples rows of table: "jobseeker_education" */
-  update_jobseeker_education_many?: Maybe<Array<Maybe<Jobseeker_Education_Mutation_Response>>>;
+  update_jobseeker_education_many?: Maybe<
+    Array<Maybe<Jobseeker_Education_Mutation_Response>>
+  >;
   /** update multiples rows of table: "jobseeker" */
   update_jobseeker_many?: Maybe<Array<Maybe<Jobseeker_Mutation_Response>>>;
   /** update data of the table: "jobseeker_performance" */
@@ -3811,19 +3797,25 @@ export type Mutation_Root = {
   /** update single row of the table: "jobseeker_performance" */
   update_jobseeker_performance_by_pk?: Maybe<Jobseeker_Performance>;
   /** update multiples rows of table: "jobseeker_performance" */
-  update_jobseeker_performance_many?: Maybe<Array<Maybe<Jobseeker_Performance_Mutation_Response>>>;
+  update_jobseeker_performance_many?: Maybe<
+    Array<Maybe<Jobseeker_Performance_Mutation_Response>>
+  >;
   /** update data of the table: "jobseeker_vacancy" */
   update_jobseeker_vacancy?: Maybe<Jobseeker_Vacancy_Mutation_Response>;
   /** update single row of the table: "jobseeker_vacancy" */
   update_jobseeker_vacancy_by_pk?: Maybe<Jobseeker_Vacancy>;
   /** update multiples rows of table: "jobseeker_vacancy" */
-  update_jobseeker_vacancy_many?: Maybe<Array<Maybe<Jobseeker_Vacancy_Mutation_Response>>>;
+  update_jobseeker_vacancy_many?: Maybe<
+    Array<Maybe<Jobseeker_Vacancy_Mutation_Response>>
+  >;
   /** update data of the table: "organization" */
   update_organization?: Maybe<Organization_Mutation_Response>;
   /** update single row of the table: "organization" */
   update_organization_by_pk?: Maybe<Organization>;
   /** update multiples rows of table: "organization" */
-  update_organization_many?: Maybe<Array<Maybe<Organization_Mutation_Response>>>;
+  update_organization_many?: Maybe<
+    Array<Maybe<Organization_Mutation_Response>>
+  >;
   /** update data of the table: "resume" */
   update_resume?: Maybe<Resume_Mutation_Response>;
   /** update single row of the table: "resume" */
@@ -3835,19 +3827,25 @@ export type Mutation_Root = {
   /** update single row of the table: "subject_competence_info" */
   update_subject_competence_info_by_pk?: Maybe<Subject_Competence_Info>;
   /** update multiples rows of table: "subject_competence_info" */
-  update_subject_competence_info_many?: Maybe<Array<Maybe<Subject_Competence_Info_Mutation_Response>>>;
+  update_subject_competence_info_many?: Maybe<
+    Array<Maybe<Subject_Competence_Info_Mutation_Response>>
+  >;
   /** update data of the table: "type_of_employment" */
   update_type_of_employment?: Maybe<Type_Of_Employment_Mutation_Response>;
   /** update single row of the table: "type_of_employment" */
   update_type_of_employment_by_pk?: Maybe<Type_Of_Employment>;
   /** update multiples rows of table: "type_of_employment" */
-  update_type_of_employment_many?: Maybe<Array<Maybe<Type_Of_Employment_Mutation_Response>>>;
+  update_type_of_employment_many?: Maybe<
+    Array<Maybe<Type_Of_Employment_Mutation_Response>>
+  >;
   /** update data of the table: "type_of_employment_resume_id" */
   update_type_of_employment_resume_id?: Maybe<Type_Of_Employment_Resume_Id_Mutation_Response>;
   /** update single row of the table: "type_of_employment_resume_id" */
   update_type_of_employment_resume_id_by_pk?: Maybe<Type_Of_Employment_Resume_Id>;
   /** update multiples rows of table: "type_of_employment_resume_id" */
-  update_type_of_employment_resume_id_many?: Maybe<Array<Maybe<Type_Of_Employment_Resume_Id_Mutation_Response>>>;
+  update_type_of_employment_resume_id_many?: Maybe<
+    Array<Maybe<Type_Of_Employment_Resume_Id_Mutation_Response>>
+  >;
   /** update data of the table: "vacancy" */
   update_vacancy?: Maybe<Vacancy_Mutation_Response>;
   /** update single row of the table: "vacancy" */
@@ -3859,87 +3857,81 @@ export type Mutation_Root = {
   /** update single row of the table: "work_experience" */
   update_work_experience_by_pk?: Maybe<Work_Experience>;
   /** update multiples rows of table: "work_experience" */
-  update_work_experience_many?: Maybe<Array<Maybe<Work_Experience_Mutation_Response>>>;
+  update_work_experience_many?: Maybe<
+    Array<Maybe<Work_Experience_Mutation_Response>>
+  >;
   /** update data of the table: "work_schedule" */
   update_work_schedule?: Maybe<Work_Schedule_Mutation_Response>;
   /** update single row of the table: "work_schedule" */
   update_work_schedule_by_pk?: Maybe<Work_Schedule>;
   /** update multiples rows of table: "work_schedule" */
-  update_work_schedule_many?: Maybe<Array<Maybe<Work_Schedule_Mutation_Response>>>;
+  update_work_schedule_many?: Maybe<
+    Array<Maybe<Work_Schedule_Mutation_Response>>
+  >;
   /** update data of the table: "work_schedule_resume_id" */
   update_work_schedule_resume_id?: Maybe<Work_Schedule_Resume_Id_Mutation_Response>;
   /** update single row of the table: "work_schedule_resume_id" */
   update_work_schedule_resume_id_by_pk?: Maybe<Work_Schedule_Resume_Id>;
   /** update multiples rows of table: "work_schedule_resume_id" */
-  update_work_schedule_resume_id_many?: Maybe<Array<Maybe<Work_Schedule_Resume_Id_Mutation_Response>>>;
+  update_work_schedule_resume_id_many?: Maybe<
+    Array<Maybe<Work_Schedule_Resume_Id_Mutation_Response>>
+  >;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_AccountArgs = {
   where: Account_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Account_By_PkArgs = {
   account_id: Scalars['uuid'];
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Additional_EducationArgs = {
   where: Additional_Education_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Additional_Education_By_PkArgs = {
   additional_education_id: Scalars['uuid'];
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_City_Of_ResidenceArgs = {
   where: City_Of_Residence_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_City_Of_Residence_By_PkArgs = {
   city_of_residence_id: Scalars['uuid'];
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Competencies_Of_JobseekersArgs = {
   where: Competencies_Of_Jobseekers_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Competencies_Of_Jobseekers_By_PkArgs = {
   competencies_of_jobseekers_id: Scalars['uuid'];
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Driving_LicenseArgs = {
   where: Driving_License_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Driving_License_By_PkArgs = {
   driving_license_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Driving_License_Jobseeker_IdArgs = {
   where: Driving_License_Jobseeker_Id_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Driving_License_Jobseeker_Id_By_PkArgs = {
@@ -3947,42 +3939,35 @@ export type Mutation_RootDelete_Driving_License_Jobseeker_Id_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Educational_InstitutionArgs = {
   where: Educational_Institution_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Educational_Institution_By_PkArgs = {
   educational_institution_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_EmployerArgs = {
   where: Employer_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Employer_By_PkArgs = {
   employer_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_JobseekerArgs = {
   where: Jobseeker_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_Additional_EducationArgs = {
   where: Jobseeker_Additional_Education_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_Additional_Education_By_PkArgs = {
@@ -3990,42 +3975,35 @@ export type Mutation_RootDelete_Jobseeker_Additional_Education_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_EducationArgs = {
   where: Jobseeker_Education_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_Education_By_PkArgs = {
   jobseeker_education_id: Scalars['uuid'];
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_PerformanceArgs = {
   where: Jobseeker_Performance_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_Performance_By_PkArgs = {
   jobseeker_performance_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_VacancyArgs = {
   where: Jobseeker_Vacancy_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Jobseeker_Vacancy_By_PkArgs = {
@@ -4033,60 +4011,50 @@ export type Mutation_RootDelete_Jobseeker_Vacancy_By_PkArgs = {
   vacancy_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_OrganizationArgs = {
   where: Organization_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Organization_By_PkArgs = {
   id_organization: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_ResumeArgs = {
   where: Resume_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Resume_By_PkArgs = {
   resume_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Subject_Competence_InfoArgs = {
   where: Subject_Competence_Info_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Subject_Competence_Info_By_PkArgs = {
   subject_competence_info_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Type_Of_EmploymentArgs = {
   where: Type_Of_Employment_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Type_Of_Employment_By_PkArgs = {
   type_of_employment_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Type_Of_Employment_Resume_IdArgs = {
   where: Type_Of_Employment_Resume_Id_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Type_Of_Employment_Resume_Id_By_PkArgs = {
@@ -4094,48 +4062,40 @@ export type Mutation_RootDelete_Type_Of_Employment_Resume_Id_By_PkArgs = {
   type_of_employment_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_VacancyArgs = {
   where: Vacancy_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Vacancy_By_PkArgs = {
   vacancy_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Work_ExperienceArgs = {
   where: Work_Experience_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Work_Experience_By_PkArgs = {
   work_experience_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Work_ScheduleArgs = {
   where: Work_Schedule_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Work_Schedule_By_PkArgs = {
   work_schedule_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootDelete_Work_Schedule_Resume_IdArgs = {
   where: Work_Schedule_Resume_Id_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootDelete_Work_Schedule_Resume_Id_By_PkArgs = {
@@ -4143,13 +4103,11 @@ export type Mutation_RootDelete_Work_Schedule_Resume_Id_By_PkArgs = {
   work_schedule_id: Scalars['uuid'];
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_AccountArgs = {
   objects: Array<Account_Insert_Input>;
   on_conflict?: InputMaybe<Account_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Account_OneArgs = {
@@ -4157,13 +4115,11 @@ export type Mutation_RootInsert_Account_OneArgs = {
   on_conflict?: InputMaybe<Account_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Additional_EducationArgs = {
   objects: Array<Additional_Education_Insert_Input>;
   on_conflict?: InputMaybe<Additional_Education_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Additional_Education_OneArgs = {
@@ -4171,13 +4127,11 @@ export type Mutation_RootInsert_Additional_Education_OneArgs = {
   on_conflict?: InputMaybe<Additional_Education_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_City_Of_ResidenceArgs = {
   objects: Array<City_Of_Residence_Insert_Input>;
   on_conflict?: InputMaybe<City_Of_Residence_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_City_Of_Residence_OneArgs = {
@@ -4185,13 +4139,11 @@ export type Mutation_RootInsert_City_Of_Residence_OneArgs = {
   on_conflict?: InputMaybe<City_Of_Residence_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Competencies_Of_JobseekersArgs = {
   objects: Array<Competencies_Of_Jobseekers_Insert_Input>;
   on_conflict?: InputMaybe<Competencies_Of_Jobseekers_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Competencies_Of_Jobseekers_OneArgs = {
@@ -4199,13 +4151,11 @@ export type Mutation_RootInsert_Competencies_Of_Jobseekers_OneArgs = {
   on_conflict?: InputMaybe<Competencies_Of_Jobseekers_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Driving_LicenseArgs = {
   objects: Array<Driving_License_Insert_Input>;
   on_conflict?: InputMaybe<Driving_License_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Driving_License_Jobseeker_IdArgs = {
@@ -4213,13 +4163,11 @@ export type Mutation_RootInsert_Driving_License_Jobseeker_IdArgs = {
   on_conflict?: InputMaybe<Driving_License_Jobseeker_Id_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Driving_License_Jobseeker_Id_OneArgs = {
   object: Driving_License_Jobseeker_Id_Insert_Input;
   on_conflict?: InputMaybe<Driving_License_Jobseeker_Id_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Driving_License_OneArgs = {
@@ -4227,13 +4175,11 @@ export type Mutation_RootInsert_Driving_License_OneArgs = {
   on_conflict?: InputMaybe<Driving_License_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Educational_InstitutionArgs = {
   objects: Array<Educational_Institution_Insert_Input>;
   on_conflict?: InputMaybe<Educational_Institution_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Educational_Institution_OneArgs = {
@@ -4241,13 +4187,11 @@ export type Mutation_RootInsert_Educational_Institution_OneArgs = {
   on_conflict?: InputMaybe<Educational_Institution_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_EmployerArgs = {
   objects: Array<Employer_Insert_Input>;
   on_conflict?: InputMaybe<Employer_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Employer_OneArgs = {
@@ -4255,13 +4199,11 @@ export type Mutation_RootInsert_Employer_OneArgs = {
   on_conflict?: InputMaybe<Employer_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_JobseekerArgs = {
   objects: Array<Jobseeker_Insert_Input>;
   on_conflict?: InputMaybe<Jobseeker_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_Additional_EducationArgs = {
@@ -4269,13 +4211,11 @@ export type Mutation_RootInsert_Jobseeker_Additional_EducationArgs = {
   on_conflict?: InputMaybe<Jobseeker_Additional_Education_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_Additional_Education_OneArgs = {
   object: Jobseeker_Additional_Education_Insert_Input;
   on_conflict?: InputMaybe<Jobseeker_Additional_Education_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_EducationArgs = {
@@ -4283,13 +4223,11 @@ export type Mutation_RootInsert_Jobseeker_EducationArgs = {
   on_conflict?: InputMaybe<Jobseeker_Education_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_Education_OneArgs = {
   object: Jobseeker_Education_Insert_Input;
   on_conflict?: InputMaybe<Jobseeker_Education_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_OneArgs = {
@@ -4297,13 +4235,11 @@ export type Mutation_RootInsert_Jobseeker_OneArgs = {
   on_conflict?: InputMaybe<Jobseeker_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_PerformanceArgs = {
   objects: Array<Jobseeker_Performance_Insert_Input>;
   on_conflict?: InputMaybe<Jobseeker_Performance_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_Performance_OneArgs = {
@@ -4311,13 +4247,11 @@ export type Mutation_RootInsert_Jobseeker_Performance_OneArgs = {
   on_conflict?: InputMaybe<Jobseeker_Performance_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_VacancyArgs = {
   objects: Array<Jobseeker_Vacancy_Insert_Input>;
   on_conflict?: InputMaybe<Jobseeker_Vacancy_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Jobseeker_Vacancy_OneArgs = {
@@ -4325,13 +4259,11 @@ export type Mutation_RootInsert_Jobseeker_Vacancy_OneArgs = {
   on_conflict?: InputMaybe<Jobseeker_Vacancy_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_OrganizationArgs = {
   objects: Array<Organization_Insert_Input>;
   on_conflict?: InputMaybe<Organization_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Organization_OneArgs = {
@@ -4339,13 +4271,11 @@ export type Mutation_RootInsert_Organization_OneArgs = {
   on_conflict?: InputMaybe<Organization_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_ResumeArgs = {
   objects: Array<Resume_Insert_Input>;
   on_conflict?: InputMaybe<Resume_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Resume_OneArgs = {
@@ -4353,13 +4283,11 @@ export type Mutation_RootInsert_Resume_OneArgs = {
   on_conflict?: InputMaybe<Resume_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Subject_Competence_InfoArgs = {
   objects: Array<Subject_Competence_Info_Insert_Input>;
   on_conflict?: InputMaybe<Subject_Competence_Info_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Subject_Competence_Info_OneArgs = {
@@ -4367,13 +4295,11 @@ export type Mutation_RootInsert_Subject_Competence_Info_OneArgs = {
   on_conflict?: InputMaybe<Subject_Competence_Info_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Type_Of_EmploymentArgs = {
   objects: Array<Type_Of_Employment_Insert_Input>;
   on_conflict?: InputMaybe<Type_Of_Employment_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Type_Of_Employment_OneArgs = {
@@ -4381,13 +4307,11 @@ export type Mutation_RootInsert_Type_Of_Employment_OneArgs = {
   on_conflict?: InputMaybe<Type_Of_Employment_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Type_Of_Employment_Resume_IdArgs = {
   objects: Array<Type_Of_Employment_Resume_Id_Insert_Input>;
   on_conflict?: InputMaybe<Type_Of_Employment_Resume_Id_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Type_Of_Employment_Resume_Id_OneArgs = {
@@ -4395,13 +4319,11 @@ export type Mutation_RootInsert_Type_Of_Employment_Resume_Id_OneArgs = {
   on_conflict?: InputMaybe<Type_Of_Employment_Resume_Id_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_VacancyArgs = {
   objects: Array<Vacancy_Insert_Input>;
   on_conflict?: InputMaybe<Vacancy_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Vacancy_OneArgs = {
@@ -4409,13 +4331,11 @@ export type Mutation_RootInsert_Vacancy_OneArgs = {
   on_conflict?: InputMaybe<Vacancy_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Work_ExperienceArgs = {
   objects: Array<Work_Experience_Insert_Input>;
   on_conflict?: InputMaybe<Work_Experience_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Work_Experience_OneArgs = {
@@ -4423,13 +4343,11 @@ export type Mutation_RootInsert_Work_Experience_OneArgs = {
   on_conflict?: InputMaybe<Work_Experience_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Work_ScheduleArgs = {
   objects: Array<Work_Schedule_Insert_Input>;
   on_conflict?: InputMaybe<Work_Schedule_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Work_Schedule_OneArgs = {
@@ -4437,13 +4355,11 @@ export type Mutation_RootInsert_Work_Schedule_OneArgs = {
   on_conflict?: InputMaybe<Work_Schedule_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootInsert_Work_Schedule_Resume_IdArgs = {
   objects: Array<Work_Schedule_Resume_Id_Insert_Input>;
   on_conflict?: InputMaybe<Work_Schedule_Resume_Id_On_Conflict>;
 };
-
 
 /** mutation root */
 export type Mutation_RootInsert_Work_Schedule_Resume_Id_OneArgs = {
@@ -4451,13 +4367,11 @@ export type Mutation_RootInsert_Work_Schedule_Resume_Id_OneArgs = {
   on_conflict?: InputMaybe<Work_Schedule_Resume_Id_On_Conflict>;
 };
 
-
 /** mutation root */
 export type Mutation_RootLogin_HandlerArgs = {
   login: Scalars['String'];
   password: Scalars['String'];
 };
-
 
 /** mutation root */
 export type Mutation_RootPassword_Change_HandleArgs = {
@@ -4466,12 +4380,10 @@ export type Mutation_RootPassword_Change_HandleArgs = {
   refresh_token: Scalars['String'];
 };
 
-
 /** mutation root */
 export type Mutation_RootReg_EmployerArgs = {
   arg: SampleInput;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_AccountArgs = {
@@ -4479,19 +4391,16 @@ export type Mutation_RootUpdate_AccountArgs = {
   where: Account_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Account_By_PkArgs = {
   _set?: InputMaybe<Account_Set_Input>;
   pk_columns: Account_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Account_ManyArgs = {
   updates: Array<Account_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Additional_EducationArgs = {
@@ -4499,19 +4408,16 @@ export type Mutation_RootUpdate_Additional_EducationArgs = {
   where: Additional_Education_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Additional_Education_By_PkArgs = {
   _set?: InputMaybe<Additional_Education_Set_Input>;
   pk_columns: Additional_Education_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Additional_Education_ManyArgs = {
   updates: Array<Additional_Education_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_City_Of_ResidenceArgs = {
@@ -4520,7 +4426,6 @@ export type Mutation_RootUpdate_City_Of_ResidenceArgs = {
   where: City_Of_Residence_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_City_Of_Residence_By_PkArgs = {
   _inc?: InputMaybe<City_Of_Residence_Inc_Input>;
@@ -4528,12 +4433,10 @@ export type Mutation_RootUpdate_City_Of_Residence_By_PkArgs = {
   pk_columns: City_Of_Residence_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_City_Of_Residence_ManyArgs = {
   updates: Array<City_Of_Residence_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Competencies_Of_JobseekersArgs = {
@@ -4541,19 +4444,16 @@ export type Mutation_RootUpdate_Competencies_Of_JobseekersArgs = {
   where: Competencies_Of_Jobseekers_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Competencies_Of_Jobseekers_By_PkArgs = {
   _set?: InputMaybe<Competencies_Of_Jobseekers_Set_Input>;
   pk_columns: Competencies_Of_Jobseekers_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Competencies_Of_Jobseekers_ManyArgs = {
   updates: Array<Competencies_Of_Jobseekers_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Driving_LicenseArgs = {
@@ -4561,13 +4461,11 @@ export type Mutation_RootUpdate_Driving_LicenseArgs = {
   where: Driving_License_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Driving_License_By_PkArgs = {
   _set?: InputMaybe<Driving_License_Set_Input>;
   pk_columns: Driving_License_Pk_Columns_Input;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Driving_License_Jobseeker_IdArgs = {
@@ -4575,25 +4473,21 @@ export type Mutation_RootUpdate_Driving_License_Jobseeker_IdArgs = {
   where: Driving_License_Jobseeker_Id_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Driving_License_Jobseeker_Id_By_PkArgs = {
   _set?: InputMaybe<Driving_License_Jobseeker_Id_Set_Input>;
   pk_columns: Driving_License_Jobseeker_Id_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Driving_License_Jobseeker_Id_ManyArgs = {
   updates: Array<Driving_License_Jobseeker_Id_Updates>;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Driving_License_ManyArgs = {
   updates: Array<Driving_License_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Educational_InstitutionArgs = {
@@ -4601,19 +4495,16 @@ export type Mutation_RootUpdate_Educational_InstitutionArgs = {
   where: Educational_Institution_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Educational_Institution_By_PkArgs = {
   _set?: InputMaybe<Educational_Institution_Set_Input>;
   pk_columns: Educational_Institution_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Educational_Institution_ManyArgs = {
   updates: Array<Educational_Institution_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_EmployerArgs = {
@@ -4622,7 +4513,6 @@ export type Mutation_RootUpdate_EmployerArgs = {
   where: Employer_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Employer_By_PkArgs = {
   _inc?: InputMaybe<Employer_Inc_Input>;
@@ -4630,12 +4520,10 @@ export type Mutation_RootUpdate_Employer_By_PkArgs = {
   pk_columns: Employer_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Employer_ManyArgs = {
   updates: Array<Employer_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_JobseekerArgs = {
@@ -4643,13 +4531,11 @@ export type Mutation_RootUpdate_JobseekerArgs = {
   where: Jobseeker_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Additional_EducationArgs = {
   _set?: InputMaybe<Jobseeker_Additional_Education_Set_Input>;
   where: Jobseeker_Additional_Education_Bool_Exp;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Additional_Education_By_PkArgs = {
@@ -4657,19 +4543,16 @@ export type Mutation_RootUpdate_Jobseeker_Additional_Education_By_PkArgs = {
   pk_columns: Jobseeker_Additional_Education_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Additional_Education_ManyArgs = {
   updates: Array<Jobseeker_Additional_Education_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_By_PkArgs = {
   _set?: InputMaybe<Jobseeker_Set_Input>;
   pk_columns: Jobseeker_Pk_Columns_Input;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_EducationArgs = {
@@ -4678,7 +4561,6 @@ export type Mutation_RootUpdate_Jobseeker_EducationArgs = {
   where: Jobseeker_Education_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Education_By_PkArgs = {
   _inc?: InputMaybe<Jobseeker_Education_Inc_Input>;
@@ -4686,18 +4568,15 @@ export type Mutation_RootUpdate_Jobseeker_Education_By_PkArgs = {
   pk_columns: Jobseeker_Education_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Education_ManyArgs = {
   updates: Array<Jobseeker_Education_Updates>;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_ManyArgs = {
   updates: Array<Jobseeker_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_PerformanceArgs = {
@@ -4706,7 +4585,6 @@ export type Mutation_RootUpdate_Jobseeker_PerformanceArgs = {
   where: Jobseeker_Performance_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Performance_By_PkArgs = {
   _inc?: InputMaybe<Jobseeker_Performance_Inc_Input>;
@@ -4714,12 +4592,10 @@ export type Mutation_RootUpdate_Jobseeker_Performance_By_PkArgs = {
   pk_columns: Jobseeker_Performance_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Performance_ManyArgs = {
   updates: Array<Jobseeker_Performance_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_VacancyArgs = {
@@ -4727,19 +4603,16 @@ export type Mutation_RootUpdate_Jobseeker_VacancyArgs = {
   where: Jobseeker_Vacancy_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Vacancy_By_PkArgs = {
   _set?: InputMaybe<Jobseeker_Vacancy_Set_Input>;
   pk_columns: Jobseeker_Vacancy_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Jobseeker_Vacancy_ManyArgs = {
   updates: Array<Jobseeker_Vacancy_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_OrganizationArgs = {
@@ -4748,7 +4621,6 @@ export type Mutation_RootUpdate_OrganizationArgs = {
   where: Organization_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Organization_By_PkArgs = {
   _inc?: InputMaybe<Organization_Inc_Input>;
@@ -4756,12 +4628,10 @@ export type Mutation_RootUpdate_Organization_By_PkArgs = {
   pk_columns: Organization_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Organization_ManyArgs = {
   updates: Array<Organization_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_ResumeArgs = {
@@ -4770,7 +4640,6 @@ export type Mutation_RootUpdate_ResumeArgs = {
   where: Resume_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Resume_By_PkArgs = {
   _inc?: InputMaybe<Resume_Inc_Input>;
@@ -4778,12 +4647,10 @@ export type Mutation_RootUpdate_Resume_By_PkArgs = {
   pk_columns: Resume_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Resume_ManyArgs = {
   updates: Array<Resume_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Subject_Competence_InfoArgs = {
@@ -4792,7 +4659,6 @@ export type Mutation_RootUpdate_Subject_Competence_InfoArgs = {
   where: Subject_Competence_Info_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Subject_Competence_Info_By_PkArgs = {
   _inc?: InputMaybe<Subject_Competence_Info_Inc_Input>;
@@ -4800,12 +4666,10 @@ export type Mutation_RootUpdate_Subject_Competence_Info_By_PkArgs = {
   pk_columns: Subject_Competence_Info_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Subject_Competence_Info_ManyArgs = {
   updates: Array<Subject_Competence_Info_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Type_Of_EmploymentArgs = {
@@ -4813,19 +4677,16 @@ export type Mutation_RootUpdate_Type_Of_EmploymentArgs = {
   where: Type_Of_Employment_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Type_Of_Employment_By_PkArgs = {
   _set?: InputMaybe<Type_Of_Employment_Set_Input>;
   pk_columns: Type_Of_Employment_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Type_Of_Employment_ManyArgs = {
   updates: Array<Type_Of_Employment_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Type_Of_Employment_Resume_IdArgs = {
@@ -4833,19 +4694,16 @@ export type Mutation_RootUpdate_Type_Of_Employment_Resume_IdArgs = {
   where: Type_Of_Employment_Resume_Id_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Type_Of_Employment_Resume_Id_By_PkArgs = {
   _set?: InputMaybe<Type_Of_Employment_Resume_Id_Set_Input>;
   pk_columns: Type_Of_Employment_Resume_Id_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Type_Of_Employment_Resume_Id_ManyArgs = {
   updates: Array<Type_Of_Employment_Resume_Id_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_VacancyArgs = {
@@ -4854,7 +4712,6 @@ export type Mutation_RootUpdate_VacancyArgs = {
   where: Vacancy_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Vacancy_By_PkArgs = {
   _inc?: InputMaybe<Vacancy_Inc_Input>;
@@ -4862,12 +4719,10 @@ export type Mutation_RootUpdate_Vacancy_By_PkArgs = {
   pk_columns: Vacancy_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Vacancy_ManyArgs = {
   updates: Array<Vacancy_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Work_ExperienceArgs = {
@@ -4875,19 +4730,16 @@ export type Mutation_RootUpdate_Work_ExperienceArgs = {
   where: Work_Experience_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Work_Experience_By_PkArgs = {
   _set?: InputMaybe<Work_Experience_Set_Input>;
   pk_columns: Work_Experience_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Work_Experience_ManyArgs = {
   updates: Array<Work_Experience_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Work_ScheduleArgs = {
@@ -4895,19 +4747,16 @@ export type Mutation_RootUpdate_Work_ScheduleArgs = {
   where: Work_Schedule_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Work_Schedule_By_PkArgs = {
   _set?: InputMaybe<Work_Schedule_Set_Input>;
   pk_columns: Work_Schedule_Pk_Columns_Input;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Work_Schedule_ManyArgs = {
   updates: Array<Work_Schedule_Updates>;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Work_Schedule_Resume_IdArgs = {
@@ -4915,13 +4764,11 @@ export type Mutation_RootUpdate_Work_Schedule_Resume_IdArgs = {
   where: Work_Schedule_Resume_Id_Bool_Exp;
 };
 
-
 /** mutation root */
 export type Mutation_RootUpdate_Work_Schedule_Resume_Id_By_PkArgs = {
   _set?: InputMaybe<Work_Schedule_Resume_Id_Set_Input>;
   pk_columns: Work_Schedule_Resume_Id_Pk_Columns_Input;
 };
-
 
 /** mutation root */
 export type Mutation_RootUpdate_Work_Schedule_Resume_Id_ManyArgs = {
@@ -4941,7 +4788,7 @@ export enum Order_By {
   /** in descending order, nulls first */
   DescNullsFirst = 'desc_nulls_first',
   /** in descending order, nulls last */
-  DescNullsLast = 'desc_nulls_last'
+  DescNullsLast = 'desc_nulls_last',
 }
 
 /** columns and relationships of "organization" */
@@ -4995,7 +4842,6 @@ export type Organization_Aggregate_Fields = {
   var_samp?: Maybe<Organization_Var_Samp_Fields>;
   variance?: Maybe<Organization_Variance_Fields>;
 };
-
 
 /** aggregate fields of "organization" */
 export type Organization_Aggregate_FieldsCountArgs = {
@@ -5065,7 +4911,7 @@ export enum Organization_Constraint {
   /** unique or primary key constraint on columns "name_organization" */
   OrganizationNameOrganizationKey = 'organization_name_organization_key',
   /** unique or primary key constraint on columns "id_organization" */
-  OrganizationPkey = 'organization_pkey'
+  OrganizationPkey = 'organization_pkey',
 }
 
 /** input type for incrementing numeric columns in table "organization" */
@@ -5198,7 +5044,7 @@ export enum Organization_Select_Column {
   /** column name */
   MainActivity = 'main_activity',
   /** column name */
-  NameOrganization = 'name_organization'
+  NameOrganization = 'name_organization',
 }
 
 /** input type for updating data in table "organization" */
@@ -5306,7 +5152,7 @@ export enum Organization_Update_Column {
   /** column name */
   MainActivity = 'main_activity',
   /** column name */
-  NameOrganization = 'name_organization'
+  NameOrganization = 'name_organization',
 }
 
 export type Organization_Updates = {
@@ -5494,7 +5340,6 @@ export type Query_Root = {
   work_schedule_resume_id_by_pk?: Maybe<Work_Schedule_Resume_Id>;
 };
 
-
 export type Query_RootAccountArgs = {
   distinct_on?: InputMaybe<Array<Account_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5502,7 +5347,6 @@ export type Query_RootAccountArgs = {
   order_by?: InputMaybe<Array<Account_Order_By>>;
   where?: InputMaybe<Account_Bool_Exp>;
 };
-
 
 export type Query_RootAccount_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Account_Select_Column>>;
@@ -5512,11 +5356,9 @@ export type Query_RootAccount_AggregateArgs = {
   where?: InputMaybe<Account_Bool_Exp>;
 };
 
-
 export type Query_RootAccount_By_PkArgs = {
   account_id: Scalars['uuid'];
 };
-
 
 export type Query_RootAdditional_EducationArgs = {
   distinct_on?: InputMaybe<Array<Additional_Education_Select_Column>>;
@@ -5526,7 +5368,6 @@ export type Query_RootAdditional_EducationArgs = {
   where?: InputMaybe<Additional_Education_Bool_Exp>;
 };
 
-
 export type Query_RootAdditional_Education_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Additional_Education_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5535,11 +5376,9 @@ export type Query_RootAdditional_Education_AggregateArgs = {
   where?: InputMaybe<Additional_Education_Bool_Exp>;
 };
 
-
 export type Query_RootAdditional_Education_By_PkArgs = {
   additional_education_id: Scalars['uuid'];
 };
-
 
 export type Query_RootCity_Of_ResidenceArgs = {
   distinct_on?: InputMaybe<Array<City_Of_Residence_Select_Column>>;
@@ -5549,7 +5388,6 @@ export type Query_RootCity_Of_ResidenceArgs = {
   where?: InputMaybe<City_Of_Residence_Bool_Exp>;
 };
 
-
 export type Query_RootCity_Of_Residence_AggregateArgs = {
   distinct_on?: InputMaybe<Array<City_Of_Residence_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5558,11 +5396,9 @@ export type Query_RootCity_Of_Residence_AggregateArgs = {
   where?: InputMaybe<City_Of_Residence_Bool_Exp>;
 };
 
-
 export type Query_RootCity_Of_Residence_By_PkArgs = {
   city_of_residence_id: Scalars['uuid'];
 };
-
 
 export type Query_RootCompetencies_Of_JobseekersArgs = {
   distinct_on?: InputMaybe<Array<Competencies_Of_Jobseekers_Select_Column>>;
@@ -5572,7 +5408,6 @@ export type Query_RootCompetencies_Of_JobseekersArgs = {
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
 
-
 export type Query_RootCompetencies_Of_Jobseekers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Competencies_Of_Jobseekers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5581,11 +5416,9 @@ export type Query_RootCompetencies_Of_Jobseekers_AggregateArgs = {
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
 
-
 export type Query_RootCompetencies_Of_Jobseekers_By_PkArgs = {
   competencies_of_jobseekers_id: Scalars['uuid'];
 };
-
 
 export type Query_RootDriving_LicenseArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Select_Column>>;
@@ -5595,7 +5428,6 @@ export type Query_RootDriving_LicenseArgs = {
   where?: InputMaybe<Driving_License_Bool_Exp>;
 };
 
-
 export type Query_RootDriving_License_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5604,11 +5436,9 @@ export type Query_RootDriving_License_AggregateArgs = {
   where?: InputMaybe<Driving_License_Bool_Exp>;
 };
 
-
 export type Query_RootDriving_License_By_PkArgs = {
   driving_license_id: Scalars['uuid'];
 };
-
 
 export type Query_RootDriving_License_Jobseeker_IdArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
@@ -5618,7 +5448,6 @@ export type Query_RootDriving_License_Jobseeker_IdArgs = {
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
 
-
 export type Query_RootDriving_License_Jobseeker_Id_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5627,12 +5456,10 @@ export type Query_RootDriving_License_Jobseeker_Id_AggregateArgs = {
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
 
-
 export type Query_RootDriving_License_Jobseeker_Id_By_PkArgs = {
   driving_license_id: Scalars['uuid'];
   jobseeker_id: Scalars['uuid'];
 };
-
 
 export type Query_RootEducational_InstitutionArgs = {
   distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
@@ -5642,7 +5469,6 @@ export type Query_RootEducational_InstitutionArgs = {
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
 
-
 export type Query_RootEducational_Institution_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5651,11 +5477,9 @@ export type Query_RootEducational_Institution_AggregateArgs = {
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
 
-
 export type Query_RootEducational_Institution_By_PkArgs = {
   educational_institution_id: Scalars['uuid'];
 };
-
 
 export type Query_RootEmployerArgs = {
   distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
@@ -5665,7 +5489,6 @@ export type Query_RootEmployerArgs = {
   where?: InputMaybe<Employer_Bool_Exp>;
 };
 
-
 export type Query_RootEmployer_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5674,11 +5497,9 @@ export type Query_RootEmployer_AggregateArgs = {
   where?: InputMaybe<Employer_Bool_Exp>;
 };
 
-
 export type Query_RootEmployer_By_PkArgs = {
   employer_id: Scalars['uuid'];
 };
-
 
 export type Query_RootJobseekerArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Select_Column>>;
@@ -5688,7 +5509,6 @@ export type Query_RootJobseekerArgs = {
   where?: InputMaybe<Jobseeker_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Additional_EducationArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5696,7 +5516,6 @@ export type Query_RootJobseeker_Additional_EducationArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Additional_Education_Order_By>>;
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
-
 
 export type Query_RootJobseeker_Additional_Education_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
@@ -5706,12 +5525,10 @@ export type Query_RootJobseeker_Additional_Education_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Additional_Education_By_PkArgs = {
   additional_education_id: Scalars['uuid'];
   jobseeker_id: Scalars['uuid'];
 };
-
 
 export type Query_RootJobseeker_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Select_Column>>;
@@ -5721,11 +5538,9 @@ export type Query_RootJobseeker_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
 };
-
 
 export type Query_RootJobseeker_EducationArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
@@ -5735,7 +5550,6 @@ export type Query_RootJobseeker_EducationArgs = {
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Education_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5744,11 +5558,9 @@ export type Query_RootJobseeker_Education_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Education_By_PkArgs = {
   jobseeker_education_id: Scalars['uuid'];
 };
-
 
 export type Query_RootJobseeker_PerformanceArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Performance_Select_Column>>;
@@ -5758,7 +5570,6 @@ export type Query_RootJobseeker_PerformanceArgs = {
   where?: InputMaybe<Jobseeker_Performance_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Performance_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Performance_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5767,11 +5578,9 @@ export type Query_RootJobseeker_Performance_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Performance_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Performance_By_PkArgs = {
   jobseeker_performance_id: Scalars['uuid'];
 };
-
 
 export type Query_RootJobseeker_VacancyArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
@@ -5781,7 +5590,6 @@ export type Query_RootJobseeker_VacancyArgs = {
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Vacancy_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5790,12 +5598,10 @@ export type Query_RootJobseeker_Vacancy_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
 
-
 export type Query_RootJobseeker_Vacancy_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
   vacancy_id: Scalars['uuid'];
 };
-
 
 export type Query_RootOrganizationArgs = {
   distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
@@ -5805,7 +5611,6 @@ export type Query_RootOrganizationArgs = {
   where?: InputMaybe<Organization_Bool_Exp>;
 };
 
-
 export type Query_RootOrganization_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5814,11 +5619,9 @@ export type Query_RootOrganization_AggregateArgs = {
   where?: InputMaybe<Organization_Bool_Exp>;
 };
 
-
 export type Query_RootOrganization_By_PkArgs = {
   id_organization: Scalars['uuid'];
 };
-
 
 export type Query_RootResumeArgs = {
   distinct_on?: InputMaybe<Array<Resume_Select_Column>>;
@@ -5828,7 +5631,6 @@ export type Query_RootResumeArgs = {
   where?: InputMaybe<Resume_Bool_Exp>;
 };
 
-
 export type Query_RootResume_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Resume_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5837,11 +5639,9 @@ export type Query_RootResume_AggregateArgs = {
   where?: InputMaybe<Resume_Bool_Exp>;
 };
 
-
 export type Query_RootResume_By_PkArgs = {
   resume_id: Scalars['uuid'];
 };
-
 
 export type Query_RootSubject_Competence_InfoArgs = {
   distinct_on?: InputMaybe<Array<Subject_Competence_Info_Select_Column>>;
@@ -5851,7 +5651,6 @@ export type Query_RootSubject_Competence_InfoArgs = {
   where?: InputMaybe<Subject_Competence_Info_Bool_Exp>;
 };
 
-
 export type Query_RootSubject_Competence_Info_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Subject_Competence_Info_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5860,11 +5659,9 @@ export type Query_RootSubject_Competence_Info_AggregateArgs = {
   where?: InputMaybe<Subject_Competence_Info_Bool_Exp>;
 };
 
-
 export type Query_RootSubject_Competence_Info_By_PkArgs = {
   subject_competence_info_id: Scalars['uuid'];
 };
-
 
 export type Query_RootType_Of_EmploymentArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Select_Column>>;
@@ -5874,7 +5671,6 @@ export type Query_RootType_Of_EmploymentArgs = {
   where?: InputMaybe<Type_Of_Employment_Bool_Exp>;
 };
 
-
 export type Query_RootType_Of_Employment_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5883,11 +5679,9 @@ export type Query_RootType_Of_Employment_AggregateArgs = {
   where?: InputMaybe<Type_Of_Employment_Bool_Exp>;
 };
 
-
 export type Query_RootType_Of_Employment_By_PkArgs = {
   type_of_employment_id: Scalars['uuid'];
 };
-
 
 export type Query_RootType_Of_Employment_Resume_IdArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
@@ -5897,7 +5691,6 @@ export type Query_RootType_Of_Employment_Resume_IdArgs = {
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
 
-
 export type Query_RootType_Of_Employment_Resume_Id_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5906,12 +5699,10 @@ export type Query_RootType_Of_Employment_Resume_Id_AggregateArgs = {
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
 
-
 export type Query_RootType_Of_Employment_Resume_Id_By_PkArgs = {
   resume_id: Scalars['uuid'];
   type_of_employment_id: Scalars['uuid'];
 };
-
 
 export type Query_RootVacancyArgs = {
   distinct_on?: InputMaybe<Array<Vacancy_Select_Column>>;
@@ -5921,7 +5712,6 @@ export type Query_RootVacancyArgs = {
   where?: InputMaybe<Vacancy_Bool_Exp>;
 };
 
-
 export type Query_RootVacancy_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Vacancy_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5930,11 +5720,9 @@ export type Query_RootVacancy_AggregateArgs = {
   where?: InputMaybe<Vacancy_Bool_Exp>;
 };
 
-
 export type Query_RootVacancy_By_PkArgs = {
   vacancy_id: Scalars['uuid'];
 };
-
 
 export type Query_RootWork_ExperienceArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
@@ -5944,7 +5732,6 @@ export type Query_RootWork_ExperienceArgs = {
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
 
-
 export type Query_RootWork_Experience_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5953,11 +5740,9 @@ export type Query_RootWork_Experience_AggregateArgs = {
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
 
-
 export type Query_RootWork_Experience_By_PkArgs = {
   work_experience_id: Scalars['uuid'];
 };
-
 
 export type Query_RootWork_ScheduleArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Select_Column>>;
@@ -5967,7 +5752,6 @@ export type Query_RootWork_ScheduleArgs = {
   where?: InputMaybe<Work_Schedule_Bool_Exp>;
 };
 
-
 export type Query_RootWork_Schedule_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5976,11 +5760,9 @@ export type Query_RootWork_Schedule_AggregateArgs = {
   where?: InputMaybe<Work_Schedule_Bool_Exp>;
 };
 
-
 export type Query_RootWork_Schedule_By_PkArgs = {
   work_schedule_id: Scalars['uuid'];
 };
-
 
 export type Query_RootWork_Schedule_Resume_IdArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
@@ -5990,7 +5772,6 @@ export type Query_RootWork_Schedule_Resume_IdArgs = {
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
 
-
 export type Query_RootWork_Schedule_Resume_Id_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5998,7 +5779,6 @@ export type Query_RootWork_Schedule_Resume_Id_AggregateArgs = {
   order_by?: InputMaybe<Array<Work_Schedule_Resume_Id_Order_By>>;
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
-
 
 export type Query_RootWork_Schedule_Resume_Id_By_PkArgs = {
   resume_id: Scalars['uuid'];
@@ -6055,7 +5835,6 @@ export type Resume = {
   work_schedule_resume_ids_aggregate: Work_Schedule_Resume_Id_Aggregate;
 };
 
-
 /** columns and relationships of "resume" */
 export type ResumeJobseeker_EducationsArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
@@ -6064,7 +5843,6 @@ export type ResumeJobseeker_EducationsArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Education_Order_By>>;
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
-
 
 /** columns and relationships of "resume" */
 export type ResumeJobseeker_Educations_AggregateArgs = {
@@ -6075,7 +5853,6 @@ export type ResumeJobseeker_Educations_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
-
 /** columns and relationships of "resume" */
 export type ResumeType_Of_Employment_Resume_IdsArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
@@ -6084,7 +5861,6 @@ export type ResumeType_Of_Employment_Resume_IdsArgs = {
   order_by?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Order_By>>;
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
-
 
 /** columns and relationships of "resume" */
 export type ResumeType_Of_Employment_Resume_Ids_AggregateArgs = {
@@ -6095,7 +5871,6 @@ export type ResumeType_Of_Employment_Resume_Ids_AggregateArgs = {
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
 
-
 /** columns and relationships of "resume" */
 export type ResumeWork_ExperiencesArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
@@ -6104,7 +5879,6 @@ export type ResumeWork_ExperiencesArgs = {
   order_by?: InputMaybe<Array<Work_Experience_Order_By>>;
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
-
 
 /** columns and relationships of "resume" */
 export type ResumeWork_Experiences_AggregateArgs = {
@@ -6115,7 +5889,6 @@ export type ResumeWork_Experiences_AggregateArgs = {
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
 
-
 /** columns and relationships of "resume" */
 export type ResumeWork_Schedule_Resume_IdsArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
@@ -6124,7 +5897,6 @@ export type ResumeWork_Schedule_Resume_IdsArgs = {
   order_by?: InputMaybe<Array<Work_Schedule_Resume_Id_Order_By>>;
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
-
 
 /** columns and relationships of "resume" */
 export type ResumeWork_Schedule_Resume_Ids_AggregateArgs = {
@@ -6184,7 +5956,6 @@ export type Resume_Aggregate_Fields = {
   var_samp?: Maybe<Resume_Var_Samp_Fields>;
   variance?: Maybe<Resume_Variance_Fields>;
 };
-
 
 /** aggregate fields of "resume" */
 export type Resume_Aggregate_FieldsCountArgs = {
@@ -6258,7 +6029,7 @@ export enum Resume_Constraint {
   /** unique or primary key constraint on columns "name_resume" */
   ResumeNameResumeKey = 'resume_name_resume_key',
   /** unique or primary key constraint on columns "resume_id" */
-  ResumePkey = 'resume_pkey'
+  ResumePkey = 'resume_pkey',
 }
 
 /** input type for incrementing numeric columns in table "resume" */
@@ -6409,7 +6180,7 @@ export enum Resume_Select_Column {
   /** column name */
   ShortDescription = 'short_description',
   /** column name */
-  Status = 'status'
+  Status = 'status',
 }
 
 /** select "resume_aggregate_bool_exp_bool_and_arguments_columns" columns of table "resume" */
@@ -6419,7 +6190,7 @@ export enum Resume_Select_Column_Resume_Aggregate_Bool_Exp_Bool_And_Arguments_Co
   /** column name */
   Relocate = 'relocate',
   /** column name */
-  Status = 'status'
+  Status = 'status',
 }
 
 /** select "resume_aggregate_bool_exp_bool_or_arguments_columns" columns of table "resume" */
@@ -6429,7 +6200,7 @@ export enum Resume_Select_Column_Resume_Aggregate_Bool_Exp_Bool_Or_Arguments_Col
   /** column name */
   Relocate = 'relocate',
   /** column name */
-  Status = 'status'
+  Status = 'status',
 }
 
 /** input type for updating data in table "resume" */
@@ -6537,7 +6308,7 @@ export enum Resume_Update_Column {
   /** column name */
   ShortDescription = 'short_description',
   /** column name */
-  Status = 'status'
+  Status = 'status',
 }
 
 export type Resume_Updates = {
@@ -6644,7 +6415,6 @@ export type Subject_Competence_Info_Aggregate_Fields = {
   variance?: Maybe<Subject_Competence_Info_Variance_Fields>;
 };
 
-
 /** aggregate fields of "subject_competence_info" */
 export type Subject_Competence_Info_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Subject_Competence_Info_Select_Column>>;
@@ -6700,7 +6470,7 @@ export type Subject_Competence_Info_Bool_Exp = {
 /** unique or primary key constraints on table "subject_competence_info" */
 export enum Subject_Competence_Info_Constraint {
   /** unique or primary key constraint on columns "subject_competence_info_id" */
-  SubjectCompetenceInfoPkey = 'subject_competence_info_pkey'
+  SubjectCompetenceInfoPkey = 'subject_competence_info_pkey',
 }
 
 /** input type for incrementing numeric columns in table "subject_competence_info" */
@@ -6794,19 +6564,19 @@ export enum Subject_Competence_Info_Select_Column {
   /** column name */
   SubjectCompetenceInfoId = 'subject_competence_info_id',
   /** column name */
-  SubjectName = 'subject_name'
+  SubjectName = 'subject_name',
 }
 
 /** select "subject_competence_info_aggregate_bool_exp_bool_and_arguments_columns" columns of table "subject_competence_info" */
 export enum Subject_Competence_Info_Select_Column_Subject_Competence_Info_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
   /** column name */
-  Completed = 'completed'
+  Completed = 'completed',
 }
 
 /** select "subject_competence_info_aggregate_bool_exp_bool_or_arguments_columns" columns of table "subject_competence_info" */
 export enum Subject_Competence_Info_Select_Column_Subject_Competence_Info_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
   /** column name */
-  Completed = 'completed'
+  Completed = 'completed',
 }
 
 /** input type for updating data in table "subject_competence_info" */
@@ -6890,7 +6660,7 @@ export enum Subject_Competence_Info_Update_Column {
   /** column name */
   SubjectCompetenceInfoId = 'subject_competence_info_id',
   /** column name */
-  SubjectName = 'subject_name'
+  SubjectName = 'subject_name',
 }
 
 export type Subject_Competence_Info_Updates = {
@@ -7115,7 +6885,6 @@ export type Subscription_Root = {
   work_schedule_stream: Array<Work_Schedule>;
 };
 
-
 export type Subscription_RootAccountArgs = {
   distinct_on?: InputMaybe<Array<Account_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7123,7 +6892,6 @@ export type Subscription_RootAccountArgs = {
   order_by?: InputMaybe<Array<Account_Order_By>>;
   where?: InputMaybe<Account_Bool_Exp>;
 };
-
 
 export type Subscription_RootAccount_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Account_Select_Column>>;
@@ -7133,18 +6901,15 @@ export type Subscription_RootAccount_AggregateArgs = {
   where?: InputMaybe<Account_Bool_Exp>;
 };
 
-
 export type Subscription_RootAccount_By_PkArgs = {
   account_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootAccount_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Account_Stream_Cursor_Input>>;
   where?: InputMaybe<Account_Bool_Exp>;
 };
-
 
 export type Subscription_RootAdditional_EducationArgs = {
   distinct_on?: InputMaybe<Array<Additional_Education_Select_Column>>;
@@ -7154,7 +6919,6 @@ export type Subscription_RootAdditional_EducationArgs = {
   where?: InputMaybe<Additional_Education_Bool_Exp>;
 };
 
-
 export type Subscription_RootAdditional_Education_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Additional_Education_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7163,18 +6927,15 @@ export type Subscription_RootAdditional_Education_AggregateArgs = {
   where?: InputMaybe<Additional_Education_Bool_Exp>;
 };
 
-
 export type Subscription_RootAdditional_Education_By_PkArgs = {
   additional_education_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootAdditional_Education_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Additional_Education_Stream_Cursor_Input>>;
   where?: InputMaybe<Additional_Education_Bool_Exp>;
 };
-
 
 export type Subscription_RootCity_Of_ResidenceArgs = {
   distinct_on?: InputMaybe<Array<City_Of_Residence_Select_Column>>;
@@ -7184,7 +6945,6 @@ export type Subscription_RootCity_Of_ResidenceArgs = {
   where?: InputMaybe<City_Of_Residence_Bool_Exp>;
 };
 
-
 export type Subscription_RootCity_Of_Residence_AggregateArgs = {
   distinct_on?: InputMaybe<Array<City_Of_Residence_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7193,18 +6953,15 @@ export type Subscription_RootCity_Of_Residence_AggregateArgs = {
   where?: InputMaybe<City_Of_Residence_Bool_Exp>;
 };
 
-
 export type Subscription_RootCity_Of_Residence_By_PkArgs = {
   city_of_residence_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootCity_Of_Residence_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<City_Of_Residence_Stream_Cursor_Input>>;
   where?: InputMaybe<City_Of_Residence_Bool_Exp>;
 };
-
 
 export type Subscription_RootCompetencies_Of_JobseekersArgs = {
   distinct_on?: InputMaybe<Array<Competencies_Of_Jobseekers_Select_Column>>;
@@ -7214,7 +6971,6 @@ export type Subscription_RootCompetencies_Of_JobseekersArgs = {
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
 
-
 export type Subscription_RootCompetencies_Of_Jobseekers_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Competencies_Of_Jobseekers_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7223,18 +6979,15 @@ export type Subscription_RootCompetencies_Of_Jobseekers_AggregateArgs = {
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
 
-
 export type Subscription_RootCompetencies_Of_Jobseekers_By_PkArgs = {
   competencies_of_jobseekers_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootCompetencies_Of_Jobseekers_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Competencies_Of_Jobseekers_Stream_Cursor_Input>>;
   where?: InputMaybe<Competencies_Of_Jobseekers_Bool_Exp>;
 };
-
 
 export type Subscription_RootDriving_LicenseArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Select_Column>>;
@@ -7244,7 +6997,6 @@ export type Subscription_RootDriving_LicenseArgs = {
   where?: InputMaybe<Driving_License_Bool_Exp>;
 };
 
-
 export type Subscription_RootDriving_License_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7253,11 +7005,9 @@ export type Subscription_RootDriving_License_AggregateArgs = {
   where?: InputMaybe<Driving_License_Bool_Exp>;
 };
 
-
 export type Subscription_RootDriving_License_By_PkArgs = {
   driving_license_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootDriving_License_Jobseeker_IdArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
@@ -7267,7 +7017,6 @@ export type Subscription_RootDriving_License_Jobseeker_IdArgs = {
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootDriving_License_Jobseeker_Id_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Driving_License_Jobseeker_Id_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7276,12 +7025,10 @@ export type Subscription_RootDriving_License_Jobseeker_Id_AggregateArgs = {
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootDriving_License_Jobseeker_Id_By_PkArgs = {
   driving_license_id: Scalars['uuid'];
   jobseeker_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootDriving_License_Jobseeker_Id_StreamArgs = {
   batch_size: Scalars['Int'];
@@ -7289,13 +7036,11 @@ export type Subscription_RootDriving_License_Jobseeker_Id_StreamArgs = {
   where?: InputMaybe<Driving_License_Jobseeker_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootDriving_License_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Driving_License_Stream_Cursor_Input>>;
   where?: InputMaybe<Driving_License_Bool_Exp>;
 };
-
 
 export type Subscription_RootEducational_InstitutionArgs = {
   distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
@@ -7305,7 +7050,6 @@ export type Subscription_RootEducational_InstitutionArgs = {
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
 
-
 export type Subscription_RootEducational_Institution_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7314,18 +7058,15 @@ export type Subscription_RootEducational_Institution_AggregateArgs = {
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
 
-
 export type Subscription_RootEducational_Institution_By_PkArgs = {
   educational_institution_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootEducational_Institution_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Educational_Institution_Stream_Cursor_Input>>;
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
-
 
 export type Subscription_RootEmployerArgs = {
   distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
@@ -7335,7 +7076,6 @@ export type Subscription_RootEmployerArgs = {
   where?: InputMaybe<Employer_Bool_Exp>;
 };
 
-
 export type Subscription_RootEmployer_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7344,18 +7084,15 @@ export type Subscription_RootEmployer_AggregateArgs = {
   where?: InputMaybe<Employer_Bool_Exp>;
 };
 
-
 export type Subscription_RootEmployer_By_PkArgs = {
   employer_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootEmployer_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Employer_Stream_Cursor_Input>>;
   where?: InputMaybe<Employer_Bool_Exp>;
 };
-
 
 export type Subscription_RootJobseekerArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Select_Column>>;
@@ -7365,7 +7102,6 @@ export type Subscription_RootJobseekerArgs = {
   where?: InputMaybe<Jobseeker_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Additional_EducationArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7373,7 +7109,6 @@ export type Subscription_RootJobseeker_Additional_EducationArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Additional_Education_Order_By>>;
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
-
 
 export type Subscription_RootJobseeker_Additional_Education_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Additional_Education_Select_Column>>;
@@ -7383,19 +7118,16 @@ export type Subscription_RootJobseeker_Additional_Education_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Additional_Education_By_PkArgs = {
   additional_education_id: Scalars['uuid'];
   jobseeker_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootJobseeker_Additional_Education_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Jobseeker_Additional_Education_Stream_Cursor_Input>>;
   where?: InputMaybe<Jobseeker_Additional_Education_Bool_Exp>;
 };
-
 
 export type Subscription_RootJobseeker_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Select_Column>>;
@@ -7405,11 +7137,9 @@ export type Subscription_RootJobseeker_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootJobseeker_EducationArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
@@ -7419,7 +7149,6 @@ export type Subscription_RootJobseeker_EducationArgs = {
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Education_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7428,18 +7157,15 @@ export type Subscription_RootJobseeker_Education_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Education_By_PkArgs = {
   jobseeker_education_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootJobseeker_Education_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Jobseeker_Education_Stream_Cursor_Input>>;
   where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
-
 
 export type Subscription_RootJobseeker_PerformanceArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Performance_Select_Column>>;
@@ -7449,7 +7175,6 @@ export type Subscription_RootJobseeker_PerformanceArgs = {
   where?: InputMaybe<Jobseeker_Performance_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Performance_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Performance_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7458,11 +7183,9 @@ export type Subscription_RootJobseeker_Performance_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Performance_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Performance_By_PkArgs = {
   jobseeker_performance_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootJobseeker_Performance_StreamArgs = {
   batch_size: Scalars['Int'];
@@ -7470,13 +7193,11 @@ export type Subscription_RootJobseeker_Performance_StreamArgs = {
   where?: InputMaybe<Jobseeker_Performance_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Jobseeker_Stream_Cursor_Input>>;
   where?: InputMaybe<Jobseeker_Bool_Exp>;
 };
-
 
 export type Subscription_RootJobseeker_VacancyArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
@@ -7486,7 +7207,6 @@ export type Subscription_RootJobseeker_VacancyArgs = {
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Vacancy_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7495,19 +7215,16 @@ export type Subscription_RootJobseeker_Vacancy_AggregateArgs = {
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
 
-
 export type Subscription_RootJobseeker_Vacancy_By_PkArgs = {
   jobseeker_id: Scalars['uuid'];
   vacancy_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootJobseeker_Vacancy_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Jobseeker_Vacancy_Stream_Cursor_Input>>;
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
-
 
 export type Subscription_RootOrganizationArgs = {
   distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
@@ -7517,7 +7234,6 @@ export type Subscription_RootOrganizationArgs = {
   where?: InputMaybe<Organization_Bool_Exp>;
 };
 
-
 export type Subscription_RootOrganization_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7526,18 +7242,15 @@ export type Subscription_RootOrganization_AggregateArgs = {
   where?: InputMaybe<Organization_Bool_Exp>;
 };
 
-
 export type Subscription_RootOrganization_By_PkArgs = {
   id_organization: Scalars['uuid'];
 };
-
 
 export type Subscription_RootOrganization_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Organization_Stream_Cursor_Input>>;
   where?: InputMaybe<Organization_Bool_Exp>;
 };
-
 
 export type Subscription_RootResumeArgs = {
   distinct_on?: InputMaybe<Array<Resume_Select_Column>>;
@@ -7547,7 +7260,6 @@ export type Subscription_RootResumeArgs = {
   where?: InputMaybe<Resume_Bool_Exp>;
 };
 
-
 export type Subscription_RootResume_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Resume_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7556,18 +7268,15 @@ export type Subscription_RootResume_AggregateArgs = {
   where?: InputMaybe<Resume_Bool_Exp>;
 };
 
-
 export type Subscription_RootResume_By_PkArgs = {
   resume_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootResume_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Resume_Stream_Cursor_Input>>;
   where?: InputMaybe<Resume_Bool_Exp>;
 };
-
 
 export type Subscription_RootSubject_Competence_InfoArgs = {
   distinct_on?: InputMaybe<Array<Subject_Competence_Info_Select_Column>>;
@@ -7577,7 +7286,6 @@ export type Subscription_RootSubject_Competence_InfoArgs = {
   where?: InputMaybe<Subject_Competence_Info_Bool_Exp>;
 };
 
-
 export type Subscription_RootSubject_Competence_Info_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Subject_Competence_Info_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7586,18 +7294,15 @@ export type Subscription_RootSubject_Competence_Info_AggregateArgs = {
   where?: InputMaybe<Subject_Competence_Info_Bool_Exp>;
 };
 
-
 export type Subscription_RootSubject_Competence_Info_By_PkArgs = {
   subject_competence_info_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootSubject_Competence_Info_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Subject_Competence_Info_Stream_Cursor_Input>>;
   where?: InputMaybe<Subject_Competence_Info_Bool_Exp>;
 };
-
 
 export type Subscription_RootType_Of_EmploymentArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Select_Column>>;
@@ -7607,7 +7312,6 @@ export type Subscription_RootType_Of_EmploymentArgs = {
   where?: InputMaybe<Type_Of_Employment_Bool_Exp>;
 };
 
-
 export type Subscription_RootType_Of_Employment_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7616,11 +7320,9 @@ export type Subscription_RootType_Of_Employment_AggregateArgs = {
   where?: InputMaybe<Type_Of_Employment_Bool_Exp>;
 };
 
-
 export type Subscription_RootType_Of_Employment_By_PkArgs = {
   type_of_employment_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootType_Of_Employment_Resume_IdArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
@@ -7630,7 +7332,6 @@ export type Subscription_RootType_Of_Employment_Resume_IdArgs = {
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootType_Of_Employment_Resume_Id_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7639,12 +7340,10 @@ export type Subscription_RootType_Of_Employment_Resume_Id_AggregateArgs = {
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootType_Of_Employment_Resume_Id_By_PkArgs = {
   resume_id: Scalars['uuid'];
   type_of_employment_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootType_Of_Employment_Resume_Id_StreamArgs = {
   batch_size: Scalars['Int'];
@@ -7652,13 +7351,11 @@ export type Subscription_RootType_Of_Employment_Resume_Id_StreamArgs = {
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootType_Of_Employment_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Type_Of_Employment_Stream_Cursor_Input>>;
   where?: InputMaybe<Type_Of_Employment_Bool_Exp>;
 };
-
 
 export type Subscription_RootVacancyArgs = {
   distinct_on?: InputMaybe<Array<Vacancy_Select_Column>>;
@@ -7668,7 +7365,6 @@ export type Subscription_RootVacancyArgs = {
   where?: InputMaybe<Vacancy_Bool_Exp>;
 };
 
-
 export type Subscription_RootVacancy_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Vacancy_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7677,18 +7373,15 @@ export type Subscription_RootVacancy_AggregateArgs = {
   where?: InputMaybe<Vacancy_Bool_Exp>;
 };
 
-
 export type Subscription_RootVacancy_By_PkArgs = {
   vacancy_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootVacancy_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Vacancy_Stream_Cursor_Input>>;
   where?: InputMaybe<Vacancy_Bool_Exp>;
 };
-
 
 export type Subscription_RootWork_ExperienceArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
@@ -7698,7 +7391,6 @@ export type Subscription_RootWork_ExperienceArgs = {
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
 
-
 export type Subscription_RootWork_Experience_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7707,18 +7399,15 @@ export type Subscription_RootWork_Experience_AggregateArgs = {
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
 
-
 export type Subscription_RootWork_Experience_By_PkArgs = {
   work_experience_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootWork_Experience_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Work_Experience_Stream_Cursor_Input>>;
   where?: InputMaybe<Work_Experience_Bool_Exp>;
 };
-
 
 export type Subscription_RootWork_ScheduleArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Select_Column>>;
@@ -7728,7 +7417,6 @@ export type Subscription_RootWork_ScheduleArgs = {
   where?: InputMaybe<Work_Schedule_Bool_Exp>;
 };
 
-
 export type Subscription_RootWork_Schedule_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7737,11 +7425,9 @@ export type Subscription_RootWork_Schedule_AggregateArgs = {
   where?: InputMaybe<Work_Schedule_Bool_Exp>;
 };
 
-
 export type Subscription_RootWork_Schedule_By_PkArgs = {
   work_schedule_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootWork_Schedule_Resume_IdArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
@@ -7751,7 +7437,6 @@ export type Subscription_RootWork_Schedule_Resume_IdArgs = {
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootWork_Schedule_Resume_Id_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7760,19 +7445,16 @@ export type Subscription_RootWork_Schedule_Resume_Id_AggregateArgs = {
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
 
-
 export type Subscription_RootWork_Schedule_Resume_Id_By_PkArgs = {
   resume_id: Scalars['uuid'];
   work_schedule_id: Scalars['uuid'];
 };
-
 
 export type Subscription_RootWork_Schedule_Resume_Id_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Work_Schedule_Resume_Id_Stream_Cursor_Input>>;
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
-
 
 export type Subscription_RootWork_Schedule_StreamArgs = {
   batch_size: Scalars['Int'];
@@ -7791,7 +7473,6 @@ export type Type_Of_Employment = {
   type_of_employment_resume_ids_aggregate: Type_Of_Employment_Resume_Id_Aggregate;
 };
 
-
 /** columns and relationships of "type_of_employment" */
 export type Type_Of_EmploymentType_Of_Employment_Resume_IdsArgs = {
   distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
@@ -7800,7 +7481,6 @@ export type Type_Of_EmploymentType_Of_Employment_Resume_IdsArgs = {
   order_by?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Order_By>>;
   where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
 };
-
 
 /** columns and relationships of "type_of_employment" */
 export type Type_Of_EmploymentType_Of_Employment_Resume_Ids_AggregateArgs = {
@@ -7826,7 +7506,6 @@ export type Type_Of_Employment_Aggregate_Fields = {
   min?: Maybe<Type_Of_Employment_Min_Fields>;
 };
 
-
 /** aggregate fields of "type_of_employment" */
 export type Type_Of_Employment_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Type_Of_Employment_Select_Column>>;
@@ -7847,7 +7526,7 @@ export type Type_Of_Employment_Bool_Exp = {
 /** unique or primary key constraints on table "type_of_employment" */
 export enum Type_Of_Employment_Constraint {
   /** unique or primary key constraint on columns "type_of_employment_id" */
-  TypeOfEmploymentPkey = 'Type_of_employment_pkey'
+  TypeOfEmploymentPkey = 'Type_of_employment_pkey',
 }
 
 /** input type for inserting data into table "type_of_employment" */
@@ -7943,7 +7622,6 @@ export type Type_Of_Employment_Resume_Id_Aggregate_Fields = {
   min?: Maybe<Type_Of_Employment_Resume_Id_Min_Fields>;
 };
 
-
 /** aggregate fields of "type_of_employment_resume_id" */
 export type Type_Of_Employment_Resume_Id_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
@@ -7978,7 +7656,7 @@ export type Type_Of_Employment_Resume_Id_Bool_Exp = {
 /** unique or primary key constraints on table "type_of_employment_resume_id" */
 export enum Type_Of_Employment_Resume_Id_Constraint {
   /** unique or primary key constraint on columns "type_of_employment_id", "resume_id" */
-  TypeOfEmploymentResumeIdPkey = 'type_of_employment_resume_id_pkey'
+  TypeOfEmploymentResumeIdPkey = 'type_of_employment_resume_id_pkey',
 }
 
 /** input type for inserting data into table "type_of_employment_resume_id" */
@@ -8050,7 +7728,7 @@ export enum Type_Of_Employment_Resume_Id_Select_Column {
   /** column name */
   ResumeId = 'resume_id',
   /** column name */
-  TypeOfEmploymentId = 'type_of_employment_id'
+  TypeOfEmploymentId = 'type_of_employment_id',
 }
 
 /** input type for updating data in table "type_of_employment_resume_id" */
@@ -8078,7 +7756,7 @@ export enum Type_Of_Employment_Resume_Id_Update_Column {
   /** column name */
   ResumeId = 'resume_id',
   /** column name */
-  TypeOfEmploymentId = 'type_of_employment_id'
+  TypeOfEmploymentId = 'type_of_employment_id',
 }
 
 export type Type_Of_Employment_Resume_Id_Updates = {
@@ -8093,7 +7771,7 @@ export enum Type_Of_Employment_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  TypeOfEmploymentId = 'type_of_employment_id'
+  TypeOfEmploymentId = 'type_of_employment_id',
 }
 
 /** input type for updating data in table "type_of_employment" */
@@ -8121,7 +7799,7 @@ export enum Type_Of_Employment_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  TypeOfEmploymentId = 'type_of_employment_id'
+  TypeOfEmploymentId = 'type_of_employment_id',
 }
 
 export type Type_Of_Employment_Updates = {
@@ -8166,7 +7844,6 @@ export type Vacancy = {
   vacancy_id: Scalars['uuid'];
 };
 
-
 /** columns and relationships of "vacancy" */
 export type VacancyJobseeker_VacanciesArgs = {
   distinct_on?: InputMaybe<Array<Jobseeker_Vacancy_Select_Column>>;
@@ -8175,7 +7852,6 @@ export type VacancyJobseeker_VacanciesArgs = {
   order_by?: InputMaybe<Array<Jobseeker_Vacancy_Order_By>>;
   where?: InputMaybe<Jobseeker_Vacancy_Bool_Exp>;
 };
-
 
 /** columns and relationships of "vacancy" */
 export type VacancyJobseeker_Vacancies_AggregateArgs = {
@@ -8208,7 +7884,6 @@ export type Vacancy_Aggregate_Fields = {
   var_samp?: Maybe<Vacancy_Var_Samp_Fields>;
   variance?: Maybe<Vacancy_Variance_Fields>;
 };
-
 
 /** aggregate fields of "vacancy" */
 export type Vacancy_Aggregate_FieldsCountArgs = {
@@ -8246,7 +7921,7 @@ export type Vacancy_Bool_Exp = {
 /** unique or primary key constraints on table "vacancy" */
 export enum Vacancy_Constraint {
   /** unique or primary key constraint on columns "vacancy_id" */
-  VacancyPkey = 'vacancy_pkey'
+  VacancyPkey = 'vacancy_pkey',
 }
 
 /** input type for incrementing numeric columns in table "vacancy" */
@@ -8369,7 +8044,7 @@ export enum Vacancy_Select_Column {
   /** column name */
   Salary = 'salary',
   /** column name */
-  VacancyId = 'vacancy_id'
+  VacancyId = 'vacancy_id',
 }
 
 /** input type for updating data in table "vacancy" */
@@ -8457,7 +8132,7 @@ export enum Vacancy_Update_Column {
   /** column name */
   Salary = 'salary',
   /** column name */
-  VacancyId = 'vacancy_id'
+  VacancyId = 'vacancy_id',
 }
 
 export type Vacancy_Updates = {
@@ -8530,7 +8205,6 @@ export type Work_Experience_Aggregate_Fields = {
   min?: Maybe<Work_Experience_Min_Fields>;
 };
 
-
 /** aggregate fields of "work_experience" */
 export type Work_Experience_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Work_Experience_Select_Column>>;
@@ -8571,7 +8245,7 @@ export type Work_Experience_Bool_Exp = {
 /** unique or primary key constraints on table "work_experience" */
 export enum Work_Experience_Constraint {
   /** unique or primary key constraint on columns "work_experience_id" */
-  WorkExperiencePkey = 'work_experience_pkey'
+  WorkExperiencePkey = 'work_experience_pkey',
 }
 
 /** input type for inserting data into table "work_experience" */
@@ -8690,7 +8364,7 @@ export enum Work_Experience_Select_Column {
   /** column name */
   ShortDescription = 'short_description',
   /** column name */
-  WorkExperienceId = 'work_experience_id'
+  WorkExperienceId = 'work_experience_id',
 }
 
 /** input type for updating data in table "work_experience" */
@@ -8742,7 +8416,7 @@ export enum Work_Experience_Update_Column {
   /** column name */
   ShortDescription = 'short_description',
   /** column name */
-  WorkExperienceId = 'work_experience_id'
+  WorkExperienceId = 'work_experience_id',
 }
 
 export type Work_Experience_Updates = {
@@ -8763,7 +8437,6 @@ export type Work_Schedule = {
   work_schedule_resume_ids_aggregate: Work_Schedule_Resume_Id_Aggregate;
 };
 
-
 /** columns and relationships of "work_schedule" */
 export type Work_ScheduleWork_Schedule_Resume_IdsArgs = {
   distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
@@ -8772,7 +8445,6 @@ export type Work_ScheduleWork_Schedule_Resume_IdsArgs = {
   order_by?: InputMaybe<Array<Work_Schedule_Resume_Id_Order_By>>;
   where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
-
 
 /** columns and relationships of "work_schedule" */
 export type Work_ScheduleWork_Schedule_Resume_Ids_AggregateArgs = {
@@ -8798,7 +8470,6 @@ export type Work_Schedule_Aggregate_Fields = {
   min?: Maybe<Work_Schedule_Min_Fields>;
 };
 
-
 /** aggregate fields of "work_schedule" */
 export type Work_Schedule_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Work_Schedule_Select_Column>>;
@@ -8821,7 +8492,7 @@ export enum Work_Schedule_Constraint {
   /** unique or primary key constraint on columns "name" */
   WorkScheduleNameKey = 'work_schedule_name_key',
   /** unique or primary key constraint on columns "work_schedule_id" */
-  WorkSchedulePkey = 'work_schedule_pkey'
+  WorkSchedulePkey = 'work_schedule_pkey',
 }
 
 /** input type for inserting data into table "work_schedule" */
@@ -8917,7 +8588,6 @@ export type Work_Schedule_Resume_Id_Aggregate_Fields = {
   min?: Maybe<Work_Schedule_Resume_Id_Min_Fields>;
 };
 
-
 /** aggregate fields of "work_schedule_resume_id" */
 export type Work_Schedule_Resume_Id_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
@@ -8952,7 +8622,7 @@ export type Work_Schedule_Resume_Id_Bool_Exp = {
 /** unique or primary key constraints on table "work_schedule_resume_id" */
 export enum Work_Schedule_Resume_Id_Constraint {
   /** unique or primary key constraint on columns "resume_id", "work_schedule_id" */
-  WorkScheduleResumePkey = 'work_schedule_resume_pkey'
+  WorkScheduleResumePkey = 'work_schedule_resume_pkey',
 }
 
 /** input type for inserting data into table "work_schedule_resume_id" */
@@ -9024,7 +8694,7 @@ export enum Work_Schedule_Resume_Id_Select_Column {
   /** column name */
   ResumeId = 'resume_id',
   /** column name */
-  WorkScheduleId = 'work_schedule_id'
+  WorkScheduleId = 'work_schedule_id',
 }
 
 /** input type for updating data in table "work_schedule_resume_id" */
@@ -9052,7 +8722,7 @@ export enum Work_Schedule_Resume_Id_Update_Column {
   /** column name */
   ResumeId = 'resume_id',
   /** column name */
-  WorkScheduleId = 'work_schedule_id'
+  WorkScheduleId = 'work_schedule_id',
 }
 
 export type Work_Schedule_Resume_Id_Updates = {
@@ -9067,7 +8737,7 @@ export enum Work_Schedule_Select_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  WorkScheduleId = 'work_schedule_id'
+  WorkScheduleId = 'work_schedule_id',
 }
 
 /** input type for updating data in table "work_schedule" */
@@ -9095,7 +8765,7 @@ export enum Work_Schedule_Update_Column {
   /** column name */
   Name = 'name',
   /** column name */
-  WorkScheduleId = 'work_schedule_id'
+  WorkScheduleId = 'work_schedule_id',
 }
 
 export type Work_Schedule_Updates = {
@@ -9109,30 +8779,67 @@ export type GetJobseekerAccountQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
-
-export type GetJobseekerAccountQuery = { __typename?: 'query_root', account: Array<{ __typename?: 'account', RefreshToken?: string | null, account_id: string, avatar?: string | null, login: string, password: string, role: string }> };
+export type GetJobseekerAccountQuery = {
+  __typename?: 'query_root';
+  account: Array<{
+    __typename?: 'account';
+    RefreshToken?: string | null;
+    account_id: string;
+    avatar?: string | null;
+    login: string;
+    password: string;
+    role: string;
+  }>;
+};
 
 export type GetJobseekerProfileQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
-
-export type GetJobseekerProfileQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', email?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, gender?: string | null, dateBirth?: any | null }> };
+export type GetJobseekerProfileQuery = {
+  __typename?: 'query_root';
+  jobseeker: Array<{
+    __typename?: 'jobseeker';
+    email?: string | null;
+    lastName: string;
+    middleName: string;
+    name: string;
+    phone?: string | null;
+    gender?: string | null;
+    dateBirth?: any | null;
+  }>;
+};
 
 export type GetResumeQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
-
-export type GetResumeQuery = { __typename?: 'query_root', resume: Array<{ __typename?: 'resume', date_create: any, job_position: string, name_resume: string, resume_id: string, status?: boolean | null }> };
+export type GetResumeQuery = {
+  __typename?: 'query_root';
+  resume: Array<{
+    __typename?: 'resume';
+    date_create: any;
+    job_position: string;
+    name_resume: string;
+    resume_id: string;
+    status?: boolean | null;
+  }>;
+};
 
 export type MutationAuthUserMutationVariables = Exact<{
   login?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
 }>;
 
-
-export type MutationAuthUserMutation = { __typename?: 'mutation_root', login_handler?: { __typename?: 'response', account_id: string, role: string, access_token: string } | null };
+export type MutationAuthUserMutation = {
+  __typename?: 'mutation_root';
+  login_handler?: {
+    __typename?: 'response';
+    account_id: string;
+    role: string;
+    access_token: string;
+  } | null;
+};
 
 export type UpdateJobseekerProfileMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -9141,8 +8848,18 @@ export type UpdateJobseekerProfileMutationVariables = Exact<{
   phone?: InputMaybe<Scalars['String']>;
 }>;
 
-
-export type UpdateJobseekerProfileMutation = { __typename?: 'mutation_root', update_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', dateBirth?: any | null, email?: string | null, phone?: string | null }> } | null };
+export type UpdateJobseekerProfileMutation = {
+  __typename?: 'mutation_root';
+  update_jobseeker?: {
+    __typename?: 'jobseeker_mutation_response';
+    returning: Array<{
+      __typename?: 'jobseeker';
+      dateBirth?: any | null;
+      email?: string | null;
+      phone?: string | null;
+    }>;
+  } | null;
+};
 
 export type InsertNameResumeMutationVariables = Exact<{
   job_position?: InputMaybe<Scalars['String']>;
@@ -9150,29 +8867,42 @@ export type InsertNameResumeMutationVariables = Exact<{
   name_resume?: InputMaybe<Scalars['String']>;
 }>;
 
-
-export type InsertNameResumeMutation = { __typename?: 'mutation_root', insert_resume_one?: { __typename?: 'resume', job_position: string, jobseeker_id: string, name_resume: string, resume_id: string, date_create: any } | null };
+export type InsertNameResumeMutation = {
+  __typename?: 'mutation_root';
+  insert_resume_one?: {
+    __typename?: 'resume';
+    job_position: string;
+    jobseeker_id: string;
+    name_resume: string;
+    resume_id: string;
+    date_create: any;
+  } | null;
+};
 
 export type DeleteResumeMutationVariables = Exact<{
   resume_id?: InputMaybe<Scalars['uuid']>;
 }>;
 
-
-export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resume?: { __typename?: 'resume_mutation_response', returning: Array<{ __typename?: 'resume', name_resume: string }> } | null };
-
+export type DeleteResumeMutation = {
+  __typename?: 'mutation_root';
+  delete_resume?: {
+    __typename?: 'resume_mutation_response';
+    returning: Array<{ __typename?: 'resume'; name_resume: string }>;
+  } | null;
+};
 
 export const GetJobseekerAccountDocument = gql`
-    query GetJobseekerAccount($_eq: uuid = "") {
-  account(where: {account_id: {_eq: $_eq}}) {
-    RefreshToken
-    account_id
-    avatar
-    login
-    password
-    role
+  query GetJobseekerAccount($_eq: uuid = "") {
+    account(where: { account_id: { _eq: $_eq } }) {
+      RefreshToken
+      account_id
+      avatar
+      login
+      password
+      role
+    }
   }
-}
-    `;
+`;
 
 /**
  * __useGetJobseekerAccountQuery__
@@ -9190,30 +8920,53 @@ export const GetJobseekerAccountDocument = gql`
  *   },
  * });
  */
-export function useGetJobseekerAccountQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekerAccountQuery, GetJobseekerAccountQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetJobseekerAccountQuery, GetJobseekerAccountQueryVariables>(GetJobseekerAccountDocument, options);
-      }
-export function useGetJobseekerAccountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekerAccountQuery, GetJobseekerAccountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetJobseekerAccountQuery, GetJobseekerAccountQueryVariables>(GetJobseekerAccountDocument, options);
-        }
-export type GetJobseekerAccountQueryHookResult = ReturnType<typeof useGetJobseekerAccountQuery>;
-export type GetJobseekerAccountLazyQueryHookResult = ReturnType<typeof useGetJobseekerAccountLazyQuery>;
-export type GetJobseekerAccountQueryResult = Apollo.QueryResult<GetJobseekerAccountQuery, GetJobseekerAccountQueryVariables>;
-export const GetJobseekerProfileDocument = gql`
-    query GetJobseekerProfile($_eq: uuid = "") {
-  jobseeker(where: {account_id: {_eq: $_eq}}) {
-    email
-    lastName
-    middleName
-    name
-    phone
-    gender
-    dateBirth
-  }
+export function useGetJobseekerAccountQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetJobseekerAccountQuery,
+    GetJobseekerAccountQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetJobseekerAccountQuery,
+    GetJobseekerAccountQueryVariables
+  >(GetJobseekerAccountDocument, options);
 }
-    `;
+export function useGetJobseekerAccountLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetJobseekerAccountQuery,
+    GetJobseekerAccountQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetJobseekerAccountQuery,
+    GetJobseekerAccountQueryVariables
+  >(GetJobseekerAccountDocument, options);
+}
+export type GetJobseekerAccountQueryHookResult = ReturnType<
+  typeof useGetJobseekerAccountQuery
+>;
+export type GetJobseekerAccountLazyQueryHookResult = ReturnType<
+  typeof useGetJobseekerAccountLazyQuery
+>;
+export type GetJobseekerAccountQueryResult = Apollo.QueryResult<
+  GetJobseekerAccountQuery,
+  GetJobseekerAccountQueryVariables
+>;
+export const GetJobseekerProfileDocument = gql`
+  query GetJobseekerProfile($_eq: uuid = "") {
+    jobseeker(where: { account_id: { _eq: $_eq } }) {
+      email
+      lastName
+      middleName
+      name
+      phone
+      gender
+      dateBirth
+    }
+  }
+`;
 
 /**
  * __useGetJobseekerProfileQuery__
@@ -9231,28 +8984,51 @@ export const GetJobseekerProfileDocument = gql`
  *   },
  * });
  */
-export function useGetJobseekerProfileQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>(GetJobseekerProfileDocument, options);
-      }
-export function useGetJobseekerProfileLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>(GetJobseekerProfileDocument, options);
-        }
-export type GetJobseekerProfileQueryHookResult = ReturnType<typeof useGetJobseekerProfileQuery>;
-export type GetJobseekerProfileLazyQueryHookResult = ReturnType<typeof useGetJobseekerProfileLazyQuery>;
-export type GetJobseekerProfileQueryResult = Apollo.QueryResult<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>;
-export const GetResumeDocument = gql`
-    query GetResume($_eq: uuid = "") {
-  resume(where: {jobseeker_id: {_eq: $_eq}}) {
-    date_create
-    job_position
-    name_resume
-    resume_id
-    status
-  }
+export function useGetJobseekerProfileQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    GetJobseekerProfileQuery,
+    GetJobseekerProfileQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<
+    GetJobseekerProfileQuery,
+    GetJobseekerProfileQueryVariables
+  >(GetJobseekerProfileDocument, options);
 }
-    `;
+export function useGetJobseekerProfileLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetJobseekerProfileQuery,
+    GetJobseekerProfileQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<
+    GetJobseekerProfileQuery,
+    GetJobseekerProfileQueryVariables
+  >(GetJobseekerProfileDocument, options);
+}
+export type GetJobseekerProfileQueryHookResult = ReturnType<
+  typeof useGetJobseekerProfileQuery
+>;
+export type GetJobseekerProfileLazyQueryHookResult = ReturnType<
+  typeof useGetJobseekerProfileLazyQuery
+>;
+export type GetJobseekerProfileQueryResult = Apollo.QueryResult<
+  GetJobseekerProfileQuery,
+  GetJobseekerProfileQueryVariables
+>;
+export const GetResumeDocument = gql`
+  query GetResume($_eq: uuid = "") {
+    resume(where: { jobseeker_id: { _eq: $_eq } }) {
+      date_create
+      job_position
+      name_resume
+      resume_id
+      status
+    }
+  }
+`;
 
 /**
  * __useGetResumeQuery__
@@ -9270,27 +9046,48 @@ export const GetResumeDocument = gql`
  *   },
  * });
  */
-export function useGetResumeQuery(baseOptions?: Apollo.QueryHookOptions<GetResumeQuery, GetResumeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetResumeQuery, GetResumeQueryVariables>(GetResumeDocument, options);
-      }
-export function useGetResumeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetResumeQuery, GetResumeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetResumeQuery, GetResumeQueryVariables>(GetResumeDocument, options);
-        }
-export type GetResumeQueryHookResult = ReturnType<typeof useGetResumeQuery>;
-export type GetResumeLazyQueryHookResult = ReturnType<typeof useGetResumeLazyQuery>;
-export type GetResumeQueryResult = Apollo.QueryResult<GetResumeQuery, GetResumeQueryVariables>;
-export const MutationAuthUserDocument = gql`
-    mutation MutationAuthUser($login: String = "", $password: String = "") {
-  login_handler(login: $login, password: $password) {
-    account_id
-    role
-    access_token
-  }
+export function useGetResumeQuery(
+  baseOptions?: Apollo.QueryHookOptions<GetResumeQuery, GetResumeQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetResumeQuery, GetResumeQueryVariables>(
+    GetResumeDocument,
+    options
+  );
 }
-    `;
-export type MutationAuthUserMutationFn = Apollo.MutationFunction<MutationAuthUserMutation, MutationAuthUserMutationVariables>;
+export function useGetResumeLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetResumeQuery,
+    GetResumeQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetResumeQuery, GetResumeQueryVariables>(
+    GetResumeDocument,
+    options
+  );
+}
+export type GetResumeQueryHookResult = ReturnType<typeof useGetResumeQuery>;
+export type GetResumeLazyQueryHookResult = ReturnType<
+  typeof useGetResumeLazyQuery
+>;
+export type GetResumeQueryResult = Apollo.QueryResult<
+  GetResumeQuery,
+  GetResumeQueryVariables
+>;
+export const MutationAuthUserDocument = gql`
+  mutation MutationAuthUser($login: String = "", $password: String = "") {
+    login_handler(login: $login, password: $password) {
+      account_id
+      role
+      access_token
+    }
+  }
+`;
+export type MutationAuthUserMutationFn = Apollo.MutationFunction<
+  MutationAuthUserMutation,
+  MutationAuthUserMutationVariables
+>;
 
 /**
  * __useMutationAuthUserMutation__
@@ -9310,28 +9107,50 @@ export type MutationAuthUserMutationFn = Apollo.MutationFunction<MutationAuthUse
  *   },
  * });
  */
-export function useMutationAuthUserMutation(baseOptions?: Apollo.MutationHookOptions<MutationAuthUserMutation, MutationAuthUserMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MutationAuthUserMutation, MutationAuthUserMutationVariables>(MutationAuthUserDocument, options);
-      }
-export type MutationAuthUserMutationHookResult = ReturnType<typeof useMutationAuthUserMutation>;
-export type MutationAuthUserMutationResult = Apollo.MutationResult<MutationAuthUserMutation>;
-export type MutationAuthUserMutationOptions = Apollo.BaseMutationOptions<MutationAuthUserMutation, MutationAuthUserMutationVariables>;
+export function useMutationAuthUserMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    MutationAuthUserMutation,
+    MutationAuthUserMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    MutationAuthUserMutation,
+    MutationAuthUserMutationVariables
+  >(MutationAuthUserDocument, options);
+}
+export type MutationAuthUserMutationHookResult = ReturnType<
+  typeof useMutationAuthUserMutation
+>;
+export type MutationAuthUserMutationResult =
+  Apollo.MutationResult<MutationAuthUserMutation>;
+export type MutationAuthUserMutationOptions = Apollo.BaseMutationOptions<
+  MutationAuthUserMutation,
+  MutationAuthUserMutationVariables
+>;
 export const UpdateJobseekerProfileDocument = gql`
-    mutation UpdateJobseekerProfile($_eq: uuid = "", $dateBirth: date = "", $email: String = "", $phone: String = "") {
-  update_jobseeker(
-    where: {account_id: {_eq: $_eq}}
-    _set: {dateBirth: $dateBirth, email: $email, phone: $phone}
+  mutation UpdateJobseekerProfile(
+    $_eq: uuid = ""
+    $dateBirth: date = ""
+    $email: String = ""
+    $phone: String = ""
   ) {
-    returning {
-      dateBirth
-      email
-      phone
+    update_jobseeker(
+      where: { account_id: { _eq: $_eq } }
+      _set: { dateBirth: $dateBirth, email: $email, phone: $phone }
+    ) {
+      returning {
+        dateBirth
+        email
+        phone
+      }
     }
   }
-}
-    `;
-export type UpdateJobseekerProfileMutationFn = Apollo.MutationFunction<UpdateJobseekerProfileMutation, UpdateJobseekerProfileMutationVariables>;
+`;
+export type UpdateJobseekerProfileMutationFn = Apollo.MutationFunction<
+  UpdateJobseekerProfileMutation,
+  UpdateJobseekerProfileMutationVariables
+>;
 
 /**
  * __useUpdateJobseekerProfileMutation__
@@ -9353,27 +9172,52 @@ export type UpdateJobseekerProfileMutationFn = Apollo.MutationFunction<UpdateJob
  *   },
  * });
  */
-export function useUpdateJobseekerProfileMutation(baseOptions?: Apollo.MutationHookOptions<UpdateJobseekerProfileMutation, UpdateJobseekerProfileMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateJobseekerProfileMutation, UpdateJobseekerProfileMutationVariables>(UpdateJobseekerProfileDocument, options);
-      }
-export type UpdateJobseekerProfileMutationHookResult = ReturnType<typeof useUpdateJobseekerProfileMutation>;
-export type UpdateJobseekerProfileMutationResult = Apollo.MutationResult<UpdateJobseekerProfileMutation>;
-export type UpdateJobseekerProfileMutationOptions = Apollo.BaseMutationOptions<UpdateJobseekerProfileMutation, UpdateJobseekerProfileMutationVariables>;
-export const InsertNameResumeDocument = gql`
-    mutation InsertNameResume($job_position: String = "", $jobseeker_id: uuid = "", $name_resume: String = "") {
-  insert_resume_one(
-    object: {jobseeker_id: $jobseeker_id, name_resume: $name_resume, job_position: $job_position}
-  ) {
-    job_position
-    jobseeker_id
-    name_resume
-    resume_id
-    date_create
-  }
+export function useUpdateJobseekerProfileMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    UpdateJobseekerProfileMutation,
+    UpdateJobseekerProfileMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    UpdateJobseekerProfileMutation,
+    UpdateJobseekerProfileMutationVariables
+  >(UpdateJobseekerProfileDocument, options);
 }
-    `;
-export type InsertNameResumeMutationFn = Apollo.MutationFunction<InsertNameResumeMutation, InsertNameResumeMutationVariables>;
+export type UpdateJobseekerProfileMutationHookResult = ReturnType<
+  typeof useUpdateJobseekerProfileMutation
+>;
+export type UpdateJobseekerProfileMutationResult =
+  Apollo.MutationResult<UpdateJobseekerProfileMutation>;
+export type UpdateJobseekerProfileMutationOptions = Apollo.BaseMutationOptions<
+  UpdateJobseekerProfileMutation,
+  UpdateJobseekerProfileMutationVariables
+>;
+export const InsertNameResumeDocument = gql`
+  mutation InsertNameResume(
+    $job_position: String = ""
+    $jobseeker_id: uuid = ""
+    $name_resume: String = ""
+  ) {
+    insert_resume_one(
+      object: {
+        jobseeker_id: $jobseeker_id
+        name_resume: $name_resume
+        job_position: $job_position
+      }
+    ) {
+      job_position
+      jobseeker_id
+      name_resume
+      resume_id
+      date_create
+    }
+  }
+`;
+export type InsertNameResumeMutationFn = Apollo.MutationFunction<
+  InsertNameResumeMutation,
+  InsertNameResumeMutationVariables
+>;
 
 /**
  * __useInsertNameResumeMutation__
@@ -9394,23 +9238,40 @@ export type InsertNameResumeMutationFn = Apollo.MutationFunction<InsertNameResum
  *   },
  * });
  */
-export function useInsertNameResumeMutation(baseOptions?: Apollo.MutationHookOptions<InsertNameResumeMutation, InsertNameResumeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertNameResumeMutation, InsertNameResumeMutationVariables>(InsertNameResumeDocument, options);
-      }
-export type InsertNameResumeMutationHookResult = ReturnType<typeof useInsertNameResumeMutation>;
-export type InsertNameResumeMutationResult = Apollo.MutationResult<InsertNameResumeMutation>;
-export type InsertNameResumeMutationOptions = Apollo.BaseMutationOptions<InsertNameResumeMutation, InsertNameResumeMutationVariables>;
+export function useInsertNameResumeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    InsertNameResumeMutation,
+    InsertNameResumeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    InsertNameResumeMutation,
+    InsertNameResumeMutationVariables
+  >(InsertNameResumeDocument, options);
+}
+export type InsertNameResumeMutationHookResult = ReturnType<
+  typeof useInsertNameResumeMutation
+>;
+export type InsertNameResumeMutationResult =
+  Apollo.MutationResult<InsertNameResumeMutation>;
+export type InsertNameResumeMutationOptions = Apollo.BaseMutationOptions<
+  InsertNameResumeMutation,
+  InsertNameResumeMutationVariables
+>;
 export const DeleteResumeDocument = gql`
-    mutation DeleteResume($resume_id: uuid = "") {
-  delete_resume(where: {resume_id: {_eq: $resume_id}}) {
-    returning {
-      name_resume
+  mutation DeleteResume($resume_id: uuid = "") {
+    delete_resume(where: { resume_id: { _eq: $resume_id } }) {
+      returning {
+        name_resume
+      }
     }
   }
-}
-    `;
-export type DeleteResumeMutationFn = Apollo.MutationFunction<DeleteResumeMutation, DeleteResumeMutationVariables>;
+`;
+export type DeleteResumeMutationFn = Apollo.MutationFunction<
+  DeleteResumeMutation,
+  DeleteResumeMutationVariables
+>;
 
 /**
  * __useDeleteResumeMutation__
@@ -9429,10 +9290,24 @@ export type DeleteResumeMutationFn = Apollo.MutationFunction<DeleteResumeMutatio
  *   },
  * });
  */
-export function useDeleteResumeMutation(baseOptions?: Apollo.MutationHookOptions<DeleteResumeMutation, DeleteResumeMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<DeleteResumeMutation, DeleteResumeMutationVariables>(DeleteResumeDocument, options);
-      }
-export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMutation>;
-export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
-export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
+export function useDeleteResumeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeleteResumeMutation,
+    DeleteResumeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    DeleteResumeMutation,
+    DeleteResumeMutationVariables
+  >(DeleteResumeDocument, options);
+}
+export type DeleteResumeMutationHookResult = ReturnType<
+  typeof useDeleteResumeMutation
+>;
+export type DeleteResumeMutationResult =
+  Apollo.MutationResult<DeleteResumeMutation>;
+export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<
+  DeleteResumeMutation,
+  DeleteResumeMutationVariables
+>;

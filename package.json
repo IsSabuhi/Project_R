@@ -38,7 +38,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "sass": "^1.60.0",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "zustand": "^4.3.7"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.4",

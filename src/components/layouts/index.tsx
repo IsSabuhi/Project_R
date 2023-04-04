@@ -13,12 +13,7 @@ const Layout: React.FC<Props & BoxProps> = ({
   ...props
 }) => {
   return (
-    <Box
-      display='flex'
-      flexDir='column'
-      justifyContent='space-between'
-      minH='100vh'
-    >
+    <Box display='flex' flexDir='column' justifyContent='space-between'>
       {!hasHeaderHidden && <Header />}
       <Box
         px={{ md: '4rem', lg: '7rem' }}
@@ -29,7 +24,6 @@ const Layout: React.FC<Props & BoxProps> = ({
       >
         {children}
       </Box>
-      <Footer />
     </Box>
   );
 };
