@@ -20,7 +20,7 @@ import '@fontsource/pt-serif';
 import { SnackbarProvider } from 'notistack';
 import { ApolloProvider } from '@apollo/client';
 import { AuthProvider } from '../hooks/use-auth-context';
-import client from '@/apollo-client';
+import client from '@/../apollo-client';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

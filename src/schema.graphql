@@ -22,6 +22,46 @@ query GetJobseekerProfile($_eq: uuid = "") {
   }
 }
 
+query GetResumes($_eq: uuid = "") {
+  resume(where: { account_id: { _eq: $_eq } }) {
+    account_id
+    city_of_residence_id
+    date_create
+    desired_salary
+    heading_resume
+    job_position
+    jobseeker_id
+    name_resume
+    relocate
+    resume_id
+    short_description
+    status
+    work_experiences {
+      date_of_employment
+      date_of_dismissal
+      job_position
+      short_description
+      work_experience_id
+    }
+    jobseeker_educations {
+      average_score
+      education_form
+      end_date
+      faculity
+      group
+      jobseeker_education_id
+      short_description
+      speciality
+      start_date
+      educational_institutions {
+        name_institution
+        jobseeker_education_id
+        educational_institution_id
+      }
+    }
+  }
+}
+
 # Авторизация
 mutation MutationAuthUser($login: String = "", $password: String = "") {
   login_handler(login: $login, password: $password) {

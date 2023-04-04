@@ -9084,6 +9084,13 @@ export type GetJobseekerProfileQueryVariables = Exact<{
 
 export type GetJobseekerProfileQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', email?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, gender?: string | null, dateBirth?: any | null }> };
 
+export type GetResumesQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetResumesQuery = { __typename?: 'query_root', resume: Array<{ __typename?: 'resume', account_id?: string | null, city_of_residence_id?: string | null, date_create: any, desired_salary?: number | null, heading_resume?: string | null, job_position: string, jobseeker_id: string, name_resume: string, relocate?: boolean | null, resume_id: string, short_description?: string | null, status?: boolean | null, work_experiences: Array<{ __typename?: 'work_experience', date_of_employment: any, date_of_dismissal: any, job_position: string, short_description: string, work_experience_id: string }>, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: number | null, education_form: string, end_date?: any | null, faculity: string, group: string, jobseeker_education_id: string, short_description?: string | null, speciality: string, start_date?: any | null, educational_institutions: Array<{ __typename?: 'educational_institution', name_institution: string, jobseeker_education_id?: string | null, educational_institution_id: string }> }> }> };
+
 export type MutationAuthUserMutationVariables = Exact<{
   login?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
@@ -9184,6 +9191,75 @@ export function useGetJobseekerProfileLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetJobseekerProfileQueryHookResult = ReturnType<typeof useGetJobseekerProfileQuery>;
 export type GetJobseekerProfileLazyQueryHookResult = ReturnType<typeof useGetJobseekerProfileLazyQuery>;
 export type GetJobseekerProfileQueryResult = Apollo.QueryResult<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>;
+export const GetResumesDocument = gql`
+    query GetResumes($_eq: uuid = "") {
+  resume(where: {account_id: {_eq: $_eq}}) {
+    account_id
+    city_of_residence_id
+    date_create
+    desired_salary
+    heading_resume
+    job_position
+    jobseeker_id
+    name_resume
+    relocate
+    resume_id
+    short_description
+    status
+    work_experiences {
+      date_of_employment
+      date_of_dismissal
+      job_position
+      short_description
+      work_experience_id
+    }
+    jobseeker_educations {
+      average_score
+      education_form
+      end_date
+      faculity
+      group
+      jobseeker_education_id
+      short_description
+      speciality
+      start_date
+      educational_institutions {
+        name_institution
+        jobseeker_education_id
+        educational_institution_id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetResumesQuery__
+ *
+ * To run a query within a React component, call `useGetResumesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetResumesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetResumesQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetResumesQuery(baseOptions?: Apollo.QueryHookOptions<GetResumesQuery, GetResumesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetResumesQuery, GetResumesQueryVariables>(GetResumesDocument, options);
+      }
+export function useGetResumesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetResumesQuery, GetResumesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetResumesQuery, GetResumesQueryVariables>(GetResumesDocument, options);
+        }
+export type GetResumesQueryHookResult = ReturnType<typeof useGetResumesQuery>;
+export type GetResumesLazyQueryHookResult = ReturnType<typeof useGetResumesLazyQuery>;
+export type GetResumesQueryResult = Apollo.QueryResult<GetResumesQuery, GetResumesQueryVariables>;
 export const MutationAuthUserDocument = gql`
     mutation MutationAuthUser($login: String = "", $password: String = "") {
   login_handler(login: $login, password: $password) {
