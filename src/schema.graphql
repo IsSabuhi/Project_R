@@ -1,3 +1,4 @@
+# Запрос на получения данных профиля Jobseeker
 query GetJobseekerAccount($_eq: uuid = "") {
   account(where: { account_id: { _eq: $_eq } }) {
     RefreshToken
@@ -9,7 +10,6 @@ query GetJobseekerAccount($_eq: uuid = "") {
   }
 }
 
-# Запрос на получения данных профиля Jobseeker
 query GetJobseekerProfile($_eq: uuid = "") {
   jobseeker(where: { account_id: { _eq: $_eq } }) {
     email
@@ -22,43 +22,14 @@ query GetJobseekerProfile($_eq: uuid = "") {
   }
 }
 
-query GetResumes($_eq: uuid = "") {
-  resume(where: { account_id: { _eq: $_eq } }) {
-    account_id
-    city_of_residence_id
+# Запрос на получения данных о резюме
+query GetResume($_eq: uuid = "") {
+  resume(where: { jobseeker_id: { _eq: $_eq } }) {
     date_create
-    desired_salary
-    heading_resume
     job_position
-    jobseeker_id
     name_resume
-    relocate
     resume_id
-    short_description
     status
-    work_experiences {
-      date_of_employment
-      date_of_dismissal
-      job_position
-      short_description
-      work_experience_id
-    }
-    jobseeker_educations {
-      average_score
-      education_form
-      end_date
-      faculity
-      group
-      jobseeker_education_id
-      short_description
-      speciality
-      start_date
-      educational_institutions {
-        name_institution
-        jobseeker_education_id
-        educational_institution_id
-      }
-    }
   }
 }
 
@@ -85,6 +56,34 @@ mutation UpdateJobseekerProfile(
       dateBirth
       email
       phone
+    }
+  }
+}
+
+mutation InsertNameResume(
+  $job_position: String = ""
+  $jobseeker_id: uuid = ""
+  $name_resume: String = ""
+) {
+  insert_resume_one(
+    object: {
+      jobseeker_id: $jobseeker_id
+      name_resume: $name_resume
+      job_position: $job_position
+    }
+  ) {
+    job_position
+    jobseeker_id
+    name_resume
+    resume_id
+    date_create
+  }
+}
+
+mutation DeleteResume($resume_id: uuid = "") {
+  delete_resume(where: { resume_id: { _eq: $resume_id } }) {
+    returning {
+      name_resume
     }
   }
 }

@@ -15,6 +15,7 @@ interface AuthState {
   accessToken?: string;
   gettingDate?: Date;
   userId?: string;
+  jobseekerId?: string;
 }
 
 interface IAuthContext extends AuthState {
@@ -77,7 +78,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
   const startAuthSession = useCallback(
     async (token: string, newTimeToRequest?: number) => {
-      const { userID } = parseJwt(token);
+      const { userID, jobseekerId } = parseJwt(token);
 
       if (tokenUpdaterTimer.current) clearTimeout(tokenUpdaterTimer.current);
 
@@ -92,6 +93,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: token,
         gettingDate: new Date(),
         userId: userID,
+        jobseekerId: jobseekerId,
       });
     },
     [authState]

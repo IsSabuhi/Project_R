@@ -2,7 +2,7 @@ import { Box, Button } from '@chakra-ui/react';
 import React from 'react';
 import AuthFormHeader from '@/components/FormHeader';
 import InfoGraphic from '@/components/InfoGraphic';
-import InputField from '@/components/InputField/InputField';
+import InputField from '@/components/InputFieldCustom/InputField';
 import WideLayout from '@/components/layouts/WideLayout';
 import styles from '@/styles/Login.module.scss';
 import { useSnackbar } from 'notistack';
@@ -21,9 +21,10 @@ const initialAuth: IAuth = { login: '', password: '' };
 
 const LoginForm = () => {
   const { enqueueSnackbar } = useSnackbar();
+
   const router = useRouter();
 
-  const { stopAuthSession, startAuthSession } = useAuthContext();
+  const { startAuthSession } = useAuthContext();
 
   const [mutationAuthUserMutation, { loading }] = useMutationAuthUserMutation({
     onCompleted(data) {

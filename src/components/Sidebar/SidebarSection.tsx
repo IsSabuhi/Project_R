@@ -42,7 +42,6 @@ const SidebarSection: React.FC<SidebarOptionsProps> = ({
           <Link href={item.link}>
             <Button
               {...itemProps}
-              isFullWidth
               isDisabled={!item.link.length}
               variant='ghost'
               justifyContent='left'

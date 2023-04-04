@@ -1,4 +1,5 @@
-import { FiSettings } from 'react-icons/fi'
+import { FiSettings, FiUser } from 'react-icons/fi'
+
 
 export const sidebarUrls = [
     {
@@ -6,4 +7,17 @@ export const sidebarUrls = [
       icon: FiSettings,
       link: '/settings',
     },
+]
+
+export const general = [
+  {
+    title: "Общие",
+    icon: FiSettings,
+    link: "/settings"
+  },
+  {
+    title: "Аккаунт",
+    icon: FiUser,
+    link: "/settings/account"
+  }
 ]

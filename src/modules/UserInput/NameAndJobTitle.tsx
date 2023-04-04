@@ -1,4 +1,4 @@
-import InputField from '@/components/InputField/InputField';
+import InputField from '@/components/InputFieldCustom/InputField';
 import Section from '@/components/layouts/Section';
 import React from 'react';
 

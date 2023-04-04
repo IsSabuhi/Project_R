@@ -1,5 +1,6 @@
-import { useGetResumesQuery } from '@/generated/projectR-hasura';
+import { useGetResumeQuery } from '@/generated/projectR-hasura';
 import { useAuthContext } from '@/hooks/use-auth-context';
+import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import BoxHeader from '../BoxHeader';
@@ -8,21 +9,17 @@ import ResumeCard from '../ResumeCard/ResumeCard';
 import styles from './ResumeList.module.scss';
 
 const ResumeList = () => {
-  const { userId } = useAuthContext();
-
   const router = useRouter();
 
-  const { data, loading, error } = useGetResumesQuery({
+  const { jobseekerId } = useAuthContext();
+
+  const { data, loading, error } = useGetResumeQuery({
     variables: {
-      _eq: userId,
+      _eq: jobseekerId,
     },
   });
 
   const resumeData = data?.resume;
-
-  const handleSelect = (id: string) => {
-    router.push(`/create/${id}`);
-  };
 
   return (
     <div>
@@ -38,7 +35,7 @@ const ResumeList = () => {
           <ResumeCard
             key={item.resume_id}
             resumeData={item}
-            callback={handleSelect}
+            // handleBlur={handleBlur}
           />
         ))}
         <CreateResumeCard />

@@ -105,6 +105,12 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']>;
 };
 
+export type _Service = {
+  __typename?: '_Service';
+  /** SDL representation of schema */
+  sdl: Scalars['String'];
+};
+
 /** columns and relationships of "account" */
 export type Account = {
   __typename?: 'account';
@@ -5353,6 +5359,7 @@ export type Organization_Variance_Order_By = {
 
 export type Query_Root = {
   __typename?: 'query_root';
+  _service: _Service;
   /** fetch data from the table: "account" */
   account: Array<Account>;
   /** fetch aggregated fields from the table: "account" */
@@ -6016,15 +6023,13 @@ export type Response = {
 export type Resume = {
   __typename?: 'resume';
   /** An object relationship */
-  account?: Maybe<Account>;
-  account_id?: Maybe<Scalars['uuid']>;
-  /** An object relationship */
   city_of_residence?: Maybe<City_Of_Residence>;
   city_of_residence_id?: Maybe<Scalars['uuid']>;
   date_create: Scalars['date'];
   desired_salary?: Maybe<Scalars['Int']>;
-  heading_resume?: Maybe<Scalars['String']>;
   job_position: Scalars['String'];
+  /** An object relationship */
+  jobseeker: Jobseeker;
   /** An array relationship */
   jobseeker_educations: Array<Jobseeker_Education>;
   /** An aggregate relationship */
@@ -6037,9 +6042,17 @@ export type Resume = {
   short_description?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['Boolean']>;
   /** An array relationship */
+  type_of_employment_resume_ids: Array<Type_Of_Employment_Resume_Id>;
+  /** An aggregate relationship */
+  type_of_employment_resume_ids_aggregate: Type_Of_Employment_Resume_Id_Aggregate;
+  /** An array relationship */
   work_experiences: Array<Work_Experience>;
   /** An aggregate relationship */
   work_experiences_aggregate: Work_Experience_Aggregate;
+  /** An array relationship */
+  work_schedule_resume_ids: Array<Work_Schedule_Resume_Id>;
+  /** An aggregate relationship */
+  work_schedule_resume_ids_aggregate: Work_Schedule_Resume_Id_Aggregate;
 };
 
 
@@ -6064,6 +6077,26 @@ export type ResumeJobseeker_Educations_AggregateArgs = {
 
 
 /** columns and relationships of "resume" */
+export type ResumeType_Of_Employment_Resume_IdsArgs = {
+  distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Order_By>>;
+  where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resume" */
+export type ResumeType_Of_Employment_Resume_Ids_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Type_Of_Employment_Resume_Id_Order_By>>;
+  where?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resume" */
 export type ResumeWork_ExperiencesArgs = {
   distinct_on?: InputMaybe<Array<Work_Experience_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -6080,6 +6113,26 @@ export type ResumeWork_Experiences_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Work_Experience_Order_By>>;
   where?: InputMaybe<Work_Experience_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resume" */
+export type ResumeWork_Schedule_Resume_IdsArgs = {
+  distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Work_Schedule_Resume_Id_Order_By>>;
+  where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resume" */
+export type ResumeWork_Schedule_Resume_Ids_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Work_Schedule_Resume_Id_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Work_Schedule_Resume_Id_Order_By>>;
+  where?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
 };
 
 /** aggregated selection of "resume" */
@@ -6177,14 +6230,12 @@ export type Resume_Bool_Exp = {
   _and?: InputMaybe<Array<Resume_Bool_Exp>>;
   _not?: InputMaybe<Resume_Bool_Exp>;
   _or?: InputMaybe<Array<Resume_Bool_Exp>>;
-  account?: InputMaybe<Account_Bool_Exp>;
-  account_id?: InputMaybe<Uuid_Comparison_Exp>;
   city_of_residence?: InputMaybe<City_Of_Residence_Bool_Exp>;
   city_of_residence_id?: InputMaybe<Uuid_Comparison_Exp>;
   date_create?: InputMaybe<Date_Comparison_Exp>;
   desired_salary?: InputMaybe<Int_Comparison_Exp>;
-  heading_resume?: InputMaybe<String_Comparison_Exp>;
   job_position?: InputMaybe<String_Comparison_Exp>;
+  jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
   jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Bool_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -6194,8 +6245,12 @@ export type Resume_Bool_Exp = {
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   short_description?: InputMaybe<String_Comparison_Exp>;
   status?: InputMaybe<Boolean_Comparison_Exp>;
+  type_of_employment_resume_ids?: InputMaybe<Type_Of_Employment_Resume_Id_Bool_Exp>;
+  type_of_employment_resume_ids_aggregate?: InputMaybe<Type_Of_Employment_Resume_Id_Aggregate_Bool_Exp>;
   work_experiences?: InputMaybe<Work_Experience_Bool_Exp>;
   work_experiences_aggregate?: InputMaybe<Work_Experience_Aggregate_Bool_Exp>;
+  work_schedule_resume_ids?: InputMaybe<Work_Schedule_Resume_Id_Bool_Exp>;
+  work_schedule_resume_ids_aggregate?: InputMaybe<Work_Schedule_Resume_Id_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "resume" */
@@ -6213,14 +6268,12 @@ export type Resume_Inc_Input = {
 
 /** input type for inserting data into table "resume" */
 export type Resume_Insert_Input = {
-  account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
-  account_id?: InputMaybe<Scalars['uuid']>;
   city_of_residence?: InputMaybe<City_Of_Residence_Obj_Rel_Insert_Input>;
   city_of_residence_id?: InputMaybe<Scalars['uuid']>;
   date_create?: InputMaybe<Scalars['date']>;
   desired_salary?: InputMaybe<Scalars['Int']>;
-  heading_resume?: InputMaybe<Scalars['String']>;
   job_position?: InputMaybe<Scalars['String']>;
+  jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   kids?: InputMaybe<Scalars['Boolean']>;
@@ -6229,17 +6282,17 @@ export type Resume_Insert_Input = {
   resume_id?: InputMaybe<Scalars['uuid']>;
   short_description?: InputMaybe<Scalars['String']>;
   status?: InputMaybe<Scalars['Boolean']>;
+  type_of_employment_resume_ids?: InputMaybe<Type_Of_Employment_Resume_Id_Arr_Rel_Insert_Input>;
   work_experiences?: InputMaybe<Work_Experience_Arr_Rel_Insert_Input>;
+  work_schedule_resume_ids?: InputMaybe<Work_Schedule_Resume_Id_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Resume_Max_Fields = {
   __typename?: 'resume_max_fields';
-  account_id?: Maybe<Scalars['uuid']>;
   city_of_residence_id?: Maybe<Scalars['uuid']>;
   date_create?: Maybe<Scalars['date']>;
   desired_salary?: Maybe<Scalars['Int']>;
-  heading_resume?: Maybe<Scalars['String']>;
   job_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   name_resume?: Maybe<Scalars['String']>;
@@ -6249,11 +6302,9 @@ export type Resume_Max_Fields = {
 
 /** order by max() on columns of table "resume" */
 export type Resume_Max_Order_By = {
-  account_id?: InputMaybe<Order_By>;
   city_of_residence_id?: InputMaybe<Order_By>;
   date_create?: InputMaybe<Order_By>;
   desired_salary?: InputMaybe<Order_By>;
-  heading_resume?: InputMaybe<Order_By>;
   job_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   name_resume?: InputMaybe<Order_By>;
@@ -6264,11 +6315,9 @@ export type Resume_Max_Order_By = {
 /** aggregate min on columns */
 export type Resume_Min_Fields = {
   __typename?: 'resume_min_fields';
-  account_id?: Maybe<Scalars['uuid']>;
   city_of_residence_id?: Maybe<Scalars['uuid']>;
   date_create?: Maybe<Scalars['date']>;
   desired_salary?: Maybe<Scalars['Int']>;
-  heading_resume?: Maybe<Scalars['String']>;
   job_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   name_resume?: Maybe<Scalars['String']>;
@@ -6278,11 +6327,9 @@ export type Resume_Min_Fields = {
 
 /** order by min() on columns of table "resume" */
 export type Resume_Min_Order_By = {
-  account_id?: InputMaybe<Order_By>;
   city_of_residence_id?: InputMaybe<Order_By>;
   date_create?: InputMaybe<Order_By>;
   desired_salary?: InputMaybe<Order_By>;
-  heading_resume?: InputMaybe<Order_By>;
   job_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   name_resume?: InputMaybe<Order_By>;
@@ -6315,14 +6362,12 @@ export type Resume_On_Conflict = {
 
 /** Ordering options when selecting data from "resume". */
 export type Resume_Order_By = {
-  account?: InputMaybe<Account_Order_By>;
-  account_id?: InputMaybe<Order_By>;
   city_of_residence?: InputMaybe<City_Of_Residence_Order_By>;
   city_of_residence_id?: InputMaybe<Order_By>;
   date_create?: InputMaybe<Order_By>;
   desired_salary?: InputMaybe<Order_By>;
-  heading_resume?: InputMaybe<Order_By>;
   job_position?: InputMaybe<Order_By>;
+  jobseeker?: InputMaybe<Jobseeker_Order_By>;
   jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   kids?: InputMaybe<Order_By>;
@@ -6331,7 +6376,9 @@ export type Resume_Order_By = {
   resume_id?: InputMaybe<Order_By>;
   short_description?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  type_of_employment_resume_ids_aggregate?: InputMaybe<Type_Of_Employment_Resume_Id_Aggregate_Order_By>;
   work_experiences_aggregate?: InputMaybe<Work_Experience_Aggregate_Order_By>;
+  work_schedule_resume_ids_aggregate?: InputMaybe<Work_Schedule_Resume_Id_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: resume */
@@ -6342,15 +6389,11 @@ export type Resume_Pk_Columns_Input = {
 /** select columns of table "resume" */
 export enum Resume_Select_Column {
   /** column name */
-  AccountId = 'account_id',
-  /** column name */
   CityOfResidenceId = 'city_of_residence_id',
   /** column name */
   DateCreate = 'date_create',
   /** column name */
   DesiredSalary = 'desired_salary',
-  /** column name */
-  HeadingResume = 'heading_resume',
   /** column name */
   JobPosition = 'job_position',
   /** column name */
@@ -6391,11 +6434,9 @@ export enum Resume_Select_Column_Resume_Aggregate_Bool_Exp_Bool_Or_Arguments_Col
 
 /** input type for updating data in table "resume" */
 export type Resume_Set_Input = {
-  account_id?: InputMaybe<Scalars['uuid']>;
   city_of_residence_id?: InputMaybe<Scalars['uuid']>;
   date_create?: InputMaybe<Scalars['date']>;
   desired_salary?: InputMaybe<Scalars['Int']>;
-  heading_resume?: InputMaybe<Scalars['String']>;
   job_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   kids?: InputMaybe<Scalars['Boolean']>;
@@ -6449,11 +6490,9 @@ export type Resume_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Resume_Stream_Cursor_Value_Input = {
-  account_id?: InputMaybe<Scalars['uuid']>;
   city_of_residence_id?: InputMaybe<Scalars['uuid']>;
   date_create?: InputMaybe<Scalars['date']>;
   desired_salary?: InputMaybe<Scalars['Int']>;
-  heading_resume?: InputMaybe<Scalars['String']>;
   job_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   kids?: InputMaybe<Scalars['Boolean']>;
@@ -6478,15 +6517,11 @@ export type Resume_Sum_Order_By = {
 /** update columns of table "resume" */
 export enum Resume_Update_Column {
   /** column name */
-  AccountId = 'account_id',
-  /** column name */
   CityOfResidenceId = 'city_of_residence_id',
   /** column name */
   DateCreate = 'date_create',
   /** column name */
   DesiredSalary = 'desired_salary',
-  /** column name */
-  HeadingResume = 'heading_resume',
   /** column name */
   JobPosition = 'job_position',
   /** column name */
@@ -9084,12 +9119,12 @@ export type GetJobseekerProfileQueryVariables = Exact<{
 
 export type GetJobseekerProfileQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', email?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, gender?: string | null, dateBirth?: any | null }> };
 
-export type GetResumesQueryVariables = Exact<{
+export type GetResumeQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetResumesQuery = { __typename?: 'query_root', resume: Array<{ __typename?: 'resume', account_id?: string | null, city_of_residence_id?: string | null, date_create: any, desired_salary?: number | null, heading_resume?: string | null, job_position: string, jobseeker_id: string, name_resume: string, relocate?: boolean | null, resume_id: string, short_description?: string | null, status?: boolean | null, work_experiences: Array<{ __typename?: 'work_experience', date_of_employment: any, date_of_dismissal: any, job_position: string, short_description: string, work_experience_id: string }>, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: number | null, education_form: string, end_date?: any | null, faculity: string, group: string, jobseeker_education_id: string, short_description?: string | null, speciality: string, start_date?: any | null, educational_institutions: Array<{ __typename?: 'educational_institution', name_institution: string, jobseeker_education_id?: string | null, educational_institution_id: string }> }> }> };
+export type GetResumeQuery = { __typename?: 'query_root', resume: Array<{ __typename?: 'resume', date_create: any, job_position: string, name_resume: string, resume_id: string, status?: boolean | null }> };
 
 export type MutationAuthUserMutationVariables = Exact<{
   login?: InputMaybe<Scalars['String']>;
@@ -9108,6 +9143,22 @@ export type UpdateJobseekerProfileMutationVariables = Exact<{
 
 
 export type UpdateJobseekerProfileMutation = { __typename?: 'mutation_root', update_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', dateBirth?: any | null, email?: string | null, phone?: string | null }> } | null };
+
+export type InsertNameResumeMutationVariables = Exact<{
+  job_position?: InputMaybe<Scalars['String']>;
+  jobseeker_id?: InputMaybe<Scalars['uuid']>;
+  name_resume?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type InsertNameResumeMutation = { __typename?: 'mutation_root', insert_resume_one?: { __typename?: 'resume', job_position: string, jobseeker_id: string, name_resume: string, resume_id: string, date_create: any } | null };
+
+export type DeleteResumeMutationVariables = Exact<{
+  resume_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resume?: { __typename?: 'resume_mutation_response', returning: Array<{ __typename?: 'resume', name_resume: string }> } | null };
 
 
 export const GetJobseekerAccountDocument = gql`
@@ -9191,75 +9242,45 @@ export function useGetJobseekerProfileLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetJobseekerProfileQueryHookResult = ReturnType<typeof useGetJobseekerProfileQuery>;
 export type GetJobseekerProfileLazyQueryHookResult = ReturnType<typeof useGetJobseekerProfileLazyQuery>;
 export type GetJobseekerProfileQueryResult = Apollo.QueryResult<GetJobseekerProfileQuery, GetJobseekerProfileQueryVariables>;
-export const GetResumesDocument = gql`
-    query GetResumes($_eq: uuid = "") {
-  resume(where: {account_id: {_eq: $_eq}}) {
-    account_id
-    city_of_residence_id
+export const GetResumeDocument = gql`
+    query GetResume($_eq: uuid = "") {
+  resume(where: {jobseeker_id: {_eq: $_eq}}) {
     date_create
-    desired_salary
-    heading_resume
     job_position
-    jobseeker_id
     name_resume
-    relocate
     resume_id
-    short_description
     status
-    work_experiences {
-      date_of_employment
-      date_of_dismissal
-      job_position
-      short_description
-      work_experience_id
-    }
-    jobseeker_educations {
-      average_score
-      education_form
-      end_date
-      faculity
-      group
-      jobseeker_education_id
-      short_description
-      speciality
-      start_date
-      educational_institutions {
-        name_institution
-        jobseeker_education_id
-        educational_institution_id
-      }
-    }
   }
 }
     `;
 
 /**
- * __useGetResumesQuery__
+ * __useGetResumeQuery__
  *
- * To run a query within a React component, call `useGetResumesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetResumesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetResumeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetResumeQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetResumesQuery({
+ * const { data, loading, error } = useGetResumeQuery({
  *   variables: {
  *      _eq: // value for '_eq'
  *   },
  * });
  */
-export function useGetResumesQuery(baseOptions?: Apollo.QueryHookOptions<GetResumesQuery, GetResumesQueryVariables>) {
+export function useGetResumeQuery(baseOptions?: Apollo.QueryHookOptions<GetResumeQuery, GetResumeQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetResumesQuery, GetResumesQueryVariables>(GetResumesDocument, options);
+        return Apollo.useQuery<GetResumeQuery, GetResumeQueryVariables>(GetResumeDocument, options);
       }
-export function useGetResumesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetResumesQuery, GetResumesQueryVariables>) {
+export function useGetResumeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetResumeQuery, GetResumeQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetResumesQuery, GetResumesQueryVariables>(GetResumesDocument, options);
+          return Apollo.useLazyQuery<GetResumeQuery, GetResumeQueryVariables>(GetResumeDocument, options);
         }
-export type GetResumesQueryHookResult = ReturnType<typeof useGetResumesQuery>;
-export type GetResumesLazyQueryHookResult = ReturnType<typeof useGetResumesLazyQuery>;
-export type GetResumesQueryResult = Apollo.QueryResult<GetResumesQuery, GetResumesQueryVariables>;
+export type GetResumeQueryHookResult = ReturnType<typeof useGetResumeQuery>;
+export type GetResumeLazyQueryHookResult = ReturnType<typeof useGetResumeLazyQuery>;
+export type GetResumeQueryResult = Apollo.QueryResult<GetResumeQuery, GetResumeQueryVariables>;
 export const MutationAuthUserDocument = gql`
     mutation MutationAuthUser($login: String = "", $password: String = "") {
   login_handler(login: $login, password: $password) {
@@ -9339,3 +9360,79 @@ export function useUpdateJobseekerProfileMutation(baseOptions?: Apollo.MutationH
 export type UpdateJobseekerProfileMutationHookResult = ReturnType<typeof useUpdateJobseekerProfileMutation>;
 export type UpdateJobseekerProfileMutationResult = Apollo.MutationResult<UpdateJobseekerProfileMutation>;
 export type UpdateJobseekerProfileMutationOptions = Apollo.BaseMutationOptions<UpdateJobseekerProfileMutation, UpdateJobseekerProfileMutationVariables>;
+export const InsertNameResumeDocument = gql`
+    mutation InsertNameResume($job_position: String = "", $jobseeker_id: uuid = "", $name_resume: String = "") {
+  insert_resume_one(
+    object: {jobseeker_id: $jobseeker_id, name_resume: $name_resume, job_position: $job_position}
+  ) {
+    job_position
+    jobseeker_id
+    name_resume
+    resume_id
+    date_create
+  }
+}
+    `;
+export type InsertNameResumeMutationFn = Apollo.MutationFunction<InsertNameResumeMutation, InsertNameResumeMutationVariables>;
+
+/**
+ * __useInsertNameResumeMutation__
+ *
+ * To run a mutation, you first call `useInsertNameResumeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertNameResumeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertNameResumeMutation, { data, loading, error }] = useInsertNameResumeMutation({
+ *   variables: {
+ *      job_position: // value for 'job_position'
+ *      jobseeker_id: // value for 'jobseeker_id'
+ *      name_resume: // value for 'name_resume'
+ *   },
+ * });
+ */
+export function useInsertNameResumeMutation(baseOptions?: Apollo.MutationHookOptions<InsertNameResumeMutation, InsertNameResumeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertNameResumeMutation, InsertNameResumeMutationVariables>(InsertNameResumeDocument, options);
+      }
+export type InsertNameResumeMutationHookResult = ReturnType<typeof useInsertNameResumeMutation>;
+export type InsertNameResumeMutationResult = Apollo.MutationResult<InsertNameResumeMutation>;
+export type InsertNameResumeMutationOptions = Apollo.BaseMutationOptions<InsertNameResumeMutation, InsertNameResumeMutationVariables>;
+export const DeleteResumeDocument = gql`
+    mutation DeleteResume($resume_id: uuid = "") {
+  delete_resume(where: {resume_id: {_eq: $resume_id}}) {
+    returning {
+      name_resume
+    }
+  }
+}
+    `;
+export type DeleteResumeMutationFn = Apollo.MutationFunction<DeleteResumeMutation, DeleteResumeMutationVariables>;
+
+/**
+ * __useDeleteResumeMutation__
+ *
+ * To run a mutation, you first call `useDeleteResumeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteResumeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteResumeMutation, { data, loading, error }] = useDeleteResumeMutation({
+ *   variables: {
+ *      resume_id: // value for 'resume_id'
+ *   },
+ * });
+ */
+export function useDeleteResumeMutation(baseOptions?: Apollo.MutationHookOptions<DeleteResumeMutation, DeleteResumeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteResumeMutation, DeleteResumeMutationVariables>(DeleteResumeDocument, options);
+      }
+export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMutation>;
+export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
+export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
