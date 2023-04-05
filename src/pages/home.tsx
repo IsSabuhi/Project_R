@@ -7,6 +7,19 @@ import ResumeList from '@/components/Home/ResumeList/ResumeList';
 import { useAuthContext } from '@/hooks/use-auth-context';
 import { useGetResumeQuery } from '@/generated/projectR-hasura';
 
+export type TResumeType = {
+  date_create: Date;
+  job_position: string;
+  name_resume: string;
+  resume_id: string;
+  status?: boolean | null | undefined;
+};
+
+interface IResume {
+  jobseeker_id: string;
+  resumeData: TResumeType;
+}
+
 const Home = () => {
   const { jobseekerId } = useAuthContext();
 

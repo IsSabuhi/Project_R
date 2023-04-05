@@ -50,7 +50,7 @@ const ActionModal: React.FC<Props> = ({
             {buttonText}
           </Button>
           <Button mr={3} onClick={onClose}>
-            Close
+            Закрыть
           </Button>
         </ModalFooter>
       </ModalContent>

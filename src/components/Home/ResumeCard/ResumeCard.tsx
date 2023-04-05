@@ -3,7 +3,6 @@ import {
   ButtonGroup,
   Popover,
   PopoverArrow,
-  PopoverBody,
   PopoverCloseButton,
   PopoverContent,
   PopoverFooter,
@@ -16,10 +15,10 @@ import {
 import React from 'react';
 import styles from './ResumeCard.module.scss';
 import { CheckCircleIcon, InfoIcon } from '@chakra-ui/icons';
-import { Resume, useDeleteResumeMutation } from '@/generated/projectR-hasura';
+import { Resume } from '@/generated/projectR-hasura';
 import InputField from '@/components/InputFieldCustom/InputField';
 import { useFormik } from 'formik';
-import { useAuthContext } from '@/hooks/use-auth-context';
+import DeleteResumeModal from '../DeleteResumeModal';
 
 interface IResumeCard {
   resumeData: Partial<Resume>;
@@ -37,27 +36,10 @@ const ResumeCard: React.FC<IResumeCard> = ({ resumeData }) => {
     onClose();
   };
 
-  const [deleteResumeMutation, { data, loading, error }] =
-    useDeleteResumeMutation({
-      onCompleted(data) {
-        console.log('good');
-      },
-      onError(data) {
-        console.log(data.graphQLErrors);
-        console.log('HUI');
-      },
-    });
-
   const formik = useFormik({
     initialValues: initialFormResumeList,
     enableReinitialize: true,
-    onSubmit: () => {
-      deleteResumeMutation({
-        variables: {
-          resume_id: resumeData.resume_id,
-        },
-      });
-    },
+    onSubmit: () => {},
   });
 
   return (
@@ -82,7 +64,7 @@ const ResumeCard: React.FC<IResumeCard> = ({ resumeData }) => {
         isOpen={isOpen}
         onClose={clearInput}
         placement='bottom'
-        closeOnBlur={false}
+        closeOnBlur={true}
       >
         <form onSubmit={formik.handleSubmit}>
           <PopoverTrigger>
@@ -114,15 +96,11 @@ const ResumeCard: React.FC<IResumeCard> = ({ resumeData }) => {
             </PopoverHeader>
             <PopoverArrow />
             <PopoverCloseButton />
-            {/* <PopoverBody>
-            Are you sure you want to continue with your action?
-          </PopoverBody> */}
+
             <PopoverFooter display='flex' justifyContent='flex-end'>
               <ButtonGroup size='sm'>
                 <Button>Сохранить</Button>
-                <Button colorScheme='red' type='submit'>
-                  Удалить
-                </Button>
+                <DeleteResumeModal resumeObject={resumeData} />
               </ButtonGroup>
             </PopoverFooter>
           </PopoverContent>

@@ -1,5 +1,5 @@
 import { Box, Button } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import AuthFormHeader from '@/components/FormHeader';
 import InfoGraphic from '@/components/InfoGraphic';
 import InputField from '@/components/InputFieldCustom/InputField';
@@ -11,6 +11,7 @@ import { useMutationAuthUserMutation } from '@/generated/projectR-hasura';
 import { useAuthContext } from '../hooks/use-auth-context';
 import { useRouter } from 'next/router';
 import { loginBenefits } from '../configs/loginBenefits';
+import { Status } from '@/constants';
 
 interface IAuth {
   login: string;
@@ -22,6 +23,8 @@ const initialAuth: IAuth = { login: '', password: '' };
 const LoginForm = () => {
   const { enqueueSnackbar } = useSnackbar();
 
+  const [status, setStatus] = useState<Status>(Status.idle);
+
   const router = useRouter();
 
   const { startAuthSession } = useAuthContext();
@@ -29,11 +32,13 @@ const LoginForm = () => {
   const [mutationAuthUserMutation, { loading }] = useMutationAuthUserMutation({
     onCompleted(data) {
       startAuthSession(data.login_handler?.access_token!);
-      enqueueSnackbar('Успешно вошел в систему', { variant: 'success' });
-      return router.push('/home');
+      setStatus(Status.success);
+      router.push('/home');
+      return enqueueSnackbar('Успешно вошел в систему', { variant: 'success' });
     },
     onError(error) {
       enqueueSnackbar('Неверный логин или пароль', { variant: 'error' });
+      setStatus(Status.error);
       console.log(error.message);
     },
   });
@@ -85,6 +90,7 @@ const LoginForm = () => {
           textAlign='center'
           width='100%'
           mb='4'
+          isDisabled={loading}
           isLoading={loading}
           loadingText='Вход в систему'
         >

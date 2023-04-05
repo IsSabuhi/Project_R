@@ -1,16 +1,12 @@
-import { Resume, useGetResumeQuery } from '@/generated/projectR-hasura';
-import { useAuthContext } from '@/hooks/use-auth-context';
-import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
 import React from 'react';
 import BoxHeader from '../BoxHeader';
 import CreateResumeCard from '../CreateResumeCard/CreateResumeCard';
 import ResumeCard from '../ResumeCard/ResumeCard';
 import styles from './ResumeList.module.scss';
+import { TResumeType } from '@/pages/home';
 
 const ResumeList = ({ resumeData }: { resumeData: any }) => {
-  const router = useRouter();
-
   return (
     <div>
       <BoxHeader
@@ -22,11 +18,7 @@ const ResumeList = ({ resumeData }: { resumeData: any }) => {
       />
       <div className={styles.main_resumes}>
         {resumeData?.map((item: any) => (
-          <ResumeCard
-            key={item.resume_id}
-            resumeData={item}
-            // handleBlur={handleBlur}
-          />
+          <ResumeCard key={item.resume_id} resumeData={item} />
         ))}
         <CreateResumeCard />
       </div>

@@ -3,7 +3,7 @@ import TooltipIconButton from '@/components/TooltipIconButton';
 import { Button } from '@chakra-ui/button';
 import { Box, HStack } from '@chakra-ui/layout';
 import { Collapse } from '@chakra-ui/transition';
-import React, { useContext } from 'react';
+import React, { ReactComponentElement, ReactElement, useContext } from 'react';
 import { FaChevronUp } from 'react-icons/fa';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { DisclosureContext } from './ExpandableCard';
@@ -11,6 +11,7 @@ import { DisclosureContext } from './ExpandableCard';
 type IHandler = { value: boolean; setValue: () => void };
 
 export interface InputCardProps {
+  children: ReactElement;
   itemType?: string;
   visibilityHandler?: IHandler;
   deleteHandler: () => void;
