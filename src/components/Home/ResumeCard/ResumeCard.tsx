@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import styles from './ResumeCard.module.scss';
-import { CheckCircleIcon } from '@chakra-ui/icons';
+import { CheckCircleIcon, InfoIcon } from '@chakra-ui/icons';
 import { Resume, useDeleteResumeMutation } from '@/generated/projectR-hasura';
 import InputField from '@/components/InputFieldCustom/InputField';
 import { useFormik } from 'formik';
@@ -65,9 +65,15 @@ const ResumeCard: React.FC<IResumeCard> = ({ resumeData }) => {
       <div className={styles.main}>
         <div className={styles.main_header_card}>
           <Text>{resumeData?.job_position}</Text>
-          <Tooltip label='Сгенерированное резюме' placement='top'>
-            <CheckCircleIcon />
-          </Tooltip>
+          {resumeData.status ? (
+            <Tooltip label='Сгенерированное резюме' placement='top'>
+              <CheckCircleIcon />
+            </Tooltip>
+          ) : (
+            <Tooltip label='Создано вручную' placement='top'>
+              <InfoIcon />
+            </Tooltip>
+          )}
         </div>
         <Text fontSize='small'>Дата создания: {resumeData?.date_create}</Text>
       </div>

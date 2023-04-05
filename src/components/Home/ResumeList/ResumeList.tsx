@@ -1,4 +1,4 @@
-import { useGetResumeQuery } from '@/generated/projectR-hasura';
+import { Resume, useGetResumeQuery } from '@/generated/projectR-hasura';
 import { useAuthContext } from '@/hooks/use-auth-context';
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
@@ -8,18 +8,8 @@ import CreateResumeCard from '../CreateResumeCard/CreateResumeCard';
 import ResumeCard from '../ResumeCard/ResumeCard';
 import styles from './ResumeList.module.scss';
 
-const ResumeList = () => {
+const ResumeList = ({ resumeData }: { resumeData: any }) => {
   const router = useRouter();
-
-  const { jobseekerId } = useAuthContext();
-
-  const { data, loading, error } = useGetResumeQuery({
-    variables: {
-      _eq: jobseekerId,
-    },
-  });
-
-  const resumeData = data?.resume;
 
   return (
     <div>
@@ -31,7 +21,7 @@ const ResumeList = () => {
         spacing='0'
       />
       <div className={styles.main_resumes}>
-        {resumeData?.map((item) => (
+        {resumeData?.map((item: any) => (
           <ResumeCard
             key={item.resume_id}
             resumeData={item}

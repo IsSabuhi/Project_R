@@ -4,15 +4,27 @@ import React from 'react';
 import styles from '@/styles/Home.module.scss';
 import Sidebar from '@/components/Sidebar/Sidebar';
 import ResumeList from '@/components/Home/ResumeList/ResumeList';
+import { useAuthContext } from '@/hooks/use-auth-context';
+import { useGetResumeQuery } from '@/generated/projectR-hasura';
 
 const Home = () => {
+  const { jobseekerId } = useAuthContext();
+
+  const { data, loading, error } = useGetResumeQuery({
+    variables: {
+      _eq: jobseekerId,
+    },
+  });
+
+  const resumeData = data?.resume;
+
   return (
     <div className={styles.container}>
       <Header />
       <div className={styles.main}>
         <Sidebar />
 
-        <ResumeList />
+        <ResumeList resumeData={resumeData} />
       </div>
       <Footer />
     </div>
