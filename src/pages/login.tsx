@@ -1,7 +1,13 @@
 import React from 'react'
-import WideLayout from '../components/layouts/WideLayout'
+import WideLayout from '../components/layouts/WideLayout/WideLayout'
 import InfoGraphic from '../modules/Auth/InfoGraphic'
 import { loginBenefits } from '../data/LoginBenefits'
+
+const LoginForm = () => {
+  return(
+    <></>
+  )
+}
 
 const Login = () => {
   return (
