@@ -23,6 +23,7 @@
       "@/config/*": ["config/*"],
       "@/modals/*": ["modals/*"],
       "@/public/*": ["public/*"],
+      "@/assets/*": ["assets/*"],
       "@/styles/*": ["styles/*"],
       "@/constants/*": ["constants/*"],
       "@/components/*": ["components/*"]

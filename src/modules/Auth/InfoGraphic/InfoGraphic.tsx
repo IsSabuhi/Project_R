@@ -1,5 +1,6 @@
 import { Box, HStack, VStack } from '@chakra-ui/layout'
 import { Image, Text, useColorModeValue } from '@chakra-ui/react'
+import styles from './InfoGraphic.module.scss'
 
 interface BenefitProps {
   iconSrc: string
@@ -25,17 +26,23 @@ const InfoGraphic: React.FC<{
 }> = ({ benefitList, title }) => {
   const bg = useColorModeValue('#319795', 'gray.900')
   return (
-    <Box background={bg}>
-      <Box>
-        <Text
-          color="white"
-          fontSize={'2.25rem'}
-          mb={'3.25rem'}
-          textAlign="center"
+    <Box background={bg} className={styles.infoGraphic_container}>
+      <Text
+        color="white"
+        fontSize={'2.25rem'}
+        textAlign="center"
+        paddingBlock="60px"
+      >
+        {title}
+      </Text>
+      <Box className={styles.infoGraphic_main}>
+        <VStack
+          spacing={'2.5rem'}
+          paddingInline="30px"
+          alignItems="flex-start"
+          alignSelf="center"
+          justifyContent="center"
         >
-          {title}
-        </Text>
-        <VStack spacing={'2.5rem'} alignItems="flex-start">
           {benefitList.map((b, i) => (
             <Benefit iconSrc={b.iconSrc} text={b.text} key={b.iconSrc + i} />
           ))}

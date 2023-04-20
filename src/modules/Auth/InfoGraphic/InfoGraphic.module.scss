@@ -1,0 +1,12 @@
+.infoGraphic_container {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 60%;
+
+    .infoGraphic_main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+    }
+}

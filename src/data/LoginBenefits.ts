@@ -1,9 +1,10 @@
-import { BenefitList } from "../modules/Auth/InfoGraphic";
+import { BenefitList } from "../modules/Auth/InfoGraphic/InfoGraphic";
+import icon1 from '@/assets/icons/icon.svg'
 
 export const loginBenefits: BenefitList = [
   {
-    iconSrc: "/icons/AddSectionIcon.svg",
-    text: "Создавайте несколько резюме на одной учетной записи!"
+    iconSrc: icon1,
+    text: "Обновите и измените порядок раздела резюме с помощью макетов Drag-n-Drop."
   },
   {
     iconSrc: "/icons/RearrangeIcon.svg",
