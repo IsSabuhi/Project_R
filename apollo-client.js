@@ -3,11 +3,11 @@ import {
   createHttpLink,
   InMemoryCache,
 } from '@apollo/client';
-import {setContext} from '@apollo/client/link/context'
+import { setContext } from '@apollo/client/link/context'
 import { AUTH_TOKEN } from './src/constants';
 
 const httpLink = createHttpLink({
-  uri: 'http://172.30.30.51:8080/v1/graphql',
+  uri: 'http://localhost:8080/v1/graphql',
   headers: {
     "content-type": "application/json",
     'x-hasura-admin-secret': 'admin',
@@ -27,7 +27,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  
+
   ssrMode: typeof window === 'undefined',
   cache: new InMemoryCache(),
   defaultOptions: {

@@ -5,7 +5,7 @@ type gettingJWT = {
   //   // 'x-hasura-default-role': string;
   //   'User_id': string;
   // };
-  User_id: string;
+  userId: string;
   jobseeker_id: string;
 };
 
@@ -31,7 +31,7 @@ export const parseJwt = (token: string) => {
   const JWTpayload: gettingJWT = JSON.parse(jsonPayload);
 
   const resultJWT: newJWT = {
-    userID: JWTpayload.User_id,
+    userID: JWTpayload.userId,
     jobseekerId: JWTpayload.jobseeker_id
     // userRole:
     //   JWTpayload['https://hasura.io/jwt/claims']['x-hasura-default-role'],

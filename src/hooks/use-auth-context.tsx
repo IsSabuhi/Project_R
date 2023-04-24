@@ -5,7 +5,7 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import client from '../../apollo-client';
 import { APP_URLS } from '../configs/urls';
 import { AUTH_TOKEN } from '../constants';
-import { useMutationAuthUserMutation } from '../generated/projectR-hasura';
+import { useMutationAuthUserMutation, useUpdateTokenMutation } from '../generated/projectR-hasura';
 import { parseJwt } from '../utils/parse-jwt';
 
 const KEY = AUTH_TOKEN;
@@ -84,7 +84,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
       /** Периодически обновляю токен, чтоб не устаревал */
       tokenUpdaterTimer.current = setTimeout(() => {
-        // mutationAuthUserMutation(); // тут будет рефреш
+        useUpdateTokenMutation(); // тут будет рефреш
       }, (newTimeToRequest || 60) * 1000 * 10); // обновляю токен за 30 сек до смерти
 
       setAuthData({

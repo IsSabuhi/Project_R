@@ -1,7 +1,6 @@
 # Запрос на получения данных профиля Jobseeker
 query GetJobseekerAccount($_eq: uuid = "") {
   account(where: { account_id: { _eq: $_eq } }) {
-    RefreshToken
     account_id
     avatar
     login
@@ -23,67 +22,35 @@ query GetJobseekerProfile($_eq: uuid = "") {
 }
 
 # Запрос на получения данных о резюме
-query GetResume($_eq: uuid = "") {
-  resume(where: { jobseeker_id: { _eq: $_eq } }) {
-    date_create
-    job_position
-    name_resume
-    resume_id
-    status
-  }
-}
+
 
 # Авторизация
 mutation MutationAuthUser($login: String = "", $password: String = "") {
   login_handler(login: $login, password: $password) {
-    account_id
-    role
     access_token
   }
 }
 
-mutation UpdateJobseekerProfile(
-  $_eq: uuid = ""
-  $dateBirth: date = ""
-  $email: String = ""
-  $phone: String = ""
-) {
-  update_jobseeker(
-    where: { account_id: { _eq: $_eq } }
-    _set: { dateBirth: $dateBirth, email: $email, phone: $phone }
-  ) {
+mutation UpdateToken {
+  refreshToken {
+    access_token
+  }
+}
+
+mutation UpdateJobseekerProfile($_eq: uuid = "", $dateBirth: date = "", $email: String = "", $phone: String = "") {
+  update_jobseeker(where: {account_id: {_eq: $_eq}}, _set: {dateBirth: $dateBirth, email: $email, phone: $phone}) {
     returning {
       dateBirth
       email
+      account_id
+      jobseeker_id
+      lastName
+      middleName
+      name
       phone
+      gender
     }
   }
 }
 
-mutation InsertNameResume(
-  $job_position: String = ""
-  $jobseeker_id: uuid = ""
-  $name_resume: String = ""
-) {
-  insert_resume_one(
-    object: {
-      jobseeker_id: $jobseeker_id
-      name_resume: $name_resume
-      job_position: $job_position
-    }
-  ) {
-    job_position
-    jobseeker_id
-    name_resume
-    resume_id
-    date_create
-  }
-}
 
-mutation DeleteResume($resume_id: uuid = "") {
-  delete_resume(where: { resume_id: { _eq: $resume_id } }) {
-    returning {
-      name_resume
-    }
-  }
-}

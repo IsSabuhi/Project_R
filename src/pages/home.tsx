@@ -21,15 +21,15 @@ interface IResume {
 }
 
 const Home = () => {
-  const { jobseekerId } = useAuthContext();
+  // const { jobseekerId } = useAuthContext();
 
-  const { data, loading, error } = useGetResumeQuery({
-    variables: {
-      _eq: jobseekerId,
-    },
-  });
+  // const { data, loading, error } = useGetResumeQuery({
+  //   variables: {
+  //     _eq: jobseekerId,
+  //   },
+  // });
 
-  const resumeData = data?.resume;
+  // const resumeData = data?.resume;
 
   return (
     <div className={styles.container}>
@@ -37,7 +37,7 @@ const Home = () => {
       <div className={styles.main}>
         <Sidebar />
 
-        <ResumeList resumeData={resumeData} />
+        {/* <ResumeList resumeData={resumeData} /> */}
       </div>
       <Footer />
     </div>
