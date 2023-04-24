@@ -5,10 +5,7 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import client from '../../apollo-client';
 import { APP_URLS } from '../configs/urls';
 import { AUTH_TOKEN } from '../constants';
-import {
-  useMutationAuthUserMutation,
-  useUpdateTokenMutation,
-} from '../generated/projectR-hasura';
+import { useUpdateTokenMutation } from '../generated/projectR-hasura';
 import { parseJwt } from '../utils/parse-jwt';
 
 const KEY = AUTH_TOKEN;
@@ -24,7 +21,7 @@ interface AuthState {
 interface IAuthContext extends AuthState {
   startAuthSession: (token: string) => void;
   stopAuthSession: () => void;
-  mutationAuthUserMutation: () => void;
+  updateTokenMutation: () => void;
 }
 
 const authContext = React.createContext<IAuthContext | null>(null);
@@ -87,7 +84,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
       /** Периодически обновляю токен, чтоб не устаревал */
       tokenUpdaterTimer.current = setTimeout(() => {
-        useUpdateTokenMutation(); // тут будет рефреш
+        updateTokenMutation(); // тут будет рефреш
       }, (newTimeToRequest || 60) * 1000 * 10); // обновляю токен за 30 сек до смерти
 
       setAuthData({
@@ -111,7 +108,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     router.push(APP_URLS.SIGN_OUT);
   }, []);
 
-  const [mutationAuthUserMutation, {}] = useMutationAuthUserMutation({
+  const [updateTokenMutation, {}] = useUpdateTokenMutation({
     client: client,
     onError: (e) => {
       setAuthData({
@@ -120,13 +117,13 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       });
       if (tokenUpdaterTimer.current) clearInterval(tokenUpdaterTimer.current);
     },
-    onCompleted: ({ login_handler }) => {
-      startAuthSession(login_handler!.access_token!);
+    onCompleted: ({ refreshToken }) => {
+      startAuthSession(refreshToken?.access_token!);
     },
   });
 
   useEffect(() => {
-    window.addEventListener('focus', () => mutationAuthUserMutation());
+    window.addEventListener('focus', () => updateTokenMutation());
     if (
       authState.isAuthorized &&
       authState.accessToken &&
@@ -141,11 +138,11 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
           authState.accessToken,
           Math.min(cachedTokenTimeLife, 1 / 6)
         );
-      } else mutationAuthUserMutation();
-    } else mutationAuthUserMutation();
+      } else updateTokenMutation();
+    } else updateTokenMutation();
 
     return () => {
-      window.removeEventListener('focus', () => mutationAuthUserMutation());
+      window.removeEventListener('focus', () => updateTokenMutation());
     };
   }, []);
 
@@ -154,7 +151,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       value={{
         ...authState,
         stopAuthSession,
-        mutationAuthUserMutation,
+        updateTokenMutation,
         startAuthSession,
       }}
     >
