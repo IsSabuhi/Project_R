@@ -10,7 +10,7 @@ const httpLink = createHttpLink({
   uri: 'http://172.30.30.132:8080/v1/graphql',
   headers: {
     "content-type": "application/json",
-    // 'x-hasura-admin-secret': 'admin',
+    'x-hasura-admin-secret': 'admin',
   }
 })
 

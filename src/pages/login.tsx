@@ -2,10 +2,17 @@ import React from 'react'
 import WideLayout from '../components/layouts/WideLayout/WideLayout'
 import InfoGraphic from '../modules/Auth/InfoGraphic/InfoGraphic'
 import { loginBenefits } from '../data/LoginBenefits'
-import { Box, Button } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import FormHeader from '@/modules/Auth/FormHeader'
 import styles from '@/styles/Login.module.scss'
 import InputField from '@/components/InputField/InputField'
+
+interface IAuthProps {
+  login: string
+  password: string
+}
+
+const initialAuth: IAuthProps = { login: '', password: '' }
 
 const LoginForm = () => {
   return (

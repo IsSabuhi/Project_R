@@ -1,0 +1,11 @@
+mutation Auth($login: String = "", $password: String = "") {
+  login_handler(login: $login, password: $password) {
+    access_token
+  }
+}
+
+mutation UpdateToken {
+  refreshToken {
+    access_token
+  }
+}
