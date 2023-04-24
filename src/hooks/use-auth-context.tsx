@@ -5,7 +5,10 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import client from '../../apollo-client';
 import { APP_URLS } from '../configs/urls';
 import { AUTH_TOKEN } from '../constants';
-import { useMutationAuthUserMutation, useUpdateTokenMutation } from '../generated/projectR-hasura';
+import {
+  useMutationAuthUserMutation,
+  useUpdateTokenMutation,
+} from '../generated/projectR-hasura';
 import { parseJwt } from '../utils/parse-jwt';
 
 const KEY = AUTH_TOKEN;
@@ -78,7 +81,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
   const startAuthSession = useCallback(
     async (token: string, newTimeToRequest?: number) => {
-      const { userID, jobseekerId } = parseJwt(token);
+      const { userID } = parseJwt(token);
 
       if (tokenUpdaterTimer.current) clearTimeout(tokenUpdaterTimer.current);
 
@@ -93,31 +96,34 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: token,
         gettingDate: new Date(),
         userId: userID,
-        jobseekerId: jobseekerId,
       });
+
+      if (sessionStorage.getItem('skipAuthEvent') !== 'true') {
+        sessionStorage.setItem('skipAuthEvent', 'true');
+      }
     },
     [authState]
   );
 
   const stopAuthSession: IAuthContext['stopAuthSession'] = useCallback(() => {
     setAuthData({ isAuthorized: false });
+    sessionStorage.setItem('skipAuthEvent', 'false');
     router.push(APP_URLS.SIGN_OUT);
   }, []);
 
-  const [mutationAuthUserMutation, { data, loading, error }] =
-    useMutationAuthUserMutation({
-      client: client,
-      onError: (e) => {
-        setAuthData({
-          ...authState,
-          isAuthorized: false,
-        });
-        if (tokenUpdaterTimer.current) clearInterval(tokenUpdaterTimer.current);
-      },
-      onCompleted: ({ login_handler }) => {
-        startAuthSession(login_handler!.access_token!);
-      },
-    });
+  const [mutationAuthUserMutation, {}] = useMutationAuthUserMutation({
+    client: client,
+    onError: (e) => {
+      setAuthData({
+        ...authState,
+        isAuthorized: false,
+      });
+      if (tokenUpdaterTimer.current) clearInterval(tokenUpdaterTimer.current);
+    },
+    onCompleted: ({ login_handler }) => {
+      startAuthSession(login_handler!.access_token!);
+    },
+  });
 
   useEffect(() => {
     window.addEventListener('focus', () => mutationAuthUserMutation());

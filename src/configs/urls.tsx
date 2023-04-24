@@ -1,6 +1,6 @@
 export const APP_URLS = {
   SIGN_IN: '/login',
-  SIGN_OUT: '/',
+  SIGN_OUT: '/login',
 
   USER_PAGE: {
     ROOT: '/user/[id]',
