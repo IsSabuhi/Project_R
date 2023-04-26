@@ -1,4 +1,4 @@
-mutation Auth($login: String = "", $password: String = "") {
+mutation AuthLogin($login: String = "", $password: String = "") {
   login_handler(login: $login, password: $password) {
     access_token
   }

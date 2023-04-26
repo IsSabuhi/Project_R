@@ -13,7 +13,6 @@ export default function Document() {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <body>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <Main />
         <NextScript />
       </body>

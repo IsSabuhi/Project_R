@@ -331,13 +331,34 @@ export type Date_Comparison_Exp = {
 export type Educational_Institution = {
   __typename?: 'educational_institution';
   educational_institution_id: Scalars['uuid'];
+  /** An array relationship */
+  educational_institution_jobseeker_educations: Array<Jobseeker_Education>;
+  /** An aggregate relationship */
+  educational_institution_jobseeker_educations_aggregate: Jobseeker_Education_Aggregate;
   /** An object relationship */
-  jobseeker_education: Jobseeker_Education;
-  jobseeker_education_id: Scalars['uuid'];
-  /** An object relationship */
-  location: Location;
+  educational_institution_location: Location;
   location_id: Scalars['uuid'];
   name_institution: Scalars['String'];
+};
+
+
+/** columns and relationships of "educational_institution" */
+export type Educational_InstitutionEducational_Institution_Jobseeker_EducationsArgs = {
+  distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Jobseeker_Education_Order_By>>;
+  where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
+};
+
+
+/** columns and relationships of "educational_institution" */
+export type Educational_InstitutionEducational_Institution_Jobseeker_Educations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Jobseeker_Education_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Jobseeker_Education_Order_By>>;
+  where?: InputMaybe<Jobseeker_Education_Bool_Exp>;
 };
 
 /** aggregated selection of "educational_institution" */
@@ -368,17 +389,15 @@ export type Educational_Institution_Bool_Exp = {
   _not?: InputMaybe<Educational_Institution_Bool_Exp>;
   _or?: InputMaybe<Array<Educational_Institution_Bool_Exp>>;
   educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
-  jobseeker_education?: InputMaybe<Jobseeker_Education_Bool_Exp>;
-  jobseeker_education_id?: InputMaybe<Uuid_Comparison_Exp>;
-  location?: InputMaybe<Location_Bool_Exp>;
+  educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
+  educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Bool_Exp>;
+  educational_institution_location?: InputMaybe<Location_Bool_Exp>;
   location_id?: InputMaybe<Uuid_Comparison_Exp>;
   name_institution?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "educational_institution" */
 export enum Educational_Institution_Constraint {
-  /** unique or primary key constraint on columns "jobseeker_education_id" */
-  EducationalInstitutionJobseekerEducationIdKey = 'educational_institution_jobseeker_education_id_key',
   /** unique or primary key constraint on columns "location_id" */
   EducationalInstitutionLocationIdKey = 'educational_institution_location_id_key',
   /** unique or primary key constraint on columns "name_institution" */
@@ -390,9 +409,8 @@ export enum Educational_Institution_Constraint {
 /** input type for inserting data into table "educational_institution" */
 export type Educational_Institution_Insert_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
-  jobseeker_education?: InputMaybe<Jobseeker_Education_Obj_Rel_Insert_Input>;
-  jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
-  location?: InputMaybe<Location_Obj_Rel_Insert_Input>;
+  educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
+  educational_institution_location?: InputMaybe<Location_Obj_Rel_Insert_Input>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -401,7 +419,6 @@ export type Educational_Institution_Insert_Input = {
 export type Educational_Institution_Max_Fields = {
   __typename?: 'educational_institution_max_fields';
   educational_institution_id?: Maybe<Scalars['uuid']>;
-  jobseeker_education_id?: Maybe<Scalars['uuid']>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution?: Maybe<Scalars['String']>;
 };
@@ -410,7 +427,6 @@ export type Educational_Institution_Max_Fields = {
 export type Educational_Institution_Min_Fields = {
   __typename?: 'educational_institution_min_fields';
   educational_institution_id?: Maybe<Scalars['uuid']>;
-  jobseeker_education_id?: Maybe<Scalars['uuid']>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution?: Maybe<Scalars['String']>;
 };
@@ -441,9 +457,8 @@ export type Educational_Institution_On_Conflict = {
 /** Ordering options when selecting data from "educational_institution". */
 export type Educational_Institution_Order_By = {
   educational_institution_id?: InputMaybe<Order_By>;
-  jobseeker_education?: InputMaybe<Jobseeker_Education_Order_By>;
-  jobseeker_education_id?: InputMaybe<Order_By>;
-  location?: InputMaybe<Location_Order_By>;
+  educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Order_By>;
+  educational_institution_location?: InputMaybe<Location_Order_By>;
   location_id?: InputMaybe<Order_By>;
   name_institution?: InputMaybe<Order_By>;
 };
@@ -458,8 +473,6 @@ export enum Educational_Institution_Select_Column {
   /** column name */
   EducationalInstitutionId = 'educational_institution_id',
   /** column name */
-  JobseekerEducationId = 'jobseeker_education_id',
-  /** column name */
   LocationId = 'location_id',
   /** column name */
   NameInstitution = 'name_institution'
@@ -468,7 +481,6 @@ export enum Educational_Institution_Select_Column {
 /** input type for updating data in table "educational_institution" */
 export type Educational_Institution_Set_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
-  jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -484,7 +496,6 @@ export type Educational_Institution_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Educational_Institution_Stream_Cursor_Value_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
-  jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -493,8 +504,6 @@ export type Educational_Institution_Stream_Cursor_Value_Input = {
 export enum Educational_Institution_Update_Column {
   /** column name */
   EducationalInstitutionId = 'educational_institution_id',
-  /** column name */
-  JobseekerEducationId = 'jobseeker_education_id',
   /** column name */
   LocationId = 'location_id',
   /** column name */
@@ -602,13 +611,14 @@ export type Jobseeker_Education = {
   __typename?: 'jobseeker_education';
   average_score?: Maybe<Scalars['String']>;
   education_form: Scalars['String'];
-  /** An object relationship */
-  educational_institution?: Maybe<Educational_Institution>;
+  educational_institution_id?: Maybe<Scalars['uuid']>;
   end_date?: Maybe<Scalars['date']>;
   faculity: Scalars['String'];
   group: Scalars['String'];
   /** An object relationship */
   jobseeker?: Maybe<Jobseeker>;
+  /** An object relationship */
+  jobseeker_education_educational_institution?: Maybe<Educational_Institution>;
   jobseeker_education_id: Scalars['uuid'];
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality: Scalars['String'];
@@ -669,11 +679,12 @@ export type Jobseeker_Education_Bool_Exp = {
   _or?: InputMaybe<Array<Jobseeker_Education_Bool_Exp>>;
   average_score?: InputMaybe<String_Comparison_Exp>;
   education_form?: InputMaybe<String_Comparison_Exp>;
-  educational_institution?: InputMaybe<Educational_Institution_Bool_Exp>;
+  educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
   end_date?: InputMaybe<Date_Comparison_Exp>;
   faculity?: InputMaybe<String_Comparison_Exp>;
   group?: InputMaybe<String_Comparison_Exp>;
   jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
+  jobseeker_education_educational_institution?: InputMaybe<Educational_Institution_Bool_Exp>;
   jobseeker_education_id?: InputMaybe<Uuid_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   speciality?: InputMaybe<String_Comparison_Exp>;
@@ -690,11 +701,12 @@ export enum Jobseeker_Education_Constraint {
 export type Jobseeker_Education_Insert_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
-  educational_institution?: InputMaybe<Educational_Institution_Obj_Rel_Insert_Input>;
+  educational_institution_id?: InputMaybe<Scalars['uuid']>;
   end_date?: InputMaybe<Scalars['date']>;
   faculity?: InputMaybe<Scalars['String']>;
   group?: InputMaybe<Scalars['String']>;
   jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
+  jobseeker_education_educational_institution?: InputMaybe<Educational_Institution_Obj_Rel_Insert_Input>;
   jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
@@ -706,6 +718,7 @@ export type Jobseeker_Education_Max_Fields = {
   __typename?: 'jobseeker_education_max_fields';
   average_score?: Maybe<Scalars['String']>;
   education_form?: Maybe<Scalars['String']>;
+  educational_institution_id?: Maybe<Scalars['uuid']>;
   end_date?: Maybe<Scalars['date']>;
   faculity?: Maybe<Scalars['String']>;
   group?: Maybe<Scalars['String']>;
@@ -719,6 +732,7 @@ export type Jobseeker_Education_Max_Fields = {
 export type Jobseeker_Education_Max_Order_By = {
   average_score?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
+  educational_institution_id?: InputMaybe<Order_By>;
   end_date?: InputMaybe<Order_By>;
   faculity?: InputMaybe<Order_By>;
   group?: InputMaybe<Order_By>;
@@ -733,6 +747,7 @@ export type Jobseeker_Education_Min_Fields = {
   __typename?: 'jobseeker_education_min_fields';
   average_score?: Maybe<Scalars['String']>;
   education_form?: Maybe<Scalars['String']>;
+  educational_institution_id?: Maybe<Scalars['uuid']>;
   end_date?: Maybe<Scalars['date']>;
   faculity?: Maybe<Scalars['String']>;
   group?: Maybe<Scalars['String']>;
@@ -746,6 +761,7 @@ export type Jobseeker_Education_Min_Fields = {
 export type Jobseeker_Education_Min_Order_By = {
   average_score?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
+  educational_institution_id?: InputMaybe<Order_By>;
   end_date?: InputMaybe<Order_By>;
   faculity?: InputMaybe<Order_By>;
   group?: InputMaybe<Order_By>;
@@ -764,13 +780,6 @@ export type Jobseeker_Education_Mutation_Response = {
   returning: Array<Jobseeker_Education>;
 };
 
-/** input type for inserting object relation for remote table "jobseeker_education" */
-export type Jobseeker_Education_Obj_Rel_Insert_Input = {
-  data: Jobseeker_Education_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Jobseeker_Education_On_Conflict>;
-};
-
 /** on_conflict condition type for table "jobseeker_education" */
 export type Jobseeker_Education_On_Conflict = {
   constraint: Jobseeker_Education_Constraint;
@@ -782,11 +791,12 @@ export type Jobseeker_Education_On_Conflict = {
 export type Jobseeker_Education_Order_By = {
   average_score?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
-  educational_institution?: InputMaybe<Educational_Institution_Order_By>;
+  educational_institution_id?: InputMaybe<Order_By>;
   end_date?: InputMaybe<Order_By>;
   faculity?: InputMaybe<Order_By>;
   group?: InputMaybe<Order_By>;
   jobseeker?: InputMaybe<Jobseeker_Order_By>;
+  jobseeker_education_educational_institution?: InputMaybe<Educational_Institution_Order_By>;
   jobseeker_education_id?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   speciality?: InputMaybe<Order_By>;
@@ -804,6 +814,8 @@ export enum Jobseeker_Education_Select_Column {
   AverageScore = 'average_score',
   /** column name */
   EducationForm = 'education_form',
+  /** column name */
+  EducationalInstitutionId = 'educational_institution_id',
   /** column name */
   EndDate = 'end_date',
   /** column name */
@@ -824,6 +836,7 @@ export enum Jobseeker_Education_Select_Column {
 export type Jobseeker_Education_Set_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
+  educational_institution_id?: InputMaybe<Scalars['uuid']>;
   end_date?: InputMaybe<Scalars['date']>;
   faculity?: InputMaybe<Scalars['String']>;
   group?: InputMaybe<Scalars['String']>;
@@ -845,6 +858,7 @@ export type Jobseeker_Education_Stream_Cursor_Input = {
 export type Jobseeker_Education_Stream_Cursor_Value_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
+  educational_institution_id?: InputMaybe<Scalars['uuid']>;
   end_date?: InputMaybe<Scalars['date']>;
   faculity?: InputMaybe<Scalars['String']>;
   group?: InputMaybe<Scalars['String']>;
@@ -860,6 +874,8 @@ export enum Jobseeker_Education_Update_Column {
   AverageScore = 'average_score',
   /** column name */
   EducationForm = 'education_form',
+  /** column name */
+  EducationalInstitutionId = 'educational_institution_id',
   /** column name */
   EndDate = 'end_date',
   /** column name */
@@ -2862,13 +2878,13 @@ export type Work_Experience_Updates = {
   where: Work_Experience_Bool_Exp;
 };
 
-export type AuthMutationVariables = Exact<{
+export type AuthLoginMutationVariables = Exact<{
   login?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type AuthMutation = { __typename?: 'mutation_root', login_handler?: { __typename?: 'response', access_token: string } | null };
+export type AuthLoginMutation = { __typename?: 'mutation_root', login_handler?: { __typename?: 'response', access_token: string } | null };
 
 export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -2876,40 +2892,40 @@ export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 export type UpdateTokenMutation = { __typename?: 'mutation_root', refreshToken?: { __typename?: 'refreshTokenOutput', access_token: string } | null };
 
 
-export const AuthDocument = gql`
-    mutation Auth($login: String = "", $password: String = "") {
+export const AuthLoginDocument = gql`
+    mutation AuthLogin($login: String = "", $password: String = "") {
   login_handler(login: $login, password: $password) {
     access_token
   }
 }
     `;
-export type AuthMutationFn = Apollo.MutationFunction<AuthMutation, AuthMutationVariables>;
+export type AuthLoginMutationFn = Apollo.MutationFunction<AuthLoginMutation, AuthLoginMutationVariables>;
 
 /**
- * __useAuthMutation__
+ * __useAuthLoginMutation__
  *
- * To run a mutation, you first call `useAuthMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAuthMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useAuthLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAuthLoginMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [authMutation, { data, loading, error }] = useAuthMutation({
+ * const [authLoginMutation, { data, loading, error }] = useAuthLoginMutation({
  *   variables: {
  *      login: // value for 'login'
  *      password: // value for 'password'
  *   },
  * });
  */
-export function useAuthMutation(baseOptions?: Apollo.MutationHookOptions<AuthMutation, AuthMutationVariables>) {
+export function useAuthLoginMutation(baseOptions?: Apollo.MutationHookOptions<AuthLoginMutation, AuthLoginMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AuthMutation, AuthMutationVariables>(AuthDocument, options);
+        return Apollo.useMutation<AuthLoginMutation, AuthLoginMutationVariables>(AuthLoginDocument, options);
       }
-export type AuthMutationHookResult = ReturnType<typeof useAuthMutation>;
-export type AuthMutationResult = Apollo.MutationResult<AuthMutation>;
-export type AuthMutationOptions = Apollo.BaseMutationOptions<AuthMutation, AuthMutationVariables>;
+export type AuthLoginMutationHookResult = ReturnType<typeof useAuthLoginMutation>;
+export type AuthLoginMutationResult = Apollo.MutationResult<AuthLoginMutation>;
+export type AuthLoginMutationOptions = Apollo.BaseMutationOptions<AuthLoginMutation, AuthLoginMutationVariables>;
 export const UpdateTokenDocument = gql`
     mutation UpdateToken {
   refreshToken {
