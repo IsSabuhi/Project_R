@@ -8,7 +8,6 @@ import {
   FormControl,
   FormLabel,
   Heading,
-  Input,
   Link,
   Stack,
   Image,
