@@ -1,0 +1,16 @@
+.logout_btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+
+    .logout_btn_pointer {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        cursor: pointer;
+    }
+}

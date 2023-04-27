@@ -13,6 +13,8 @@ import {
   useDisclosure,
   BoxProps,
   FlexProps,
+  Stack,
+  Button,
 } from '@chakra-ui/react'
 import {
   FiHome,
@@ -21,26 +23,32 @@ import {
   FiStar,
   FiSettings,
   FiMenu,
+  FiLogOut,
 } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { ReactText } from 'react'
+import styles from './Sidebar.module.scss'
+import { useAuthContext } from '@/hooks/use-auth-context'
 
 interface LinkItemProps {
   name: string
+  href: string
   icon: IconType
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Главная', icon: FiHome },
-  { name: 'Trending', icon: FiTrendingUp },
-  { name: 'Explore', icon: FiCompass },
-  { name: 'Favourites', icon: FiStar },
-  { name: 'Настройки', icon: FiSettings },
+  { name: 'Главная', href: '/home', icon: FiHome },
+  { name: 'Мои резюме', href: '/', icon: FiTrendingUp },
+  { name: 'Настройки', href: '/', icon: FiSettings },
 ]
 
 const Sidebar = ({ children }: { children: ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box
+      minH="100vh"
+      width="100%"
+      bg={useColorModeValue('gray.100', 'gray.900')}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -72,6 +80,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const { stopAuthSession } = useAuthContext()
   return (
     <Box
       bg={useColorModeValue('white', 'gray.900')}
@@ -80,31 +89,54 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      <div>
+        <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+          <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            Logo
+          </Text>
+          <CloseButton
+            display={{ base: 'flex', md: 'none' }}
+            onClick={onClose}
+          />
+        </Flex>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon} href={link.href}>
+            {link.name}
+          </NavItem>
+        ))}
+      </div>
+      <Stack direction="row" className={styles.logout_btn}>
+        <div className={styles.logout_btn_pointer}>
+          {/* <FiLogOut /> */}
+          <Button
+            leftIcon={<FiLogOut />}
+            variant="ghost"
+            onClick={stopAuthSession}
+          >
+            Выход
+          </Button>
+        </div>
+      </Stack>
     </Box>
   )
 }
 
 interface NavItemProps extends FlexProps {
   icon: IconType
+  href: string
   children: ReactText
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, href, children, ...rest }: NavItemProps) => {
   return (
     <Link
-      href="#"
+      href={href}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
     >

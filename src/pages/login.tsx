@@ -19,6 +19,7 @@ import { useSnackbar } from 'notistack'
 import InputField from '@/components/InputField/InputField'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import { useRouter } from 'next/router'
+import { APP_URLS } from '@/configs/urls'
 
 interface IAuthProps {
   login: string
@@ -27,7 +28,7 @@ interface IAuthProps {
 
 const initialAuth: IAuthProps = { login: '', password: '' }
 
-const Login = () => {
+const SignIn = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   const [status, setStatus] = useState<Status>(Status.idle)
@@ -62,57 +63,68 @@ const Login = () => {
       })
     },
   })
+  return (
+    <Flex p={8} flex={1} align={'center'} justify={'center'}>
+      <Stack spacing={4} w={'full'} maxW={'md'}>
+        <form onSubmit={formik.handleSubmit}>
+          <Heading fontSize={'2xl'} textAlign="center" paddingBottom="30px">
+            Войдите в систему, чтобы создать свое первое резюме
+          </Heading>
+          <FormControl id="email">
+            <FormLabel>Логин</FormLabel>
+            <InputField
+              id="login"
+              name="login"
+              type="text"
+              onChange={formik.handleChange}
+              value={formik.values.login}
+            />
+          </FormControl>
+          <FormControl id="password">
+            <FormLabel>Пароль</FormLabel>
+            <InputField
+              id="password"
+              name="password"
+              type="password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+          </FormControl>
+          <Stack spacing={6}>
+            <Stack
+              direction={{ base: 'column', sm: 'row' }}
+              align={'start'}
+              justify={'space-between'}
+            >
+              <Checkbox>Запомнить меня</Checkbox>
+              <Link color={'blue.500'}>Забыли пароль?</Link>
+            </Stack>
+            <Button
+              type="submit"
+              colorScheme="blue"
+              variant="solid"
+              loadingText="Вход в систему"
+              isLoading={loading}
+            >
+              Войти
+            </Button>
+          </Stack>
+        </form>
+        <Text textAlign="center">
+          У вас нет учетной записи?{' '}
+          <Link color="blue.500" href={APP_URLS.SIGN_UP}>
+            Зарегистрироваться
+          </Link>
+        </Text>
+      </Stack>
+    </Flex>
+  )
+}
 
+const Login = () => {
   return (
     <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-      <Flex p={8} flex={1} align={'center'} justify={'center'}>
-        <Stack spacing={4} w={'full'} maxW={'md'}>
-          <form onSubmit={formik.handleSubmit}>
-            <Heading fontSize={'2xl'} textAlign="center" paddingBottom="30px">
-              Войдите в систему, чтобы создать свое первое резюме
-            </Heading>
-            <FormControl id="email">
-              <FormLabel>Логин</FormLabel>
-              <InputField
-                id="login"
-                name="login"
-                type="text"
-                onChange={formik.handleChange}
-                value={formik.values.login}
-              />
-            </FormControl>
-            <FormControl id="password">
-              <FormLabel>Пароль</FormLabel>
-              <InputField
-                id="password"
-                name="password"
-                type="password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-              />
-            </FormControl>
-            <Stack spacing={6}>
-              {/* <Stack
-                direction={{ base: 'column', sm: 'row' }}
-                align={'start'}
-                justify={'space-between'}
-              >
-                <Checkbox>Запомнить меня</Checkbox>
-                <Link color={'blue.500'}>Забыли пароль?</Link>
-              </Stack> */}
-              <Button
-                type="submit"
-                colorScheme="blue"
-                variant="solid"
-                loadingText="Вход в систему"
-                isLoading={loading}
-              >
-                Войти
-              </Button>
-            </Stack>
-          </form>
-        </Stack>
-      </Flex>
+      <SignIn />
       <Flex flex={1}>
         <Image
           alt={'Login Image'}
