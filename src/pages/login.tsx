@@ -41,7 +41,9 @@ const SignIn = () => {
       startAuthSession(data.login_handler?.access_token!)
       setStatus(Status.success)
       router.push('/home')
-      return enqueueSnackbar('Успешно вошел в систему', { variant: 'success' })
+      return enqueueSnackbar('Авторизация прошла успешно', {
+        variant: 'success',
+      })
     },
     onError(error) {
       enqueueSnackbar('Неверный логин или пароль', { variant: 'error' })
