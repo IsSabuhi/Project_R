@@ -1,14 +1,8 @@
-import InputField from '@/components/InputField/InputField'
 import {
   Box,
   Button,
   ButtonGroup,
-  Checkbox,
   Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
   Progress,
   Text,
   useToast,
@@ -19,9 +13,9 @@ import styles from '@/styles/SignUp.module.scss'
 import { APP_URLS } from '@/configs/urls'
 import { useFormik } from 'formik'
 import { object, string, ref } from 'yup'
-import AccountInfo from '@/modules/AccountInfo/AccountInfo'
-import BasicInfo from '@/modules/BasicInfo/BasicInfo'
-import EducationsInfo from '@/modules/EducationsInfo/EducationsInfo'
+import BasicInfo from '@/modules/Jobseeker/BasicInfo/BasicInfo'
+import EducationsInfo from '@/modules/Jobseeker/EducationsInfo/EducationsInfo'
+import AccountInfo from '@/modules/Jobseeker/AccountInfo/AccountInfo'
 
 export interface ISignUpProps {
   login: string
@@ -65,12 +59,6 @@ const SignUp = () => {
       console.log(formik.values)
     },
   })
-
-  const handleConfirmPasswordChange = (event: any) => {
-    setIsDisabled(
-      event.target.value.length === 0 || formik.values.password.length === 0
-    )
-  }
 
   console.log(formik.values)
 
