@@ -14,7 +14,7 @@ import styles from './BasicInfo.module.scss'
 const BasicInfo = () => {
   return (
     <div className={styles.container}>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
+      <Heading w="100%" textAlign={'center'} fontWeight="normal">
         Данные пользователя
       </Heading>
       <Flex>

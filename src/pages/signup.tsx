@@ -9,116 +9,34 @@ import {
   FormLabel,
   Heading,
   Input,
-  InputGroup,
   Progress,
-  Radio,
-  RadioGroup,
-  Stack,
   Text,
   useToast,
   Link,
-  InputRightElement,
-  Select,
 } from '@chakra-ui/react'
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import React, { useState } from 'react'
 import styles from '@/styles/SignUp.module.scss'
 import { APP_URLS } from '@/configs/urls'
-import { Form, Formik } from 'formik'
+import { useFormik } from 'formik'
+import { object, string, ref } from 'yup'
 import AccountInfo from '@/modules/AccountInfo/AccountInfo'
 import BasicInfo from '@/modules/BasicInfo/BasicInfo'
+import EducationsInfo from '@/modules/EducationsInfo/EducationsInfo'
 
-const initialValues = {
-  username: '',
-  password: '',
-  role: '',
-  education: '',
-  organization: '',
+export interface ISignUpProps {
+  login: string
+  password: string
+  confirmPassword: string
+  role: string
+  email: string
 }
 
-const EducationsInfo = () => {
-  const [isChecked, setIsChecked] = useState(false)
-
-  return (
-    <div>
-      <Heading w="100%" textAlign={'center'} fontWeight="normal" mb="2%">
-        Образование
-      </Heading>
-      <Flex flexDirection="column">
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Наименование образовательного учреждения
-          </FormLabel>
-          <InputField
-            id="first-name"
-            isRequired
-            placeholder="Наименование образовательного учреждения"
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Наименование факультета
-          </FormLabel>
-          <InputField id="first-name" isRequired placeholder="Факультет" />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Наименование специальности
-          </FormLabel>
-          <InputField id="first-name" isRequired placeholder="Специальность" />
-        </FormControl>
-      </Flex>
-
-      <Flex>
-        <FormControl mr="2%">
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Форма обучения
-          </FormLabel>
-          <InputField id="first-name" isRequired placeholder="Форма обучения" />
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Группа
-          </FormLabel>
-          <InputField id="first-name" placeholder="Группа" />
-        </FormControl>
-      </Flex>
-
-      <Flex display="flex" alignItems="center">
-        <FormControl mr="2%">
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Дата поступления
-          </FormLabel>
-          <Input
-            id="first-name"
-            isRequired
-            placeholder="Дата поступления"
-            type="date"
-          />
-        </FormControl>
-
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
-            Дата окончания
-          </FormLabel>
-          <Input
-            id="first-name"
-            placeholder="Дата окончания"
-            type="date"
-            disabled={isChecked}
-          />
-        </FormControl>
-      </Flex>
-      <Checkbox
-        isChecked={isChecked}
-        onChange={(e) => setIsChecked(e.target.checked)}
-      >
-        По настоящее время
-      </Checkbox>
-    </div>
-  )
+const initialValues: ISignUpProps = {
+  login: '',
+  password: '',
+  confirmPassword: '',
+  role: '',
+  email: '',
 }
 
 const SignUp = () => {
@@ -126,12 +44,43 @@ const SignUp = () => {
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
 
-  const [role, setRole] = useState('')
+  const registerValidation = object().shape({
+    name: string().required('Required'),
+    email: string()
+      .required('Требуется действительный адрес электронной почты')
+      .email('Valid email required'),
+    password: string().min(8, 'Required').required('Required'),
+    confirmPassword: string()
+      .required('Пожалуйста, подтвердите свой пароль')
+      .oneOf([ref('password')], 'Пароли не совпадают'),
+  })
 
-  const [formData, setFormData] = useState(initialValues)
+  const [isDisabled, setIsDisabled] = useState(true)
 
-  const handleRoleChange = (newRole: any) => {
-    setRole(newRole)
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: registerValidation,
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      console.log(formik.values)
+    },
+  })
+
+  const handleConfirmPasswordChange = (event: any) => {
+    setIsDisabled(
+      event.target.value.length === 0 || formik.values.password.length === 0
+    )
+  }
+
+  console.log(formik.values)
+
+  const [isFirstInputFilled, setIsFirstInputFilled] = useState(false)
+
+  const handleInputChange = (e: any) => {
+    formik.handleChange(e)
+    if (!isFirstInputFilled && e.target.name === 'password' && e.target.value) {
+      setIsFirstInputFilled(true)
+    }
   }
 
   return (
@@ -149,80 +98,75 @@ const SignUp = () => {
         <Progress
           hasStripe
           value={progress}
-          mb="5%"
-          mx="5%"
+          mb="3%"
+          mx="3%"
           isAnimated
         ></Progress>
-        <Formik
-          initialValues={formData}
-          onSubmit={(values) => {
-            console.log(values)
-          }}
-        >
-          {({ values }) => (
-            <>
-              {step === 1 ? (
-                <BasicInfo />
-              ) : step === 2 ? (
-                values.role === 'jobseeker' ? (
-                  <>1233213123</>
-                ) : values.role === 'employer' ? (
-                  <BasicInfo />
-                ) : null
-              ) : (
-                <>...</>
-              )}
-              <ButtonGroup mt="5%" w="100%">
-                <Flex w="100%" justifyContent="space-between">
-                  <Flex>
-                    <Button
-                      onClick={() => {
-                        setStep(step - 1)
-                        setProgress(progress - 33.33)
-                      }}
-                      isDisabled={step === 1}
-                      colorScheme="teal"
-                      variant="solid"
-                      w="7rem"
-                      mr="5%"
-                    >
-                      Назад
-                    </Button>
-                    <Button
-                      w="7rem"
-                      isDisabled={step === 3}
-                      onClick={() => {
-                        setStep(step + 1)
-                        if (step === 3) {
-                          setProgress(100)
-                        } else {
-                          setProgress(progress + 33.33)
-                        }
-                      }}
-                      colorScheme="teal"
-                      variant="outline"
-                    >
-                      Далее
-                    </Button>
-                  </Flex>
-                  {step === 3 ? (
-                    <Button w="7rem" colorScheme="red" variant="solid">
-                      Submit
-                    </Button>
-                  ) : null}
-                  {step == 1 && (
-                    <Text>
-                      У вас есть учетная запись?{' '}
-                      <Link color="blue.500" href={APP_URLS.SIGN_IN}>
-                        Авторизоваться
-                      </Link>
-                    </Text>
-                  )}
-                </Flex>
-              </ButtonGroup>
-            </>
-          )}
-        </Formik>
+        {step === 1 ? (
+          <AccountInfo
+            formData={formik.values}
+            onChange={handleInputChange}
+            isInputDisabled={!isFirstInputFilled}
+          />
+        ) : step === 2 ? (
+          formik.values.role === 'jobseeker' ? (
+            <BasicInfo />
+          ) : formik.values.role === 'employer' ? (
+            <>HUIHUIHUI</>
+          ) : null
+        ) : formik.values.role === 'jobseeker' ? (
+          <EducationsInfo />
+        ) : formik.values.role === 'employer' ? (
+          <>12321</>
+        ) : null}
+        <ButtonGroup mt="5%" w="100%">
+          <Flex w="100%" justifyContent="space-between">
+            <Flex>
+              <Button
+                onClick={() => {
+                  setStep(step - 1)
+                  setProgress(progress - 33.33)
+                }}
+                isDisabled={step === 1}
+                colorScheme="teal"
+                variant="solid"
+                w="7rem"
+                mr="5%"
+              >
+                Назад
+              </Button>
+              <Button
+                w="7rem"
+                isDisabled={!formik.values.role || step === 3}
+                onClick={() => {
+                  setStep(step + 1)
+                  if (step === 3) {
+                    setProgress(100)
+                  } else {
+                    setProgress(progress + 33.33)
+                  }
+                }}
+                colorScheme="teal"
+                variant="outline"
+              >
+                Далее
+              </Button>
+            </Flex>
+            {step === 3 ? (
+              <Button w="7rem" colorScheme="red" variant="solid">
+                Submit
+              </Button>
+            ) : null}
+            {step == 1 && (
+              <Text>
+                У вас есть учетная запись?{' '}
+                <Link color="blue.500" href={APP_URLS.SIGN_IN}>
+                  Авторизоваться
+                </Link>
+              </Text>
+            )}
+          </Flex>
+        </ButtonGroup>
       </Box>
     </div>
   )
