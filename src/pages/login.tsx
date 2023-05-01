@@ -11,6 +11,8 @@ import {
   Image,
   Text,
   Input,
+  InputGroup,
+  InputRightElement,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
@@ -18,6 +20,7 @@ import { useAuthContext } from '@/hooks/use-auth-context'
 import { useRouter } from 'next/router'
 import { APP_URLS } from '@/configs/urls'
 import styles from '@/styles/Login.module.scss'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
 interface IAuthProps {
   login: string
@@ -27,13 +30,15 @@ interface IAuthProps {
 const initialAuth: IAuthProps = { login: '', password: '' }
 
 const SignIn = () => {
+  const router = useRouter()
+
   const { enqueueSnackbar } = useSnackbar()
 
   const [status, setStatus] = useState<Status>(Status.idle)
 
   const { startAuthSession } = useAuthContext()
 
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false)
 
   const [authLoginMutation, { data, loading, error }] = useAuthLoginMutation({
     onCompleted(data) {
@@ -80,14 +85,24 @@ const SignIn = () => {
             value={formik.values.login}
           />
 
-          <Input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Пароль"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
+          <InputGroup>
+            <Input
+              id="password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Пароль"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+            />
+            <InputRightElement h={'full'}>
+              <Button
+                variant={'ghost'}
+                onClick={() => setShowPassword((showPassword) => !showPassword)}
+              >
+                {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
           <Stack spacing={6}>
             <Stack
               direction={{ base: 'column', sm: 'row' }}

@@ -7,7 +7,7 @@ import {setContext} from '@apollo/client/link/context'
 import { AUTH_TOKEN } from './src/constants';
 
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_HASURA_URL,
+  uri: 'http://172.30.30.132:8080/v1/graphql',
   headers: {
     "content-type": "application/json",
     'x-hasura-admin-secret': 'admin',

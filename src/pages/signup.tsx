@@ -5,7 +5,6 @@ import {
   Flex,
   Progress,
   Text,
-  useToast,
   Link,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
@@ -18,14 +17,36 @@ import EducationsInfo from '@/modules/Jobseeker/EducationsInfo/EducationsInfo'
 import AccountInfo from '@/modules/Jobseeker/AccountInfo/AccountInfo'
 import EmployerInfo from '@/modules/Employer/EmployerInfo/EmployerInfo'
 import Organization from '@/modules/Employer/Organization/Organization'
-import { useSignUpJobseekerMutation } from '@/generated/projectR-hasura'
+import {
+  useSignUpJobseekerMutation,
+  useSignUpOrganizationMutation,
+} from '@/generated/projectR-hasura'
+import { Status } from '@/constants'
+import { useSnackbar } from 'notistack'
 
 export interface ISignUpProps {
   login: string
   password: string
   confirmPassword: string
   role: string
+  dateBirth: string
   email: string
+  gender: string
+  education_form: string
+  end_date: string
+  faculity: string
+  group: string
+  name_institution: string
+  speciality: string
+  start_date: string
+  lastName: string
+  middleName: string
+  name: string
+  phone: string
+  name_employer: string
+  emailEmployer: string
+  phoneEmployer: string
+  inn_organization: bigint
 }
 
 const initialValues: ISignUpProps = {
@@ -33,11 +54,31 @@ const initialValues: ISignUpProps = {
   password: '',
   confirmPassword: '',
   role: '',
+  dateBirth: '',
   email: '',
+  gender: '',
+  education_form: '',
+  end_date: '',
+  faculity: '',
+  group: '',
+  name_institution: '',
+  speciality: '',
+  start_date: '',
+  lastName: '',
+  middleName: '',
+  name: '',
+  phone: '',
+  name_employer: '',
+  emailEmployer: '',
+  phoneEmployer: '',
+  inn_organization: BigInt(''),
 }
 
 const SignUp = () => {
-  const toast = useToast()
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [status, setStatus] = useState<Status>(Status.idle)
+
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
 
@@ -52,37 +93,69 @@ const SignUp = () => {
       .oneOf([ref('password')], 'Пароли не совпадают'),
   })
 
-  const formik = useFormik({
-    initialValues: initialValues,
-    validationSchema: registerValidation,
-    enableReinitialize: true,
-    onSubmit: (values) => {
-      console.log(formik.values)
+  const [signUpOrganizationMutation] = useSignUpOrganizationMutation({
+    onCompleted() {
+      setStatus(Status.success)
+      return enqueueSnackbar('Регистрация прошла успешно', {
+        variant: 'success',
+      })
     },
   })
 
   const [signUpJobseekerMutation, { data, loading, error }] =
     useSignUpJobseekerMutation({
-      variables: {
-        login: formik.values.login,
-        password: formik.values.login,
-        role: formik.values.login,
-        dateBirth: formik.values.login,
-        email: formik.values.login,
-        gender: formik.values.login,
-        education_form: formik.values.login,
-        end_date: formik.values.login,
-        faculity: formik.values.login,
-        group: formik.values.login,
-        name_institution: formik.values.login,
-        speciality: formik.values.login,
-        start_date: formik.values.login,
-        lastName: formik.values.login,
-        middleName: formik.values.login,
-        name: formik.values.login,
-        phone: formik.values.login,
+      onCompleted() {
+        setStatus(Status.success)
+        return enqueueSnackbar('Регистрация прошла успешно', {
+          variant: 'success',
+        })
       },
     })
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: registerValidation,
+    enableReinitialize: true,
+    onSubmit: () => {
+      if (formik.values.role === 'jobseeker') {
+        signUpJobseekerMutation({
+          variables: {
+            login: formik.values.login,
+            password: formik.values.password,
+            role: formik.values.role,
+            dateBirth: formik.values.dateBirth,
+            email: formik.values.email,
+            gender: formik.values.gender,
+            education_form: formik.values.education_form,
+            end_date: formik.values.end_date,
+            faculity: formik.values.faculity,
+            group: formik.values.group,
+            name_institution: formik.values.name_institution,
+            speciality: formik.values.speciality,
+            start_date: formik.values.start_date,
+            lastName: formik.values.lastName,
+            middleName: formik.values.middleName,
+            name: formik.values.name,
+            phone: formik.values.phone,
+          },
+        })
+      } else {
+        signUpOrganizationMutation({
+          variables: {
+            name_employer: formik.values.name_employer,
+            email: formik.values.email,
+            phone: formik.values.phone,
+            inn_organization: formik.values.inn_organization,
+          },
+        })
+      }
+    },
+  })
+
+  console.log(formik.values)
+
+  const isJobseeker = formik.values.role === 'jobseeker'
+  const isEmployer = formik.values.role === 'employer'
 
   const [isFirstInputFilled, setIsFirstInputFilled] = useState(false)
 
@@ -92,9 +165,6 @@ const SignUp = () => {
       setIsFirstInputFilled(true)
     }
   }
-
-  const isJobseeker = formik.values.role === 'jobseeker'
-  const isEmployer = formik.values.role === 'employer'
 
   return (
     <div className={styles.sign_up_container}>
@@ -115,6 +185,7 @@ const SignUp = () => {
           mx="3%"
           isAnimated
         ></Progress>
+
         {step === 1 ? (
           <AccountInfo
             formData={formik.values}
@@ -123,7 +194,10 @@ const SignUp = () => {
           />
         ) : step === 2 ? (
           isJobseeker ? (
-            <BasicInfo />
+            <BasicInfo
+              formData={formik.values}
+              onChange={formik.handleChange}
+            />
           ) : isEmployer ? (
             <EmployerInfo />
           ) : null
@@ -168,8 +242,8 @@ const SignUp = () => {
               </Button>
             </Flex>
             {step === 3 ? (
-              <Button w="7rem" colorScheme="red" variant="solid">
-                Submit
+              <Button colorScheme="red" variant="solid" type="submit">
+                Зарегистрироваться
               </Button>
             ) : null}
             {step == 1 && (

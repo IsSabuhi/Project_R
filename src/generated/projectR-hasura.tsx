@@ -2205,13 +2205,13 @@ export enum Order_By {
 /** columns and relationships of "organization" */
 export type Organization = {
   __typename?: 'organization';
-  date_registration: Scalars['date'];
+  date_registration?: Maybe<Scalars['date']>;
   employer_id: Scalars['uuid'];
   id_organization: Scalars['uuid'];
   inn_organization: Scalars['bigint'];
   kpp_organization?: Maybe<Scalars['bigint']>;
-  main_activity: Scalars['String'];
-  name_organization: Scalars['String'];
+  main_activity?: Maybe<Scalars['String']>;
+  name_organization?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "organization" */
@@ -3815,6 +3815,16 @@ export type SignUpJobseekerMutationVariables = Exact<{
 
 export type SignUpJobseekerMutation = { __typename?: 'mutation_root', insert_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', account_id?: string | null, jobseeker_id: string, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', educational_institution_id?: string | null, jobseeker_education_id: string }> }> } | null };
 
+export type SignUpOrganizationMutationVariables = Exact<{
+  name_employer?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['bigint']>;
+  inn_organization?: InputMaybe<Scalars['bigint']>;
+}>;
+
+
+export type SignUpOrganizationMutation = { __typename?: 'mutation_root', insert_employer?: { __typename?: 'employer_mutation_response', returning: Array<{ __typename?: 'employer', id_employer: string, employer_organizations: Array<{ __typename?: 'organization', id_organization: string }> }> } | null };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -3940,3 +3950,46 @@ export function useSignUpJobseekerMutation(baseOptions?: Apollo.MutationHookOpti
 export type SignUpJobseekerMutationHookResult = ReturnType<typeof useSignUpJobseekerMutation>;
 export type SignUpJobseekerMutationResult = Apollo.MutationResult<SignUpJobseekerMutation>;
 export type SignUpJobseekerMutationOptions = Apollo.BaseMutationOptions<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>;
+export const SignUpOrganizationDocument = gql`
+    mutation SignUpOrganization($name_employer: String = "", $email: String = "", $phone: bigint = "", $inn_organization: bigint = "") {
+  insert_employer(
+    objects: {name_employer: $name_employer, email: $email, phone: $phone, employer_organizations: {data: {inn_organization: $inn_organization}}}
+  ) {
+    returning {
+      id_employer
+      employer_organizations {
+        id_organization
+      }
+    }
+  }
+}
+    `;
+export type SignUpOrganizationMutationFn = Apollo.MutationFunction<SignUpOrganizationMutation, SignUpOrganizationMutationVariables>;
+
+/**
+ * __useSignUpOrganizationMutation__
+ *
+ * To run a mutation, you first call `useSignUpOrganizationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpOrganizationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpOrganizationMutation, { data, loading, error }] = useSignUpOrganizationMutation({
+ *   variables: {
+ *      name_employer: // value for 'name_employer'
+ *      email: // value for 'email'
+ *      phone: // value for 'phone'
+ *      inn_organization: // value for 'inn_organization'
+ *   },
+ * });
+ */
+export function useSignUpOrganizationMutation(baseOptions?: Apollo.MutationHookOptions<SignUpOrganizationMutation, SignUpOrganizationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignUpOrganizationMutation, SignUpOrganizationMutationVariables>(SignUpOrganizationDocument, options);
+      }
+export type SignUpOrganizationMutationHookResult = ReturnType<typeof useSignUpOrganizationMutation>;
+export type SignUpOrganizationMutationResult = Apollo.MutationResult<SignUpOrganizationMutation>;
+export type SignUpOrganizationMutationOptions = Apollo.BaseMutationOptions<SignUpOrganizationMutation, SignUpOrganizationMutationVariables>;

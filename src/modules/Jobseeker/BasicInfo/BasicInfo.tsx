@@ -6,12 +6,19 @@ import {
   Input,
   Radio,
   RadioGroup,
-  Stack,
 } from '@chakra-ui/react'
 import React from 'react'
 import styles from './BasicInfo.module.scss'
+import { ISignUpProps } from '@/pages/signup'
 
-const BasicInfo = () => {
+interface IBasicInfo {
+  formData: ISignUpProps
+  onChange: any
+}
+
+const BasicInfo = ({ formData, onChange }: IBasicInfo) => {
+  const GENDER = [{ name: 'Мужской' }, { name: 'Женский' }]
+
   return (
     <div className={styles.container}>
       <Heading w="100%" textAlign={'center'} fontWeight="normal">
@@ -24,15 +31,26 @@ const BasicInfo = () => {
           isRequired
           mr="2%"
           placeholder="Фамилия"
+          value={formData.lastName}
+          onChange={onChange}
         />
 
-        <Input id="name" name="name" isRequired placeholder="Имя" />
+        <Input
+          id="name"
+          name="name"
+          isRequired
+          placeholder="Имя"
+          value={formData.name}
+          onChange={onChange}
+        />
 
         <Input
           id="middleName"
           name="middleName"
           ml="2%"
           placeholder="Отчество"
+          value={formData.middleName}
+          onChange={onChange}
         />
       </Flex>
       <Flex display="flex" alignItems="center">
@@ -45,6 +63,8 @@ const BasicInfo = () => {
             name="dateBirth"
             placeholder="Дата рождения"
             type="date"
+            value={formData.dateBirth}
+            onChange={onChange}
           />
         </FormControl>
 
@@ -52,11 +72,20 @@ const BasicInfo = () => {
           <FormLabel htmlFor="gender" fontWeight={'normal'}>
             Пол
           </FormLabel>
-          <RadioGroup>
-            <Stack spacing={10} direction="row">
-              <Radio value="1">Мужской</Radio>
-              <Radio value="2">Женский</Radio>
-            </Stack>
+          <RadioGroup
+            id="gender"
+            name="gender"
+            py={2}
+            display="flex"
+            gridColumnGap={2}
+          >
+            {GENDER.map(({ name }, index) => {
+              return (
+                <Radio key={index} value={name}>
+                  {name}
+                </Radio>
+              )
+            })}
           </RadioGroup>
         </FormControl>
       </Flex>
