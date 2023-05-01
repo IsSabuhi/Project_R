@@ -35,6 +35,7 @@ const AccountInfo = ({
       <Flex>
         <Input
           id="login"
+          name="login"
           isRequired
           placeholder="Логин"
           mr="2%"
@@ -43,6 +44,7 @@ const AccountInfo = ({
         />
         <Input
           id="email"
+          name="email"
           type="email"
           isRequired
           placeholder="Email"

@@ -37,7 +37,9 @@
     "@graphql-codegen/cli": "^2.16.4",
     "@graphql-codegen/typescript": "^3.0.0",
     "@graphql-codegen/typescript-operations": "^3.0.0",
+    "@types/dotenv": "^8.2.0",
     "apollo": "^2.11.1",
+    "dotenv": "^16.0.3",
     "graphql": "^16.6.0"
   }
 }

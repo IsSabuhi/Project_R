@@ -5,20 +5,19 @@ import {
   Button,
   Checkbox,
   Flex,
-  FormControl,
-  FormLabel,
   Heading,
   Link,
   Stack,
   Image,
   Text,
+  Input,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
-import InputField from '@/components/InputField/InputField'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import { useRouter } from 'next/router'
 import { APP_URLS } from '@/configs/urls'
+import styles from '@/styles/Login.module.scss'
 
 interface IAuthProps {
   login: string
@@ -67,30 +66,28 @@ const SignIn = () => {
   return (
     <Flex p={8} flex={1} align={'center'} justify={'center'}>
       <Stack spacing={4} w={'full'} maxW={'md'}>
-        <form onSubmit={formik.handleSubmit}>
+        <form className={styles.login_container} onSubmit={formik.handleSubmit}>
           <Heading fontSize={'2xl'} textAlign="center" paddingBottom="30px">
             Войдите в систему, чтобы создать свое первое резюме
           </Heading>
-          <FormControl id="email">
-            <FormLabel>Логин</FormLabel>
-            <InputField
-              id="login"
-              name="login"
-              type="text"
-              onChange={formik.handleChange}
-              value={formik.values.login}
-            />
-          </FormControl>
-          <FormControl id="password">
-            <FormLabel>Пароль</FormLabel>
-            <InputField
-              id="password"
-              name="password"
-              type="password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
-          </FormControl>
+
+          <Input
+            id="login"
+            name="login"
+            type="text"
+            placeholder="Логин"
+            onChange={formik.handleChange}
+            value={formik.values.login}
+          />
+
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Пароль"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
           <Stack spacing={6}>
             <Stack
               direction={{ base: 'column', sm: 'row' }}

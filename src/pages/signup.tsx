@@ -16,6 +16,9 @@ import { object, string, ref } from 'yup'
 import BasicInfo from '@/modules/Jobseeker/BasicInfo/BasicInfo'
 import EducationsInfo from '@/modules/Jobseeker/EducationsInfo/EducationsInfo'
 import AccountInfo from '@/modules/Jobseeker/AccountInfo/AccountInfo'
+import EmployerInfo from '@/modules/Employer/EmployerInfo/EmployerInfo'
+import Organization from '@/modules/Employer/Organization/Organization'
+import { useSignUpJobseekerMutation } from '@/generated/projectR-hasura'
 
 export interface ISignUpProps {
   login: string
@@ -49,8 +52,6 @@ const SignUp = () => {
       .oneOf([ref('password')], 'Пароли не совпадают'),
   })
 
-  const [isDisabled, setIsDisabled] = useState(true)
-
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: registerValidation,
@@ -60,7 +61,28 @@ const SignUp = () => {
     },
   })
 
-  console.log(formik.values)
+  const [signUpJobseekerMutation, { data, loading, error }] =
+    useSignUpJobseekerMutation({
+      variables: {
+        login: formik.values.login,
+        password: formik.values.login,
+        role: formik.values.login,
+        dateBirth: formik.values.login,
+        email: formik.values.login,
+        gender: formik.values.login,
+        education_form: formik.values.login,
+        end_date: formik.values.login,
+        faculity: formik.values.login,
+        group: formik.values.login,
+        name_institution: formik.values.login,
+        speciality: formik.values.login,
+        start_date: formik.values.login,
+        lastName: formik.values.login,
+        middleName: formik.values.login,
+        name: formik.values.login,
+        phone: formik.values.login,
+      },
+    })
 
   const [isFirstInputFilled, setIsFirstInputFilled] = useState(false)
 
@@ -70,6 +92,9 @@ const SignUp = () => {
       setIsFirstInputFilled(true)
     }
   }
+
+  const isJobseeker = formik.values.role === 'jobseeker'
+  const isEmployer = formik.values.role === 'employer'
 
   return (
     <div className={styles.sign_up_container}>
@@ -97,15 +122,17 @@ const SignUp = () => {
             isInputDisabled={!isFirstInputFilled}
           />
         ) : step === 2 ? (
-          formik.values.role === 'jobseeker' ? (
+          isJobseeker ? (
             <BasicInfo />
-          ) : formik.values.role === 'employer' ? (
-            <>HUIHUIHUI</>
+          ) : isEmployer ? (
+            <EmployerInfo />
           ) : null
-        ) : formik.values.role === 'jobseeker' ? (
-          <EducationsInfo />
-        ) : formik.values.role === 'employer' ? (
-          <>12321</>
+        ) : step === 3 ? (
+          isJobseeker ? (
+            <EducationsInfo />
+          ) : isEmployer ? (
+            <Organization />
+          ) : null
         ) : null}
         <ButtonGroup mt="5%" w="100%">
           <Flex w="100%" justifyContent="space-between">

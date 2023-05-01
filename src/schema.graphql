@@ -9,3 +9,52 @@ mutation UpdateToken {
     access_token
   }
 }
+
+mutation SignUpJobseeker(
+  $login: String = ""
+  $password: String = ""
+  $role: String = ""
+  $dateBirth: date = ""
+  $email: String = ""
+  $gender: String = ""
+  $education_form: String = ""
+  $end_date: date = ""
+  $faculity: String = ""
+  $group: String = ""
+  $name_institution: String = ""
+  $speciality: String = ""
+  $start_date: date = ""
+  $lastName: String = ""
+  $middleName: String = ""
+  $name: String = ""
+  $phone: String = ""
+) {
+  insert_jobseeker_one(
+    object: {
+      email: $email
+      dateBirth: $dateBirth
+      gender: $gender
+      lastName: $lastName
+      middleName: $middleName
+      name: $name
+      account: { data: { login: $login, password: $password, role: $role } }
+      jobseeker_educations: {
+        data: {
+          education_form: $education_form
+          end_date: $end_date
+          group: $group
+          faculity: $faculity
+          speciality: $speciality
+          start_date: $start_date
+          jobseeker_education_educational_institution: {
+            data: { name_institution: $name_institution }
+          }
+        }
+      }
+      phone: $phone
+    }
+  ) {
+    jobseeker_id
+    account_id
+  }
+}

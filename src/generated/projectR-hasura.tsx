@@ -13,6 +13,7 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  bigint: any;
   date: any;
   time: string;
   uuid: string;
@@ -109,7 +110,7 @@ export type Account = {
   login: Scalars['String'];
   password: Scalars['String'];
   refreshToken?: Maybe<Scalars['String']>;
-  role: Scalars['String'];
+  role?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "account" */
@@ -306,6 +307,19 @@ export type Account_Updates = {
   where: Account_Bool_Exp;
 };
 
+/** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
+export type Bigint_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['bigint']>;
+  _gt?: InputMaybe<Scalars['bigint']>;
+  _gte?: InputMaybe<Scalars['bigint']>;
+  _in?: InputMaybe<Array<Scalars['bigint']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['bigint']>;
+  _lte?: InputMaybe<Scalars['bigint']>;
+  _neq?: InputMaybe<Scalars['bigint']>;
+  _nin?: InputMaybe<Array<Scalars['bigint']>>;
+};
+
 /** ordering argument of a cursor */
 export enum Cursor_Ordering {
   /** ascending ordering of the cursor */
@@ -335,9 +349,7 @@ export type Educational_Institution = {
   educational_institution_jobseeker_educations: Array<Jobseeker_Education>;
   /** An aggregate relationship */
   educational_institution_jobseeker_educations_aggregate: Jobseeker_Education_Aggregate;
-  /** An object relationship */
-  educational_institution_location: Location;
-  location_id: Scalars['uuid'];
+  location_id?: Maybe<Scalars['uuid']>;
   name_institution: Scalars['String'];
 };
 
@@ -391,17 +403,12 @@ export type Educational_Institution_Bool_Exp = {
   educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
   educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
   educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Bool_Exp>;
-  educational_institution_location?: InputMaybe<Location_Bool_Exp>;
   location_id?: InputMaybe<Uuid_Comparison_Exp>;
   name_institution?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "educational_institution" */
 export enum Educational_Institution_Constraint {
-  /** unique or primary key constraint on columns "location_id" */
-  EducationalInstitutionLocationIdKey = 'educational_institution_location_id_key',
-  /** unique or primary key constraint on columns "name_institution" */
-  EducationalInstitutionNameInstitutionKey = 'educational_institution_name_institution_key',
   /** unique or primary key constraint on columns "educational_institution_id" */
   EducationalInstitutionPkey = 'educational_institution_pkey'
 }
@@ -410,7 +417,6 @@ export enum Educational_Institution_Constraint {
 export type Educational_Institution_Insert_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
   educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
-  educational_institution_location?: InputMaybe<Location_Obj_Rel_Insert_Input>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -458,7 +464,6 @@ export type Educational_Institution_On_Conflict = {
 export type Educational_Institution_Order_By = {
   educational_institution_id?: InputMaybe<Order_By>;
   educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Order_By>;
-  educational_institution_location?: InputMaybe<Location_Order_By>;
   location_id?: InputMaybe<Order_By>;
   name_institution?: InputMaybe<Order_By>;
 };
@@ -515,6 +520,271 @@ export type Educational_Institution_Updates = {
   _set?: InputMaybe<Educational_Institution_Set_Input>;
   /** filter the rows which have to be updated */
   where: Educational_Institution_Bool_Exp;
+};
+
+/** columns and relationships of "employer" */
+export type Employer = {
+  __typename?: 'employer';
+  email?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  employer_organizations: Array<Organization>;
+  /** An aggregate relationship */
+  employer_organizations_aggregate: Organization_Aggregate;
+  id_employer: Scalars['uuid'];
+  name_employer: Scalars['String'];
+  phone?: Maybe<Scalars['bigint']>;
+  verified: Scalars['Boolean'];
+};
+
+
+/** columns and relationships of "employer" */
+export type EmployerEmployer_OrganizationsArgs = {
+  distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Organization_Order_By>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+
+/** columns and relationships of "employer" */
+export type EmployerEmployer_Organizations_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Organization_Order_By>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+/** aggregated selection of "employer" */
+export type Employer_Aggregate = {
+  __typename?: 'employer_aggregate';
+  aggregate?: Maybe<Employer_Aggregate_Fields>;
+  nodes: Array<Employer>;
+};
+
+/** aggregate fields of "employer" */
+export type Employer_Aggregate_Fields = {
+  __typename?: 'employer_aggregate_fields';
+  avg?: Maybe<Employer_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Employer_Max_Fields>;
+  min?: Maybe<Employer_Min_Fields>;
+  stddev?: Maybe<Employer_Stddev_Fields>;
+  stddev_pop?: Maybe<Employer_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Employer_Stddev_Samp_Fields>;
+  sum?: Maybe<Employer_Sum_Fields>;
+  var_pop?: Maybe<Employer_Var_Pop_Fields>;
+  var_samp?: Maybe<Employer_Var_Samp_Fields>;
+  variance?: Maybe<Employer_Variance_Fields>;
+};
+
+
+/** aggregate fields of "employer" */
+export type Employer_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Employer_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Employer_Avg_Fields = {
+  __typename?: 'employer_avg_fields';
+  phone?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "employer". All fields are combined with a logical 'AND'. */
+export type Employer_Bool_Exp = {
+  _and?: InputMaybe<Array<Employer_Bool_Exp>>;
+  _not?: InputMaybe<Employer_Bool_Exp>;
+  _or?: InputMaybe<Array<Employer_Bool_Exp>>;
+  email?: InputMaybe<String_Comparison_Exp>;
+  employer_organizations?: InputMaybe<Organization_Bool_Exp>;
+  employer_organizations_aggregate?: InputMaybe<Organization_Aggregate_Bool_Exp>;
+  id_employer?: InputMaybe<Uuid_Comparison_Exp>;
+  name_employer?: InputMaybe<String_Comparison_Exp>;
+  phone?: InputMaybe<Bigint_Comparison_Exp>;
+  verified?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "employer" */
+export enum Employer_Constraint {
+  /** unique or primary key constraint on columns "email" */
+  EmployerEmailKey = 'employer_email_key',
+  /** unique or primary key constraint on columns "name_employer" */
+  EmployerNameEmployerKey = 'employer_name_employer_key',
+  /** unique or primary key constraint on columns "phone" */
+  EmployerPhoneKey = 'employer_phone_key',
+  /** unique or primary key constraint on columns "id_employer" */
+  EmployerPkey = 'employer_pkey'
+}
+
+/** input type for incrementing numeric columns in table "employer" */
+export type Employer_Inc_Input = {
+  phone?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "employer" */
+export type Employer_Insert_Input = {
+  email?: InputMaybe<Scalars['String']>;
+  employer_organizations?: InputMaybe<Organization_Arr_Rel_Insert_Input>;
+  id_employer?: InputMaybe<Scalars['uuid']>;
+  name_employer?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['bigint']>;
+  verified?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate max on columns */
+export type Employer_Max_Fields = {
+  __typename?: 'employer_max_fields';
+  email?: Maybe<Scalars['String']>;
+  id_employer?: Maybe<Scalars['uuid']>;
+  name_employer?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['bigint']>;
+};
+
+/** aggregate min on columns */
+export type Employer_Min_Fields = {
+  __typename?: 'employer_min_fields';
+  email?: Maybe<Scalars['String']>;
+  id_employer?: Maybe<Scalars['uuid']>;
+  name_employer?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['bigint']>;
+};
+
+/** response of any mutation on the table "employer" */
+export type Employer_Mutation_Response = {
+  __typename?: 'employer_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Employer>;
+};
+
+/** on_conflict condition type for table "employer" */
+export type Employer_On_Conflict = {
+  constraint: Employer_Constraint;
+  update_columns?: Array<Employer_Update_Column>;
+  where?: InputMaybe<Employer_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "employer". */
+export type Employer_Order_By = {
+  email?: InputMaybe<Order_By>;
+  employer_organizations_aggregate?: InputMaybe<Organization_Aggregate_Order_By>;
+  id_employer?: InputMaybe<Order_By>;
+  name_employer?: InputMaybe<Order_By>;
+  phone?: InputMaybe<Order_By>;
+  verified?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: employer */
+export type Employer_Pk_Columns_Input = {
+  id_employer: Scalars['uuid'];
+};
+
+/** select columns of table "employer" */
+export enum Employer_Select_Column {
+  /** column name */
+  Email = 'email',
+  /** column name */
+  IdEmployer = 'id_employer',
+  /** column name */
+  NameEmployer = 'name_employer',
+  /** column name */
+  Phone = 'phone',
+  /** column name */
+  Verified = 'verified'
+}
+
+/** input type for updating data in table "employer" */
+export type Employer_Set_Input = {
+  email?: InputMaybe<Scalars['String']>;
+  id_employer?: InputMaybe<Scalars['uuid']>;
+  name_employer?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['bigint']>;
+  verified?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate stddev on columns */
+export type Employer_Stddev_Fields = {
+  __typename?: 'employer_stddev_fields';
+  phone?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Employer_Stddev_Pop_Fields = {
+  __typename?: 'employer_stddev_pop_fields';
+  phone?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Employer_Stddev_Samp_Fields = {
+  __typename?: 'employer_stddev_samp_fields';
+  phone?: Maybe<Scalars['Float']>;
+};
+
+/** Streaming cursor of the table "employer" */
+export type Employer_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Employer_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Employer_Stream_Cursor_Value_Input = {
+  email?: InputMaybe<Scalars['String']>;
+  id_employer?: InputMaybe<Scalars['uuid']>;
+  name_employer?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['bigint']>;
+  verified?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** aggregate sum on columns */
+export type Employer_Sum_Fields = {
+  __typename?: 'employer_sum_fields';
+  phone?: Maybe<Scalars['bigint']>;
+};
+
+/** update columns of table "employer" */
+export enum Employer_Update_Column {
+  /** column name */
+  Email = 'email',
+  /** column name */
+  IdEmployer = 'id_employer',
+  /** column name */
+  NameEmployer = 'name_employer',
+  /** column name */
+  Phone = 'phone',
+  /** column name */
+  Verified = 'verified'
+}
+
+export type Employer_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Employer_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Employer_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Employer_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Employer_Var_Pop_Fields = {
+  __typename?: 'employer_var_pop_fields';
+  phone?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Employer_Var_Samp_Fields = {
+  __typename?: 'employer_var_samp_fields';
+  phone?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Employer_Variance_Fields = {
+  __typename?: 'employer_variance_fields';
+  phone?: Maybe<Scalars['Float']>;
 };
 
 /** columns and relationships of "jobseeker" */
@@ -1348,6 +1618,10 @@ export type Mutation_Root = {
   delete_educational_institution?: Maybe<Educational_Institution_Mutation_Response>;
   /** delete single row from the table: "educational_institution" */
   delete_educational_institution_by_pk?: Maybe<Educational_Institution>;
+  /** delete data from the table: "employer" */
+  delete_employer?: Maybe<Employer_Mutation_Response>;
+  /** delete single row from the table: "employer" */
+  delete_employer_by_pk?: Maybe<Employer>;
   /** delete data from the table: "jobseeker" */
   delete_jobseeker?: Maybe<Jobseeker_Mutation_Response>;
   /** delete single row from the table: "jobseeker" */
@@ -1360,6 +1634,10 @@ export type Mutation_Root = {
   delete_location?: Maybe<Location_Mutation_Response>;
   /** delete single row from the table: "location" */
   delete_location_by_pk?: Maybe<Location>;
+  /** delete data from the table: "organization" */
+  delete_organization?: Maybe<Organization_Mutation_Response>;
+  /** delete single row from the table: "organization" */
+  delete_organization_by_pk?: Maybe<Organization>;
   /** delete data from the table: "vacancy" */
   delete_vacancy?: Maybe<Vacancy_Mutation_Response>;
   /** delete single row from the table: "vacancy" */
@@ -1376,6 +1654,10 @@ export type Mutation_Root = {
   insert_educational_institution?: Maybe<Educational_Institution_Mutation_Response>;
   /** insert a single row into the table: "educational_institution" */
   insert_educational_institution_one?: Maybe<Educational_Institution>;
+  /** insert data into the table: "employer" */
+  insert_employer?: Maybe<Employer_Mutation_Response>;
+  /** insert a single row into the table: "employer" */
+  insert_employer_one?: Maybe<Employer>;
   /** insert data into the table: "jobseeker" */
   insert_jobseeker?: Maybe<Jobseeker_Mutation_Response>;
   /** insert data into the table: "jobseeker_education" */
@@ -1388,6 +1670,10 @@ export type Mutation_Root = {
   insert_location?: Maybe<Location_Mutation_Response>;
   /** insert a single row into the table: "location" */
   insert_location_one?: Maybe<Location>;
+  /** insert data into the table: "organization" */
+  insert_organization?: Maybe<Organization_Mutation_Response>;
+  /** insert a single row into the table: "organization" */
+  insert_organization_one?: Maybe<Organization>;
   /** insert data into the table: "vacancy" */
   insert_vacancy?: Maybe<Vacancy_Mutation_Response>;
   /** insert a single row into the table: "vacancy" */
@@ -1413,6 +1699,12 @@ export type Mutation_Root = {
   update_educational_institution_by_pk?: Maybe<Educational_Institution>;
   /** update multiples rows of table: "educational_institution" */
   update_educational_institution_many?: Maybe<Array<Maybe<Educational_Institution_Mutation_Response>>>;
+  /** update data of the table: "employer" */
+  update_employer?: Maybe<Employer_Mutation_Response>;
+  /** update single row of the table: "employer" */
+  update_employer_by_pk?: Maybe<Employer>;
+  /** update multiples rows of table: "employer" */
+  update_employer_many?: Maybe<Array<Maybe<Employer_Mutation_Response>>>;
   /** update data of the table: "jobseeker" */
   update_jobseeker?: Maybe<Jobseeker_Mutation_Response>;
   /** update single row of the table: "jobseeker" */
@@ -1431,6 +1723,12 @@ export type Mutation_Root = {
   update_location_by_pk?: Maybe<Location>;
   /** update multiples rows of table: "location" */
   update_location_many?: Maybe<Array<Maybe<Location_Mutation_Response>>>;
+  /** update data of the table: "organization" */
+  update_organization?: Maybe<Organization_Mutation_Response>;
+  /** update single row of the table: "organization" */
+  update_organization_by_pk?: Maybe<Organization>;
+  /** update multiples rows of table: "organization" */
+  update_organization_many?: Maybe<Array<Maybe<Organization_Mutation_Response>>>;
   /** update data of the table: "vacancy" */
   update_vacancy?: Maybe<Vacancy_Mutation_Response>;
   /** update single row of the table: "vacancy" */
@@ -1471,6 +1769,18 @@ export type Mutation_RootDelete_Educational_Institution_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_EmployerArgs = {
+  where: Employer_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Employer_By_PkArgs = {
+  id_employer: Scalars['uuid'];
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_JobseekerArgs = {
   where: Jobseeker_Bool_Exp;
 };
@@ -1503,6 +1813,18 @@ export type Mutation_RootDelete_LocationArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Location_By_PkArgs = {
   location_id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_OrganizationArgs = {
+  where: Organization_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Organization_By_PkArgs = {
+  id_organization: Scalars['uuid'];
 };
 
 
@@ -1559,6 +1881,20 @@ export type Mutation_RootInsert_Educational_Institution_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_EmployerArgs = {
+  objects: Array<Employer_Insert_Input>;
+  on_conflict?: InputMaybe<Employer_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Employer_OneArgs = {
+  object: Employer_Insert_Input;
+  on_conflict?: InputMaybe<Employer_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_JobseekerArgs = {
   objects: Array<Jobseeker_Insert_Input>;
   on_conflict?: InputMaybe<Jobseeker_On_Conflict>;
@@ -1597,6 +1933,20 @@ export type Mutation_RootInsert_LocationArgs = {
 export type Mutation_RootInsert_Location_OneArgs = {
   object: Location_Insert_Input;
   on_conflict?: InputMaybe<Location_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_OrganizationArgs = {
+  objects: Array<Organization_Insert_Input>;
+  on_conflict?: InputMaybe<Organization_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Organization_OneArgs = {
+  object: Organization_Insert_Input;
+  on_conflict?: InputMaybe<Organization_On_Conflict>;
 };
 
 
@@ -1690,6 +2040,28 @@ export type Mutation_RootUpdate_Educational_Institution_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_EmployerArgs = {
+  _inc?: InputMaybe<Employer_Inc_Input>;
+  _set?: InputMaybe<Employer_Set_Input>;
+  where: Employer_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Employer_By_PkArgs = {
+  _inc?: InputMaybe<Employer_Inc_Input>;
+  _set?: InputMaybe<Employer_Set_Input>;
+  pk_columns: Employer_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Employer_ManyArgs = {
+  updates: Array<Employer_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_JobseekerArgs = {
   _set?: InputMaybe<Jobseeker_Set_Input>;
   where: Jobseeker_Bool_Exp;
@@ -1752,6 +2124,28 @@ export type Mutation_RootUpdate_Location_ManyArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_OrganizationArgs = {
+  _inc?: InputMaybe<Organization_Inc_Input>;
+  _set?: InputMaybe<Organization_Set_Input>;
+  where: Organization_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Organization_By_PkArgs = {
+  _inc?: InputMaybe<Organization_Inc_Input>;
+  _set?: InputMaybe<Organization_Set_Input>;
+  pk_columns: Organization_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Organization_ManyArgs = {
+  updates: Array<Organization_Updates>;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_VacancyArgs = {
   _inc?: InputMaybe<Vacancy_Inc_Input>;
   _set?: InputMaybe<Vacancy_Set_Input>;
@@ -1808,6 +2202,379 @@ export enum Order_By {
   DescNullsLast = 'desc_nulls_last'
 }
 
+/** columns and relationships of "organization" */
+export type Organization = {
+  __typename?: 'organization';
+  date_registration: Scalars['date'];
+  employer_id: Scalars['uuid'];
+  id_organization: Scalars['uuid'];
+  inn_organization: Scalars['bigint'];
+  kpp_organization?: Maybe<Scalars['bigint']>;
+  main_activity: Scalars['String'];
+  name_organization: Scalars['String'];
+};
+
+/** aggregated selection of "organization" */
+export type Organization_Aggregate = {
+  __typename?: 'organization_aggregate';
+  aggregate?: Maybe<Organization_Aggregate_Fields>;
+  nodes: Array<Organization>;
+};
+
+export type Organization_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Organization_Aggregate_Bool_Exp_Count>;
+};
+
+export type Organization_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Organization_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Organization_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "organization" */
+export type Organization_Aggregate_Fields = {
+  __typename?: 'organization_aggregate_fields';
+  avg?: Maybe<Organization_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Organization_Max_Fields>;
+  min?: Maybe<Organization_Min_Fields>;
+  stddev?: Maybe<Organization_Stddev_Fields>;
+  stddev_pop?: Maybe<Organization_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Organization_Stddev_Samp_Fields>;
+  sum?: Maybe<Organization_Sum_Fields>;
+  var_pop?: Maybe<Organization_Var_Pop_Fields>;
+  var_samp?: Maybe<Organization_Var_Samp_Fields>;
+  variance?: Maybe<Organization_Variance_Fields>;
+};
+
+
+/** aggregate fields of "organization" */
+export type Organization_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Organization_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "organization" */
+export type Organization_Aggregate_Order_By = {
+  avg?: InputMaybe<Organization_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Organization_Max_Order_By>;
+  min?: InputMaybe<Organization_Min_Order_By>;
+  stddev?: InputMaybe<Organization_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Organization_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Organization_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Organization_Sum_Order_By>;
+  var_pop?: InputMaybe<Organization_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Organization_Var_Samp_Order_By>;
+  variance?: InputMaybe<Organization_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "organization" */
+export type Organization_Arr_Rel_Insert_Input = {
+  data: Array<Organization_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Organization_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Organization_Avg_Fields = {
+  __typename?: 'organization_avg_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "organization" */
+export type Organization_Avg_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "organization". All fields are combined with a logical 'AND'. */
+export type Organization_Bool_Exp = {
+  _and?: InputMaybe<Array<Organization_Bool_Exp>>;
+  _not?: InputMaybe<Organization_Bool_Exp>;
+  _or?: InputMaybe<Array<Organization_Bool_Exp>>;
+  date_registration?: InputMaybe<Date_Comparison_Exp>;
+  employer_id?: InputMaybe<Uuid_Comparison_Exp>;
+  id_organization?: InputMaybe<Uuid_Comparison_Exp>;
+  inn_organization?: InputMaybe<Bigint_Comparison_Exp>;
+  kpp_organization?: InputMaybe<Bigint_Comparison_Exp>;
+  main_activity?: InputMaybe<String_Comparison_Exp>;
+  name_organization?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "organization" */
+export enum Organization_Constraint {
+  /** unique or primary key constraint on columns "inn_organization" */
+  OrganizationInnOrganizationKey = 'organization_inn_organization_key',
+  /** unique or primary key constraint on columns "kpp_organization" */
+  OrganizationKppOrganizationKey = 'organization_kpp_organization_key',
+  /** unique or primary key constraint on columns "id_organization" */
+  OrganizationPkey = 'organization_pkey'
+}
+
+/** input type for incrementing numeric columns in table "organization" */
+export type Organization_Inc_Input = {
+  inn_organization?: InputMaybe<Scalars['bigint']>;
+  kpp_organization?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "organization" */
+export type Organization_Insert_Input = {
+  date_registration?: InputMaybe<Scalars['date']>;
+  employer_id?: InputMaybe<Scalars['uuid']>;
+  id_organization?: InputMaybe<Scalars['uuid']>;
+  inn_organization?: InputMaybe<Scalars['bigint']>;
+  kpp_organization?: InputMaybe<Scalars['bigint']>;
+  main_activity?: InputMaybe<Scalars['String']>;
+  name_organization?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Organization_Max_Fields = {
+  __typename?: 'organization_max_fields';
+  date_registration?: Maybe<Scalars['date']>;
+  employer_id?: Maybe<Scalars['uuid']>;
+  id_organization?: Maybe<Scalars['uuid']>;
+  inn_organization?: Maybe<Scalars['bigint']>;
+  kpp_organization?: Maybe<Scalars['bigint']>;
+  main_activity?: Maybe<Scalars['String']>;
+  name_organization?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "organization" */
+export type Organization_Max_Order_By = {
+  date_registration?: InputMaybe<Order_By>;
+  employer_id?: InputMaybe<Order_By>;
+  id_organization?: InputMaybe<Order_By>;
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+  main_activity?: InputMaybe<Order_By>;
+  name_organization?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Organization_Min_Fields = {
+  __typename?: 'organization_min_fields';
+  date_registration?: Maybe<Scalars['date']>;
+  employer_id?: Maybe<Scalars['uuid']>;
+  id_organization?: Maybe<Scalars['uuid']>;
+  inn_organization?: Maybe<Scalars['bigint']>;
+  kpp_organization?: Maybe<Scalars['bigint']>;
+  main_activity?: Maybe<Scalars['String']>;
+  name_organization?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "organization" */
+export type Organization_Min_Order_By = {
+  date_registration?: InputMaybe<Order_By>;
+  employer_id?: InputMaybe<Order_By>;
+  id_organization?: InputMaybe<Order_By>;
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+  main_activity?: InputMaybe<Order_By>;
+  name_organization?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "organization" */
+export type Organization_Mutation_Response = {
+  __typename?: 'organization_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Organization>;
+};
+
+/** on_conflict condition type for table "organization" */
+export type Organization_On_Conflict = {
+  constraint: Organization_Constraint;
+  update_columns?: Array<Organization_Update_Column>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "organization". */
+export type Organization_Order_By = {
+  date_registration?: InputMaybe<Order_By>;
+  employer_id?: InputMaybe<Order_By>;
+  id_organization?: InputMaybe<Order_By>;
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+  main_activity?: InputMaybe<Order_By>;
+  name_organization?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: organization */
+export type Organization_Pk_Columns_Input = {
+  id_organization: Scalars['uuid'];
+};
+
+/** select columns of table "organization" */
+export enum Organization_Select_Column {
+  /** column name */
+  DateRegistration = 'date_registration',
+  /** column name */
+  EmployerId = 'employer_id',
+  /** column name */
+  IdOrganization = 'id_organization',
+  /** column name */
+  InnOrganization = 'inn_organization',
+  /** column name */
+  KppOrganization = 'kpp_organization',
+  /** column name */
+  MainActivity = 'main_activity',
+  /** column name */
+  NameOrganization = 'name_organization'
+}
+
+/** input type for updating data in table "organization" */
+export type Organization_Set_Input = {
+  date_registration?: InputMaybe<Scalars['date']>;
+  employer_id?: InputMaybe<Scalars['uuid']>;
+  id_organization?: InputMaybe<Scalars['uuid']>;
+  inn_organization?: InputMaybe<Scalars['bigint']>;
+  kpp_organization?: InputMaybe<Scalars['bigint']>;
+  main_activity?: InputMaybe<Scalars['String']>;
+  name_organization?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Organization_Stddev_Fields = {
+  __typename?: 'organization_stddev_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "organization" */
+export type Organization_Stddev_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Organization_Stddev_Pop_Fields = {
+  __typename?: 'organization_stddev_pop_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "organization" */
+export type Organization_Stddev_Pop_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Organization_Stddev_Samp_Fields = {
+  __typename?: 'organization_stddev_samp_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "organization" */
+export type Organization_Stddev_Samp_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "organization" */
+export type Organization_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Organization_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Organization_Stream_Cursor_Value_Input = {
+  date_registration?: InputMaybe<Scalars['date']>;
+  employer_id?: InputMaybe<Scalars['uuid']>;
+  id_organization?: InputMaybe<Scalars['uuid']>;
+  inn_organization?: InputMaybe<Scalars['bigint']>;
+  kpp_organization?: InputMaybe<Scalars['bigint']>;
+  main_activity?: InputMaybe<Scalars['String']>;
+  name_organization?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate sum on columns */
+export type Organization_Sum_Fields = {
+  __typename?: 'organization_sum_fields';
+  inn_organization?: Maybe<Scalars['bigint']>;
+  kpp_organization?: Maybe<Scalars['bigint']>;
+};
+
+/** order by sum() on columns of table "organization" */
+export type Organization_Sum_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "organization" */
+export enum Organization_Update_Column {
+  /** column name */
+  DateRegistration = 'date_registration',
+  /** column name */
+  EmployerId = 'employer_id',
+  /** column name */
+  IdOrganization = 'id_organization',
+  /** column name */
+  InnOrganization = 'inn_organization',
+  /** column name */
+  KppOrganization = 'kpp_organization',
+  /** column name */
+  MainActivity = 'main_activity',
+  /** column name */
+  NameOrganization = 'name_organization'
+}
+
+export type Organization_Updates = {
+  /** increments the numeric columns with given value of the filtered values */
+  _inc?: InputMaybe<Organization_Inc_Input>;
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Organization_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Organization_Bool_Exp;
+};
+
+/** aggregate var_pop on columns */
+export type Organization_Var_Pop_Fields = {
+  __typename?: 'organization_var_pop_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "organization" */
+export type Organization_Var_Pop_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Organization_Var_Samp_Fields = {
+  __typename?: 'organization_var_samp_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "organization" */
+export type Organization_Var_Samp_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Organization_Variance_Fields = {
+  __typename?: 'organization_variance_fields';
+  inn_organization?: Maybe<Scalars['Float']>;
+  kpp_organization?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "organization" */
+export type Organization_Variance_Order_By = {
+  inn_organization?: InputMaybe<Order_By>;
+  kpp_organization?: InputMaybe<Order_By>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
   _service: _Service;
@@ -1823,6 +2590,12 @@ export type Query_Root = {
   educational_institution_aggregate: Educational_Institution_Aggregate;
   /** fetch data from the table: "educational_institution" using primary key columns */
   educational_institution_by_pk?: Maybe<Educational_Institution>;
+  /** fetch data from the table: "employer" */
+  employer: Array<Employer>;
+  /** fetch aggregated fields from the table: "employer" */
+  employer_aggregate: Employer_Aggregate;
+  /** fetch data from the table: "employer" using primary key columns */
+  employer_by_pk?: Maybe<Employer>;
   /** fetch data from the table: "jobseeker" */
   jobseeker: Array<Jobseeker>;
   /** fetch aggregated fields from the table: "jobseeker" */
@@ -1841,6 +2614,12 @@ export type Query_Root = {
   location_aggregate: Location_Aggregate;
   /** fetch data from the table: "location" using primary key columns */
   location_by_pk?: Maybe<Location>;
+  /** fetch data from the table: "organization" */
+  organization: Array<Organization>;
+  /** fetch aggregated fields from the table: "organization" */
+  organization_aggregate: Organization_Aggregate;
+  /** fetch data from the table: "organization" using primary key columns */
+  organization_by_pk?: Maybe<Organization>;
   /** fetch data from the table: "vacancy" */
   vacancy: Array<Vacancy>;
   /** fetch aggregated fields from the table: "vacancy" */
@@ -1899,6 +2678,29 @@ export type Query_RootEducational_Institution_AggregateArgs = {
 
 export type Query_RootEducational_Institution_By_PkArgs = {
   educational_institution_id: Scalars['uuid'];
+};
+
+
+export type Query_RootEmployerArgs = {
+  distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Employer_Order_By>>;
+  where?: InputMaybe<Employer_Bool_Exp>;
+};
+
+
+export type Query_RootEmployer_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Employer_Order_By>>;
+  where?: InputMaybe<Employer_Bool_Exp>;
+};
+
+
+export type Query_RootEmployer_By_PkArgs = {
+  id_employer: Scalars['uuid'];
 };
 
 
@@ -1968,6 +2770,29 @@ export type Query_RootLocation_AggregateArgs = {
 
 export type Query_RootLocation_By_PkArgs = {
   location_id: Scalars['uuid'];
+};
+
+
+export type Query_RootOrganizationArgs = {
+  distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Organization_Order_By>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+
+export type Query_RootOrganization_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Organization_Order_By>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+
+export type Query_RootOrganization_By_PkArgs = {
+  id_organization: Scalars['uuid'];
 };
 
 
@@ -2051,6 +2876,14 @@ export type Subscription_Root = {
   educational_institution_by_pk?: Maybe<Educational_Institution>;
   /** fetch data from the table in a streaming manner: "educational_institution" */
   educational_institution_stream: Array<Educational_Institution>;
+  /** fetch data from the table: "employer" */
+  employer: Array<Employer>;
+  /** fetch aggregated fields from the table: "employer" */
+  employer_aggregate: Employer_Aggregate;
+  /** fetch data from the table: "employer" using primary key columns */
+  employer_by_pk?: Maybe<Employer>;
+  /** fetch data from the table in a streaming manner: "employer" */
+  employer_stream: Array<Employer>;
   /** fetch data from the table: "jobseeker" */
   jobseeker: Array<Jobseeker>;
   /** fetch aggregated fields from the table: "jobseeker" */
@@ -2075,6 +2908,14 @@ export type Subscription_Root = {
   location_by_pk?: Maybe<Location>;
   /** fetch data from the table in a streaming manner: "location" */
   location_stream: Array<Location>;
+  /** fetch data from the table: "organization" */
+  organization: Array<Organization>;
+  /** fetch aggregated fields from the table: "organization" */
+  organization_aggregate: Organization_Aggregate;
+  /** fetch data from the table: "organization" using primary key columns */
+  organization_by_pk?: Maybe<Organization>;
+  /** fetch data from the table in a streaming manner: "organization" */
+  organization_stream: Array<Organization>;
   /** fetch data from the table: "vacancy" */
   vacancy: Array<Vacancy>;
   /** fetch aggregated fields from the table: "vacancy" */
@@ -2151,6 +2992,36 @@ export type Subscription_RootEducational_Institution_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Educational_Institution_Stream_Cursor_Input>>;
   where?: InputMaybe<Educational_Institution_Bool_Exp>;
+};
+
+
+export type Subscription_RootEmployerArgs = {
+  distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Employer_Order_By>>;
+  where?: InputMaybe<Employer_Bool_Exp>;
+};
+
+
+export type Subscription_RootEmployer_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Employer_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Employer_Order_By>>;
+  where?: InputMaybe<Employer_Bool_Exp>;
+};
+
+
+export type Subscription_RootEmployer_By_PkArgs = {
+  id_employer: Scalars['uuid'];
+};
+
+
+export type Subscription_RootEmployer_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Employer_Stream_Cursor_Input>>;
+  where?: InputMaybe<Employer_Bool_Exp>;
 };
 
 
@@ -2241,6 +3112,36 @@ export type Subscription_RootLocation_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Location_Stream_Cursor_Input>>;
   where?: InputMaybe<Location_Bool_Exp>;
+};
+
+
+export type Subscription_RootOrganizationArgs = {
+  distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Organization_Order_By>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+
+export type Subscription_RootOrganization_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Organization_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Organization_Order_By>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
+};
+
+
+export type Subscription_RootOrganization_By_PkArgs = {
+  id_organization: Scalars['uuid'];
+};
+
+
+export type Subscription_RootOrganization_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Organization_Stream_Cursor_Input>>;
+  where?: InputMaybe<Organization_Bool_Exp>;
 };
 
 
@@ -2891,6 +3792,29 @@ export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type UpdateTokenMutation = { __typename?: 'mutation_root', refreshToken?: { __typename?: 'refreshTokenOutput', access_token: string } | null };
 
+export type SignUpJobseekerMutationVariables = Exact<{
+  login?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
+  dateBirth?: InputMaybe<Scalars['date']>;
+  email?: InputMaybe<Scalars['String']>;
+  gender?: InputMaybe<Scalars['String']>;
+  education_form?: InputMaybe<Scalars['String']>;
+  end_date?: InputMaybe<Scalars['date']>;
+  faculity?: InputMaybe<Scalars['String']>;
+  group?: InputMaybe<Scalars['String']>;
+  name_institution?: InputMaybe<Scalars['String']>;
+  speciality?: InputMaybe<Scalars['String']>;
+  start_date?: InputMaybe<Scalars['date']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  middleName?: InputMaybe<Scalars['String']>;
+  name1?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type SignUpJobseekerMutation = { __typename?: 'mutation_root', insert_jobseeker_one?: { __typename?: 'jobseeker', jobseeker_id: string, account_id?: string | null } | null };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -2958,3 +3882,55 @@ export function useUpdateTokenMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMutation>;
 export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
 export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
+export const SignUpJobseekerDocument = gql`
+    mutation SignUpJobseeker($login: String = "", $password: String = "", $role: String = "", $dateBirth: date = "", $email: String = "", $gender: String = "", $education_form: String = "", $end_date: date = "", $faculity: String = "", $group: String = "", $name_institution: String = "", $speciality: String = "", $start_date: date = "", $lastName: String = "", $middleName: String = "", $name1: String = "", $phone: String = "") {
+  insert_jobseeker_one(
+    object: {email: $email, dateBirth: $dateBirth, gender: $gender, lastName: $lastName, middleName: $middleName, name: $name1, account: {data: {login: $login, password: $password, role: $role}}, jobseeker_educations: {data: {education_form: $education_form, end_date: $end_date, group: $group, faculity: $faculity, speciality: $speciality, start_date: $start_date, jobseeker_education_educational_institution: {data: {name_institution: $name_institution}}}}, phone: $phone}
+  ) {
+    jobseeker_id
+    account_id
+  }
+}
+    `;
+export type SignUpJobseekerMutationFn = Apollo.MutationFunction<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>;
+
+/**
+ * __useSignUpJobseekerMutation__
+ *
+ * To run a mutation, you first call `useSignUpJobseekerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpJobseekerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpJobseekerMutation, { data, loading, error }] = useSignUpJobseekerMutation({
+ *   variables: {
+ *      login: // value for 'login'
+ *      password: // value for 'password'
+ *      role: // value for 'role'
+ *      dateBirth: // value for 'dateBirth'
+ *      email: // value for 'email'
+ *      gender: // value for 'gender'
+ *      education_form: // value for 'education_form'
+ *      end_date: // value for 'end_date'
+ *      faculity: // value for 'faculity'
+ *      group: // value for 'group'
+ *      name_institution: // value for 'name_institution'
+ *      speciality: // value for 'speciality'
+ *      start_date: // value for 'start_date'
+ *      lastName: // value for 'lastName'
+ *      middleName: // value for 'middleName'
+ *      name1: // value for 'name1'
+ *      phone: // value for 'phone'
+ *   },
+ * });
+ */
+export function useSignUpJobseekerMutation(baseOptions?: Apollo.MutationHookOptions<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>(SignUpJobseekerDocument, options);
+      }
+export type SignUpJobseekerMutationHookResult = ReturnType<typeof useSignUpJobseekerMutation>;
+export type SignUpJobseekerMutationResult = Apollo.MutationResult<SignUpJobseekerMutation>;
+export type SignUpJobseekerMutationOptions = Apollo.BaseMutationOptions<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>;

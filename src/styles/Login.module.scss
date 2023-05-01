@@ -1,32 +1,7 @@
 .login_container {
     display: flex;
     flex-direction: column;
-    flex: 1 0;
-    flex-basis: 40%;
-    padding-inline: 25px;
-    justify-content: center;
+    gap: 15px
 }
 
-.divider {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    color: #A0AEC0;
-    margin-bottom: 2rem;
-
-    &::before,
-    &::after {
-        content: '';
-        flex: 1;
-        border-bottom: 1px solid #bac4d4;
-    }
-
-    &:not(:empty)::before {
-        margin-right: .5rem;
-    }
-
-    &:not(:empty)::after {
-        margin-left: .5rem;
-    }
-}
 
