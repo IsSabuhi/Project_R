@@ -3793,12 +3793,16 @@ export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 export type UpdateTokenMutation = { __typename?: 'mutation_root', refreshToken?: { __typename?: 'refreshTokenOutput', access_token: string } | null };
 
 export type SignUpJobseekerMutationVariables = Exact<{
-  login?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  role?: InputMaybe<Scalars['String']>;
   dateBirth?: InputMaybe<Scalars['date']>;
   email?: InputMaybe<Scalars['String']>;
   gender?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  middleName?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  login?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   end_date?: InputMaybe<Scalars['date']>;
   faculity?: InputMaybe<Scalars['String']>;
@@ -3806,14 +3810,10 @@ export type SignUpJobseekerMutationVariables = Exact<{
   name_institution?: InputMaybe<Scalars['String']>;
   speciality?: InputMaybe<Scalars['String']>;
   start_date?: InputMaybe<Scalars['date']>;
-  lastName?: InputMaybe<Scalars['String']>;
-  middleName?: InputMaybe<Scalars['String']>;
-  name1?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type SignUpJobseekerMutation = { __typename?: 'mutation_root', insert_jobseeker_one?: { __typename?: 'jobseeker', jobseeker_id: string, account_id?: string | null } | null };
+export type SignUpJobseekerMutation = { __typename?: 'mutation_root', insert_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', account_id?: string | null, jobseeker_id: string, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', educational_institution_id?: string | null, jobseeker_education_id: string }> }> } | null };
 
 
 export const AuthLoginDocument = gql`
@@ -3883,12 +3883,18 @@ export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMuta
 export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
 export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
 export const SignUpJobseekerDocument = gql`
-    mutation SignUpJobseeker($login: String = "", $password: String = "", $role: String = "", $dateBirth: date = "", $email: String = "", $gender: String = "", $education_form: String = "", $end_date: date = "", $faculity: String = "", $group: String = "", $name_institution: String = "", $speciality: String = "", $start_date: date = "", $lastName: String = "", $middleName: String = "", $name1: String = "", $phone: String = "") {
-  insert_jobseeker_one(
-    object: {email: $email, dateBirth: $dateBirth, gender: $gender, lastName: $lastName, middleName: $middleName, name: $name1, account: {data: {login: $login, password: $password, role: $role}}, jobseeker_educations: {data: {education_form: $education_form, end_date: $end_date, group: $group, faculity: $faculity, speciality: $speciality, start_date: $start_date, jobseeker_education_educational_institution: {data: {name_institution: $name_institution}}}}, phone: $phone}
+    mutation SignUpJobseeker($dateBirth: date = "", $email: String = "", $gender: String = "", $lastName: String = "", $middleName: String = "", $name: String = "", $phone: String = "", $login: String = "", $password: String = "", $role: String = "", $education_form: String = "", $end_date: date = "", $faculity: String = "", $group: String = "", $name_institution: String = "", $speciality: String = "", $start_date: date = "") {
+  insert_jobseeker(
+    objects: {dateBirth: $dateBirth, email: $email, gender: $gender, lastName: $lastName, middleName: $middleName, name: $name, phone: $phone, account: {data: {login: $login, password: $password, role: $role}}, jobseeker_educations: {data: {education_form: $education_form, end_date: $end_date, faculity: $faculity, group: $group, jobseeker_education_educational_institution: {data: {name_institution: $name_institution}}, speciality: $speciality, start_date: $start_date}}}
   ) {
-    jobseeker_id
-    account_id
+    returning {
+      account_id
+      jobseeker_id
+      jobseeker_educations {
+        educational_institution_id
+        jobseeker_education_id
+      }
+    }
   }
 }
     `;
@@ -3907,12 +3913,16 @@ export type SignUpJobseekerMutationFn = Apollo.MutationFunction<SignUpJobseekerM
  * @example
  * const [signUpJobseekerMutation, { data, loading, error }] = useSignUpJobseekerMutation({
  *   variables: {
- *      login: // value for 'login'
- *      password: // value for 'password'
- *      role: // value for 'role'
  *      dateBirth: // value for 'dateBirth'
  *      email: // value for 'email'
  *      gender: // value for 'gender'
+ *      lastName: // value for 'lastName'
+ *      middleName: // value for 'middleName'
+ *      name: // value for 'name'
+ *      phone: // value for 'phone'
+ *      login: // value for 'login'
+ *      password: // value for 'password'
+ *      role: // value for 'role'
  *      education_form: // value for 'education_form'
  *      end_date: // value for 'end_date'
  *      faculity: // value for 'faculity'
@@ -3920,10 +3930,6 @@ export type SignUpJobseekerMutationFn = Apollo.MutationFunction<SignUpJobseekerM
  *      name_institution: // value for 'name_institution'
  *      speciality: // value for 'speciality'
  *      start_date: // value for 'start_date'
- *      lastName: // value for 'lastName'
- *      middleName: // value for 'middleName'
- *      name1: // value for 'name1'
- *      phone: // value for 'phone'
  *   },
  * });
  */

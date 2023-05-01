@@ -1,8 +1,7 @@
 overwrite: true
-schema:
-  - endpoint: ${process.env.REACT_APP_HASURA_URL}
-    headers:
-      x-hasura-admin-secret: 'admin'
+schema: 
+  - 'http://localhost:8080/v1/graphql':
+      headers: { x-hasura-admin-secret: 'admin' }
 documents: ./src/*.graphql
 extensions:
   codegen:
