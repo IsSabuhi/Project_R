@@ -1687,6 +1687,7 @@ export type Mutation_Root = {
   /** refreshToken */
   refreshToken?: Maybe<RefreshTokenOutput>;
   reg_Employer?: Maybe<SampleOutput>;
+  signUp_jobseeker?: Maybe<Response>;
   /** update data of the table: "account" */
   update_account?: Maybe<Account_Mutation_Response>;
   /** update single row of the table: "account" */
@@ -1996,6 +1997,28 @@ export type Mutation_RootPassword_Change_HandleArgs = {
 /** mutation root */
 export type Mutation_RootReg_EmployerArgs = {
   arg: SampleInput;
+};
+
+
+/** mutation root */
+export type Mutation_RootSignUp_JobseekerArgs = {
+  dateBirth?: InputMaybe<Scalars['date']>;
+  education_form: Scalars['String'];
+  email: Scalars['String'];
+  end_date?: InputMaybe<Scalars['date']>;
+  faculity: Scalars['String'];
+  gender: Scalars['String'];
+  group: Scalars['String'];
+  lastName: Scalars['String'];
+  login: Scalars['String'];
+  middleName: Scalars['String'];
+  name: Scalars['String'];
+  name_institution: Scalars['String'];
+  password: Scalars['String'];
+  phone: Scalars['String'];
+  role: Scalars['String'];
+  speciality: Scalars['String'];
+  start_date?: InputMaybe<Scalars['date']>;
 };
 
 

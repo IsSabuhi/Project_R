@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Status } from '@/constants'
 import { useAuthLoginMutation } from '@/generated/projectR-hasura'
 import {
@@ -36,7 +36,7 @@ const SignIn = () => {
 
   const [status, setStatus] = useState<Status>(Status.idle)
 
-  const { startAuthSession } = useAuthContext()
+  const { startAuthSession, isAuthorized } = useAuthContext()
 
   const [showPassword, setShowPassword] = useState(false)
 

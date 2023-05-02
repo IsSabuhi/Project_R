@@ -1,13 +1,19 @@
-import Sidebar from '@/components/Sidebar/Sidebar'
-import { Flex } from '@chakra-ui/react'
-import React from 'react'
+import { useAuthContext } from '@/hooks/use-auth-context'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
 
 const Home = () => {
-  return (
-    <Flex>
-      <Sidebar>asd</Sidebar>
-    </Flex>
-  )
+  const router = useRouter()
+
+  const { isAuthorized } = useAuthContext()
+
+  // useEffect(() => {
+  //   if (!isAuthorized) {
+  //     router.push('/login')
+  //   }
+  // }, [router])
+
+  return <div>asddsa</div>
 }
 
 export default Home

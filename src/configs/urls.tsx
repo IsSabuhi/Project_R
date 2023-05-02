@@ -4,6 +4,7 @@ export const APP_URLS = {
   SIGN_OUT: '/login',
 }
 
-export const Sidebar_urls = {
+export const SIDEBAR_URLS = {
   home: '/',
+  settings: '/settings',
 }
