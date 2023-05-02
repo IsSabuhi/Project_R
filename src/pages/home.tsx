@@ -13,7 +13,11 @@ const Home = () => {
   //   }
   // }, [router])
 
-  return <div>asddsa</div>
+  return (
+    <div>
+      <p>asdasd123123</p>
+    </div>
+  )
 }
 
 export default Home

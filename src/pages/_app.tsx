@@ -6,7 +6,7 @@ import client from '@/../apollo-client'
 import { AuthProvider } from '@/hooks/use-auth-context'
 import { SnackbarProvider } from 'notistack'
 import { useRouter } from 'next/router'
-import Sidebar from '@/components/Sidebar/Sidebar'
+import MainLayout from '@/layout/MainLayout'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -27,9 +27,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <AuthProvider>
           <ChakraProvider theme={theme}>
             {!hideSidebar ? (
-              <Sidebar>
+              <MainLayout>
                 <Component {...pageProps} />
-              </Sidebar>
+              </MainLayout>
             ) : (
               <Component {...pageProps} />
             )}
@@ -39,3 +39,11 @@ export default function App({ Component, pageProps }: AppProps) {
     </SnackbarProvider>
   )
 }
+
+// {!hideSidebar ? (
+//   <MainLayout>
+//     <Component {...pageProps} />
+//   </MainLayout>
+// ) : (
+//   <Component {...pageProps} />
+// )}
