@@ -349,6 +349,8 @@ export type Educational_Institution = {
   educational_institution_jobseeker_educations: Array<Jobseeker_Education>;
   /** An aggregate relationship */
   educational_institution_jobseeker_educations_aggregate: Jobseeker_Education_Aggregate;
+  /** An object relationship */
+  educational_institution_location?: Maybe<Location>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution: Scalars['String'];
 };
@@ -380,6 +382,17 @@ export type Educational_Institution_Aggregate = {
   nodes: Array<Educational_Institution>;
 };
 
+export type Educational_Institution_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Educational_Institution_Aggregate_Bool_Exp_Count>;
+};
+
+export type Educational_Institution_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Educational_Institution_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Educational_Institution_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
 /** aggregate fields of "educational_institution" */
 export type Educational_Institution_Aggregate_Fields = {
   __typename?: 'educational_institution_aggregate_fields';
@@ -395,6 +408,20 @@ export type Educational_Institution_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "educational_institution" */
+export type Educational_Institution_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Educational_Institution_Max_Order_By>;
+  min?: InputMaybe<Educational_Institution_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "educational_institution" */
+export type Educational_Institution_Arr_Rel_Insert_Input = {
+  data: Array<Educational_Institution_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Educational_Institution_On_Conflict>;
+};
+
 /** Boolean expression to filter rows from the table "educational_institution". All fields are combined with a logical 'AND'. */
 export type Educational_Institution_Bool_Exp = {
   _and?: InputMaybe<Array<Educational_Institution_Bool_Exp>>;
@@ -403,6 +430,7 @@ export type Educational_Institution_Bool_Exp = {
   educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
   educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
   educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Bool_Exp>;
+  educational_institution_location?: InputMaybe<Location_Bool_Exp>;
   location_id?: InputMaybe<Uuid_Comparison_Exp>;
   name_institution?: InputMaybe<String_Comparison_Exp>;
 };
@@ -417,6 +445,7 @@ export enum Educational_Institution_Constraint {
 export type Educational_Institution_Insert_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
   educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
+  educational_institution_location?: InputMaybe<Location_Obj_Rel_Insert_Input>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -429,12 +458,26 @@ export type Educational_Institution_Max_Fields = {
   name_institution?: Maybe<Scalars['String']>;
 };
 
+/** order by max() on columns of table "educational_institution" */
+export type Educational_Institution_Max_Order_By = {
+  educational_institution_id?: InputMaybe<Order_By>;
+  location_id?: InputMaybe<Order_By>;
+  name_institution?: InputMaybe<Order_By>;
+};
+
 /** aggregate min on columns */
 export type Educational_Institution_Min_Fields = {
   __typename?: 'educational_institution_min_fields';
   educational_institution_id?: Maybe<Scalars['uuid']>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "educational_institution" */
+export type Educational_Institution_Min_Order_By = {
+  educational_institution_id?: InputMaybe<Order_By>;
+  location_id?: InputMaybe<Order_By>;
+  name_institution?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "educational_institution" */
@@ -464,6 +507,7 @@ export type Educational_Institution_On_Conflict = {
 export type Educational_Institution_Order_By = {
   educational_institution_id?: InputMaybe<Order_By>;
   educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Order_By>;
+  educational_institution_location?: InputMaybe<Location_Order_By>;
   location_id?: InputMaybe<Order_By>;
   name_institution?: InputMaybe<Order_By>;
 };
@@ -533,7 +577,6 @@ export type Employer = {
   id_employer: Scalars['uuid'];
   name_employer: Scalars['String'];
   phone?: Maybe<Scalars['bigint']>;
-  verified: Scalars['Boolean'];
 };
 
 
@@ -603,7 +646,6 @@ export type Employer_Bool_Exp = {
   id_employer?: InputMaybe<Uuid_Comparison_Exp>;
   name_employer?: InputMaybe<String_Comparison_Exp>;
   phone?: InputMaybe<Bigint_Comparison_Exp>;
-  verified?: InputMaybe<Boolean_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "employer" */
@@ -630,7 +672,6 @@ export type Employer_Insert_Input = {
   id_employer?: InputMaybe<Scalars['uuid']>;
   name_employer?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['bigint']>;
-  verified?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -660,6 +701,13 @@ export type Employer_Mutation_Response = {
   returning: Array<Employer>;
 };
 
+/** input type for inserting object relation for remote table "employer" */
+export type Employer_Obj_Rel_Insert_Input = {
+  data: Employer_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Employer_On_Conflict>;
+};
+
 /** on_conflict condition type for table "employer" */
 export type Employer_On_Conflict = {
   constraint: Employer_Constraint;
@@ -674,7 +722,6 @@ export type Employer_Order_By = {
   id_employer?: InputMaybe<Order_By>;
   name_employer?: InputMaybe<Order_By>;
   phone?: InputMaybe<Order_By>;
-  verified?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: employer */
@@ -691,9 +738,7 @@ export enum Employer_Select_Column {
   /** column name */
   NameEmployer = 'name_employer',
   /** column name */
-  Phone = 'phone',
-  /** column name */
-  Verified = 'verified'
+  Phone = 'phone'
 }
 
 /** input type for updating data in table "employer" */
@@ -702,7 +747,6 @@ export type Employer_Set_Input = {
   id_employer?: InputMaybe<Scalars['uuid']>;
   name_employer?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['bigint']>;
-  verified?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate stddev on columns */
@@ -737,7 +781,6 @@ export type Employer_Stream_Cursor_Value_Input = {
   id_employer?: InputMaybe<Scalars['uuid']>;
   name_employer?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['bigint']>;
-  verified?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate sum on columns */
@@ -755,9 +798,7 @@ export enum Employer_Update_Column {
   /** column name */
   NameEmployer = 'name_employer',
   /** column name */
-  Phone = 'phone',
-  /** column name */
-  Verified = 'verified'
+  Phone = 'phone'
 }
 
 export type Employer_Updates = {
@@ -1346,8 +1387,10 @@ export type Location = {
   address?: Maybe<Scalars['String']>;
   city: Scalars['String'];
   country: Scalars['String'];
-  /** An object relationship */
-  educational_institution?: Maybe<Educational_Institution>;
+  /** An array relationship */
+  location_educational_institutions: Array<Educational_Institution>;
+  /** An aggregate relationship */
+  location_educational_institutions_aggregate: Educational_Institution_Aggregate;
   location_id: Scalars['uuid'];
   postall_code?: Maybe<Scalars['Int']>;
   region: Scalars['String'];
@@ -1355,6 +1398,26 @@ export type Location = {
   vacancy?: Maybe<Vacancy>;
   /** An object relationship */
   work_experience?: Maybe<Work_Experience>;
+};
+
+
+/** columns and relationships of "location" */
+export type LocationLocation_Educational_InstitutionsArgs = {
+  distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Educational_Institution_Order_By>>;
+  where?: InputMaybe<Educational_Institution_Bool_Exp>;
+};
+
+
+/** columns and relationships of "location" */
+export type LocationLocation_Educational_Institutions_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Educational_Institution_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Educational_Institution_Order_By>>;
+  where?: InputMaybe<Educational_Institution_Bool_Exp>;
 };
 
 /** aggregated selection of "location" */
@@ -1401,7 +1464,8 @@ export type Location_Bool_Exp = {
   address?: InputMaybe<String_Comparison_Exp>;
   city?: InputMaybe<String_Comparison_Exp>;
   country?: InputMaybe<String_Comparison_Exp>;
-  educational_institution?: InputMaybe<Educational_Institution_Bool_Exp>;
+  location_educational_institutions?: InputMaybe<Educational_Institution_Bool_Exp>;
+  location_educational_institutions_aggregate?: InputMaybe<Educational_Institution_Aggregate_Bool_Exp>;
   location_id?: InputMaybe<Uuid_Comparison_Exp>;
   postall_code?: InputMaybe<Int_Comparison_Exp>;
   region?: InputMaybe<String_Comparison_Exp>;
@@ -1425,7 +1489,7 @@ export type Location_Insert_Input = {
   address?: InputMaybe<Scalars['String']>;
   city?: InputMaybe<Scalars['String']>;
   country?: InputMaybe<Scalars['String']>;
-  educational_institution?: InputMaybe<Educational_Institution_Obj_Rel_Insert_Input>;
+  location_educational_institutions?: InputMaybe<Educational_Institution_Arr_Rel_Insert_Input>;
   location_id?: InputMaybe<Scalars['uuid']>;
   postall_code?: InputMaybe<Scalars['Int']>;
   region?: InputMaybe<Scalars['String']>;
@@ -1483,7 +1547,7 @@ export type Location_Order_By = {
   address?: InputMaybe<Order_By>;
   city?: InputMaybe<Order_By>;
   country?: InputMaybe<Order_By>;
-  educational_institution?: InputMaybe<Educational_Institution_Order_By>;
+  location_educational_institutions_aggregate?: InputMaybe<Educational_Institution_Aggregate_Order_By>;
   location_id?: InputMaybe<Order_By>;
   postall_code?: InputMaybe<Order_By>;
   region?: InputMaybe<Order_By>;
@@ -2228,6 +2292,7 @@ export enum Order_By {
 /** columns and relationships of "organization" */
 export type Organization = {
   __typename?: 'organization';
+  account_id: Scalars['uuid'];
   date_registration?: Maybe<Scalars['date']>;
   employer_id: Scalars['uuid'];
   id_organization: Scalars['uuid'];
@@ -2235,6 +2300,11 @@ export type Organization = {
   kpp_organization?: Maybe<Scalars['bigint']>;
   main_activity?: Maybe<Scalars['String']>;
   name_organization?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  organization_account: Account;
+  /** An object relationship */
+  organization_employer: Employer;
+  verified: Scalars['Boolean'];
 };
 
 /** aggregated selection of "organization" */
@@ -2245,7 +2315,23 @@ export type Organization_Aggregate = {
 };
 
 export type Organization_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<Organization_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<Organization_Aggregate_Bool_Exp_Bool_Or>;
   count?: InputMaybe<Organization_Aggregate_Bool_Exp_Count>;
+};
+
+export type Organization_Aggregate_Bool_Exp_Bool_And = {
+  arguments: Organization_Select_Column_Organization_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Organization_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Organization_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: Organization_Select_Column_Organization_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Organization_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
 };
 
 export type Organization_Aggregate_Bool_Exp_Count = {
@@ -2318,6 +2404,7 @@ export type Organization_Bool_Exp = {
   _and?: InputMaybe<Array<Organization_Bool_Exp>>;
   _not?: InputMaybe<Organization_Bool_Exp>;
   _or?: InputMaybe<Array<Organization_Bool_Exp>>;
+  account_id?: InputMaybe<Uuid_Comparison_Exp>;
   date_registration?: InputMaybe<Date_Comparison_Exp>;
   employer_id?: InputMaybe<Uuid_Comparison_Exp>;
   id_organization?: InputMaybe<Uuid_Comparison_Exp>;
@@ -2325,10 +2412,15 @@ export type Organization_Bool_Exp = {
   kpp_organization?: InputMaybe<Bigint_Comparison_Exp>;
   main_activity?: InputMaybe<String_Comparison_Exp>;
   name_organization?: InputMaybe<String_Comparison_Exp>;
+  organization_account?: InputMaybe<Account_Bool_Exp>;
+  organization_employer?: InputMaybe<Employer_Bool_Exp>;
+  verified?: InputMaybe<Boolean_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "organization" */
 export enum Organization_Constraint {
+  /** unique or primary key constraint on columns "account_id" */
+  OrganizationAccountIdKey = 'organization_account_id_key',
   /** unique or primary key constraint on columns "inn_organization" */
   OrganizationInnOrganizationKey = 'organization_inn_organization_key',
   /** unique or primary key constraint on columns "kpp_organization" */
@@ -2345,6 +2437,7 @@ export type Organization_Inc_Input = {
 
 /** input type for inserting data into table "organization" */
 export type Organization_Insert_Input = {
+  account_id?: InputMaybe<Scalars['uuid']>;
   date_registration?: InputMaybe<Scalars['date']>;
   employer_id?: InputMaybe<Scalars['uuid']>;
   id_organization?: InputMaybe<Scalars['uuid']>;
@@ -2352,11 +2445,15 @@ export type Organization_Insert_Input = {
   kpp_organization?: InputMaybe<Scalars['bigint']>;
   main_activity?: InputMaybe<Scalars['String']>;
   name_organization?: InputMaybe<Scalars['String']>;
+  organization_account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  organization_employer?: InputMaybe<Employer_Obj_Rel_Insert_Input>;
+  verified?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
 export type Organization_Max_Fields = {
   __typename?: 'organization_max_fields';
+  account_id?: Maybe<Scalars['uuid']>;
   date_registration?: Maybe<Scalars['date']>;
   employer_id?: Maybe<Scalars['uuid']>;
   id_organization?: Maybe<Scalars['uuid']>;
@@ -2368,6 +2465,7 @@ export type Organization_Max_Fields = {
 
 /** order by max() on columns of table "organization" */
 export type Organization_Max_Order_By = {
+  account_id?: InputMaybe<Order_By>;
   date_registration?: InputMaybe<Order_By>;
   employer_id?: InputMaybe<Order_By>;
   id_organization?: InputMaybe<Order_By>;
@@ -2380,6 +2478,7 @@ export type Organization_Max_Order_By = {
 /** aggregate min on columns */
 export type Organization_Min_Fields = {
   __typename?: 'organization_min_fields';
+  account_id?: Maybe<Scalars['uuid']>;
   date_registration?: Maybe<Scalars['date']>;
   employer_id?: Maybe<Scalars['uuid']>;
   id_organization?: Maybe<Scalars['uuid']>;
@@ -2391,6 +2490,7 @@ export type Organization_Min_Fields = {
 
 /** order by min() on columns of table "organization" */
 export type Organization_Min_Order_By = {
+  account_id?: InputMaybe<Order_By>;
   date_registration?: InputMaybe<Order_By>;
   employer_id?: InputMaybe<Order_By>;
   id_organization?: InputMaybe<Order_By>;
@@ -2418,6 +2518,7 @@ export type Organization_On_Conflict = {
 
 /** Ordering options when selecting data from "organization". */
 export type Organization_Order_By = {
+  account_id?: InputMaybe<Order_By>;
   date_registration?: InputMaybe<Order_By>;
   employer_id?: InputMaybe<Order_By>;
   id_organization?: InputMaybe<Order_By>;
@@ -2425,6 +2526,9 @@ export type Organization_Order_By = {
   kpp_organization?: InputMaybe<Order_By>;
   main_activity?: InputMaybe<Order_By>;
   name_organization?: InputMaybe<Order_By>;
+  organization_account?: InputMaybe<Account_Order_By>;
+  organization_employer?: InputMaybe<Employer_Order_By>;
+  verified?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: organization */
@@ -2434,6 +2538,8 @@ export type Organization_Pk_Columns_Input = {
 
 /** select columns of table "organization" */
 export enum Organization_Select_Column {
+  /** column name */
+  AccountId = 'account_id',
   /** column name */
   DateRegistration = 'date_registration',
   /** column name */
@@ -2447,11 +2553,26 @@ export enum Organization_Select_Column {
   /** column name */
   MainActivity = 'main_activity',
   /** column name */
-  NameOrganization = 'name_organization'
+  NameOrganization = 'name_organization',
+  /** column name */
+  Verified = 'verified'
+}
+
+/** select "organization_aggregate_bool_exp_bool_and_arguments_columns" columns of table "organization" */
+export enum Organization_Select_Column_Organization_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  Verified = 'verified'
+}
+
+/** select "organization_aggregate_bool_exp_bool_or_arguments_columns" columns of table "organization" */
+export enum Organization_Select_Column_Organization_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  Verified = 'verified'
 }
 
 /** input type for updating data in table "organization" */
 export type Organization_Set_Input = {
+  account_id?: InputMaybe<Scalars['uuid']>;
   date_registration?: InputMaybe<Scalars['date']>;
   employer_id?: InputMaybe<Scalars['uuid']>;
   id_organization?: InputMaybe<Scalars['uuid']>;
@@ -2459,6 +2580,7 @@ export type Organization_Set_Input = {
   kpp_organization?: InputMaybe<Scalars['bigint']>;
   main_activity?: InputMaybe<Scalars['String']>;
   name_organization?: InputMaybe<Scalars['String']>;
+  verified?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate stddev on columns */
@@ -2510,6 +2632,7 @@ export type Organization_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Organization_Stream_Cursor_Value_Input = {
+  account_id?: InputMaybe<Scalars['uuid']>;
   date_registration?: InputMaybe<Scalars['date']>;
   employer_id?: InputMaybe<Scalars['uuid']>;
   id_organization?: InputMaybe<Scalars['uuid']>;
@@ -2517,6 +2640,7 @@ export type Organization_Stream_Cursor_Value_Input = {
   kpp_organization?: InputMaybe<Scalars['bigint']>;
   main_activity?: InputMaybe<Scalars['String']>;
   name_organization?: InputMaybe<Scalars['String']>;
+  verified?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate sum on columns */
@@ -2535,6 +2659,8 @@ export type Organization_Sum_Order_By = {
 /** update columns of table "organization" */
 export enum Organization_Update_Column {
   /** column name */
+  AccountId = 'account_id',
+  /** column name */
   DateRegistration = 'date_registration',
   /** column name */
   EmployerId = 'employer_id',
@@ -2547,7 +2673,9 @@ export enum Organization_Update_Column {
   /** column name */
   MainActivity = 'main_activity',
   /** column name */
-  NameOrganization = 'name_organization'
+  NameOrganization = 'name_organization',
+  /** column name */
+  Verified = 'verified'
 }
 
 export type Organization_Updates = {
@@ -3846,6 +3974,13 @@ export type SignUpOrganizationMutationVariables = Exact<{
 
 export type SignUpOrganizationMutation = { __typename?: 'mutation_root', insert_employer?: { __typename?: 'employer_mutation_response', returning: Array<{ __typename?: 'employer', id_employer: string, employer_organizations: Array<{ __typename?: 'organization', id_organization: string }> }> } | null };
 
+export type GetJobseekerByIdQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string }> }> };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -4023,3 +4158,57 @@ export function useSignUpOrganizationMutation(baseOptions?: Apollo.MutationHookO
 export type SignUpOrganizationMutationHookResult = ReturnType<typeof useSignUpOrganizationMutation>;
 export type SignUpOrganizationMutationResult = Apollo.MutationResult<SignUpOrganizationMutation>;
 export type SignUpOrganizationMutationOptions = Apollo.BaseMutationOptions<SignUpOrganizationMutation, SignUpOrganizationMutationVariables>;
+export const GetJobseekerByIdDocument = gql`
+    query GetJobseekerById($_eq: uuid = "") {
+  jobseeker(where: {account_id: {_eq: $_eq}}) {
+    account_id
+    dateBirth
+    email
+    gender
+    jobseeker_id
+    lastName
+    middleName
+    name
+    phone
+    jobseeker_educations {
+      average_score
+      education_form
+      educational_institution_id
+      end_date
+      faculity
+      group
+      speciality
+      start_date
+      jobseeker_education_id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetJobseekerByIdQuery__
+ *
+ * To run a query within a React component, call `useGetJobseekerByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobseekerByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJobseekerByIdQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetJobseekerByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekerByIdQuery, GetJobseekerByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJobseekerByIdQuery, GetJobseekerByIdQueryVariables>(GetJobseekerByIdDocument, options);
+      }
+export function useGetJobseekerByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekerByIdQuery, GetJobseekerByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJobseekerByIdQuery, GetJobseekerByIdQueryVariables>(GetJobseekerByIdDocument, options);
+        }
+export type GetJobseekerByIdQueryHookResult = ReturnType<typeof useGetJobseekerByIdQuery>;
+export type GetJobseekerByIdLazyQueryHookResult = ReturnType<typeof useGetJobseekerByIdLazyQuery>;
+export type GetJobseekerByIdQueryResult = Apollo.QueryResult<GetJobseekerByIdQuery, GetJobseekerByIdQueryVariables>;

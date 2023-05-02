@@ -74,3 +74,28 @@ mutation SignUpOrganization(
     }
   }
 }
+
+query GetJobseekerById($_eq: uuid = "") {
+  jobseeker(where: { account_id: { _eq: $_eq } }) {
+    account_id
+    dateBirth
+    email
+    gender
+    jobseeker_id
+    lastName
+    middleName
+    name
+    phone
+    jobseeker_educations {
+      average_score
+      education_form
+      educational_institution_id
+      end_date
+      faculity
+      group
+      speciality
+      start_date
+      jobseeker_education_id
+    }
+  }
+}

@@ -8,6 +8,7 @@ export const APP_URLS = {
   SIGN_IN: '/login',
   SIGN_UP: 'signup',
   SIGN_OUT: '/login',
+  SETTINGS: '/settings',
 }
 
 export const SIDEBAR_URLS = [
