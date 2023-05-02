@@ -11,57 +11,44 @@ mutation UpdateToken {
 }
 
 mutation SignUpJobseeker(
-  $dateBirth: date = ""
-  $email: String = ""
-  $gender: String = ""
-  $lastName: String = ""
-  $middleName: String = ""
-  $name: String = ""
-  $phone: String = ""
-  $login: String = ""
-  $password: String = ""
-  $role: String = ""
-  $education_form: String = ""
-  $end_date: date = ""
-  $faculity: String = ""
-  $group: String = ""
-  $name_institution: String = ""
-  $speciality: String = ""
   $start_date: date = ""
+  $speciality: String = ""
+  $role: String = ""
+  $phone: String = ""
+  $password: String = ""
+  $name_institution: String = ""
+  $name: String = ""
+  $middleName: String = ""
+  $login: String = ""
+  $lastName: String = ""
+  $group: String = ""
+  $gender: String = ""
+  $faculity: String = ""
+  $email: String = ""
+  $end_date: date = ""
+  $education_form: String = ""
+  $dateBirth: date = ""
 ) {
-  insert_jobseeker(
-    objects: {
-      dateBirth: $dateBirth
-      email: $email
-      gender: $gender
-      lastName: $lastName
-      middleName: $middleName
-      name: $name
-      phone: $phone
-      account: { data: { login: $login, password: $password, role: $role } }
-      jobseeker_educations: {
-        data: {
-          education_form: $education_form
-          end_date: $end_date
-          faculity: $faculity
-          group: $group
-          jobseeker_education_educational_institution: {
-            data: { name_institution: $name_institution }
-          }
-          speciality: $speciality
-          start_date: $start_date
-        }
-      }
-    }
+  signUp_jobseeker(
+    education_form: $education_form
+    email: $email
+    faculity: $faculity
+    gender: $gender
+    group: $group
+    lastName: $lastName
+    login: $login
+    middleName: $middleName
+    name: $name
+    name_institution: $name_institution
+    password: $password
+    phone: $phone
+    role: $role
+    speciality: $speciality
+    dateBirth: $dateBirth
+    start_date: $start_date
+    end_date: $end_date
   ) {
-    returning {
-      account_id
-      jobseeker_id
-      jobseeker_educations {
-        educational_institution_id
-        jobseeker_education_id
-      }
-    }
+    account_id
   }
 }
 

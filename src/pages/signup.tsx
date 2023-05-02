@@ -102,15 +102,14 @@ const SignUp = () => {
     },
   })
 
-  const [signUpJobseekerMutation, { data, loading, error }] =
-    useSignUpJobseekerMutation({
-      onCompleted() {
-        setStatus(Status.success)
-        return enqueueSnackbar('Регистрация прошла успешно', {
-          variant: 'success',
-        })
-      },
-    })
+  const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
+    onCompleted() {
+      setStatus(Status.success)
+      return enqueueSnackbar('Регистрация прошла успешно', {
+        variant: 'success',
+      })
+    },
+  })
 
   const formik = useFormik({
     initialValues: initialValues,

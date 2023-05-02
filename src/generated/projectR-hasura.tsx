@@ -793,7 +793,7 @@ export type Jobseeker = {
   /** An object relationship */
   account?: Maybe<Account>;
   account_id?: Maybe<Scalars['uuid']>;
-  dateBirth?: Maybe<Scalars['date']>;
+  dateBirth?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
   /** An array relationship */
@@ -856,7 +856,7 @@ export type Jobseeker_Bool_Exp = {
   _or?: InputMaybe<Array<Jobseeker_Bool_Exp>>;
   account?: InputMaybe<Account_Bool_Exp>;
   account_id?: InputMaybe<Uuid_Comparison_Exp>;
-  dateBirth?: InputMaybe<Date_Comparison_Exp>;
+  dateBirth?: InputMaybe<String_Comparison_Exp>;
   email?: InputMaybe<String_Comparison_Exp>;
   gender?: InputMaybe<String_Comparison_Exp>;
   jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
@@ -882,7 +882,7 @@ export type Jobseeker_Education = {
   average_score?: Maybe<Scalars['String']>;
   education_form: Scalars['String'];
   educational_institution_id?: Maybe<Scalars['uuid']>;
-  end_date?: Maybe<Scalars['date']>;
+  end_date?: Maybe<Scalars['String']>;
   faculity: Scalars['String'];
   group: Scalars['String'];
   /** An object relationship */
@@ -892,7 +892,7 @@ export type Jobseeker_Education = {
   jobseeker_education_id: Scalars['uuid'];
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality: Scalars['String'];
-  start_date?: Maybe<Scalars['date']>;
+  start_date?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "jobseeker_education" */
@@ -950,7 +950,7 @@ export type Jobseeker_Education_Bool_Exp = {
   average_score?: InputMaybe<String_Comparison_Exp>;
   education_form?: InputMaybe<String_Comparison_Exp>;
   educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
-  end_date?: InputMaybe<Date_Comparison_Exp>;
+  end_date?: InputMaybe<String_Comparison_Exp>;
   faculity?: InputMaybe<String_Comparison_Exp>;
   group?: InputMaybe<String_Comparison_Exp>;
   jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
@@ -958,7 +958,7 @@ export type Jobseeker_Education_Bool_Exp = {
   jobseeker_education_id?: InputMaybe<Uuid_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   speciality?: InputMaybe<String_Comparison_Exp>;
-  start_date?: InputMaybe<Date_Comparison_Exp>;
+  start_date?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "jobseeker_education" */
@@ -972,7 +972,7 @@ export type Jobseeker_Education_Insert_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
-  end_date?: InputMaybe<Scalars['date']>;
+  end_date?: InputMaybe<Scalars['String']>;
   faculity?: InputMaybe<Scalars['String']>;
   group?: InputMaybe<Scalars['String']>;
   jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
@@ -980,7 +980,7 @@ export type Jobseeker_Education_Insert_Input = {
   jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
-  start_date?: InputMaybe<Scalars['date']>;
+  start_date?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -989,13 +989,13 @@ export type Jobseeker_Education_Max_Fields = {
   average_score?: Maybe<Scalars['String']>;
   education_form?: Maybe<Scalars['String']>;
   educational_institution_id?: Maybe<Scalars['uuid']>;
-  end_date?: Maybe<Scalars['date']>;
+  end_date?: Maybe<Scalars['String']>;
   faculity?: Maybe<Scalars['String']>;
   group?: Maybe<Scalars['String']>;
   jobseeker_education_id?: Maybe<Scalars['uuid']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality?: Maybe<Scalars['String']>;
-  start_date?: Maybe<Scalars['date']>;
+  start_date?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "jobseeker_education" */
@@ -1018,13 +1018,13 @@ export type Jobseeker_Education_Min_Fields = {
   average_score?: Maybe<Scalars['String']>;
   education_form?: Maybe<Scalars['String']>;
   educational_institution_id?: Maybe<Scalars['uuid']>;
-  end_date?: Maybe<Scalars['date']>;
+  end_date?: Maybe<Scalars['String']>;
   faculity?: Maybe<Scalars['String']>;
   group?: Maybe<Scalars['String']>;
   jobseeker_education_id?: Maybe<Scalars['uuid']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality?: Maybe<Scalars['String']>;
-  start_date?: Maybe<Scalars['date']>;
+  start_date?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "jobseeker_education" */
@@ -1107,13 +1107,13 @@ export type Jobseeker_Education_Set_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
-  end_date?: InputMaybe<Scalars['date']>;
+  end_date?: InputMaybe<Scalars['String']>;
   faculity?: InputMaybe<Scalars['String']>;
   group?: InputMaybe<Scalars['String']>;
   jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
-  start_date?: InputMaybe<Scalars['date']>;
+  start_date?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "jobseeker_education" */
@@ -1129,13 +1129,13 @@ export type Jobseeker_Education_Stream_Cursor_Value_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
-  end_date?: InputMaybe<Scalars['date']>;
+  end_date?: InputMaybe<Scalars['String']>;
   faculity?: InputMaybe<Scalars['String']>;
   group?: InputMaybe<Scalars['String']>;
   jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
-  start_date?: InputMaybe<Scalars['date']>;
+  start_date?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "jobseeker_education" */
@@ -1173,7 +1173,7 @@ export type Jobseeker_Education_Updates = {
 export type Jobseeker_Insert_Input = {
   account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
   account_id?: InputMaybe<Scalars['uuid']>;
-  dateBirth?: InputMaybe<Scalars['date']>;
+  dateBirth?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   gender?: InputMaybe<Scalars['String']>;
   jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
@@ -1188,7 +1188,7 @@ export type Jobseeker_Insert_Input = {
 export type Jobseeker_Max_Fields = {
   __typename?: 'jobseeker_max_fields';
   account_id?: Maybe<Scalars['uuid']>;
-  dateBirth?: Maybe<Scalars['date']>;
+  dateBirth?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
@@ -1202,7 +1202,7 @@ export type Jobseeker_Max_Fields = {
 export type Jobseeker_Min_Fields = {
   __typename?: 'jobseeker_min_fields';
   account_id?: Maybe<Scalars['uuid']>;
-  dateBirth?: Maybe<Scalars['date']>;
+  dateBirth?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
@@ -1280,7 +1280,7 @@ export enum Jobseeker_Select_Column {
 /** input type for updating data in table "jobseeker" */
 export type Jobseeker_Set_Input = {
   account_id?: InputMaybe<Scalars['uuid']>;
-  dateBirth?: InputMaybe<Scalars['date']>;
+  dateBirth?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   gender?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
@@ -1301,7 +1301,7 @@ export type Jobseeker_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Jobseeker_Stream_Cursor_Value_Input = {
   account_id?: InputMaybe<Scalars['uuid']>;
-  dateBirth?: InputMaybe<Scalars['date']>;
+  dateBirth?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   gender?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
@@ -1687,7 +1687,7 @@ export type Mutation_Root = {
   /** refreshToken */
   refreshToken?: Maybe<RefreshTokenOutput>;
   reg_Employer?: Maybe<SampleOutput>;
-  signUp_jobseeker?: Maybe<Response>;
+  signUp_jobseeker?: Maybe<Res>;
   /** update data of the table: "account" */
   update_account?: Maybe<Account_Mutation_Response>;
   /** update single row of the table: "account" */
@@ -2871,9 +2871,7 @@ export type RefreshTokenOutput = {
 
 export type Res = {
   __typename?: 'res';
-  access_token: Scalars['String'];
   account_id: Scalars['String'];
-  refresh_token: Scalars['String'];
 };
 
 export type Response = {
@@ -3816,27 +3814,27 @@ export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 export type UpdateTokenMutation = { __typename?: 'mutation_root', refreshToken?: { __typename?: 'refreshTokenOutput', access_token: string } | null };
 
 export type SignUpJobseekerMutationVariables = Exact<{
-  dateBirth?: InputMaybe<Scalars['date']>;
-  email?: InputMaybe<Scalars['String']>;
-  gender?: InputMaybe<Scalars['String']>;
-  lastName?: InputMaybe<Scalars['String']>;
-  middleName?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  login?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  role?: InputMaybe<Scalars['String']>;
-  education_form?: InputMaybe<Scalars['String']>;
-  end_date?: InputMaybe<Scalars['date']>;
-  faculity?: InputMaybe<Scalars['String']>;
-  group?: InputMaybe<Scalars['String']>;
-  name_institution?: InputMaybe<Scalars['String']>;
-  speciality?: InputMaybe<Scalars['String']>;
   start_date?: InputMaybe<Scalars['date']>;
+  speciality?: InputMaybe<Scalars['String']>;
+  role?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  password?: InputMaybe<Scalars['String']>;
+  name_institution?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  middleName?: InputMaybe<Scalars['String']>;
+  login?: InputMaybe<Scalars['String']>;
+  lastName?: InputMaybe<Scalars['String']>;
+  group?: InputMaybe<Scalars['String']>;
+  gender?: InputMaybe<Scalars['String']>;
+  faculity?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+  end_date?: InputMaybe<Scalars['date']>;
+  education_form?: InputMaybe<Scalars['String']>;
+  dateBirth?: InputMaybe<Scalars['date']>;
 }>;
 
 
-export type SignUpJobseekerMutation = { __typename?: 'mutation_root', insert_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', account_id?: string | null, jobseeker_id: string, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', educational_institution_id?: string | null, jobseeker_education_id: string }> }> } | null };
+export type SignUpJobseekerMutation = { __typename?: 'mutation_root', signUp_jobseeker?: { __typename?: 'res', account_id: string } | null };
 
 export type SignUpOrganizationMutationVariables = Exact<{
   name_employer?: InputMaybe<Scalars['String']>;
@@ -3916,18 +3914,27 @@ export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMuta
 export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
 export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
 export const SignUpJobseekerDocument = gql`
-    mutation SignUpJobseeker($dateBirth: date = "", $email: String = "", $gender: String = "", $lastName: String = "", $middleName: String = "", $name: String = "", $phone: String = "", $login: String = "", $password: String = "", $role: String = "", $education_form: String = "", $end_date: date = "", $faculity: String = "", $group: String = "", $name_institution: String = "", $speciality: String = "", $start_date: date = "") {
-  insert_jobseeker(
-    objects: {dateBirth: $dateBirth, email: $email, gender: $gender, lastName: $lastName, middleName: $middleName, name: $name, phone: $phone, account: {data: {login: $login, password: $password, role: $role}}, jobseeker_educations: {data: {education_form: $education_form, end_date: $end_date, faculity: $faculity, group: $group, jobseeker_education_educational_institution: {data: {name_institution: $name_institution}}, speciality: $speciality, start_date: $start_date}}}
+    mutation SignUpJobseeker($start_date: date = "", $speciality: String = "", $role: String = "", $phone: String = "", $password: String = "", $name_institution: String = "", $name: String = "", $middleName: String = "", $login: String = "", $lastName: String = "", $group: String = "", $gender: String = "", $faculity: String = "", $email: String = "", $end_date: date = "", $education_form: String = "", $dateBirth: date = "") {
+  signUp_jobseeker(
+    education_form: $education_form
+    email: $email
+    faculity: $faculity
+    gender: $gender
+    group: $group
+    lastName: $lastName
+    login: $login
+    middleName: $middleName
+    name: $name
+    name_institution: $name_institution
+    password: $password
+    phone: $phone
+    role: $role
+    speciality: $speciality
+    dateBirth: $dateBirth
+    start_date: $start_date
+    end_date: $end_date
   ) {
-    returning {
-      account_id
-      jobseeker_id
-      jobseeker_educations {
-        educational_institution_id
-        jobseeker_education_id
-      }
-    }
+    account_id
   }
 }
     `;
@@ -3946,23 +3953,23 @@ export type SignUpJobseekerMutationFn = Apollo.MutationFunction<SignUpJobseekerM
  * @example
  * const [signUpJobseekerMutation, { data, loading, error }] = useSignUpJobseekerMutation({
  *   variables: {
- *      dateBirth: // value for 'dateBirth'
- *      email: // value for 'email'
- *      gender: // value for 'gender'
- *      lastName: // value for 'lastName'
- *      middleName: // value for 'middleName'
- *      name: // value for 'name'
- *      phone: // value for 'phone'
- *      login: // value for 'login'
- *      password: // value for 'password'
- *      role: // value for 'role'
- *      education_form: // value for 'education_form'
- *      end_date: // value for 'end_date'
- *      faculity: // value for 'faculity'
- *      group: // value for 'group'
- *      name_institution: // value for 'name_institution'
- *      speciality: // value for 'speciality'
  *      start_date: // value for 'start_date'
+ *      speciality: // value for 'speciality'
+ *      role: // value for 'role'
+ *      phone: // value for 'phone'
+ *      password: // value for 'password'
+ *      name_institution: // value for 'name_institution'
+ *      name: // value for 'name'
+ *      middleName: // value for 'middleName'
+ *      login: // value for 'login'
+ *      lastName: // value for 'lastName'
+ *      group: // value for 'group'
+ *      gender: // value for 'gender'
+ *      faculity: // value for 'faculity'
+ *      email: // value for 'email'
+ *      end_date: // value for 'end_date'
+ *      education_form: // value for 'education_form'
+ *      dateBirth: // value for 'dateBirth'
  *   },
  * });
  */
