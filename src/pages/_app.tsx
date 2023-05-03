@@ -1,4 +1,3 @@
-import '@/styles/globals.css'
 import { ChakraProvider, theme } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client'
@@ -7,6 +6,7 @@ import { AuthProvider } from '@/hooks/use-auth-context'
 import { SnackbarProvider } from 'notistack'
 import { useRouter } from 'next/router'
 import MainLayout from '@/layout/MainLayout'
+import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -39,11 +39,3 @@ export default function App({ Component, pageProps }: AppProps) {
     </SnackbarProvider>
   )
 }
-
-// {!hideSidebar ? (
-//   <MainLayout>
-//     <Component {...pageProps} />
-//   </MainLayout>
-// ) : (
-//   <Component {...pageProps} />
-// )}

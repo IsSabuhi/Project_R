@@ -6,6 +6,7 @@ import {
   Progress,
   Text,
   Link,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import styles from '@/styles/SignUp.module.scss'
@@ -165,6 +166,8 @@ const SignUp = () => {
     }
   }
 
+  const titleColor = useColorModeValue('teal.300', 'teal.200')
+
   return (
     <div className={styles.sign_up_container}>
       <Box
@@ -248,7 +251,12 @@ const SignUp = () => {
             {step == 1 && (
               <Text>
                 У вас есть учетная запись?{' '}
-                <Link color="blue.500" href={APP_URLS.SIGN_IN}>
+                <Link
+                  color={titleColor}
+                  ms="5px"
+                  fontWeight="bold"
+                  href={APP_URLS.SIGN_IN}
+                >
                   Авторизоваться
                 </Link>
               </Text>

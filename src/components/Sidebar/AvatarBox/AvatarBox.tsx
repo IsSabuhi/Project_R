@@ -1,8 +1,6 @@
-import { APP_URLS } from '@/configs/urls'
-import { EditIcon, RepeatIcon } from '@chakra-ui/icons'
 import {
   Avatar,
-  Flex,
+  Divider,
   IconButton,
   Menu,
   MenuButton,
@@ -10,73 +8,54 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react'
-import { MdLogout, MdOutlineMoreHoriz, MdOutlineSettings } from 'react-icons/md'
+import React from 'react'
+import styles from './AvatarBox.module.scss'
+import { MdOutlineMoreHoriz } from 'react-icons/md'
+import { RepeatIcon } from '@chakra-ui/icons'
+import { FiLogOut, FiSettings } from 'react-icons/fi'
+import { CgProfile } from 'react-icons/cg'
 
 interface IAvatarBoxProps {
-  collapse: boolean
   userName: string
   email: string
-  isOpen: boolean
-  onOpen: any
-  onClose: any
+  logoutOnClick: () => void
 }
+
 export const AvatarBox = ({
-  collapse,
   userName,
   email,
-  isOpen,
-  onClose,
-  onOpen,
+  logoutOnClick,
 }: IAvatarBoxProps) => (
-  <Flex
-    borderWidth={1}
-    borderColor="gray.100"
-    borderRadius="full"
-    p={2}
-    m={4}
-    alignItems="center"
-    justifyContent="space-between"
-    gap={4}
-    flexDirection="row"
-  >
-    <Avatar name="UserName" bg="teal.300" />
-    <Flex
-      w="full"
-      flexDirection="column"
-      gap={5}
-      justifyContent="center"
-      alignItems="flex-start"
-    >
-      <Text fontSize="sm" fontWeight="bold" pb="0" lineHeight={0}>
-        {userName}
-      </Text>
-      <Text as="small" color="gray.500" fontSize={12} lineHeight={0}>
+  <div className={styles.container_avatar}>
+    <Avatar name={userName} bg="teal.300" />
+    <div className={styles.container_avatar_text}>
+      <Text className={styles.sidebar_userNameText}>{userName}</Text>
+      <Text
+        className={styles.sidebar_userEmailText}
+        color="gray.500"
+        fontSize={12}
+        lineHeight={0}
+      >
         {email}
       </Text>
-    </Flex>
+    </div>
 
-    <Menu isOpen={isOpen} onClose={onClose}>
+    <Menu>
       <MenuButton
-        aria-label="Settings"
         as={IconButton}
+        aria-label="Options"
         icon={<MdOutlineMoreHoriz />}
-        borderRadius="full"
-        color="gray.400"
         variant="ghost"
-        fontSize={20}
-        onClick={onOpen}
+        borderRadius="full"
       />
       <MenuList>
-        <MenuItem as="a" href="#" icon={<RepeatIcon />}>
-          Open Closed Tab
-        </MenuItem>
-        <MenuItem as="a" href={APP_URLS.SETTINGS} icon={<MdOutlineSettings />}>
-          Настройки
-        </MenuItem>
-        <MenuItem as="a" href="/login" icon={<MdLogout />}>
+        <MenuItem icon={<CgProfile size="15px" />}>Профиль</MenuItem>
+        <MenuItem icon={<FiSettings size="15px" />}>Настройки</MenuItem>
+        <Divider />
+        <MenuItem icon={<FiLogOut size="15px" />} onClick={logoutOnClick}>
           Выйти
         </MenuItem>
       </MenuList>
     </Menu>
-  </Flex>
+  </div>
 )

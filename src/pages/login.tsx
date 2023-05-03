@@ -13,6 +13,8 @@ import {
   Input,
   InputGroup,
   InputRightElement,
+  Box,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
@@ -33,6 +35,9 @@ const SignIn = () => {
   const router = useRouter()
 
   const { enqueueSnackbar } = useSnackbar()
+
+  const titleColor = useColorModeValue('teal.300', 'teal.200')
+  const textColor = useColorModeValue('gray.400', 'white')
 
   const [status, setStatus] = useState<Status>(Status.idle)
 
@@ -69,7 +74,7 @@ const SignIn = () => {
     },
   })
   return (
-    <Flex p={8} flex={1} align={'center'} justify={'center'}>
+    <Flex p={8} flex={1} align={'center'}>
       <Stack spacing={4} w={'full'} maxW={'md'}>
         <form className={styles.login_container} onSubmit={formik.handleSubmit}>
           <Heading fontSize={'2xl'} textAlign="center" paddingBottom="30px">
@@ -80,6 +85,9 @@ const SignIn = () => {
             id="login"
             name="login"
             type="text"
+            borderRadius="15px"
+            fontSize="sm"
+            size="lg"
             placeholder="Логин"
             onChange={formik.handleChange}
             value={formik.values.login}
@@ -90,13 +98,16 @@ const SignIn = () => {
               id="password"
               name="password"
               type={showPassword ? 'text' : 'password'}
+              borderRadius="15px"
+              fontSize="sm"
+              size="lg"
               placeholder="Пароль"
               onChange={formik.handleChange}
               value={formik.values.password}
             />
             <InputRightElement h={'full'}>
               <Button
-                variant={'ghost'}
+                variant={'unstyled'}
                 onClick={() => setShowPassword((showPassword) => !showPassword)}
               >
                 {showPassword ? <ViewIcon /> : <ViewOffIcon />}
@@ -110,7 +121,9 @@ const SignIn = () => {
               justify={'space-between'}
             >
               <Checkbox>Запомнить меня</Checkbox>
-              <Link color={'blue.500'}>Забыли пароль?</Link>
+              <Link color={titleColor} ms="5px" fontWeight="bold">
+                Забыли пароль?
+              </Link>
             </Stack>
             <Button
               type="submit"
@@ -118,6 +131,19 @@ const SignIn = () => {
               variant="solid"
               loadingText="Вход в систему"
               isLoading={loading}
+              fontSize="10px"
+              bg="teal.300"
+              w="100%"
+              h="45"
+              mb="20px"
+              color="white"
+              mt="20px"
+              _hover={{
+                bg: 'teal.200',
+              }}
+              _active={{
+                bg: 'teal.400',
+              }}
             >
               Войти
             </Button>
@@ -125,7 +151,12 @@ const SignIn = () => {
         </form>
         <Text textAlign="center">
           У вас нет учетной записи?{' '}
-          <Link color="blue.500" href={APP_URLS.SIGN_UP}>
+          <Link
+            color={titleColor}
+            ms="5px"
+            fontWeight="bold"
+            href={APP_URLS.SIGN_UP}
+          >
             Зарегистрироваться
           </Link>
         </Text>
@@ -136,18 +167,45 @@ const SignIn = () => {
 
 const Login = () => {
   return (
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-      <SignIn />
-      <Flex flex={1}>
-        <Image
-          alt={'Login Image'}
-          objectFit={'cover'}
-          src={
-            'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80'
-          }
-        />
+    <Flex position="relative" mb="40px">
+      <Flex
+        h={{ sm: 'initial', md: '75vh', lg: '85vh' }}
+        w="100%"
+        maxW="1044px"
+        mx="auto"
+        justifyContent="space-between"
+        mb="30px"
+        pt={{ sm: '100px', md: '0px' }}
+      >
+        <SignIn />
+        <Box
+          display={{ base: 'none', md: 'block' }}
+          overflowX="hidden"
+          h="100%"
+          w="40vw"
+          position="absolute"
+          right="0px"
+        >
+          <Box
+            bgImage="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80"
+            w="100%"
+            h="100%"
+            bgSize="cover"
+            bgPosition="50%"
+            position="absolute"
+            borderBottomLeftRadius="20px"
+          >
+            {/* <Image
+            alt={'Login Image'}
+            objectFit={'cover'}
+            src={
+              'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80'
+            }
+          /> */}
+          </Box>
+        </Box>
       </Flex>
-    </Stack>
+    </Flex>
   )
 }
 

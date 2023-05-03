@@ -11,7 +11,7 @@ export const Logo = ({ collapse }: any) => (
   >
     <Box display="flex" alignItems="center" gap={2}>
       <Icon as={AiFillThunderbolt} fontSize={30} />
-      {collapse && (
+      {!collapse && (
         <Text fontWeight="bold" fontSize={16}>
           HowToWork
         </Text>

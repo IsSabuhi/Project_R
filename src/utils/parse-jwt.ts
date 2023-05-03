@@ -6,11 +6,12 @@ type gettingJWT = {
   //   'User_id': string;
   // };
   userId: string;
+  role: string;
 };
 
 type newJWT = {
   userID: string;
-
+  userRole: string;
 };
 
 export const parseJwt = (token: string) => {
@@ -30,6 +31,7 @@ export const parseJwt = (token: string) => {
 
   const resultJWT: newJWT = {
     userID: JWTpayload.userId,
+    userRole: JWTpayload.role,
   };
 
   return resultJWT;
