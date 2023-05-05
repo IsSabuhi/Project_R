@@ -84,7 +84,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
       /** Периодически обновляю токен, чтоб не устаревал */
       tokenUpdaterTimer.current = setTimeout(() => {
-        updateTokenMutation() // тут будет рефреш
+        updateTokenMutation()
       }, (newTimeToRequest || 60) * 1000 * 10) // обновляю токен за 30 сек до смерти
 
       setAuthData({
