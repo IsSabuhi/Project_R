@@ -7,7 +7,7 @@ import {setContext} from '@apollo/client/link/context'
 import { AUTH_TOKEN } from './src/constants';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8080/v1/graphql',
+  uri: process.env.REACT_APP_HASURA_URL,
   credentials: 'include'
 })
 
