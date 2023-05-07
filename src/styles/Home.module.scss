@@ -1,0 +1,13 @@
+.container_home {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .main_cards {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        margin-inline: 20px;
+    }
+}

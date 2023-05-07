@@ -32,7 +32,7 @@ const Settings = () => {
           />
           <TabPanels>
             <TabPanel p={0}>
-              <GeneralInfo />
+              <GeneralInfo userName="И С" />
             </TabPanel>
             <TabPanel>
               <p>two!</p>

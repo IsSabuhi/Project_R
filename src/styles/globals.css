@@ -8,6 +8,7 @@ body {
   background: #edf2f7;
 }
 
+
 #__next {
   height: 100%;
 }
@@ -33,3 +34,4 @@ a {
 * {
   -ms-overflow-style: none;
 }
+

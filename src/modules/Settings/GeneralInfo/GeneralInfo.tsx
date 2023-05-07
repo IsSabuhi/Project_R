@@ -16,7 +16,11 @@ import { GrAttachment } from 'react-icons/gr'
 import React from 'react'
 import styles from './GeneralInfo.module.scss'
 
-const GeneralInfo = () => {
+interface IGeneralInfoProps {
+  userName: string
+}
+
+const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
   return (
     <form className={styles.container}>
       <div className={styles.container_settings}>
@@ -196,7 +200,7 @@ const GeneralInfo = () => {
             <Flex justify={'center'} mt={-12}>
               <Avatar
                 size={'2xl'}
-                name="И C"
+                name={userName}
                 css={{
                   border: '2px solid white',
                 }}
@@ -204,10 +208,11 @@ const GeneralInfo = () => {
             </Flex>
 
             <Box p={6}>
-              <Stack spacing={0} align={'center'} mb={5}>
+              <Stack spacing={0} align={'center'} mb={5} gap={2}>
                 <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                  userName
+                  {userName || 'Имя пользователя'}
                 </Heading>
+                <Text color={'gray.500'}>Email</Text>
                 <Text color={'gray.500'}>Frontend Developer</Text>
               </Stack>
             </Box>

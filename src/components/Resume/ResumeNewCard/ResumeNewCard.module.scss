@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed;
+    border-radius: var(--radius-2);
+    cursor: pointer;
+    padding: var(--grid-gap);
+    height: 100%;
+    width: 15rem;
+    min-height: 297px;
+
+    .container_text {
+        font: var(--font-ui);
+        font-size: var(--scale-000);
+        color: var(--color-text-light);
+    }
+}
