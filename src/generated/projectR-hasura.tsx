@@ -13,7 +13,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  bigint: any;
   date: any;
   time: string;
   uuid: string;
@@ -43,21 +42,6 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']>;
   _neq?: InputMaybe<Scalars['Int']>;
   _nin?: InputMaybe<Array<Scalars['Int']>>;
-};
-
-export type SampleInput = {
-  email: Scalars['String'];
-  inn_employer: Scalars['String'];
-  login: Scalars['String'];
-  ogrn_employer: Scalars['String'];
-  password: Scalars['String'];
-  role: Scalars['String'];
-};
-
-export type SampleOutput = {
-  __typename?: 'SampleOutput';
-  login: Scalars['String'];
-  password: Scalars['String'];
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -91,12 +75,6 @@ export type String_Comparison_Exp = {
   _regex?: InputMaybe<Scalars['String']>;
   /** does the column match the given SQL regular expression */
   _similar?: InputMaybe<Scalars['String']>;
-};
-
-export type _Service = {
-  __typename?: '_Service';
-  /** SDL representation of schema */
-  sdl: Scalars['String'];
 };
 
 /** columns and relationships of "account" */
@@ -305,19 +283,6 @@ export type Account_Updates = {
   _set?: InputMaybe<Account_Set_Input>;
   /** filter the rows which have to be updated */
   where: Account_Bool_Exp;
-};
-
-/** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
-export type Bigint_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['bigint']>;
-  _gt?: InputMaybe<Scalars['bigint']>;
-  _gte?: InputMaybe<Scalars['bigint']>;
-  _in?: InputMaybe<Array<Scalars['bigint']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['bigint']>;
-  _lte?: InputMaybe<Scalars['bigint']>;
-  _neq?: InputMaybe<Scalars['bigint']>;
-  _nin?: InputMaybe<Array<Scalars['bigint']>>;
 };
 
 /** ordering argument of a cursor */
@@ -576,7 +541,7 @@ export type Employer = {
   employer_organizations_aggregate: Organization_Aggregate;
   id_employer: Scalars['uuid'];
   name_employer: Scalars['String'];
-  phone?: Maybe<Scalars['bigint']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 
@@ -599,6 +564,11 @@ export type EmployerEmployer_Organizations_AggregateArgs = {
   where?: InputMaybe<Organization_Bool_Exp>;
 };
 
+export type EmployerResponse = {
+  __typename?: 'employerResponse';
+  status: Scalars['String'];
+};
+
 /** aggregated selection of "employer" */
 export type Employer_Aggregate = {
   __typename?: 'employer_aggregate';
@@ -609,17 +579,9 @@ export type Employer_Aggregate = {
 /** aggregate fields of "employer" */
 export type Employer_Aggregate_Fields = {
   __typename?: 'employer_aggregate_fields';
-  avg?: Maybe<Employer_Avg_Fields>;
   count: Scalars['Int'];
   max?: Maybe<Employer_Max_Fields>;
   min?: Maybe<Employer_Min_Fields>;
-  stddev?: Maybe<Employer_Stddev_Fields>;
-  stddev_pop?: Maybe<Employer_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Employer_Stddev_Samp_Fields>;
-  sum?: Maybe<Employer_Sum_Fields>;
-  var_pop?: Maybe<Employer_Var_Pop_Fields>;
-  var_samp?: Maybe<Employer_Var_Samp_Fields>;
-  variance?: Maybe<Employer_Variance_Fields>;
 };
 
 
@@ -627,12 +589,6 @@ export type Employer_Aggregate_Fields = {
 export type Employer_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Employer_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** aggregate avg on columns */
-export type Employer_Avg_Fields = {
-  __typename?: 'employer_avg_fields';
-  phone?: Maybe<Scalars['Float']>;
 };
 
 /** Boolean expression to filter rows from the table "employer". All fields are combined with a logical 'AND'. */
@@ -645,25 +601,14 @@ export type Employer_Bool_Exp = {
   employer_organizations_aggregate?: InputMaybe<Organization_Aggregate_Bool_Exp>;
   id_employer?: InputMaybe<Uuid_Comparison_Exp>;
   name_employer?: InputMaybe<String_Comparison_Exp>;
-  phone?: InputMaybe<Bigint_Comparison_Exp>;
+  phone?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "employer" */
 export enum Employer_Constraint {
-  /** unique or primary key constraint on columns "email" */
-  EmployerEmailKey = 'employer_email_key',
-  /** unique or primary key constraint on columns "name_employer" */
-  EmployerNameEmployerKey = 'employer_name_employer_key',
-  /** unique or primary key constraint on columns "phone" */
-  EmployerPhoneKey = 'employer_phone_key',
   /** unique or primary key constraint on columns "id_employer" */
   EmployerPkey = 'employer_pkey'
 }
-
-/** input type for incrementing numeric columns in table "employer" */
-export type Employer_Inc_Input = {
-  phone?: InputMaybe<Scalars['bigint']>;
-};
 
 /** input type for inserting data into table "employer" */
 export type Employer_Insert_Input = {
@@ -671,7 +616,7 @@ export type Employer_Insert_Input = {
   employer_organizations?: InputMaybe<Organization_Arr_Rel_Insert_Input>;
   id_employer?: InputMaybe<Scalars['uuid']>;
   name_employer?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['bigint']>;
+  phone?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -680,7 +625,7 @@ export type Employer_Max_Fields = {
   email?: Maybe<Scalars['String']>;
   id_employer?: Maybe<Scalars['uuid']>;
   name_employer?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['bigint']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
@@ -689,7 +634,7 @@ export type Employer_Min_Fields = {
   email?: Maybe<Scalars['String']>;
   id_employer?: Maybe<Scalars['uuid']>;
   name_employer?: Maybe<Scalars['String']>;
-  phone?: Maybe<Scalars['bigint']>;
+  phone?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "employer" */
@@ -746,25 +691,7 @@ export type Employer_Set_Input = {
   email?: InputMaybe<Scalars['String']>;
   id_employer?: InputMaybe<Scalars['uuid']>;
   name_employer?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['bigint']>;
-};
-
-/** aggregate stddev on columns */
-export type Employer_Stddev_Fields = {
-  __typename?: 'employer_stddev_fields';
-  phone?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Employer_Stddev_Pop_Fields = {
-  __typename?: 'employer_stddev_pop_fields';
-  phone?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Employer_Stddev_Samp_Fields = {
-  __typename?: 'employer_stddev_samp_fields';
-  phone?: Maybe<Scalars['Float']>;
+  phone?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "employer" */
@@ -780,13 +707,7 @@ export type Employer_Stream_Cursor_Value_Input = {
   email?: InputMaybe<Scalars['String']>;
   id_employer?: InputMaybe<Scalars['uuid']>;
   name_employer?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['bigint']>;
-};
-
-/** aggregate sum on columns */
-export type Employer_Sum_Fields = {
-  __typename?: 'employer_sum_fields';
-  phone?: Maybe<Scalars['bigint']>;
+  phone?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "employer" */
@@ -802,30 +723,10 @@ export enum Employer_Update_Column {
 }
 
 export type Employer_Updates = {
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Employer_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Employer_Set_Input>;
   /** filter the rows which have to be updated */
   where: Employer_Bool_Exp;
-};
-
-/** aggregate var_pop on columns */
-export type Employer_Var_Pop_Fields = {
-  __typename?: 'employer_var_pop_fields';
-  phone?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate var_samp on columns */
-export type Employer_Var_Samp_Fields = {
-  __typename?: 'employer_var_samp_fields';
-  phone?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate variance on columns */
-export type Employer_Variance_Fields = {
-  __typename?: 'employer_variance_fields';
-  phone?: Maybe<Scalars['Float']>;
 };
 
 /** columns and relationships of "jobseeker" */
@@ -1750,7 +1651,7 @@ export type Mutation_Root = {
   password_change_handle?: Maybe<Res>;
   /** refreshToken */
   refreshToken?: Maybe<RefreshTokenOutput>;
-  reg_Employer?: Maybe<SampleOutput>;
+  signUp_employer?: Maybe<EmployerResponse>;
   signUp_jobseeker?: Maybe<Res>;
   /** update data of the table: "account" */
   update_account?: Maybe<Account_Mutation_Response>;
@@ -2059,8 +1960,15 @@ export type Mutation_RootPassword_Change_HandleArgs = {
 
 
 /** mutation root */
-export type Mutation_RootReg_EmployerArgs = {
-  arg: SampleInput;
+export type Mutation_RootSignUp_EmployerArgs = {
+  email: Scalars['String'];
+  inn_organization: Scalars['String'];
+  login: Scalars['String'];
+  name_employer: Scalars['String'];
+  name_organization: Scalars['String'];
+  password: Scalars['String'];
+  phone: Scalars['String'];
+  role: Scalars['String'];
 };
 
 
@@ -2128,7 +2036,6 @@ export type Mutation_RootUpdate_Educational_Institution_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_EmployerArgs = {
-  _inc?: InputMaybe<Employer_Inc_Input>;
   _set?: InputMaybe<Employer_Set_Input>;
   where: Employer_Bool_Exp;
 };
@@ -2136,7 +2043,6 @@ export type Mutation_RootUpdate_EmployerArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Employer_By_PkArgs = {
-  _inc?: InputMaybe<Employer_Inc_Input>;
   _set?: InputMaybe<Employer_Set_Input>;
   pk_columns: Employer_Pk_Columns_Input;
 };
@@ -2212,7 +2118,6 @@ export type Mutation_RootUpdate_Location_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_OrganizationArgs = {
-  _inc?: InputMaybe<Organization_Inc_Input>;
   _set?: InputMaybe<Organization_Set_Input>;
   where: Organization_Bool_Exp;
 };
@@ -2220,7 +2125,6 @@ export type Mutation_RootUpdate_OrganizationArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Organization_By_PkArgs = {
-  _inc?: InputMaybe<Organization_Inc_Input>;
   _set?: InputMaybe<Organization_Set_Input>;
   pk_columns: Organization_Pk_Columns_Input;
 };
@@ -2296,14 +2200,16 @@ export type Organization = {
   date_registration?: Maybe<Scalars['date']>;
   employer_id: Scalars['uuid'];
   id_organization: Scalars['uuid'];
-  inn_organization: Scalars['bigint'];
-  kpp_organization?: Maybe<Scalars['bigint']>;
+  inn_organization: Scalars['String'];
+  kpp_organization?: Maybe<Scalars['String']>;
   main_activity?: Maybe<Scalars['String']>;
   name_organization?: Maybe<Scalars['String']>;
+  ogrn?: Maybe<Scalars['String']>;
   /** An object relationship */
   organization_account: Account;
   /** An object relationship */
   organization_employer: Employer;
+  status?: Maybe<Scalars['String']>;
   verified: Scalars['Boolean'];
 };
 
@@ -2344,17 +2250,9 @@ export type Organization_Aggregate_Bool_Exp_Count = {
 /** aggregate fields of "organization" */
 export type Organization_Aggregate_Fields = {
   __typename?: 'organization_aggregate_fields';
-  avg?: Maybe<Organization_Avg_Fields>;
   count: Scalars['Int'];
   max?: Maybe<Organization_Max_Fields>;
   min?: Maybe<Organization_Min_Fields>;
-  stddev?: Maybe<Organization_Stddev_Fields>;
-  stddev_pop?: Maybe<Organization_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Organization_Stddev_Samp_Fields>;
-  sum?: Maybe<Organization_Sum_Fields>;
-  var_pop?: Maybe<Organization_Var_Pop_Fields>;
-  var_samp?: Maybe<Organization_Var_Samp_Fields>;
-  variance?: Maybe<Organization_Variance_Fields>;
 };
 
 
@@ -2366,17 +2264,9 @@ export type Organization_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "organization" */
 export type Organization_Aggregate_Order_By = {
-  avg?: InputMaybe<Organization_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Organization_Max_Order_By>;
   min?: InputMaybe<Organization_Min_Order_By>;
-  stddev?: InputMaybe<Organization_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Organization_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Organization_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Organization_Sum_Order_By>;
-  var_pop?: InputMaybe<Organization_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Organization_Var_Samp_Order_By>;
-  variance?: InputMaybe<Organization_Variance_Order_By>;
 };
 
 /** input type for inserting array relation for remote table "organization" */
@@ -2384,19 +2274,6 @@ export type Organization_Arr_Rel_Insert_Input = {
   data: Array<Organization_Insert_Input>;
   /** upsert condition */
   on_conflict?: InputMaybe<Organization_On_Conflict>;
-};
-
-/** aggregate avg on columns */
-export type Organization_Avg_Fields = {
-  __typename?: 'organization_avg_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "organization" */
-export type Organization_Avg_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "organization". All fields are combined with a logical 'AND'. */
@@ -2408,12 +2285,14 @@ export type Organization_Bool_Exp = {
   date_registration?: InputMaybe<Date_Comparison_Exp>;
   employer_id?: InputMaybe<Uuid_Comparison_Exp>;
   id_organization?: InputMaybe<Uuid_Comparison_Exp>;
-  inn_organization?: InputMaybe<Bigint_Comparison_Exp>;
-  kpp_organization?: InputMaybe<Bigint_Comparison_Exp>;
+  inn_organization?: InputMaybe<String_Comparison_Exp>;
+  kpp_organization?: InputMaybe<String_Comparison_Exp>;
   main_activity?: InputMaybe<String_Comparison_Exp>;
   name_organization?: InputMaybe<String_Comparison_Exp>;
+  ogrn?: InputMaybe<String_Comparison_Exp>;
   organization_account?: InputMaybe<Account_Bool_Exp>;
   organization_employer?: InputMaybe<Employer_Bool_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
   verified?: InputMaybe<Boolean_Comparison_Exp>;
 };
 
@@ -2425,15 +2304,11 @@ export enum Organization_Constraint {
   OrganizationInnOrganizationKey = 'organization_inn_organization_key',
   /** unique or primary key constraint on columns "kpp_organization" */
   OrganizationKppOrganizationKey = 'organization_kpp_organization_key',
+  /** unique or primary key constraint on columns "ogrn" */
+  OrganizationOgrnKey = 'organization_ogrn_key',
   /** unique or primary key constraint on columns "id_organization" */
   OrganizationPkey = 'organization_pkey'
 }
-
-/** input type for incrementing numeric columns in table "organization" */
-export type Organization_Inc_Input = {
-  inn_organization?: InputMaybe<Scalars['bigint']>;
-  kpp_organization?: InputMaybe<Scalars['bigint']>;
-};
 
 /** input type for inserting data into table "organization" */
 export type Organization_Insert_Input = {
@@ -2441,12 +2316,14 @@ export type Organization_Insert_Input = {
   date_registration?: InputMaybe<Scalars['date']>;
   employer_id?: InputMaybe<Scalars['uuid']>;
   id_organization?: InputMaybe<Scalars['uuid']>;
-  inn_organization?: InputMaybe<Scalars['bigint']>;
-  kpp_organization?: InputMaybe<Scalars['bigint']>;
+  inn_organization?: InputMaybe<Scalars['String']>;
+  kpp_organization?: InputMaybe<Scalars['String']>;
   main_activity?: InputMaybe<Scalars['String']>;
   name_organization?: InputMaybe<Scalars['String']>;
+  ogrn?: InputMaybe<Scalars['String']>;
   organization_account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
   organization_employer?: InputMaybe<Employer_Obj_Rel_Insert_Input>;
+  status?: InputMaybe<Scalars['String']>;
   verified?: InputMaybe<Scalars['Boolean']>;
 };
 
@@ -2457,10 +2334,12 @@ export type Organization_Max_Fields = {
   date_registration?: Maybe<Scalars['date']>;
   employer_id?: Maybe<Scalars['uuid']>;
   id_organization?: Maybe<Scalars['uuid']>;
-  inn_organization?: Maybe<Scalars['bigint']>;
-  kpp_organization?: Maybe<Scalars['bigint']>;
+  inn_organization?: Maybe<Scalars['String']>;
+  kpp_organization?: Maybe<Scalars['String']>;
   main_activity?: Maybe<Scalars['String']>;
   name_organization?: Maybe<Scalars['String']>;
+  ogrn?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "organization" */
@@ -2473,6 +2352,8 @@ export type Organization_Max_Order_By = {
   kpp_organization?: InputMaybe<Order_By>;
   main_activity?: InputMaybe<Order_By>;
   name_organization?: InputMaybe<Order_By>;
+  ogrn?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -2482,10 +2363,12 @@ export type Organization_Min_Fields = {
   date_registration?: Maybe<Scalars['date']>;
   employer_id?: Maybe<Scalars['uuid']>;
   id_organization?: Maybe<Scalars['uuid']>;
-  inn_organization?: Maybe<Scalars['bigint']>;
-  kpp_organization?: Maybe<Scalars['bigint']>;
+  inn_organization?: Maybe<Scalars['String']>;
+  kpp_organization?: Maybe<Scalars['String']>;
   main_activity?: Maybe<Scalars['String']>;
   name_organization?: Maybe<Scalars['String']>;
+  ogrn?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "organization" */
@@ -2498,6 +2381,8 @@ export type Organization_Min_Order_By = {
   kpp_organization?: InputMaybe<Order_By>;
   main_activity?: InputMaybe<Order_By>;
   name_organization?: InputMaybe<Order_By>;
+  ogrn?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "organization" */
@@ -2526,8 +2411,10 @@ export type Organization_Order_By = {
   kpp_organization?: InputMaybe<Order_By>;
   main_activity?: InputMaybe<Order_By>;
   name_organization?: InputMaybe<Order_By>;
+  ogrn?: InputMaybe<Order_By>;
   organization_account?: InputMaybe<Account_Order_By>;
   organization_employer?: InputMaybe<Employer_Order_By>;
+  status?: InputMaybe<Order_By>;
   verified?: InputMaybe<Order_By>;
 };
 
@@ -2555,6 +2442,10 @@ export enum Organization_Select_Column {
   /** column name */
   NameOrganization = 'name_organization',
   /** column name */
+  Ogrn = 'ogrn',
+  /** column name */
+  Status = 'status',
+  /** column name */
   Verified = 'verified'
 }
 
@@ -2576,50 +2467,13 @@ export type Organization_Set_Input = {
   date_registration?: InputMaybe<Scalars['date']>;
   employer_id?: InputMaybe<Scalars['uuid']>;
   id_organization?: InputMaybe<Scalars['uuid']>;
-  inn_organization?: InputMaybe<Scalars['bigint']>;
-  kpp_organization?: InputMaybe<Scalars['bigint']>;
+  inn_organization?: InputMaybe<Scalars['String']>;
+  kpp_organization?: InputMaybe<Scalars['String']>;
   main_activity?: InputMaybe<Scalars['String']>;
   name_organization?: InputMaybe<Scalars['String']>;
+  ogrn?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
   verified?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** aggregate stddev on columns */
-export type Organization_Stddev_Fields = {
-  __typename?: 'organization_stddev_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "organization" */
-export type Organization_Stddev_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Organization_Stddev_Pop_Fields = {
-  __typename?: 'organization_stddev_pop_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_pop() on columns of table "organization" */
-export type Organization_Stddev_Pop_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Organization_Stddev_Samp_Fields = {
-  __typename?: 'organization_stddev_samp_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "organization" */
-export type Organization_Stddev_Samp_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
 };
 
 /** Streaming cursor of the table "organization" */
@@ -2636,24 +2490,13 @@ export type Organization_Stream_Cursor_Value_Input = {
   date_registration?: InputMaybe<Scalars['date']>;
   employer_id?: InputMaybe<Scalars['uuid']>;
   id_organization?: InputMaybe<Scalars['uuid']>;
-  inn_organization?: InputMaybe<Scalars['bigint']>;
-  kpp_organization?: InputMaybe<Scalars['bigint']>;
+  inn_organization?: InputMaybe<Scalars['String']>;
+  kpp_organization?: InputMaybe<Scalars['String']>;
   main_activity?: InputMaybe<Scalars['String']>;
   name_organization?: InputMaybe<Scalars['String']>;
+  ogrn?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
   verified?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** aggregate sum on columns */
-export type Organization_Sum_Fields = {
-  __typename?: 'organization_sum_fields';
-  inn_organization?: Maybe<Scalars['bigint']>;
-  kpp_organization?: Maybe<Scalars['bigint']>;
-};
-
-/** order by sum() on columns of table "organization" */
-export type Organization_Sum_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
 };
 
 /** update columns of table "organization" */
@@ -2675,60 +2518,22 @@ export enum Organization_Update_Column {
   /** column name */
   NameOrganization = 'name_organization',
   /** column name */
+  Ogrn = 'ogrn',
+  /** column name */
+  Status = 'status',
+  /** column name */
   Verified = 'verified'
 }
 
 export type Organization_Updates = {
-  /** increments the numeric columns with given value of the filtered values */
-  _inc?: InputMaybe<Organization_Inc_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Organization_Set_Input>;
   /** filter the rows which have to be updated */
   where: Organization_Bool_Exp;
 };
 
-/** aggregate var_pop on columns */
-export type Organization_Var_Pop_Fields = {
-  __typename?: 'organization_var_pop_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "organization" */
-export type Organization_Var_Pop_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
-};
-
-/** aggregate var_samp on columns */
-export type Organization_Var_Samp_Fields = {
-  __typename?: 'organization_var_samp_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_samp() on columns of table "organization" */
-export type Organization_Var_Samp_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
-};
-
-/** aggregate variance on columns */
-export type Organization_Variance_Fields = {
-  __typename?: 'organization_variance_fields';
-  inn_organization?: Maybe<Scalars['Float']>;
-  kpp_organization?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "organization" */
-export type Organization_Variance_Order_By = {
-  inn_organization?: InputMaybe<Order_By>;
-  kpp_organization?: InputMaybe<Order_By>;
-};
-
 export type Query_Root = {
   __typename?: 'query_root';
-  _service: _Service;
   /** fetch data from the table: "account" */
   account: Array<Account>;
   /** fetch aggregated fields from the table: "account" */
@@ -3967,8 +3772,8 @@ export type SignUpJobseekerMutation = { __typename?: 'mutation_root', signUp_job
 export type SignUpOrganizationMutationVariables = Exact<{
   name_employer?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['bigint']>;
-  inn_organization?: InputMaybe<Scalars['bigint']>;
+  phone?: InputMaybe<Scalars['String']>;
+  inn_organization?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -3979,7 +3784,7 @@ export type GetJobseekerByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string }> }> };
+export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account_id?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string }>, account?: { __typename?: 'account', login: string, role?: string | null } | null }> };
 
 
 export const AuthLoginDocument = gql`
@@ -4116,7 +3921,7 @@ export type SignUpJobseekerMutationHookResult = ReturnType<typeof useSignUpJobse
 export type SignUpJobseekerMutationResult = Apollo.MutationResult<SignUpJobseekerMutation>;
 export type SignUpJobseekerMutationOptions = Apollo.BaseMutationOptions<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>;
 export const SignUpOrganizationDocument = gql`
-    mutation SignUpOrganization($name_employer: String = "", $email: String = "", $phone: bigint = "", $inn_organization: bigint = "") {
+    mutation SignUpOrganization($name_employer: String = "", $email: String = "", $phone: String = "", $inn_organization: String = "") {
   insert_employer(
     objects: {name_employer: $name_employer, email: $email, phone: $phone, employer_organizations: {data: {inn_organization: $inn_organization}}}
   ) {
@@ -4161,7 +3966,6 @@ export type SignUpOrganizationMutationOptions = Apollo.BaseMutationOptions<SignU
 export const GetJobseekerByIdDocument = gql`
     query GetJobseekerById($_eq: uuid = "") {
   jobseeker(where: {account_id: {_eq: $_eq}}) {
-    account_id
     dateBirth
     email
     gender
@@ -4180,6 +3984,11 @@ export const GetJobseekerByIdDocument = gql`
       speciality
       start_date
       jobseeker_education_id
+    }
+    account_id
+    account {
+      login
+      role
     }
   }
 }

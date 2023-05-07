@@ -1,12 +1,18 @@
-.container_avatar {
+.container {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    border-radius: 30px;
-    border-color: #edf2f7;
     border-width: 1px;
-    padding: 5px;
+    border-radius: 50px;
+    padding: 10px;
+
+    .container_avatar {
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        gap: 15px;
+    }
 
     .container_avatar_text {
         display: flex;

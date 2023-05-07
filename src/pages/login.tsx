@@ -57,7 +57,6 @@ const SignIn = () => {
     onError(error) {
       enqueueSnackbar('Неверный логин или пароль', { variant: 'error' })
       setStatus(Status.error)
-      console.log(error.message)
     },
   })
 
@@ -131,7 +130,6 @@ const SignIn = () => {
               variant="solid"
               loadingText="Вход в систему"
               isLoading={loading}
-              fontSize="10px"
               bg="teal.300"
               w="100%"
               h="45"

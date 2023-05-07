@@ -4,7 +4,7 @@ import { useAuthContext } from '@/hooks/use-auth-context'
 import { joinName } from '@/utils/joinName'
 import React, { ReactElement } from 'react'
 import styles from './MainLayout.module.scss'
-import { AvatarBox } from '@/components/Sidebar/AvatarBox/AvatarBox'
+import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
 
 interface IMainLayoutProps {
   children: ReactElement
@@ -20,20 +20,17 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
   })
 
   const user = data?.jobseeker[0]
-  const jobseekerRole = 'Соискатель'
-  const employerRole = 'Работодатель'
 
   const userName = joinName(user?.lastName!, user?.name!, user?.middleName!)
-
-  console.log(role)
 
   return (
     <div className={styles.container}>
       <Sidebar logoutOnClick={stopAuthSession} />
       <div className={styles.container_avatarBox}>
         <AvatarBox
-          email={user?.email!}
+          userLogin={user?.lastName + ' ' + user?.name}
           userName={userName}
+          email={user?.email!}
           logoutOnClick={stopAuthSession}
         />
       </div>

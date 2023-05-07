@@ -55,8 +55,8 @@ mutation SignUpJobseeker(
 mutation SignUpOrganization(
   $name_employer: String = ""
   $email: String = ""
-  $phone: bigint = ""
-  $inn_organization: bigint = ""
+  $phone: String = ""
+  $inn_organization: String = ""
 ) {
   insert_employer(
     objects: {
@@ -77,7 +77,6 @@ mutation SignUpOrganization(
 
 query GetJobseekerById($_eq: uuid = "") {
   jobseeker(where: { account_id: { _eq: $_eq } }) {
-    account_id
     dateBirth
     email
     gender
@@ -96,6 +95,11 @@ query GetJobseekerById($_eq: uuid = "") {
       speciality
       start_date
       jobseeker_education_id
+    }
+    account_id
+    account {
+      login
+      role
     }
   }
 }

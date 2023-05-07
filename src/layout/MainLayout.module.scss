@@ -4,12 +4,17 @@
     height: 100%;
     width: 100%;
     background: #edf2f7;
+    
 
     .container_avatarBox {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 10px;
         position: absolute;
         top: 0;
         right: 0;
-        margin: 20px;
+        margin: 30px;
     }
 
     .main {
@@ -18,5 +23,6 @@
         width: 100%;
         margin: 10px;
         padding: 20px;
+        overflow: overlay;
     }
 }
