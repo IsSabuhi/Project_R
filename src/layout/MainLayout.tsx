@@ -5,8 +5,6 @@ import { joinName } from '@/utils/joinName'
 import React, { ReactElement } from 'react'
 import styles from './MainLayout.module.scss'
 import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
-import { MdOutlineNotificationsNone } from 'react-icons/md'
-import { Avatar, IconButton, Text } from '@chakra-ui/react'
 
 interface IMainLayoutProps {
   children: ReactElement
@@ -22,8 +20,6 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
   })
 
   const user = data?.jobseeker[0]
-  const isJobseeker = 'Соискатель'
-  const isEmployer = 'Работодатель'
 
   const userName = joinName(user?.lastName!, user?.name!, user?.middleName!)
 
@@ -35,7 +31,6 @@ const MainLayout = ({ children }: IMainLayoutProps) => {
           userLogin={user?.lastName + ' ' + user?.name}
           userName={userName}
           email={user?.email!}
-          role={role === 'jobseeker' ? isJobseeker : isEmployer}
           logoutOnClick={stopAuthSession}
         />
       </div>

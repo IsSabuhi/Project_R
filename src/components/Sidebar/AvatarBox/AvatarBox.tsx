@@ -1,7 +1,6 @@
 import {
   Avatar,
   Divider,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -19,7 +18,6 @@ interface IAvatarBoxProps {
   userName: string
   userLogin: string
   email: string
-  role: string
   logoutOnClick: () => void
 }
 
@@ -27,7 +25,6 @@ const AvatarBox = ({
   userLogin,
   userName,
   email,
-  role,
   logoutOnClick,
 }: IAvatarBoxProps) => {
   const router = useRouter()
@@ -68,7 +65,6 @@ const AvatarBox = ({
           >
             <VStack alignItems="flex-start" spacing="1">
               <Text fontSize="md">{userName}</Text>
-              <Text fontSize="xs">{role}</Text>
             </VStack>
           </MenuItem>
           <Divider />

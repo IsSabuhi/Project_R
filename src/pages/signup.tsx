@@ -47,7 +47,7 @@ export interface ISignUpProps {
   name_employer: string
   emailEmployer: string
   phoneEmployer: string
-  inn_organization: bigint
+  inn_organization: string
 }
 
 const initialValues: ISignUpProps = {
@@ -72,7 +72,7 @@ const initialValues: ISignUpProps = {
   name_employer: '',
   emailEmployer: '',
   phoneEmployer: '',
-  inn_organization: BigInt(''),
+  inn_organization: '',
 }
 
 const SignUp = () => {

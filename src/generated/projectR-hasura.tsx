@@ -3784,7 +3784,7 @@ export type GetJobseekerByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string }> }> };
+export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account_id?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string }>, account?: { __typename?: 'account', login: string, role?: string | null } | null }> };
 
 
 export const AuthLoginDocument = gql`
@@ -3966,7 +3966,6 @@ export type SignUpOrganizationMutationOptions = Apollo.BaseMutationOptions<SignU
 export const GetJobseekerByIdDocument = gql`
     query GetJobseekerById($_eq: uuid = "") {
   jobseeker(where: {account_id: {_eq: $_eq}}) {
-    account_id
     dateBirth
     email
     gender
@@ -3985,6 +3984,11 @@ export const GetJobseekerByIdDocument = gql`
       speciality
       start_date
       jobseeker_education_id
+    }
+    account_id
+    account {
+      login
+      role
     }
   }
 }

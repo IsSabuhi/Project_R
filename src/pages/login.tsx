@@ -130,7 +130,6 @@ const SignIn = () => {
               variant="solid"
               loadingText="Вход в систему"
               isLoading={loading}
-              fontSize="10px"
               bg="teal.300"
               w="100%"
               h="45"
