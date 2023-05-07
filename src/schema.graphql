@@ -55,8 +55,8 @@ mutation SignUpJobseeker(
 mutation SignUpOrganization(
   $name_employer: String = ""
   $email: String = ""
-  $phone: bigint = ""
-  $inn_organization: bigint = ""
+  $phone: String = ""
+  $inn_organization: String = ""
 ) {
   insert_employer(
     objects: {
