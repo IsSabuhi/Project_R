@@ -103,3 +103,32 @@ query GetJobseekerById($_eq: uuid = "") {
     }
   }
 }
+
+mutation UpdateJobseekerProfile(
+  $dateBirth: String = ""
+  $email: String = ""
+  $gender: String = ""
+  $lastName: String = ""
+  $middleName: String = ""
+  $name: String = ""
+  $phone: String = ""
+  $_eq: uuid = ""
+) {
+  update_jobseeker(
+    where: { account_id: { _eq: $_eq } }
+    _set: {
+      dateBirth: $dateBirth
+      email: $email
+      gender: $gender
+      lastName: $lastName
+      middleName: $middleName
+      name: $name
+      phone: $phone
+    }
+  ) {
+    returning {
+      account_id
+      jobseeker_id
+    }
+  }
+}

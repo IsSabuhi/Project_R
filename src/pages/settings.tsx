@@ -9,7 +9,8 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import styles from '@/styles/Settings.module.scss'
-import GeneralInfo from '@/modules/Settings/GeneralInfo/GeneralInfo'
+import Profile from '@/modules/Settings/Profile/Profile'
+import Account from '@/modules/Settings/Account/Account'
 
 const Settings = () => {
   return (
@@ -20,8 +21,8 @@ const Settings = () => {
       <div className={styles.main}>
         <Tabs position="relative" variant="unstyled">
           <TabList>
+            <Tab>Профиль</Tab>
             <Tab>Аккаунт</Tab>
-            <Tab>Tab2</Tab>
             <Tab>Tab3</Tab>
           </TabList>
           <TabIndicator
@@ -32,12 +33,12 @@ const Settings = () => {
           />
           <TabPanels>
             <TabPanel p={0}>
-              <GeneralInfo userName="И С" />
+              <Profile userName="И С" />
             </TabPanel>
-            <TabPanel>
-              <p>two!</p>
+            <TabPanel p={0}>
+              <Account />
             </TabPanel>
-            <TabPanel>
+            <TabPanel p={0}>
               <p>three!</p>
             </TabPanel>
           </TabPanels>

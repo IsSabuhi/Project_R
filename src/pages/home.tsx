@@ -10,11 +10,11 @@ const Home = () => {
 
   const { isAuthorized } = useAuthContext()
 
-  // useEffect(() => {
-  //   if (!isAuthorized) {
-  //     router.push('/login')
-  //   }
-  // }, [router])
+  useEffect(() => {
+    if (!isAuthorized) {
+      router.push('/login')
+    }
+  }, [router])
 
   return (
     <div className={styles.container_home}>

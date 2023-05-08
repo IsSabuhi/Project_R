@@ -103,11 +103,17 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     [authState]
   )
 
-  const stopAuthSession: IAuthContext['stopAuthSession'] = useCallback(() => {
-    setAuthData({ isAuthorized: false })
-    sessionStorage.setItem('skipAuthEvent', 'false')
-    router.push(APP_URLS.SIGN_OUT)
-  }, [])
+  const stopAuthSession: IAuthContext['stopAuthSession'] =
+    useCallback(async () => {
+      setAuthData({
+        isAuthorized: false,
+        userId: undefined,
+        accessToken: undefined,
+      })
+      localStorage.removeItem(KEY)
+      sessionStorage.setItem('skipAuthEvent', 'false')
+      router.push(APP_URLS.SIGN_OUT)
+    }, [])
 
   const [updateTokenMutation, {}] = useUpdateTokenMutation({
     client: client,
