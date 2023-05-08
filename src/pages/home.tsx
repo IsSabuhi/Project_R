@@ -21,6 +21,7 @@ const Home = () => {
       <Text fontWeight="semibold" fontSize="2xl" m="15px">
         Резюме
       </Text>
+
       <div className={styles.main_cards}>
         <ResumeNewCard />
       </div>

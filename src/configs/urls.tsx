@@ -1,44 +1,33 @@
-import {
-  MdOutlineSpaceDashboard,
-  MdOutlineSettingsInputComposite,
-  MdOutlineNotificationsActive,
-} from 'react-icons/md'
+import { AiOutlineFolderView } from 'react-icons/ai'
+import { FiSettings } from 'react-icons/fi'
+import { GrTemplate } from 'react-icons/gr'
+import { IoMdHome } from 'react-icons/io'
 
 export const APP_URLS = {
   SIGN_IN: '/login',
   SIGN_UP: 'signup',
   SIGN_OUT: '/login',
-  SETTINGS: '/settings',
 }
 
 export const SIDEBAR_URLS = [
   {
-    type: 'link',
     label: 'Главная',
-    icon: MdOutlineSpaceDashboard,
     href: '/home',
+    icon: <IoMdHome size="20px" />,
   },
   {
-    type: 'link',
-    label: 'Мои резюме',
-    icon: MdOutlineSpaceDashboard,
-    href: '/',
+    label: 'Просмотр откликов',
+    href: '/home',
+    icon: <AiOutlineFolderView size="20px" />,
   },
   {
-    type: 'header',
-    label: 'Аккаунт',
+    label: 'Шаблоны резюме',
+    href: '/home',
+    icon: <GrTemplate size="20px" />,
   },
   {
-    type: 'link',
-    label: 'Уведомления',
-    icon: MdOutlineNotificationsActive,
-    href: '/',
-    notifications: 24,
-  },
-  {
-    type: 'link',
     label: 'Настройки',
-    icon: MdOutlineSettingsInputComposite,
     href: '/settings',
+    icon: <FiSettings size="20px" />,
   },
 ]

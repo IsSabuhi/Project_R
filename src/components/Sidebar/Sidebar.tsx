@@ -1,15 +1,15 @@
 import { Box, IconButton } from '@chakra-ui/react'
 import { useState } from 'react'
-import { MdMenu, MdWorkOutline } from 'react-icons/md'
+import { MdMenu } from 'react-icons/md'
 import { FiLogOut, FiSettings } from 'react-icons/fi'
-import { IoMdHome } from 'react-icons/io'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
 import styles from './Sidebar.module.scss'
 import { Logo } from './Logo/Logo'
 import Item from './Item/Item'
 import ItemButton from './ItemLogoutButton/ItemButton'
-import { AiOutlineFolderView } from 'react-icons/ai'
+
+import { SIDEBAR_URLS } from '@/configs/urls'
 
 interface ISideBarProps {
   logoutOnClick: () => void
@@ -80,52 +80,19 @@ const Sidebar = ({ logoutOnClick }: ISideBarProps) => {
               )}
             </MenuItem>
 
-            {/* {!isCollapsed && (
-            <Box mb="25px" className={styles.main_avatar_section}>
-              <Box>
-                <Avatar name="Users" />
-              </Box>
-              <Box>
-                <Text className={styles.sidebar_userNameText}>{userName}</Text>
-                <Text className={styles.sidebar_userEmailText}>
-                  {user_email}
-                </Text>
-              </Box>
-            </Box>
-          )} */}
-
             <Box paddingLeft={isCollapsed ? undefined : '10%'}>
-              <Item
-                title="Главная"
-                to="/home"
-                icon={<IoMdHome size="20px" />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
-              <Item
-                title="Просмотр откликов"
-                to="#"
-                icon={<AiOutlineFolderView size="20px" />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
-              <Item
-                title="Вакансии"
-                to="#"
-                icon={<MdWorkOutline size="20px" />}
-                selected={selected}
-                setSelected={setSelected}
-              />
-
-              <Item
-                title="Настройки"
-                to="/settings"
-                icon={<FiSettings size="20px" />}
-                selected={selected}
-                setSelected={setSelected}
-              />
+              {SIDEBAR_URLS.map((item, index) => {
+                return (
+                  <Item
+                    key={index}
+                    title={item.label}
+                    to={item.href}
+                    icon={item.icon}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                )
+              })}
             </Box>
           </div>
           <ItemButton
