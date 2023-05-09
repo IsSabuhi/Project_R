@@ -13,17 +13,19 @@ import styles from '@/styles/SignUp.module.scss'
 import { APP_URLS } from '@/configs/urls'
 import { useFormik } from 'formik'
 import { object, string, ref } from 'yup'
-import BasicInfo from '@/modules/Jobseeker/BasicInfo/BasicInfo'
-import EducationsInfo from '@/modules/Jobseeker/EducationsInfo/EducationsInfo'
-import AccountInfo from '@/modules/Jobseeker/AccountInfo/AccountInfo'
-import EmployerInfo from '@/modules/Employer/EmployerInfo/EmployerInfo'
-import Organization from '@/modules/Employer/Organization/Organization'
+
 import {
   useSignUpJobseekerMutation,
   useSignUpOrganizationMutation,
 } from '@/generated/projectR-hasura'
 import { Status } from '@/constants'
 import { useSnackbar } from 'notistack'
+import AccountInfo from '@/modules/Auth/Jobseeker/AccountInfo/AccountInfo'
+import BasicInfo from '@/modules/Auth/Jobseeker/BasicInfo/BasicInfo'
+import EmployerInfo from '@/modules/Auth/Employer/EmployerInfo/EmployerInfo'
+import Organization from '@/modules/Auth/Employer/Organization/Organization'
+import EducationsInfo from '@/modules/Auth/Jobseeker/EducationsInfo/EducationsInfo'
+import { useRouter } from 'next/router'
 
 export interface ISignUpProps {
   login: string
@@ -44,9 +46,7 @@ export interface ISignUpProps {
   middleName: string
   name: string
   phone: string
-  name_employer: string
-  emailEmployer: string
-  phoneEmployer: string
+  name_organization: string
   inn_organization: string
 }
 
@@ -69,39 +69,36 @@ const initialValues: ISignUpProps = {
   middleName: '',
   name: '',
   phone: '',
-  name_employer: '',
-  emailEmployer: '',
-  phoneEmployer: '',
   inn_organization: '',
+  name_organization: '',
 }
 
 const SignUp = () => {
   const { enqueueSnackbar } = useSnackbar()
+
+  const router = useRouter()
 
   const [status, setStatus] = useState<Status>(Status.idle)
 
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
 
-  const registerValidation = object().shape({
-    name: string().required('Required'),
-    email: string()
-      .required('Требуется действительный адрес электронной почты')
-      .email('Valid email required'),
-    password: string().min(8, 'Required').required('Required'),
-    confirmPassword: string()
-      .required('Пожалуйста, подтвердите свой пароль')
-      .oneOf([ref('password')], 'Пароли не совпадают'),
-  })
-
-  const [signUpOrganizationMutation] = useSignUpOrganizationMutation({
-    onCompleted() {
-      setStatus(Status.success)
-      return enqueueSnackbar('Регистрация прошла успешно', {
-        variant: 'success',
-      })
-    },
-  })
+  const [signUpOrganizationMutation, { data, loading, error }] =
+    useSignUpOrganizationMutation({
+      onCompleted() {
+        setStatus(Status.success)
+        return enqueueSnackbar('Регистрация прошла успешно', {
+          variant: 'success',
+        })
+        router.push('/login')
+      },
+      onError() {
+        setStatus(Status.error)
+        return enqueueSnackbar('Не удалось зарегистрироваться', {
+          variant: 'error',
+        })
+      },
+    })
 
   const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
     onCompleted() {
@@ -110,11 +107,16 @@ const SignUp = () => {
         variant: 'success',
       })
     },
+    onError() {
+      setStatus(Status.error)
+      return enqueueSnackbar('Не удалось зарегистрироваться', {
+        variant: 'error',
+      })
+    },
   })
 
   const formik = useFormik({
     initialValues: initialValues,
-    validationSchema: registerValidation,
     enableReinitialize: true,
     onSubmit: () => {
       if (formik.values.role === 'jobseeker') {
@@ -142,10 +144,19 @@ const SignUp = () => {
       } else {
         signUpOrganizationMutation({
           variables: {
-            name_employer: formik.values.name_employer,
             email: formik.values.email,
-            phone: formik.values.phone,
             inn_organization: formik.values.inn_organization,
+            login: formik.values.login,
+            name_employer:
+              formik.values.lastName +
+              ' ' +
+              formik.values.name +
+              ' ' +
+              formik.values.middleName,
+            name_organization: formik.values.name_organization,
+            password: formik.values.password,
+            phone: formik.values.phone,
+            role: formik.values.role,
           },
         })
       }
@@ -177,7 +188,6 @@ const SignUp = () => {
         maxWidth={800}
         p={6}
         m="10px auto"
-        as="form"
         width="100%"
       >
         <Progress
@@ -187,82 +197,89 @@ const SignUp = () => {
           mx="3%"
           isAnimated
         ></Progress>
-
-        {step === 1 ? (
-          <AccountInfo
-            formData={formik.values}
-            onChange={handleInputChange}
-            isInputDisabled={!isFirstInputFilled}
-          />
-        ) : step === 2 ? (
-          isJobseeker ? (
-            <BasicInfo
+        <form onSubmit={formik.handleSubmit}>
+          {step === 1 ? (
+            <AccountInfo
               formData={formik.values}
-              onChange={formik.handleChange}
+              onChange={handleInputChange}
+              isInputDisabled={!isFirstInputFilled}
             />
-          ) : isEmployer ? (
-            <EmployerInfo />
-          ) : null
-        ) : step === 3 ? (
-          isJobseeker ? (
-            <EducationsInfo />
-          ) : isEmployer ? (
-            <Organization />
-          ) : null
-        ) : null}
-        <ButtonGroup mt="5%" w="100%">
-          <Flex w="100%" justifyContent="space-between">
-            <Flex>
-              <Button
-                onClick={() => {
-                  setStep(step - 1)
-                  setProgress(progress - 33.33)
-                }}
-                isDisabled={step === 1}
-                colorScheme="teal"
-                variant="solid"
-                w="7rem"
-                mr="5%"
-              >
-                Назад
-              </Button>
-              <Button
-                w="7rem"
-                isDisabled={!formik.values.role || step === 3}
-                onClick={() => {
-                  setStep(step + 1)
-                  if (step === 3) {
-                    setProgress(100)
-                  } else {
-                    setProgress(progress + 33.33)
-                  }
-                }}
-                colorScheme="teal"
-                variant="outline"
-              >
-                Далее
-              </Button>
-            </Flex>
-            {step === 3 ? (
-              <Button colorScheme="red" variant="solid" type="submit">
-                Зарегистрироваться
-              </Button>
-            ) : null}
-            {step == 1 && (
-              <Text>
-                У вас есть учетная запись?{' '}
-                <Link
-                  color={titleColor}
-                  ms="5px"
-                  fontWeight="bold"
-                  href={APP_URLS.SIGN_IN}
+          ) : step === 2 ? (
+            isJobseeker ? (
+              <BasicInfo
+                formData={formik.values}
+                onChange={formik.handleChange}
+              />
+            ) : isEmployer ? (
+              <EmployerInfo
+                formData={formik.values}
+                onChange={formik.handleChange}
+              />
+            ) : null
+          ) : step === 3 ? (
+            isJobseeker ? (
+              <EducationsInfo />
+            ) : isEmployer ? (
+              <Organization
+                formData={formik.values}
+                onChange={formik.handleChange}
+              />
+            ) : null
+          ) : null}
+          <ButtonGroup mt="5%" w="100%">
+            <Flex w="100%" justifyContent="space-between">
+              <Flex>
+                <Button
+                  onClick={() => {
+                    setStep(step - 1)
+                    setProgress(progress - 33.33)
+                  }}
+                  isDisabled={step === 1}
+                  colorScheme="teal"
+                  variant="solid"
+                  w="7rem"
+                  mr="5%"
                 >
-                  Авторизоваться
-                </Link>
-              </Text>
-            )}
-          </Flex>
-        </ButtonGroup>
+                  Назад
+                </Button>
+                <Button
+                  w="7rem"
+                  isDisabled={!formik.values.role || step === 3}
+                  onClick={() => {
+                    setStep(step + 1)
+                    if (step === 3) {
+                      setProgress(100)
+                    } else {
+                      setProgress(progress + 33.33)
+                    }
+                  }}
+                  colorScheme="teal"
+                  variant="outline"
+                >
+                  Далее
+                </Button>
+              </Flex>
+              {step === 3 ? (
+                <Button colorScheme="red" variant="solid" type="submit">
+                  Зарегистрироваться
+                </Button>
+              ) : null}
+              {step == 1 && (
+                <Text>
+                  У вас есть учетная запись?{' '}
+                  <Link
+                    color={titleColor}
+                    ms="5px"
+                    fontWeight="bold"
+                    href={APP_URLS.SIGN_IN}
+                  >
+                    Авторизоваться
+                  </Link>
+                </Text>
+              )}
+            </Flex>
+          </ButtonGroup>
+        </form>
       </Box>
     </div>
   )

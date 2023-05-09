@@ -53,25 +53,26 @@ mutation SignUpJobseeker(
 }
 
 mutation SignUpOrganization(
-  $name_employer: String = ""
   $email: String = ""
-  $phone: String = ""
   $inn_organization: String = ""
+  $login: String = ""
+  $name_employer: String = ""
+  $name_organization: String = ""
+  $password: String = ""
+  $phone: String = ""
+  $role: String = ""
 ) {
-  insert_employer(
-    objects: {
-      name_employer: $name_employer
-      email: $email
-      phone: $phone
-      employer_organizations: { data: { inn_organization: $inn_organization } }
-    }
+  signUp_employer(
+    email: $email
+    inn_organization: $inn_organization
+    login: $login
+    name_employer: $name_employer
+    name_organization: $name_organization
+    password: $password
+    phone: $phone
+    role: $role
   ) {
-    returning {
-      id_employer
-      employer_organizations {
-        id_organization
-      }
-    }
+    status
   }
 }
 
