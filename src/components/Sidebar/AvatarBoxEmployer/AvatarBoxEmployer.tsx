@@ -1,3 +1,8 @@
+import React from 'react'
+import styles from './AvatarBoxEmployer.module.scss'
+import { FiLogOut, FiSettings } from 'react-icons/fi'
+import { useRouter } from 'next/router'
+import { MdOutlineMoreHoriz } from 'react-icons/md'
 import {
   Avatar,
   Divider,
@@ -8,43 +13,38 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import React from 'react'
-import styles from './AvatarBox.module.scss'
-import { FiLogOut, FiSettings } from 'react-icons/fi'
-import { useRouter } from 'next/router'
-import { MdOutlineMoreHoriz } from 'react-icons/md'
-import { useGetJobseekerByIdQuery } from '@/generated/projectR-hasura'
-import { joinName } from '@/utils/joinName'
+import { useGetOrganizationQuery } from '@/generated/projectR-hasura'
 
-interface IAvatarBoxProps {
+interface IAvatarBoxEmployerProps {
   userId: string
   logoutOnClick: () => void
 }
 
-const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
+const AvatarBoxEmployer = ({
+  logoutOnClick,
+  userId,
+}: IAvatarBoxEmployerProps) => {
   const router = useRouter()
 
   const routeTo = (path: string) => {
     router.push(path)
   }
 
-  const { data, loading, error } = useGetJobseekerByIdQuery({
+  const { data, loading, error } = useGetOrganizationQuery({
     variables: {
       _eq: userId,
     },
   })
 
-  const user = data?.jobseeker[0]
-
-  const userName = joinName(user?.lastName!, user?.name!, user?.middleName!)
+  const itemData = data?.organization[0]
 
   return (
     <div className={styles.container}>
       <div className={styles.container_avatar}>
-        <Avatar name={userName} />
+        <Avatar name={itemData?.organization_account.login} />
         <div className={styles.container_avatar_text}>
           <Text className={styles.sidebar_userNameText}>
-            {user?.account?.login}
+            {itemData?.organization_account.login}
           </Text>
           <Text
             className={styles.sidebar_userEmailText}
@@ -52,7 +52,7 @@ const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
             fontSize={12}
             lineHeight={0}
           >
-            {user?.email}
+            {itemData?.organization_employer.email}
           </Text>
         </div>
       </div>
@@ -71,7 +71,7 @@ const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
             pointerEvents="none"
           >
             <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md">{userName}</Text>
+              <Text fontSize="md">{itemData?.name_organization!}</Text>
             </VStack>
           </MenuItem>
           <Divider />
@@ -87,4 +87,4 @@ const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
   )
 }
 
-export default AvatarBox
+export default AvatarBoxEmployer

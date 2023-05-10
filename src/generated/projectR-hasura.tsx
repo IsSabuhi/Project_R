@@ -83,8 +83,6 @@ export type Account = {
   account_id: Scalars['uuid'];
   avatar?: Maybe<Scalars['String']>;
   expired_token_time?: Maybe<Scalars['time']>;
-  /** An object relationship */
-  jobseeker?: Maybe<Jobseeker>;
   login: Scalars['String'];
   password: Scalars['String'];
   refreshToken?: Maybe<Scalars['String']>;
@@ -121,7 +119,6 @@ export type Account_Bool_Exp = {
   account_id?: InputMaybe<Uuid_Comparison_Exp>;
   avatar?: InputMaybe<String_Comparison_Exp>;
   expired_token_time?: InputMaybe<Time_Comparison_Exp>;
-  jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   login?: InputMaybe<String_Comparison_Exp>;
   password?: InputMaybe<String_Comparison_Exp>;
   refreshToken?: InputMaybe<String_Comparison_Exp>;
@@ -143,7 +140,6 @@ export type Account_Insert_Input = {
   account_id?: InputMaybe<Scalars['uuid']>;
   avatar?: InputMaybe<Scalars['String']>;
   expired_token_time?: InputMaybe<Scalars['time']>;
-  jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   login?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   refreshToken?: InputMaybe<Scalars['String']>;
@@ -200,7 +196,6 @@ export type Account_Order_By = {
   account_id?: InputMaybe<Order_By>;
   avatar?: InputMaybe<Order_By>;
   expired_token_time?: InputMaybe<Order_By>;
-  jobseeker?: InputMaybe<Jobseeker_Order_By>;
   login?: InputMaybe<Order_By>;
   password?: InputMaybe<Order_By>;
   refreshToken?: InputMaybe<Order_By>;
@@ -3795,7 +3790,14 @@ export type GetJobseekerByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account_id?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string }>, account?: { __typename?: 'account', login: string, role?: string | null } | null }> };
+export type GetJobseekerByIdQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account_id?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string, educational_institution_jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_id?: string | null, jobseeker_education_id: string }> } | null }>, account?: { __typename?: 'account', login: string, role?: string | null, avatar?: string | null } | null }> };
+
+export type GetOrganizationQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetOrganizationQuery = { __typename?: 'query_root', organization: Array<{ __typename?: 'organization', account_id: string, date_registration?: any | null, employer_id: string, id_organization: string, inn_organization: string, kpp_organization?: string | null, main_activity?: string | null, name_organization?: string | null, ogrn?: string | null, status?: string | null, verified: boolean, organization_account: { __typename?: 'account', login: string, role?: string | null }, organization_employer: { __typename?: 'employer', email?: string | null, name_employer: string, phone?: string | null, id_employer: string } }> };
 
 export type UpdateJobseekerProfileMutationVariables = Exact<{
   dateBirth?: InputMaybe<Scalars['String']>;
@@ -4015,11 +4017,27 @@ export const GetJobseekerByIdDocument = gql`
       speciality
       start_date
       jobseeker_education_id
+      jobseeker_education_educational_institution {
+        educational_institution_jobseeker_educations {
+          average_score
+          education_form
+          educational_institution_id
+          end_date
+          faculity
+          group
+          speciality
+          start_date
+          jobseeker_id
+          jobseeker_education_id
+        }
+        name_institution
+      }
     }
     account_id
     account {
       login
       role
+      avatar
     }
   }
 }
@@ -4052,6 +4070,61 @@ export function useGetJobseekerByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetJobseekerByIdQueryHookResult = ReturnType<typeof useGetJobseekerByIdQuery>;
 export type GetJobseekerByIdLazyQueryHookResult = ReturnType<typeof useGetJobseekerByIdLazyQuery>;
 export type GetJobseekerByIdQueryResult = Apollo.QueryResult<GetJobseekerByIdQuery, GetJobseekerByIdQueryVariables>;
+export const GetOrganizationDocument = gql`
+    query GetOrganization($_eq: uuid = "") {
+  organization(where: {account_id: {_eq: $_eq}}) {
+    account_id
+    date_registration
+    employer_id
+    id_organization
+    inn_organization
+    kpp_organization
+    main_activity
+    name_organization
+    ogrn
+    status
+    verified
+    organization_account {
+      login
+      role
+    }
+    organization_employer {
+      email
+      name_employer
+      phone
+      id_employer
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetOrganizationQuery__
+ *
+ * To run a query within a React component, call `useGetOrganizationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetOrganizationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetOrganizationQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetOrganizationQuery(baseOptions?: Apollo.QueryHookOptions<GetOrganizationQuery, GetOrganizationQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetOrganizationQuery, GetOrganizationQueryVariables>(GetOrganizationDocument, options);
+      }
+export function useGetOrganizationLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetOrganizationQuery, GetOrganizationQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetOrganizationQuery, GetOrganizationQueryVariables>(GetOrganizationDocument, options);
+        }
+export type GetOrganizationQueryHookResult = ReturnType<typeof useGetOrganizationQuery>;
+export type GetOrganizationLazyQueryHookResult = ReturnType<typeof useGetOrganizationLazyQuery>;
+export type GetOrganizationQueryResult = Apollo.QueryResult<GetOrganizationQuery, GetOrganizationQueryVariables>;
 export const UpdateJobseekerProfileDocument = gql`
     mutation UpdateJobseekerProfile($dateBirth: String = "", $email: String = "", $gender: String = "", $lastName: String = "", $middleName: String = "", $name: String = "", $phone: String = "", $_eq: uuid = "") {
   update_jobseeker(

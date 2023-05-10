@@ -11,8 +11,11 @@ import React from 'react'
 import styles from '@/styles/Settings.module.scss'
 import Profile from '@/modules/Settings/Profile/Profile'
 import Account from '@/modules/Settings/Account/Account'
+import { useAuthContext } from '@/hooks/use-auth-context'
 
 const Settings = () => {
+  const { userId } = useAuthContext()
+
   return (
     <div className={styles.container}>
       <Text fontWeight="semibold" fontSize="2xl">
@@ -33,7 +36,7 @@ const Settings = () => {
           />
           <TabPanels>
             <TabPanel p={0}>
-              <Profile userName="И С" />
+              <Profile userId={userId!} />
             </TabPanel>
             <TabPanel p={0}>
               <Account />

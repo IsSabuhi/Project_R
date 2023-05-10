@@ -2,27 +2,101 @@ import {
   Avatar,
   Box,
   Button,
-  Divider,
   Flex,
   FormControl,
   FormLabel,
   Heading,
   Image,
   Input,
+  Select,
   Stack,
   Text,
 } from '@chakra-ui/react'
 import { GrAttachment } from 'react-icons/gr'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Profile.module.scss'
+import { useGetJobseekerByIdQuery } from '@/generated/projectR-hasura'
+import { useUpdateJobseekerProfileMutation } from '@/generated/projectR-hasura'
+import { useFormik } from 'formik'
+import { UpdateJobseekerProfileMutationVariables } from '@/generated/projectR-hasura'
+import { useSnackbar } from 'notistack'
+import { Status } from '@/constants'
 
 interface IGeneralInfoProps {
-  userName: string
+  userId: string
 }
 
-const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
+const initiaForm: UpdateJobseekerProfileMutationVariables = {
+  dateBirth: '',
+  email: '',
+  gender: '',
+  lastName: '',
+  middleName: '',
+  name: '',
+  phone: '',
+}
+
+const GeneralInfo = ({ userId }: IGeneralInfoProps) => {
+  const { enqueueSnackbar } = useSnackbar()
+  const [status, setStatus] = useState<Status>(Status.idle)
+
+  const [values, setValues] = React.useState(initiaForm)
+
+  const { data, loading, error } = useGetJobseekerByIdQuery({
+    variables: {
+      _eq: userId,
+    },
+    onCompleted(data) {
+      setValues(data.jobseeker[0])
+    },
+  })
+
+  const userData = data?.jobseeker[0]
+
+  const [updateJobseekerProfileMutation] = useUpdateJobseekerProfileMutation({
+    onCompleted(data) {
+      setStatus(Status.success)
+      return enqueueSnackbar('Данные сохранены успешно', {
+        variant: 'success',
+      })
+    },
+    onError() {
+      setStatus(Status.error)
+      return enqueueSnackbar('Произошла непредвиденная ошибка', {
+        variant: 'error',
+      })
+    },
+  })
+
+  const formik = useFormik({
+    initialValues: values,
+    enableReinitialize: true,
+    onSubmit: () => {
+      updateJobseekerProfileMutation({
+        variables: {
+          dateBirth: formik.values.dateBirth,
+          email: formik.values.email,
+          gender: formik.values.gender,
+          lastName: formik.values.lastName,
+          middleName: formik.values.middleName,
+          name: formik.values.name,
+          phone: formik.values.phone,
+          _eq: userId,
+        },
+      })
+    },
+  })
+
+  console.log(formik.values)
+
+  const handleChangeField = ({
+    target: { value, name },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    formik.setFieldValue(name, value)
+  }
+
   return (
-    <form className={styles.container}>
+    <form className={styles.container} onSubmit={formik.handleSubmit}>
       <div className={styles.container_settings}>
         <div className={styles.container_settings_top}>
           <div className={styles.container_settings_inputs}>
@@ -42,6 +116,7 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
                   fontSize="sm"
                   size="lg"
                   placeholder="Фамилия"
+                  value={userData?.lastName!}
                   disabled
                 />
               </FormControl>
@@ -57,6 +132,7 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
                   fontSize="sm"
                   size="lg"
                   placeholder="Имя"
+                  value={userData?.name}
                   disabled
                 />
               </FormControl>
@@ -74,6 +150,7 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
                 size="lg"
                 placeholder="Отчество"
                 disabled
+                value={userData?.middleName}
               />
             </FormControl>
             <Flex gap={4}>
@@ -89,22 +166,24 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
                   borderRadius="15px"
                   fontSize="sm"
                   size="lg"
+                  value={formik.values.dateBirth!}
+                  onChange={formik.handleChange}
                 />
               </FormControl>
               <FormControl>
                 <FormLabel as="legend" htmlFor="gender">
                   Пол
                 </FormLabel>
-                <Input
+                <Select
+                  placeholder="Пол"
                   id="gender"
                   name="gender"
-                  placeholder="Пол"
-                  type="text"
-                  borderRadius="15px"
-                  fontSize="sm"
-                  size="lg"
-                  disabled
-                />
+                  value={formik.values.gender!}
+                  onChange={formik.handleChange}
+                >
+                  <option value="Мужской">Мужской</option>
+                  <option value="Женский">Женский</option>
+                </Select>
               </FormControl>
             </Flex>
             <Flex gap={4}>
@@ -120,6 +199,12 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
                   borderRadius="15px"
                   fontSize="sm"
                   size="lg"
+                  value={formik.values.email || ''}
+                  onChange={(event) => {
+                    handleChangeField(
+                      event as React.ChangeEvent<HTMLInputElement>
+                    )
+                  }}
                 />
               </FormControl>
               <FormControl>
@@ -134,6 +219,12 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
                   borderRadius="15px"
                   fontSize="sm"
                   size="lg"
+                  value={formik.values.phone || ''}
+                  onChange={(event) => {
+                    handleChangeField(
+                      event as React.ChangeEvent<HTMLInputElement>
+                    )
+                  }}
                 />
               </FormControl>
             </Flex>
@@ -174,7 +265,7 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
             <Flex justify={'center'} mt={-12}>
               <Avatar
                 size={'2xl'}
-                name={userName}
+                name={userData?.account?.login}
                 css={{
                   border: '2px solid white',
                 }}
@@ -184,10 +275,10 @@ const GeneralInfo = ({ userName }: IGeneralInfoProps) => {
             <Box p={6}>
               <Stack spacing={0} align={'center'} mb={5} gap={2}>
                 <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
-                  {userName || 'Имя пользователя'}
+                  {userData?.account?.login || 'Имя пользователя'}
                 </Heading>
-                <Text color={'gray.500'}>Email</Text>
-                <Text color={'gray.500'}>Frontend Developer</Text>
+                <Text color={'gray.500'}>{userData?.email}</Text>
+                {/* <Text color={'gray.500'}>Frontend Developer</Text> */}
               </Stack>
             </Box>
           </div>

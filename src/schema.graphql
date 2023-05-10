@@ -96,11 +96,53 @@ query GetJobseekerById($_eq: uuid = "") {
       speciality
       start_date
       jobseeker_education_id
+      jobseeker_education_educational_institution {
+        educational_institution_jobseeker_educations {
+          average_score
+          education_form
+          educational_institution_id
+          end_date
+          faculity
+          group
+          speciality
+          start_date
+          jobseeker_id
+          jobseeker_education_id
+        }
+        name_institution
+      }
     }
     account_id
     account {
       login
       role
+      avatar
+    }
+  }
+}
+
+query GetOrganization($_eq: uuid = "") {
+  organization(where: { account_id: { _eq: $_eq } }) {
+    account_id
+    date_registration
+    employer_id
+    id_organization
+    inn_organization
+    kpp_organization
+    main_activity
+    name_organization
+    ogrn
+    status
+    verified
+    organization_account {
+      login
+      role
+    }
+    organization_employer {
+      email
+      name_employer
+      phone
+      id_employer
     }
   }
 }

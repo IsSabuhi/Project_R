@@ -87,10 +87,10 @@ const SignUp = () => {
     useSignUpOrganizationMutation({
       onCompleted() {
         setStatus(Status.success)
+        router.push('/login')
         return enqueueSnackbar('Регистрация прошла успешно', {
           variant: 'success',
         })
-        router.push('/login')
       },
       onError() {
         setStatus(Status.error)

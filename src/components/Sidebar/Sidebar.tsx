@@ -8,16 +8,20 @@ import styles from './Sidebar.module.scss'
 import { Logo } from './Logo/Logo'
 import Item from './Item/Item'
 import ItemButton from './ItemLogoutButton/ItemButton'
+import dynamic from 'next/dynamic'
+import { useAuthContext } from '@/hooks/use-auth-context'
 
-import { SIDEBAR_URLS } from '@/configs/urls'
+const DynamicSidebarContent = dynamic(
+  () => import('@/components/Sidebar/SidebarContent/SidebarContent'),
+  {
+    ssr: false,
+  }
+)
 
-interface ISideBarProps {
-  logoutOnClick: () => void
-}
-
-const Sidebar = ({ logoutOnClick }: ISideBarProps) => {
+const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [selected, setSelected] = useState('Dashboard')
+  const { stopAuthSession } = useAuthContext()
 
   return (
     <Box
@@ -80,26 +84,16 @@ const Sidebar = ({ logoutOnClick }: ISideBarProps) => {
               )}
             </MenuItem>
 
-            <Box paddingLeft={isCollapsed ? undefined : '10%'}>
-              {SIDEBAR_URLS.map((item, index) => {
-                return (
-                  <Item
-                    key={index}
-                    title={item.label}
-                    to={item.href}
-                    icon={item.icon}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                )
-              })}
-            </Box>
+            <DynamicSidebarContent
+              selected={selected}
+              setSelected={setSelected}
+            />
           </div>
           <ItemButton
             icon={<FiLogOut size="20px" />}
             title="Выйти"
             selected={selected}
-            onClick={logoutOnClick}
+            onClick={stopAuthSession}
           />
         </Menu>
       </ProSidebar>
