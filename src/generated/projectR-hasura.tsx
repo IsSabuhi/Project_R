@@ -3785,6 +3785,13 @@ export type SignUpOrganizationMutationVariables = Exact<{
 
 export type SignUpOrganizationMutation = { __typename?: 'mutation_root', signUp_employer?: { __typename?: 'employerResponse', status: string } | null };
 
+export type GetAccountByIdQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetAccountByIdQuery = { __typename?: 'query_root', account: Array<{ __typename?: 'account', account_id: string, avatar?: string | null, login: string, role?: string | null }> };
+
 export type GetJobseekerByIdQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
@@ -3996,6 +4003,44 @@ export function useSignUpOrganizationMutation(baseOptions?: Apollo.MutationHookO
 export type SignUpOrganizationMutationHookResult = ReturnType<typeof useSignUpOrganizationMutation>;
 export type SignUpOrganizationMutationResult = Apollo.MutationResult<SignUpOrganizationMutation>;
 export type SignUpOrganizationMutationOptions = Apollo.BaseMutationOptions<SignUpOrganizationMutation, SignUpOrganizationMutationVariables>;
+export const GetAccountByIdDocument = gql`
+    query GetAccountById($_eq: uuid = "") {
+  account(where: {account_id: {_eq: $_eq}}) {
+    account_id
+    avatar
+    login
+    role
+  }
+}
+    `;
+
+/**
+ * __useGetAccountByIdQuery__
+ *
+ * To run a query within a React component, call `useGetAccountByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAccountByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAccountByIdQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetAccountByIdQuery(baseOptions?: Apollo.QueryHookOptions<GetAccountByIdQuery, GetAccountByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAccountByIdQuery, GetAccountByIdQueryVariables>(GetAccountByIdDocument, options);
+      }
+export function useGetAccountByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAccountByIdQuery, GetAccountByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAccountByIdQuery, GetAccountByIdQueryVariables>(GetAccountByIdDocument, options);
+        }
+export type GetAccountByIdQueryHookResult = ReturnType<typeof useGetAccountByIdQuery>;
+export type GetAccountByIdLazyQueryHookResult = ReturnType<typeof useGetAccountByIdLazyQuery>;
+export type GetAccountByIdQueryResult = Apollo.QueryResult<GetAccountByIdQuery, GetAccountByIdQueryVariables>;
 export const GetJobseekerByIdDocument = gql`
     query GetJobseekerById($_eq: uuid = "") {
   jobseeker(where: {account_id: {_eq: $_eq}}) {

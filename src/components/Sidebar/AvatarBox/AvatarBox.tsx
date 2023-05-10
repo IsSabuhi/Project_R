@@ -1,58 +1,49 @@
 import {
   Avatar,
-  Divider,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Text,
-  VStack,
 } from '@chakra-ui/react'
 import React from 'react'
 import styles from './AvatarBox.module.scss'
 import { FiLogOut, FiSettings } from 'react-icons/fi'
 import { useRouter } from 'next/router'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
-import { useGetJobseekerByIdQuery } from '@/generated/projectR-hasura'
-import { joinName } from '@/utils/joinName'
+import { useGetAccountByIdQuery } from '@/generated/projectR-hasura'
+import { useAuthContext } from '@/hooks/use-auth-context'
 
-interface IAvatarBoxProps {
-  userId: string
-  logoutOnClick: () => void
-}
-
-const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
+const AvatarBox = () => {
   const router = useRouter()
+
+  const { userId, stopAuthSession } = useAuthContext()
 
   const routeTo = (path: string) => {
     router.push(path)
   }
 
-  const { data, loading, error } = useGetJobseekerByIdQuery({
+  const { data, loading, error } = useGetAccountByIdQuery({
     variables: {
       _eq: userId,
     },
   })
 
-  const user = data?.jobseeker[0]
-
-  const userName = joinName(user?.lastName!, user?.name!, user?.middleName!)
+  const userData = data?.account[0]
 
   return (
     <div className={styles.container}>
       <div className={styles.container_avatar}>
-        <Avatar name={userName} />
+        <Avatar name={userData?.login} />
         <div className={styles.container_avatar_text}>
-          <Text className={styles.sidebar_userNameText}>
-            {user?.account?.login}
-          </Text>
+          <Text className={styles.sidebar_userNameText}>{userData?.login}</Text>
           <Text
             className={styles.sidebar_userEmailText}
             color="gray.500"
             fontSize={12}
             lineHeight={0}
           >
-            {user?.email}
+            {userData?.role === 'jobseeker' ? 'Соискатель' : 'Работодатель'}
           </Text>
         </div>
       </div>
@@ -61,7 +52,7 @@ const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
           <MdOutlineMoreHoriz />
         </MenuButton>
         <MenuList mt={3}>
-          <MenuItem
+          {/* <MenuItem
             isFocusable={false}
             fontWeight="medium"
             display="flex"
@@ -71,14 +62,14 @@ const AvatarBox = ({ logoutOnClick, userId }: IAvatarBoxProps) => {
             pointerEvents="none"
           >
             <VStack alignItems="flex-start" spacing="1">
-              <Text fontSize="md">{userName}</Text>
+              <Text fontSize="md">{userData?.login}</Text>
             </VStack>
           </MenuItem>
-          <Divider />
+          <Divider /> */}
           <MenuItem icon={<FiSettings />} onClick={() => routeTo('/settings')}>
             Настройки
           </MenuItem>
-          <MenuItem icon={<FiLogOut />} onClick={logoutOnClick}>
+          <MenuItem icon={<FiLogOut />} onClick={stopAuthSession}>
             Выйти
           </MenuItem>
         </MenuList>

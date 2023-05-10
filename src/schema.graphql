@@ -76,6 +76,15 @@ mutation SignUpOrganization(
   }
 }
 
+query GetAccountById($_eq: uuid = "") {
+  account(where: { account_id: { _eq: $_eq } }) {
+    account_id
+    avatar
+    login
+    role
+  }
+}
+
 query GetJobseekerById($_eq: uuid = "") {
   jobseeker(where: { account_id: { _eq: $_eq } }) {
     dateBirth

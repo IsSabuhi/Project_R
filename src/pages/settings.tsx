@@ -14,7 +14,7 @@ import Account from '@/modules/Settings/Account/Account'
 import { useAuthContext } from '@/hooks/use-auth-context'
 
 const Settings = () => {
-  const { userId } = useAuthContext()
+  const { userId, role } = useAuthContext()
 
   return (
     <div className={styles.container}>
@@ -22,30 +22,51 @@ const Settings = () => {
         Настройки
       </Text>
       <div className={styles.main}>
-        <Tabs position="relative" variant="unstyled">
-          <TabList>
-            <Tab>Профиль</Tab>
-            <Tab>Аккаунт</Tab>
-            <Tab>Tab3</Tab>
-          </TabList>
-          <TabIndicator
-            mt="-1.5px"
-            height="2px"
-            bg="blue.500"
-            borderRadius="1px"
-          />
-          <TabPanels>
-            <TabPanel p={0}>
-              <Profile userId={userId!} />
-            </TabPanel>
-            <TabPanel p={0}>
-              <Account />
-            </TabPanel>
-            <TabPanel p={0}>
-              <p>three!</p>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+        {role === 'jobseeker' ? (
+          <Tabs position="relative" variant="unstyled">
+            <TabList>
+              <Tab>Профиль</Tab>
+              <Tab>Аккаунт</Tab>
+              <Tab>Tab3</Tab>
+            </TabList>
+            <TabIndicator
+              mt="-1.5px"
+              height="2px"
+              bg="blue.500"
+              borderRadius="1px"
+            />
+            <TabPanels>
+              <TabPanel p={0}>
+                <Profile userId={userId!} />
+              </TabPanel>
+              <TabPanel p={0}>
+                <Account />
+              </TabPanel>
+              <TabPanel p={0}>
+                <p>three!</p>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        ) : (
+          <Tabs position="relative" variant="unstyled">
+            <TabList>
+              <Tab>Профиль</Tab>
+              <Tab>Аккаунт</Tab>
+            </TabList>
+            <TabIndicator
+              mt="-1.5px"
+              height="2px"
+              bg="blue.500"
+              borderRadius="1px"
+            />
+            <TabPanels>
+              <TabPanel p={0}>фывфвы</TabPanel>
+              <TabPanel p={0}>
+                <Account />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        )}
       </div>
     </div>
   )
