@@ -132,9 +132,6 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
   })
 
   useEffect(() => {
-    if (!authState.isAuthorized) {
-      router.push('/login')
-    }
     window.addEventListener('focus', () => updateTokenMutation())
     if (
       authState.isAuthorized &&
@@ -156,7 +153,13 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     return () => {
       window.removeEventListener('focus', () => updateTokenMutation())
     }
-  }, [router])
+  }, [])
+
+  useEffect(() => {
+    if (!authState.isAuthorized) {
+      router.push(APP_URLS.SIGN_IN)
+    }
+  }, [])
 
   return (
     <authContext.Provider
