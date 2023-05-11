@@ -15,6 +15,7 @@ interface AuthState {
   accessToken?: string
   gettingDate?: Date
   userId?: string
+  jobseekerId?: string
   role?: string
 }
 
@@ -78,7 +79,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
   const startAuthSession = useCallback(
     async (token: string, newTimeToRequest?: number) => {
-      const { userID, userRole } = parseJwt(token)
+      const { userID, userRole, jobseekerID } = parseJwt(token)
 
       if (tokenUpdaterTimer.current) clearTimeout(tokenUpdaterTimer.current)
 
@@ -93,6 +94,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: token,
         gettingDate: new Date(),
         userId: userID,
+        jobseekerId: jobseekerID,
         role: userRole,
       })
 
@@ -130,6 +132,9 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
   })
 
   useEffect(() => {
+    if (!authState.isAuthorized) {
+      router.push('/login')
+    }
     window.addEventListener('focus', () => updateTokenMutation())
     if (
       authState.isAuthorized &&
@@ -151,7 +156,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     return () => {
       window.removeEventListener('focus', () => updateTokenMutation())
     }
-  }, [])
+  }, [router])
 
   return (
     <authContext.Provider

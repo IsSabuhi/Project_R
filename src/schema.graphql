@@ -184,3 +184,41 @@ mutation UpdateJobseekerProfile(
     }
   }
 }
+
+query GetJobseekerResumes($_eq: uuid = "") {
+  resumes(where: { jobseeker_id: { _eq: $_eq } }) {
+    jobseeker_id
+    resume_experience_work {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+    }
+    resume_id
+    resume_name
+    resume_project {
+      description
+      name_organization
+      project_id
+      project_name
+    }
+    resume_skill {
+      description
+      skills_id
+    }
+  }
+}
+
+mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
+  insert_resumes(
+    objects: { resume_name: $resume_name, jobseeker_id: $jobseeker_id }
+  ) {
+    returning {
+      jobseeker_id
+      resume_name
+      resume_id
+    }
+  }
+}

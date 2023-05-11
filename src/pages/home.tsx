@@ -1,20 +1,20 @@
 import ResumeNewCard from '@/components/Resume/ResumeNewCard/ResumeNewCard'
-import { useAuthContext } from '@/hooks/use-auth-context'
 import { Text } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from '@/styles/Home.module.scss'
+import { useGetJobseekerResumesQuery } from '@/generated/projectR-hasura'
+import { useAuthContext } from '@/hooks/use-auth-context'
 
 const Home = () => {
-  const router = useRouter()
+  const { jobseekerId } = useAuthContext()
 
-  const { isAuthorized } = useAuthContext()
+  const { data, loading, error } = useGetJobseekerResumesQuery({
+    variables: {
+      _eq: jobseekerId,
+    },
+  })
 
-  useEffect(() => {
-    if (!isAuthorized) {
-      router.push('/login')
-    }
-  }, [router])
+  const resumeData = data?.resumes
 
   return (
     <div className={styles.container_home}>
@@ -24,6 +24,9 @@ const Home = () => {
 
       <div className={styles.main_cards}>
         <ResumeNewCard />
+        {resumeData?.map((item, index) => {
+          return <></>
+        })}
       </div>
     </div>
   )

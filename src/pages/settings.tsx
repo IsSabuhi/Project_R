@@ -9,9 +9,10 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import styles from '@/styles/Settings.module.scss'
-import Profile from '@/modules/Settings/Profile/Profile'
-import Account from '@/modules/Settings/Account/Account'
+import Profile from '@/modules/Settings/Jobseeker/Profile/Profile'
+import Account from '@/modules/Settings/Jobseeker/Account/Account'
 import { useAuthContext } from '@/hooks/use-auth-context'
+import EmployerProfile from '@/modules/Settings/Employer/EmployerProfile/EmployerProfile'
 
 const Settings = () => {
   const { userId, role } = useAuthContext()
@@ -60,7 +61,9 @@ const Settings = () => {
               borderRadius="1px"
             />
             <TabPanels>
-              <TabPanel p={0}>фывфвы</TabPanel>
+              <TabPanel p={0}>
+                <EmployerProfile />
+              </TabPanel>
               <TabPanel p={0}>
                 <Account />
               </TabPanel>
