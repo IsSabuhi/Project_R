@@ -28,7 +28,7 @@ const Settings = () => {
             <TabList>
               <Tab>Профиль</Tab>
               <Tab>Аккаунт</Tab>
-              <Tab>Tab3</Tab>
+              <Tab>Образование</Tab>
             </TabList>
             <TabIndicator
               mt="-1.5px"
