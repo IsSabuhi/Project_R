@@ -6,11 +6,11 @@ import { useGetJobseekerResumesQuery } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
 
 const Home = () => {
-  const { jobseekerId } = useAuthContext()
+  const { userProfileId } = useAuthContext()
 
   const { data, loading, error } = useGetJobseekerResumesQuery({
     variables: {
-      _eq: jobseekerId,
+      _eq: userProfileId,
     },
   })
 
@@ -25,7 +25,7 @@ const Home = () => {
       <div className={styles.main_cards}>
         <ResumeNewCard />
         {resumeData?.map((item, index) => {
-          return <></>
+          return <div key={index}></div>
         })}
       </div>
     </div>

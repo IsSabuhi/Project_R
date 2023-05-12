@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
 import { useGetAccountByIdQuery } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
+import { APP_URLS } from '@/configs/urls'
 
 const AvatarBox = () => {
   const router = useRouter()
@@ -66,7 +67,10 @@ const AvatarBox = () => {
             </VStack>
           </MenuItem>
           <Divider /> */}
-          <MenuItem icon={<FiSettings />} onClick={() => routeTo('/settings')}>
+          <MenuItem
+            icon={<FiSettings />}
+            onClick={() => routeTo(APP_URLS.getSettingsPage(userId!))}
+          >
             Настройки
           </MenuItem>
           <MenuItem icon={<FiLogOut />} onClick={stopAuthSession}>

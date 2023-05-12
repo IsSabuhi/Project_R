@@ -163,8 +163,6 @@ const SignUp = () => {
     },
   })
 
-  console.log(formik.values)
-
   const isJobseeker = formik.values.role === 'jobseeker'
   const isEmployer = formik.values.role === 'employer'
 

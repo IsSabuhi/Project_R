@@ -14,19 +14,16 @@ import {
 } from '@chakra-ui/react'
 import { GrAttachment } from 'react-icons/gr'
 import React, { useState } from 'react'
-import styles from './Profile.module.scss'
+import styles from './GeneralInfo.module.scss'
 import { useGetJobseekerByIdQuery } from '@/generated/projectR-hasura'
 import { useUpdateJobseekerProfileMutation } from '@/generated/projectR-hasura'
 import { useFormik } from 'formik'
 import { UpdateJobseekerProfileMutationVariables } from '@/generated/projectR-hasura'
 import { useSnackbar } from 'notistack'
 import { Status } from '@/constants'
+import { useAuthContext } from '@/hooks/use-auth-context'
 
-interface IGeneralInfoProps {
-  userId: string
-}
-
-const initiaForm: UpdateJobseekerProfileMutationVariables = {
+const initialForm: UpdateJobseekerProfileMutationVariables = {
   dateBirth: '',
   email: '',
   gender: '',
@@ -36,11 +33,13 @@ const initiaForm: UpdateJobseekerProfileMutationVariables = {
   phone: '',
 }
 
-const GeneralInfo = ({ userId }: IGeneralInfoProps) => {
+const GeneralInfo = () => {
   const { enqueueSnackbar } = useSnackbar()
   const [status, setStatus] = useState<Status>(Status.idle)
 
-  const [values, setValues] = React.useState(initiaForm)
+  const { userId } = useAuthContext()
+
+  const [values, setValues] = React.useState(initialForm)
 
   const { data, loading, error } = useGetJobseekerByIdQuery({
     variables: {
@@ -86,8 +85,6 @@ const GeneralInfo = ({ userId }: IGeneralInfoProps) => {
       })
     },
   })
-
-  console.log(formik.values)
 
   const handleChangeField = ({
     target: { value, name },

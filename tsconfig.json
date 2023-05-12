@@ -21,7 +21,7 @@
       "@/store/*": ["store/*"],
       "@/utils/*": ["utils/*"],
       "@/config/*": ["config/*"],
-      "@/modals/*": ["modals/*"],
+      "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
       "@/assets/*": ["assets/*"],
       "@/styles/*": ["styles/*"],

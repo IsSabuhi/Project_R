@@ -130,7 +130,7 @@ query GetJobseekerById($_eq: uuid = "") {
   }
 }
 
-query GetOrganization($_eq: uuid = "") {
+query GetOrganizationById($_eq: uuid = "") {
   organization(where: { account_id: { _eq: $_eq } }) {
     account_id
     date_registration
@@ -143,7 +143,9 @@ query GetOrganization($_eq: uuid = "") {
     ogrn
     status
     verified
+    legal_address
     organization_account {
+      avatar
       login
       role
     }
@@ -151,7 +153,37 @@ query GetOrganization($_eq: uuid = "") {
       email
       name_employer
       phone
+    }
+  }
+}
+
+mutation UpdateOrganization($_eq: uuid = "", $legal_address: String = "") {
+  update_organization(
+    where: { account_id: { _eq: $_eq } }
+    _set: { legal_address: $legal_address }
+  ) {
+    returning {
+      account_id
+      employer_id
+      id_organization
+      legal_address
+    }
+  }
+}
+
+mutation UpdateEmployer(
+  $_eq: uuid = ""
+  $email: String = ""
+  $phone: String = ""
+) {
+  update_employer(
+    where: { employer_organizations: { account_id: { _eq: $_eq } } }
+    _set: { email: $email, phone: $phone }
+  ) {
+    returning {
       id_employer
+      phone
+      email
     }
   }
 }

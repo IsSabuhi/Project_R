@@ -35,7 +35,7 @@ const ResumeModalCreate = ({ isOpen, onClose }: IResumeModalCreate) => {
 
   const [status, setStatus] = useState<Status>(Status.idle)
 
-  const { jobseekerId } = useAuthContext()
+  const { userProfileId } = useAuthContext()
 
   const [insertResumeMutation, { data, loading, error }] =
     useInsertResumeMutation({
@@ -59,7 +59,7 @@ const ResumeModalCreate = ({ isOpen, onClose }: IResumeModalCreate) => {
     onSubmit: () => {
       insertResumeMutation({
         variables: {
-          jobseeker_id: jobseekerId,
+          jobseeker_id: userProfileId,
           resume_name: formik.values.resume_name,
         },
       })

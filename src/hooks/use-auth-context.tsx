@@ -15,7 +15,7 @@ interface AuthState {
   accessToken?: string
   gettingDate?: Date
   userId?: string
-  jobseekerId?: string
+  userProfileId?: string
   role?: string
 }
 
@@ -79,7 +79,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
 
   const startAuthSession = useCallback(
     async (token: string, newTimeToRequest?: number) => {
-      const { userID, userRole, jobseekerID } = parseJwt(token)
+      const { userID, userRole, userProfileID } = parseJwt(token)
 
       if (tokenUpdaterTimer.current) clearTimeout(tokenUpdaterTimer.current)
 
@@ -94,7 +94,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: token,
         gettingDate: new Date(),
         userId: userID,
-        jobseekerId: jobseekerID,
+        userProfileId: userProfileID,
         role: userRole,
       })
 
