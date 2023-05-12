@@ -9,8 +9,12 @@ interface IMainLayoutProps {
 }
 
 const MainLayout = ({ children }: IMainLayoutProps) => {
+  const { asPath } = useRouter()
   const router = useRouter()
-  const hideAvatarBox = router.pathname === '/home'
+
+  const { id } = router.query
+
+  const hideAvatarBox = asPath === `/home/${id}`
 
   return (
     <div className={styles.container}>

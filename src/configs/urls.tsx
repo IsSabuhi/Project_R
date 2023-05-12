@@ -4,4 +4,5 @@ export const APP_URLS = {
   SIGN_OUT: '/login',
 
   getSettingsPage: (userId: string) => `/settings/${userId}`,
+  getHomePage: (userId: string) => `/home/${userId}`,
 }

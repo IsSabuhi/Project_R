@@ -254,3 +254,14 @@ mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
     }
   }
 }
+
+mutation DeleteResume($resume_name: String = "", $resume_id: uuid = "") {
+  delete_resumes(
+    where: {
+      resume_id: { _eq: $resume_id }
+      resume_name: { _eq: $resume_name }
+    }
+  ) {
+    affected_rows
+  }
+}

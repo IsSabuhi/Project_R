@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Status } from '@/constants'
 import { useAuthLoginMutation } from '@/generated/projectR-hasura'
 import {
@@ -37,11 +37,10 @@ const SignIn = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   const titleColor = useColorModeValue('teal.300', 'teal.200')
-  const textColor = useColorModeValue('gray.400', 'white')
 
   const [status, setStatus] = useState<Status>(Status.idle)
 
-  const { startAuthSession, isAuthorized } = useAuthContext()
+  const { userId, startAuthSession } = useAuthContext()
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -49,7 +48,7 @@ const SignIn = () => {
     onCompleted(data) {
       startAuthSession(data.login_handler?.access_token!)
       setStatus(Status.success)
-      router.push('/home')
+      router.push(APP_URLS.getHomePage(userId!))
       // return enqueueSnackbar('Авторизация прошла успешно', {
       //   variant: 'success',
       // })

@@ -23,7 +23,7 @@ const SidebarContent = ({
         <Box paddingLeft="10%">
           <Item
             title="Главная"
-            to="/home"
+            to={APP_URLS.getHomePage(userId!)}
             icon={<IoMdHome size="20px" />}
             selected={selected}
             setSelected={setSelected}
@@ -54,7 +54,7 @@ const SidebarContent = ({
         <Box paddingLeft="10%">
           <Item
             title="Главная"
-            to="/home"
+            to={APP_URLS.getHomePage(userId!)}
             icon={<IoMdHome size="20px" />}
             selected={selected}
             setSelected={setSelected}

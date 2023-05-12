@@ -5314,6 +5314,14 @@ export type InsertResumeMutationVariables = Exact<{
 
 export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string }> } | null };
 
+export type DeleteResumeMutationVariables = Exact<{
+  resume_name?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resumes?: { __typename?: 'resumes_mutation_response', affected_rows: number } | null };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -5890,3 +5898,39 @@ export function useInsertResumeMutation(baseOptions?: Apollo.MutationHookOptions
 export type InsertResumeMutationHookResult = ReturnType<typeof useInsertResumeMutation>;
 export type InsertResumeMutationResult = Apollo.MutationResult<InsertResumeMutation>;
 export type InsertResumeMutationOptions = Apollo.BaseMutationOptions<InsertResumeMutation, InsertResumeMutationVariables>;
+export const DeleteResumeDocument = gql`
+    mutation DeleteResume($resume_name: String = "", $resume_id: uuid = "") {
+  delete_resumes(
+    where: {resume_id: {_eq: $resume_id}, resume_name: {_eq: $resume_name}}
+  ) {
+    affected_rows
+  }
+}
+    `;
+export type DeleteResumeMutationFn = Apollo.MutationFunction<DeleteResumeMutation, DeleteResumeMutationVariables>;
+
+/**
+ * __useDeleteResumeMutation__
+ *
+ * To run a mutation, you first call `useDeleteResumeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteResumeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteResumeMutation, { data, loading, error }] = useDeleteResumeMutation({
+ *   variables: {
+ *      resume_name: // value for 'resume_name'
+ *      resume_id: // value for 'resume_id'
+ *   },
+ * });
+ */
+export function useDeleteResumeMutation(baseOptions?: Apollo.MutationHookOptions<DeleteResumeMutation, DeleteResumeMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteResumeMutation, DeleteResumeMutationVariables>(DeleteResumeDocument, options);
+      }
+export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMutation>;
+export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
+export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
