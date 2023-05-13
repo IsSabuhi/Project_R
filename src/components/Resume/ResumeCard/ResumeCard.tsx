@@ -7,16 +7,21 @@ import {
   MdOutlineMoreVert,
 } from 'react-icons/md'
 import { MenuItem } from 'react-pro-sidebar'
+import Link from 'next/link'
+import { APP_URLS } from '@/configs/urls'
 
 interface IResumeCard {
   name_resume: string
+  resume_id: string
   deleteResume: () => void
 }
 
-function ResumeCard({ name_resume, deleteResume }: IResumeCard) {
+function ResumeCard({ name_resume, resume_id, deleteResume }: IResumeCard) {
   return (
     <div className={styles.container}>
-      <div className={styles.main}>asdasd</div>
+      <Link href={APP_URLS.getResumePage(resume_id)} style={{ height: '100%' }}>
+        <div className={styles.main}>Нажмите чтобы открыть резюме</div>
+      </Link>
       <div className={styles.container_footer}>
         <Text>{name_resume || 'Название резюме'}</Text>
         <Menu>

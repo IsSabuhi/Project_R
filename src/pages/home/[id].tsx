@@ -49,6 +49,7 @@ const Home = () => {
             <ResumeCard
               key={index}
               name_resume={item.resume_name}
+              resume_id={item.resume_id}
               deleteResume={() =>
                 deleteResumeMutation({
                   variables: {

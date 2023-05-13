@@ -5322,6 +5322,13 @@ export type DeleteResumeMutationVariables = Exact<{
 
 export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resumes?: { __typename?: 'resumes_mutation_response', affected_rows: number } | null };
 
+export type GetResumeQueryVariables = Exact<{
+  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
+}>;
+
+
+export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null }> };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -5934,3 +5941,58 @@ export function useDeleteResumeMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMutation>;
 export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
 export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
+export const GetResumeDocument = gql`
+    query GetResume($resume_id: uuid_comparison_exp = {_eq: ""}) {
+  resumes(where: {resume_id: $resume_id}) {
+    jobseeker_id
+    resume_id
+    resume_name
+    resume_experience_work {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+    }
+    resume_project {
+      description
+      name_organization
+      project_id
+      project_name
+    }
+    resume_skill {
+      description
+      skills_id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetResumeQuery__
+ *
+ * To run a query within a React component, call `useGetResumeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetResumeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetResumeQuery({
+ *   variables: {
+ *      resume_id: // value for 'resume_id'
+ *   },
+ * });
+ */
+export function useGetResumeQuery(baseOptions?: Apollo.QueryHookOptions<GetResumeQuery, GetResumeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetResumeQuery, GetResumeQueryVariables>(GetResumeDocument, options);
+      }
+export function useGetResumeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetResumeQuery, GetResumeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetResumeQuery, GetResumeQueryVariables>(GetResumeDocument, options);
+        }
+export type GetResumeQueryHookResult = ReturnType<typeof useGetResumeQuery>;
+export type GetResumeLazyQueryHookResult = ReturnType<typeof useGetResumeLazyQuery>;
+export type GetResumeQueryResult = Apollo.QueryResult<GetResumeQuery, GetResumeQueryVariables>;
