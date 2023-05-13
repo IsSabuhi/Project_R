@@ -20,7 +20,6 @@ import { useUpdateJobseekerProfileMutation } from '@/generated/projectR-hasura'
 import { useFormik } from 'formik'
 import { UpdateJobseekerProfileMutationVariables } from '@/generated/projectR-hasura'
 import { useSnackbar } from 'notistack'
-import { Status } from '@/constants'
 import { useAuthContext } from '@/hooks/use-auth-context'
 
 const initialForm: UpdateJobseekerProfileMutationVariables = {
@@ -35,7 +34,6 @@ const initialForm: UpdateJobseekerProfileMutationVariables = {
 
 const GeneralInfo = () => {
   const { enqueueSnackbar } = useSnackbar()
-  const [status, setStatus] = useState<Status>(Status.idle)
 
   const { userId } = useAuthContext()
 
@@ -54,13 +52,11 @@ const GeneralInfo = () => {
 
   const [updateJobseekerProfileMutation] = useUpdateJobseekerProfileMutation({
     onCompleted(data) {
-      setStatus(Status.success)
       return enqueueSnackbar('Данные сохранены успешно', {
         variant: 'success',
       })
     },
     onError() {
-      setStatus(Status.error)
       return enqueueSnackbar('Произошла непредвиденная ошибка', {
         variant: 'error',
       })

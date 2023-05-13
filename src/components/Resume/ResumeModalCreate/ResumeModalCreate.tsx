@@ -1,4 +1,3 @@
-import { Status } from '@/constants'
 import {
   InsertResumeMutationVariables,
   useInsertResumeMutation,
@@ -33,21 +32,17 @@ const initialResumeModal: InsertResumeMutationVariables = {
 const ResumeModalCreate = ({ isOpen, onClose }: IResumeModalCreate) => {
   const { enqueueSnackbar } = useSnackbar()
 
-  const [status, setStatus] = useState<Status>(Status.idle)
-
   const { userProfileId } = useAuthContext()
 
   const [insertResumeMutation, { data, loading, error }] =
     useInsertResumeMutation({
       onCompleted() {
-        setStatus(Status.success)
         onClose()
         return enqueueSnackbar('Резюме создано', {
           variant: 'success',
         })
       },
       onError() {
-        setStatus(Status.error)
         onClose()
         enqueueSnackbar('Не удалось создать резюме', { variant: 'error' })
       },

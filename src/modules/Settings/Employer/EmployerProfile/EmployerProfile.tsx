@@ -25,7 +25,6 @@ import {
 } from '@/generated/projectR-hasura'
 import { CheckCircleIcon, WarningIcon } from '@chakra-ui/icons'
 import { useSnackbar } from 'notistack'
-import { Status } from '@/constants'
 import { useFormik } from 'formik'
 
 const initialOrganizationForm: UpdateOrganizationMutationVariables = {
@@ -41,8 +40,6 @@ const EmployerProfile = () => {
   const { userId } = useAuthContext()
 
   const { enqueueSnackbar } = useSnackbar()
-
-  const [status, setStatus] = useState<Status>(Status.idle)
 
   const [values, setValues] = React.useState({
     organizationForm: initialOrganizationForm,
@@ -68,13 +65,11 @@ const EmployerProfile = () => {
 
   const [updateOrganizationMutation] = useUpdateOrganizationMutation({
     onCompleted() {
-      setStatus(Status.success)
       return enqueueSnackbar('Данные сохранены успешно', {
         variant: 'success',
       })
     },
     onError() {
-      setStatus(Status.error)
       return enqueueSnackbar('Произошла непредвиденная ошибка', {
         variant: 'error',
       })

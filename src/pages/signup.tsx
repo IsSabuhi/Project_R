@@ -18,7 +18,6 @@ import {
   useSignUpJobseekerMutation,
   useSignUpOrganizationMutation,
 } from '@/generated/projectR-hasura'
-import { Status } from '@/constants'
 import { useSnackbar } from 'notistack'
 import AccountInfo from '@/modules/Auth/Jobseeker/AccountInfo/AccountInfo'
 import BasicInfo from '@/modules/Auth/Jobseeker/BasicInfo/BasicInfo'
@@ -78,22 +77,18 @@ const SignUp = () => {
 
   const router = useRouter()
 
-  const [status, setStatus] = useState<Status>(Status.idle)
-
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(33.33)
 
   const [signUpOrganizationMutation, { data, loading, error }] =
     useSignUpOrganizationMutation({
       onCompleted() {
-        setStatus(Status.success)
         router.push('/login')
         return enqueueSnackbar('Регистрация прошла успешно', {
           variant: 'success',
         })
       },
       onError() {
-        setStatus(Status.error)
         return enqueueSnackbar('Не удалось зарегистрироваться', {
           variant: 'error',
         })
@@ -102,13 +97,11 @@ const SignUp = () => {
 
   const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
     onCompleted() {
-      setStatus(Status.success)
       return enqueueSnackbar('Регистрация прошла успешно', {
         variant: 'success',
       })
     },
     onError() {
-      setStatus(Status.error)
       return enqueueSnackbar('Не удалось зарегистрироваться', {
         variant: 'error',
       })

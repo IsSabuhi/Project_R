@@ -1,14 +1,31 @@
 .container_home {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 25px;
 
     .main_cards {
+        width: 100%;
+        height: 100%;
         display: flex;
         flex-direction: row;
-        align-items: center;
-        flex-wrap: wrap;
         gap: 20px;
         margin-inline: 20px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        align-content: flex-start;
+
+        .main_cards_empty {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .main_cards_empty_text {
+                font-size: 25px;
+            }
+        }
     }
 }

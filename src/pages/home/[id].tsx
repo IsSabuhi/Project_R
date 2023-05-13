@@ -1,23 +1,19 @@
 import ResumeNewCard from '@/components/Resume/ResumeNewCard/ResumeNewCard'
 import { Text } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styles from '@/styles/Home.module.scss'
 import {
-  Resumes,
   useDeleteResumeMutation,
   useGetJobseekerResumesQuery,
 } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import ResumeCard from '@/components/Resume/ResumeCard/ResumeCard'
 import { useSnackbar } from 'notistack'
-import { Status } from '@/constants'
 
 const Home = () => {
   const { userProfileId } = useAuthContext()
 
   const { enqueueSnackbar } = useSnackbar()
-
-  const [status, setStatus] = useState<Status>(Status.idle)
 
   const { data, loading, error } = useGetJobseekerResumesQuery({
     variables: {
@@ -29,7 +25,6 @@ const Home = () => {
 
   const [deleteResumeMutation] = useDeleteResumeMutation({
     onCompleted() {
-      setStatus(Status.success)
       return enqueueSnackbar('Резюме успешно удалено', {
         variant: 'success',
       })
@@ -38,7 +33,6 @@ const Home = () => {
       enqueueSnackbar('Произошла ошибка! Попробуйте обновить страницу', {
         variant: 'error',
       })
-      setStatus(Status.error)
     },
   })
 

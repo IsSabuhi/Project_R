@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Status } from '@/constants'
 import { useAuthLoginMutation } from '@/generated/projectR-hasura'
 import {
   Button,
@@ -38,8 +37,6 @@ const SignIn = () => {
 
   const titleColor = useColorModeValue('teal.300', 'teal.200')
 
-  const [status, setStatus] = useState<Status>(Status.idle)
-
   const { userId, startAuthSession } = useAuthContext()
 
   const [showPassword, setShowPassword] = useState(false)
@@ -47,7 +44,6 @@ const SignIn = () => {
   const [authLoginMutation, { data, loading, error }] = useAuthLoginMutation({
     onCompleted(data) {
       startAuthSession(data.login_handler?.access_token!)
-      setStatus(Status.success)
       router.push(APP_URLS.getHomePage(userId!))
       // return enqueueSnackbar('Авторизация прошла успешно', {
       //   variant: 'success',
@@ -55,7 +51,6 @@ const SignIn = () => {
     },
     onError(error) {
       enqueueSnackbar('Неверный логин или пароль', { variant: 'error' })
-      setStatus(Status.error)
     },
   })
 
