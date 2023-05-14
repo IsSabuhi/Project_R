@@ -11,6 +11,8 @@ import {
 import { useRouter } from 'next/router'
 import React from 'react'
 import styles from '@/styles/Resume.module.scss'
+import Contacts from '@/modules/Resume/Contacts/Contacts'
+import Experience from '@/modules/Resume/Experience/Experience'
 
 function Resume() {
   const router = useRouter()
@@ -24,6 +26,7 @@ function Resume() {
   })
 
   console.log(data)
+
   return (
     <div className={styles.container}>
       <Tabs position="relative" variant="unstyled">
@@ -41,8 +44,12 @@ function Resume() {
         </TabList>
 
         <TabPanels>
-          <TabPanel>Контакты</TabPanel>
-          <TabPanel>Опыт работы</TabPanel>
+          <TabPanel>
+            <Contacts />
+          </TabPanel>
+          <TabPanel>
+            <Experience />
+          </TabPanel>
           <TabPanel>
             <p>Проекты!</p>
           </TabPanel>

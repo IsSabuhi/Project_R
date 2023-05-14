@@ -262,9 +262,6 @@ query GetJobseekerResumes($_eq: uuid = "") {
           course_work_task
           description
         }
-        jobseeker_education_educational_institution {
-          name_institution
-        }
       }
     }
   }
@@ -287,6 +284,10 @@ mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
           group
           speciality
           start_date
+          jobseeker_education_educational_institution {
+            icon
+            name_institution
+          }
         }
       }
     }

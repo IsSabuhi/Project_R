@@ -562,6 +562,7 @@ export type Educational_Institution = {
   educational_institution_jobseeker_educations_aggregate: Jobseeker_Education_Aggregate;
   /** An object relationship */
   educational_institution_location?: Maybe<Location>;
+  icon?: Maybe<Scalars['String']>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution: Scalars['String'];
 };
@@ -642,6 +643,7 @@ export type Educational_Institution_Bool_Exp = {
   educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
   educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Bool_Exp>;
   educational_institution_location?: InputMaybe<Location_Bool_Exp>;
+  icon?: InputMaybe<String_Comparison_Exp>;
   location_id?: InputMaybe<Uuid_Comparison_Exp>;
   name_institution?: InputMaybe<String_Comparison_Exp>;
 };
@@ -657,6 +659,7 @@ export type Educational_Institution_Insert_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
   educational_institution_jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
   educational_institution_location?: InputMaybe<Location_Obj_Rel_Insert_Input>;
+  icon?: InputMaybe<Scalars['String']>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -665,6 +668,7 @@ export type Educational_Institution_Insert_Input = {
 export type Educational_Institution_Max_Fields = {
   __typename?: 'educational_institution_max_fields';
   educational_institution_id?: Maybe<Scalars['uuid']>;
+  icon?: Maybe<Scalars['String']>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution?: Maybe<Scalars['String']>;
 };
@@ -672,6 +676,7 @@ export type Educational_Institution_Max_Fields = {
 /** order by max() on columns of table "educational_institution" */
 export type Educational_Institution_Max_Order_By = {
   educational_institution_id?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
   location_id?: InputMaybe<Order_By>;
   name_institution?: InputMaybe<Order_By>;
 };
@@ -680,6 +685,7 @@ export type Educational_Institution_Max_Order_By = {
 export type Educational_Institution_Min_Fields = {
   __typename?: 'educational_institution_min_fields';
   educational_institution_id?: Maybe<Scalars['uuid']>;
+  icon?: Maybe<Scalars['String']>;
   location_id?: Maybe<Scalars['uuid']>;
   name_institution?: Maybe<Scalars['String']>;
 };
@@ -687,6 +693,7 @@ export type Educational_Institution_Min_Fields = {
 /** order by min() on columns of table "educational_institution" */
 export type Educational_Institution_Min_Order_By = {
   educational_institution_id?: InputMaybe<Order_By>;
+  icon?: InputMaybe<Order_By>;
   location_id?: InputMaybe<Order_By>;
   name_institution?: InputMaybe<Order_By>;
 };
@@ -719,6 +726,7 @@ export type Educational_Institution_Order_By = {
   educational_institution_id?: InputMaybe<Order_By>;
   educational_institution_jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Order_By>;
   educational_institution_location?: InputMaybe<Location_Order_By>;
+  icon?: InputMaybe<Order_By>;
   location_id?: InputMaybe<Order_By>;
   name_institution?: InputMaybe<Order_By>;
 };
@@ -733,6 +741,8 @@ export enum Educational_Institution_Select_Column {
   /** column name */
   EducationalInstitutionId = 'educational_institution_id',
   /** column name */
+  Icon = 'icon',
+  /** column name */
   LocationId = 'location_id',
   /** column name */
   NameInstitution = 'name_institution'
@@ -741,6 +751,7 @@ export enum Educational_Institution_Select_Column {
 /** input type for updating data in table "educational_institution" */
 export type Educational_Institution_Set_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
+  icon?: InputMaybe<Scalars['String']>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -756,6 +767,7 @@ export type Educational_Institution_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Educational_Institution_Stream_Cursor_Value_Input = {
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
+  icon?: InputMaybe<Scalars['String']>;
   location_id?: InputMaybe<Scalars['uuid']>;
   name_institution?: InputMaybe<Scalars['String']>;
 };
@@ -764,6 +776,8 @@ export type Educational_Institution_Stream_Cursor_Value_Input = {
 export enum Educational_Institution_Update_Column {
   /** column name */
   EducationalInstitutionId = 'educational_institution_id',
+  /** column name */
+  Icon = 'icon',
   /** column name */
   LocationId = 'location_id',
   /** column name */
@@ -5304,7 +5318,7 @@ export type GetJobseekerResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null }> };
+export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
 
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -5312,7 +5326,7 @@ export type InsertResumeMutationVariables = Exact<{
 }>;
 
 
-export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, resume_jobseeker?: { __typename?: 'jobseeker', jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null }> } | null }> } | null };
+export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, resume_jobseeker?: { __typename?: 'jobseeker', jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', icon?: string | null, name_institution: string } | null }> } | null }> } | null };
 
 export type DeleteResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -5856,9 +5870,6 @@ export const GetJobseekerResumesDocument = gql`
           course_work_task
           description
         }
-        jobseeker_education_educational_institution {
-          name_institution
-        }
       }
     }
   }
@@ -5910,6 +5921,10 @@ export const InsertResumeDocument = gql`
           group
           speciality
           start_date
+          jobseeker_education_educational_institution {
+            icon
+            name_institution
+          }
         }
       }
     }

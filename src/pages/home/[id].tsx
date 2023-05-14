@@ -39,8 +39,6 @@ const Home = () => {
   const speciality =
     data?.resumes[0].resume_jobseeker?.jobseeker_educations[0].speciality
 
-  console.log(speciality)
-
   return (
     <div className={styles.container_home}>
       <Text fontWeight="semibold" fontSize="2xl" m="15px">
