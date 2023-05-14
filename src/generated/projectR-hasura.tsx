@@ -5304,7 +5304,7 @@ export type GetJobseekerResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null }> };
+export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null }> };
 
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -5312,7 +5312,7 @@ export type InsertResumeMutationVariables = Exact<{
 }>;
 
 
-export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string }> } | null };
+export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, resume_jobseeker?: { __typename?: 'jobseeker', jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null }> } | null }> } | null };
 
 export type DeleteResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -5323,11 +5323,11 @@ export type DeleteResumeMutationVariables = Exact<{
 export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resumes?: { __typename?: 'resumes_mutation_response', affected_rows: number } | null };
 
 export type GetResumeQueryVariables = Exact<{
-  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
+  _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null }> };
+export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
 
 
 export const AuthLoginDocument = gql`
@@ -5834,6 +5834,33 @@ export const GetJobseekerResumesDocument = gql`
       description
       skills_id
     }
+    resume_jobseeker {
+      account_id
+      dateBirth
+      email
+      gender
+      lastName
+      middleName
+      name
+      phone
+      jobseeker_educations {
+        average_score
+        education_form
+        end_date
+        faculity
+        group
+        speciality
+        start_date
+        jobseeker_education_course_work {
+          course_work_name
+          course_work_task
+          description
+        }
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
+    }
   }
 }
     `;
@@ -5874,6 +5901,17 @@ export const InsertResumeDocument = gql`
       jobseeker_id
       resume_name
       resume_id
+      resume_jobseeker {
+        jobseeker_educations {
+          average_score
+          education_form
+          end_date
+          faculity
+          group
+          speciality
+          start_date
+        }
+      }
     }
   }
 }
@@ -5942,8 +5980,8 @@ export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMu
 export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
 export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
 export const GetResumeDocument = gql`
-    query GetResume($resume_id: uuid_comparison_exp = {_eq: ""}) {
-  resumes(where: {resume_id: $resume_id}) {
+    query GetResume($_eq: uuid = "") {
+  resumes(where: {resume_id: {_eq: $_eq}}) {
     jobseeker_id
     resume_id
     resume_name
@@ -5965,6 +6003,32 @@ export const GetResumeDocument = gql`
       description
       skills_id
     }
+    resume_jobseeker {
+      jobseeker_educations {
+        average_score
+        education_form
+        end_date
+        faculity
+        group
+        speciality
+        start_date
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+        jobseeker_education_course_work {
+          course_work_name
+          course_work_task
+          description
+        }
+      }
+      lastName
+      name
+      phone
+      middleName
+      dateBirth
+      email
+      gender
+    }
   }
 }
     `;
@@ -5981,7 +6045,7 @@ export const GetResumeDocument = gql`
  * @example
  * const { data, loading, error } = useGetResumeQuery({
  *   variables: {
- *      resume_id: // value for 'resume_id'
+ *      _eq: // value for '_eq'
  *   },
  * });
  */

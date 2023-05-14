@@ -11,6 +11,7 @@ import Account from './Jobseeker/Account/Account'
 import EmployerProfile from './Employer/EmployerProfile/EmployerProfile'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import GeneralInfo from './Jobseeker/Profile/GeneralInfo'
+import Education from './Jobseeker/Education/Education'
 
 export default function SettingsContent() {
   const { role } = useAuthContext()
@@ -37,7 +38,7 @@ export default function SettingsContent() {
               <Account />
             </TabPanel>
             <TabPanel p={0}>
-              <p>three!</p>
+              <Education />
             </TabPanel>
           </TabPanels>
         </Tabs>

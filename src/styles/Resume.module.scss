@@ -1,0 +1,13 @@
+.container {
+
+    .container_resume_title {
+        padding: 0.3em 0.5em;
+        white-space: nowrap;
+        background: rgba(116,116,116,0.12157);
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}

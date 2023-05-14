@@ -6,6 +6,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
 
 const baseStyle = definePartsStyle({
   tab: {    
+    fontWeight: 700,
     transition: 'all 200ms ease',
     textTransform: 'uppercase',
     _selected: {
@@ -13,6 +14,10 @@ const baseStyle = definePartsStyle({
         color: '#fff',
       },
   },
+  tablist: {
+    alignItems: 'center',
+    gap: '10px'
+  }
 })
 
 export const tabsTheme = defineMultiStyleConfig({ baseStyle })

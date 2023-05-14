@@ -171,6 +171,9 @@ const GeneralInfo = () => {
                   placeholder="Пол"
                   id="gender"
                   name="gender"
+                  borderRadius="15px"
+                  fontSize="sm"
+                  size="lg"
                   value={formik.values.gender!}
                   onChange={formik.handleChange}
                 >

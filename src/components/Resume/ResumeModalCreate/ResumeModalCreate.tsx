@@ -15,6 +15,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
@@ -23,13 +24,18 @@ import React, { useState } from 'react'
 interface IResumeModalCreate {
   isOpen: boolean
   onClose: () => void
+  speciality: string
 }
 
 const initialResumeModal: InsertResumeMutationVariables = {
   resume_name: '',
 }
 
-const ResumeModalCreate = ({ isOpen, onClose }: IResumeModalCreate) => {
+const ResumeModalCreate = ({
+  isOpen,
+  onClose,
+  speciality,
+}: IResumeModalCreate) => {
   const { enqueueSnackbar } = useSnackbar()
 
   const { userProfileId } = useAuthContext()
@@ -84,6 +90,37 @@ const ResumeModalCreate = ({ isOpen, onClose }: IResumeModalCreate) => {
                 onChange={formik.handleChange}
                 value={formik.values.resume_name!}
               />
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="specialization" fontWeight={'normal'}>
+                Специальность
+              </FormLabel>
+              <Input
+                id="specialization"
+                name="specialization"
+                type="text"
+                borderRadius="15px"
+                fontSize="sm"
+                size="lg"
+                placeholder="Введите название резюме"
+                value={speciality}
+                disabled
+              />
+              {/* TODO Возможно нужно будет сделать Select для тех пользователей которые не зареганы в системе*/}
+              {/* <Select
+                placeholder="Специальность"
+                id="specialization"
+                name="specialization"
+                borderRadius="15px"
+                fontSize="sm"
+                size="lg"
+              >
+                <option value="IST">Информационные системы и технологии</option>
+                <option value="EMIOP">
+                  Экономика, менеджмент и организация производства
+                </option>
+                <option value="EIA">Электроэнергетика и автоматика</option>
+              </Select> */}
             </FormControl>
           </ModalBody>
 
