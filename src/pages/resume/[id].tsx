@@ -25,8 +25,6 @@ function Resume() {
     },
   })
 
-  console.log(data)
-
   return (
     <div className={styles.container}>
       <Tabs position="relative" variant="unstyled">
@@ -36,7 +34,6 @@ function Resume() {
               {data?.resumes[0].resume_name}
             </Text>
           </Tooltip>
-          <Tab>Контакты</Tab>
           <Tab>Опыт работы</Tab>
           <Tab>Проекты</Tab>
           <Tab>Образование</Tab>
@@ -44,9 +41,6 @@ function Resume() {
         </TabList>
 
         <TabPanels>
-          <TabPanel>
-            <Contacts />
-          </TabPanel>
           <TabPanel>
             <Experience />
           </TabPanel>
@@ -60,26 +54,5 @@ function Resume() {
     </div>
   )
 }
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const resume_id = context.query.id
-
-//   if (isUUID(resume_id as string)) {
-//     const { data }: ApolloQueryResult<GetResumeQuery> = await client.query({
-//       query: GetResumeDocument,
-//       variables: { resume_id: resume_id } as GetResumeQueryVariables,
-//     })
-
-//     const resumeData = data.resumes
-
-//     return {
-//       props: { resumeData },
-//       notFound: !data.resumes,
-//     }
-//   } else
-//     return {
-//       notFound: true,
-//     }
-// }
 
 export default Resume

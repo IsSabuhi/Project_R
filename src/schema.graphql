@@ -308,3 +308,36 @@ query GetResume($_eq: uuid = "") {
     }
   }
 }
+
+query GetJobseekerContacts($_eq: uuid = "") {
+  jobseeker(where: { resumes: { resume_id: { _eq: $_eq } } }) {
+    account_id
+    dateBirth
+    email
+    gender
+    lastName
+    jobseeker_id
+    middleName
+    name
+    phone
+  }
+}
+
+mutation UpdateContacts(
+  $_eq: uuid = ""
+  $phone: String = ""
+  $email: String = ""
+) {
+  update_jobseeker(
+    where: { account_id: { _eq: $_eq } }
+    _set: { phone: $phone, email: $email }
+  ) {
+    returning {
+      phone
+      name
+      middleName
+      lastName
+      jobseeker_id
+    }
+  }
+}

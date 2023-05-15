@@ -5342,6 +5342,22 @@ export type GetResumeQueryVariables = Exact<{
 
 export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
 
+export type GetJobseekerContactsQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetJobseekerContactsQuery = { __typename?: 'query_root', jobseeker: Array<{ __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, jobseeker_id: string, middleName: string, name: string, phone?: string | null }> };
+
+export type UpdateContactsMutationVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+  phone?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateContactsMutation = { __typename?: 'mutation_root', update_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', phone?: string | null, name: string, middleName: string, lastName: string, jobseeker_id: string }> } | null };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -6028,3 +6044,90 @@ export function useGetResumeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<
 export type GetResumeQueryHookResult = ReturnType<typeof useGetResumeQuery>;
 export type GetResumeLazyQueryHookResult = ReturnType<typeof useGetResumeLazyQuery>;
 export type GetResumeQueryResult = Apollo.QueryResult<GetResumeQuery, GetResumeQueryVariables>;
+export const GetJobseekerContactsDocument = gql`
+    query GetJobseekerContacts($_eq: uuid = "") {
+  jobseeker(where: {resumes: {resume_id: {_eq: $_eq}}}) {
+    account_id
+    dateBirth
+    email
+    gender
+    lastName
+    jobseeker_id
+    middleName
+    name
+    phone
+  }
+}
+    `;
+
+/**
+ * __useGetJobseekerContactsQuery__
+ *
+ * To run a query within a React component, call `useGetJobseekerContactsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobseekerContactsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJobseekerContactsQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetJobseekerContactsQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekerContactsQuery, GetJobseekerContactsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJobseekerContactsQuery, GetJobseekerContactsQueryVariables>(GetJobseekerContactsDocument, options);
+      }
+export function useGetJobseekerContactsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekerContactsQuery, GetJobseekerContactsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJobseekerContactsQuery, GetJobseekerContactsQueryVariables>(GetJobseekerContactsDocument, options);
+        }
+export type GetJobseekerContactsQueryHookResult = ReturnType<typeof useGetJobseekerContactsQuery>;
+export type GetJobseekerContactsLazyQueryHookResult = ReturnType<typeof useGetJobseekerContactsLazyQuery>;
+export type GetJobseekerContactsQueryResult = Apollo.QueryResult<GetJobseekerContactsQuery, GetJobseekerContactsQueryVariables>;
+export const UpdateContactsDocument = gql`
+    mutation UpdateContacts($_eq: uuid = "", $phone: String = "", $email: String = "") {
+  update_jobseeker(
+    where: {account_id: {_eq: $_eq}}
+    _set: {phone: $phone, email: $email}
+  ) {
+    returning {
+      phone
+      name
+      middleName
+      lastName
+      jobseeker_id
+    }
+  }
+}
+    `;
+export type UpdateContactsMutationFn = Apollo.MutationFunction<UpdateContactsMutation, UpdateContactsMutationVariables>;
+
+/**
+ * __useUpdateContactsMutation__
+ *
+ * To run a mutation, you first call `useUpdateContactsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContactsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContactsMutation, { data, loading, error }] = useUpdateContactsMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *      phone: // value for 'phone'
+ *      email: // value for 'email'
+ *   },
+ * });
+ */
+export function useUpdateContactsMutation(baseOptions?: Apollo.MutationHookOptions<UpdateContactsMutation, UpdateContactsMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateContactsMutation, UpdateContactsMutationVariables>(UpdateContactsDocument, options);
+      }
+export type UpdateContactsMutationHookResult = ReturnType<typeof useUpdateContactsMutation>;
+export type UpdateContactsMutationResult = Apollo.MutationResult<UpdateContactsMutation>;
+export type UpdateContactsMutationOptions = Apollo.BaseMutationOptions<UpdateContactsMutation, UpdateContactsMutationVariables>;
