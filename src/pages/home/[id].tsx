@@ -1,10 +1,11 @@
 import ResumeNewCard from '@/components/Resume/ResumeNewCard/ResumeNewCard'
 import { Text } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Home.module.scss'
 import {
+  Resumes,
   useDeleteResumeMutation,
-  useGetJobseekerResumesQuery,
+  useGetJobseekerResumesLazyQuery,
 } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import ResumeCard from '@/components/Resume/ResumeCard/ResumeCard'
@@ -15,13 +16,16 @@ const Home = () => {
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const { data, loading, error } = useGetJobseekerResumesQuery({
+  const [resumeData, setResumeData] = useState<Resumes[]>()
+
+  const [getResumeList] = useGetJobseekerResumesLazyQuery({
     variables: {
       _eq: userProfileId,
     },
+    onCompleted(data) {
+      setResumeData(data.resumes)
+    },
   })
-
-  const resumeData = data?.resumes
 
   const [deleteResumeMutation] = useDeleteResumeMutation({
     onCompleted() {
@@ -36,8 +40,27 @@ const Home = () => {
     },
   })
 
-  const speciality =
-    data?.resumes[0].resume_jobseeker?.jobseeker_educations[0].speciality
+  useEffect(() => {
+    getResumeList()
+  }, [])
+
+  const deleteResume = (resumeId: any) => {
+    deleteResumeMutation({
+      variables: {
+        resume_id: resumeId,
+      },
+      onCompleted() {
+        setResumeData((prevResumeData) =>
+          prevResumeData?.filter((item) => item.resume_id !== resumeId)
+        )
+      },
+      onError() {
+        enqueueSnackbar('Произошла ошибка! Попробуйте обновить страницу', {
+          variant: 'error',
+        })
+      },
+    })
+  }
 
   return (
     <div className={styles.container_home}>
@@ -46,21 +69,14 @@ const Home = () => {
       </Text>
 
       <div className={styles.main_cards}>
-        <ResumeNewCard speciality={speciality as string} />
+        <ResumeNewCard getResumeList={getResumeList} />
         {resumeData?.map((item, index) => {
           return (
             <ResumeCard
               key={index}
               name_resume={item.resume_name}
               resume_id={item.resume_id}
-              deleteResume={() =>
-                deleteResumeMutation({
-                  variables: {
-                    resume_name: item.resume_name,
-                    resume_id: item.resume_id,
-                  },
-                })
-              }
+              deleteResume={() => deleteResume(item.resume_id)}
             />
           )
         })}

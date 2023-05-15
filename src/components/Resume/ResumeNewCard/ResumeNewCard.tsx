@@ -4,10 +4,10 @@ import { Text, useDisclosure } from '@chakra-ui/react'
 import ResumeModalCreate from '../ResumeModalCreate/ResumeModalCreate'
 
 interface IResumeNewCard {
-  speciality: string
+  getResumeList: any
 }
 
-const ResumeNewCard = ({ speciality }: IResumeNewCard) => {
+const ResumeNewCard = ({ getResumeList }: IResumeNewCard) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
@@ -15,9 +15,9 @@ const ResumeNewCard = ({ speciality }: IResumeNewCard) => {
         <Text className={styles.container_text}>Создать новое резюме</Text>
       </div>
       <ResumeModalCreate
+        getResumeList={getResumeList}
         isOpen={isOpen}
         onClose={onClose}
-        speciality={speciality}
       />
     </>
   )

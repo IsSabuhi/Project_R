@@ -5318,7 +5318,7 @@ export type GetJobseekerResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
+export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string }> };
 
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -5326,10 +5326,9 @@ export type InsertResumeMutationVariables = Exact<{
 }>;
 
 
-export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, resume_jobseeker?: { __typename?: 'jobseeker', jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', icon?: string | null, name_institution: string } | null }> } | null }> } | null };
+export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, resume_jobseeker?: { __typename?: 'jobseeker', jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null }> } | null };
 
 export type DeleteResumeMutationVariables = Exact<{
-  resume_name?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
 }>;
 
@@ -5828,50 +5827,8 @@ export const GetJobseekerResumesDocument = gql`
     query GetJobseekerResumes($_eq: uuid = "") {
   resumes(where: {jobseeker_id: {_eq: $_eq}}) {
     jobseeker_id
-    resume_experience_work {
-      date_dismissal
-      date_employment
-      description
-      experience_work_id
-      jobposition
-      name_company
-    }
     resume_id
     resume_name
-    resume_project {
-      description
-      name_organization
-      project_id
-      project_name
-    }
-    resume_skill {
-      description
-      skills_id
-    }
-    resume_jobseeker {
-      account_id
-      dateBirth
-      email
-      gender
-      lastName
-      middleName
-      name
-      phone
-      jobseeker_educations {
-        average_score
-        education_form
-        end_date
-        faculity
-        group
-        speciality
-        start_date
-        jobseeker_education_course_work {
-          course_work_name
-          course_work_task
-          description
-        }
-      }
-    }
   }
 }
     `;
@@ -5922,7 +5879,6 @@ export const InsertResumeDocument = gql`
           speciality
           start_date
           jobseeker_education_educational_institution {
-            icon
             name_institution
           }
         }
@@ -5959,10 +5915,8 @@ export type InsertResumeMutationHookResult = ReturnType<typeof useInsertResumeMu
 export type InsertResumeMutationResult = Apollo.MutationResult<InsertResumeMutation>;
 export type InsertResumeMutationOptions = Apollo.BaseMutationOptions<InsertResumeMutation, InsertResumeMutationVariables>;
 export const DeleteResumeDocument = gql`
-    mutation DeleteResume($resume_name: String = "", $resume_id: uuid = "") {
-  delete_resumes(
-    where: {resume_id: {_eq: $resume_id}, resume_name: {_eq: $resume_name}}
-  ) {
+    mutation DeleteResume($resume_id: uuid = "") {
+  delete_resumes(where: {resume_id: {_eq: $resume_id}}) {
     affected_rows
   }
 }
@@ -5982,7 +5936,6 @@ export type DeleteResumeMutationFn = Apollo.MutationFunction<DeleteResumeMutatio
  * @example
  * const [deleteResumeMutation, { data, loading, error }] = useDeleteResumeMutation({
  *   variables: {
- *      resume_name: // value for 'resume_name'
  *      resume_id: // value for 'resume_id'
  *   },
  * });

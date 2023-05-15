@@ -1,8 +1,12 @@
 import {
+  Exact,
+  GetJobseekerResumesQuery,
+  InputMaybe,
   InsertResumeMutationVariables,
   useInsertResumeMutation,
 } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
+import { LazyQueryExecFunction } from '@apollo/client'
 import {
   Button,
   FormControl,
@@ -24,7 +28,12 @@ import React, { useState } from 'react'
 interface IResumeModalCreate {
   isOpen: boolean
   onClose: () => void
-  speciality: string
+  getResumeList: LazyQueryExecFunction<
+    GetJobseekerResumesQuery,
+    Exact<{
+      _eq?: InputMaybe<string> | undefined
+    }>
+  >
 }
 
 const initialResumeModal: InsertResumeMutationVariables = {
@@ -34,25 +43,11 @@ const initialResumeModal: InsertResumeMutationVariables = {
 const ResumeModalCreate = ({
   isOpen,
   onClose,
-  speciality,
+  getResumeList,
 }: IResumeModalCreate) => {
   const { enqueueSnackbar } = useSnackbar()
 
   const { userProfileId } = useAuthContext()
-
-  const [insertResumeMutation, { data, loading, error }] =
-    useInsertResumeMutation({
-      onCompleted() {
-        onClose()
-        return enqueueSnackbar('Резюме создано', {
-          variant: 'success',
-        })
-      },
-      onError() {
-        onClose()
-        enqueueSnackbar('Не удалось создать резюме', { variant: 'error' })
-      },
-    })
 
   const formik = useFormik({
     initialValues: initialResumeModal,
@@ -66,6 +61,23 @@ const ResumeModalCreate = ({
       })
     },
   })
+
+  const [insertResumeMutation, { data, loading, error }] =
+    useInsertResumeMutation({
+      onCompleted() {
+        onClose()
+        getResumeList()
+        formik.resetForm()
+        return enqueueSnackbar('Резюме создано', {
+          variant: 'success',
+        })
+      },
+      onError() {
+        onClose()
+        formik.resetForm()
+        enqueueSnackbar('Не удалось создать резюме', { variant: 'error' })
+      },
+    })
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -103,7 +115,6 @@ const ResumeModalCreate = ({
                 fontSize="sm"
                 size="lg"
                 placeholder="Введите название резюме"
-                value={speciality}
                 disabled
               />
               {/* TODO Возможно нужно будет сделать Select для тех пользователей которые не зареганы в системе*/}

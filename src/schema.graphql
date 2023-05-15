@@ -220,50 +220,8 @@ mutation UpdateJobseekerProfile(
 query GetJobseekerResumes($_eq: uuid = "") {
   resumes(where: { jobseeker_id: { _eq: $_eq } }) {
     jobseeker_id
-    resume_experience_work {
-      date_dismissal
-      date_employment
-      description
-      experience_work_id
-      jobposition
-      name_company
-    }
     resume_id
     resume_name
-    resume_project {
-      description
-      name_organization
-      project_id
-      project_name
-    }
-    resume_skill {
-      description
-      skills_id
-    }
-    resume_jobseeker {
-      account_id
-      dateBirth
-      email
-      gender
-      lastName
-      middleName
-      name
-      phone
-      jobseeker_educations {
-        average_score
-        education_form
-        end_date
-        faculity
-        group
-        speciality
-        start_date
-        jobseeker_education_course_work {
-          course_work_name
-          course_work_task
-          description
-        }
-      }
-    }
   }
 }
 
@@ -285,7 +243,6 @@ mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
           speciality
           start_date
           jobseeker_education_educational_institution {
-            icon
             name_institution
           }
         }
@@ -294,13 +251,8 @@ mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
   }
 }
 
-mutation DeleteResume($resume_name: String = "", $resume_id: uuid = "") {
-  delete_resumes(
-    where: {
-      resume_id: { _eq: $resume_id }
-      resume_name: { _eq: $resume_name }
-    }
-  ) {
+mutation DeleteResume($resume_id: uuid = "") {
+  delete_resumes(where: { resume_id: { _eq: $resume_id } }) {
     affected_rows
   }
 }
