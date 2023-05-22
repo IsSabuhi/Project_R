@@ -992,8 +992,8 @@ export type Employer_Updates = {
 /** columns and relationships of "experience_work" */
 export type Experience_Work = {
   __typename?: 'experience_work';
-  date_dismissal?: Maybe<Scalars['date']>;
-  date_employment?: Maybe<Scalars['date']>;
+  date_dismissal?: Maybe<Scalars['String']>;
+  date_employment?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   experience_work_id: Scalars['uuid'];
   /** An array relationship */
@@ -1002,6 +1002,7 @@ export type Experience_Work = {
   experience_work_resumes_aggregate: Resumes_Aggregate;
   jobposition?: Maybe<Scalars['String']>;
   name_company: Scalars['String'];
+  workLocation?: Maybe<Scalars['String']>;
 };
 
 
@@ -1051,14 +1052,15 @@ export type Experience_Work_Bool_Exp = {
   _and?: InputMaybe<Array<Experience_Work_Bool_Exp>>;
   _not?: InputMaybe<Experience_Work_Bool_Exp>;
   _or?: InputMaybe<Array<Experience_Work_Bool_Exp>>;
-  date_dismissal?: InputMaybe<Date_Comparison_Exp>;
-  date_employment?: InputMaybe<Date_Comparison_Exp>;
+  date_dismissal?: InputMaybe<String_Comparison_Exp>;
+  date_employment?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   experience_work_id?: InputMaybe<Uuid_Comparison_Exp>;
   experience_work_resumes?: InputMaybe<Resumes_Bool_Exp>;
   experience_work_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Bool_Exp>;
   jobposition?: InputMaybe<String_Comparison_Exp>;
   name_company?: InputMaybe<String_Comparison_Exp>;
+  workLocation?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "experience_work" */
@@ -1069,35 +1071,38 @@ export enum Experience_Work_Constraint {
 
 /** input type for inserting data into table "experience_work" */
 export type Experience_Work_Insert_Input = {
-  date_dismissal?: InputMaybe<Scalars['date']>;
-  date_employment?: InputMaybe<Scalars['date']>;
+  date_dismissal?: InputMaybe<Scalars['String']>;
+  date_employment?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   experience_work_id?: InputMaybe<Scalars['uuid']>;
   experience_work_resumes?: InputMaybe<Resumes_Arr_Rel_Insert_Input>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  workLocation?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
 export type Experience_Work_Max_Fields = {
   __typename?: 'experience_work_max_fields';
-  date_dismissal?: Maybe<Scalars['date']>;
-  date_employment?: Maybe<Scalars['date']>;
+  date_dismissal?: Maybe<Scalars['String']>;
+  date_employment?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   experience_work_id?: Maybe<Scalars['uuid']>;
   jobposition?: Maybe<Scalars['String']>;
   name_company?: Maybe<Scalars['String']>;
+  workLocation?: Maybe<Scalars['String']>;
 };
 
 /** aggregate min on columns */
 export type Experience_Work_Min_Fields = {
   __typename?: 'experience_work_min_fields';
-  date_dismissal?: Maybe<Scalars['date']>;
-  date_employment?: Maybe<Scalars['date']>;
+  date_dismissal?: Maybe<Scalars['String']>;
+  date_employment?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   experience_work_id?: Maybe<Scalars['uuid']>;
   jobposition?: Maybe<Scalars['String']>;
   name_company?: Maybe<Scalars['String']>;
+  workLocation?: Maybe<Scalars['String']>;
 };
 
 /** response of any mutation on the table "experience_work" */
@@ -1132,6 +1137,7 @@ export type Experience_Work_Order_By = {
   experience_work_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Order_By>;
   jobposition?: InputMaybe<Order_By>;
   name_company?: InputMaybe<Order_By>;
+  workLocation?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: experience_work */
@@ -1152,17 +1158,20 @@ export enum Experience_Work_Select_Column {
   /** column name */
   Jobposition = 'jobposition',
   /** column name */
-  NameCompany = 'name_company'
+  NameCompany = 'name_company',
+  /** column name */
+  WorkLocation = 'workLocation'
 }
 
 /** input type for updating data in table "experience_work" */
 export type Experience_Work_Set_Input = {
-  date_dismissal?: InputMaybe<Scalars['date']>;
-  date_employment?: InputMaybe<Scalars['date']>;
+  date_dismissal?: InputMaybe<Scalars['String']>;
+  date_employment?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  workLocation?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "experience_work" */
@@ -1175,12 +1184,13 @@ export type Experience_Work_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Experience_Work_Stream_Cursor_Value_Input = {
-  date_dismissal?: InputMaybe<Scalars['date']>;
-  date_employment?: InputMaybe<Scalars['date']>;
+  date_dismissal?: InputMaybe<Scalars['String']>;
+  date_employment?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  workLocation?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "experience_work" */
@@ -1196,7 +1206,9 @@ export enum Experience_Work_Update_Column {
   /** column name */
   Jobposition = 'jobposition',
   /** column name */
-  NameCompany = 'name_company'
+  NameCompany = 'name_company',
+  /** column name */
+  WorkLocation = 'workLocation'
 }
 
 export type Experience_Work_Updates = {
@@ -1220,14 +1232,14 @@ export type Jobseeker = {
   /** An aggregate relationship */
   jobseeker_educations_aggregate: Jobseeker_Education_Aggregate;
   jobseeker_id: Scalars['uuid'];
+  /** An array relationship */
+  jobseeker_resumes: Array<Resumes>;
+  /** An aggregate relationship */
+  jobseeker_resumes_aggregate: Resumes_Aggregate;
   lastName: Scalars['String'];
   middleName: Scalars['String'];
   name: Scalars['String'];
   phone?: Maybe<Scalars['String']>;
-  /** An array relationship */
-  resumes: Array<Resumes>;
-  /** An aggregate relationship */
-  resumes_aggregate: Resumes_Aggregate;
 };
 
 
@@ -1252,7 +1264,7 @@ export type JobseekerJobseeker_Educations_AggregateArgs = {
 
 
 /** columns and relationships of "jobseeker" */
-export type JobseekerResumesArgs = {
+export type JobseekerJobseeker_ResumesArgs = {
   distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1262,7 +1274,7 @@ export type JobseekerResumesArgs = {
 
 
 /** columns and relationships of "jobseeker" */
-export type JobseekerResumes_AggregateArgs = {
+export type JobseekerJobseeker_Resumes_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -1330,12 +1342,12 @@ export type Jobseeker_Bool_Exp = {
   jobseeker_educations?: InputMaybe<Jobseeker_Education_Bool_Exp>;
   jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Bool_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
+  jobseeker_resumes?: InputMaybe<Resumes_Bool_Exp>;
+  jobseeker_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Bool_Exp>;
   lastName?: InputMaybe<String_Comparison_Exp>;
   middleName?: InputMaybe<String_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   phone?: InputMaybe<String_Comparison_Exp>;
-  resumes?: InputMaybe<Resumes_Bool_Exp>;
-  resumes_aggregate?: InputMaybe<Resumes_Aggregate_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "jobseeker" */
@@ -1667,11 +1679,11 @@ export type Jobseeker_Insert_Input = {
   gender?: InputMaybe<Scalars['String']>;
   jobseeker_educations?: InputMaybe<Jobseeker_Education_Arr_Rel_Insert_Input>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
+  jobseeker_resumes?: InputMaybe<Resumes_Arr_Rel_Insert_Input>;
   lastName?: InputMaybe<Scalars['String']>;
   middleName?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
-  resumes?: InputMaybe<Resumes_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1760,11 +1772,11 @@ export type Jobseeker_Order_By = {
   gender?: InputMaybe<Order_By>;
   jobseeker_educations_aggregate?: InputMaybe<Jobseeker_Education_Aggregate_Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
+  jobseeker_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Order_By>;
   lastName?: InputMaybe<Order_By>;
   middleName?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   phone?: InputMaybe<Order_By>;
-  resumes_aggregate?: InputMaybe<Resumes_Aggregate_Order_By>;
 };
 
 /** primary key columns input for table: jobseeker */
@@ -3613,9 +3625,9 @@ export type Query_Root = {
   projects_aggregate: Projects_Aggregate;
   /** fetch data from the table: "projects" using primary key columns */
   projects_by_pk?: Maybe<Projects>;
-  /** An array relationship */
+  /** fetch data from the table: "resumes" */
   resumes: Array<Resumes>;
-  /** An aggregate relationship */
+  /** fetch aggregated fields from the table: "resumes" */
   resumes_aggregate: Resumes_Aggregate;
   /** fetch data from the table: "resumes" using primary key columns */
   resumes_by_pk?: Maybe<Resumes>;
@@ -3961,13 +3973,13 @@ export type Resumes = {
   /** An object relationship */
   resume_experience_work?: Maybe<Experience_Work>;
   resume_id: Scalars['uuid'];
-  /** An object relationship */
-  resume_jobseeker?: Maybe<Jobseeker>;
   resume_name: Scalars['String'];
   /** An object relationship */
   resume_project?: Maybe<Projects>;
   /** An object relationship */
   resume_skill?: Maybe<Skills>;
+  /** An object relationship */
+  resumes_jobseeker?: Maybe<Jobseeker>;
   skills_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -4028,19 +4040,17 @@ export type Resumes_Bool_Exp = {
   project_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_experience_work?: InputMaybe<Experience_Work_Bool_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
-  resume_jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   resume_name?: InputMaybe<String_Comparison_Exp>;
   resume_project?: InputMaybe<Projects_Bool_Exp>;
   resume_skill?: InputMaybe<Skills_Bool_Exp>;
+  resumes_jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   skills_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "resumes" */
 export enum Resumes_Constraint {
   /** unique or primary key constraint on columns "resume_id" */
-  ResumePkey = 'resume_pkey',
-  /** unique or primary key constraint on columns "resume_name" */
-  ResumeResumeNameKey = 'resume_resume_name_key'
+  ResumePkey = 'resume_pkey'
 }
 
 /** input type for inserting data into table "resumes" */
@@ -4050,10 +4060,10 @@ export type Resumes_Insert_Input = {
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_experience_work?: InputMaybe<Experience_Work_Obj_Rel_Insert_Input>;
   resume_id?: InputMaybe<Scalars['uuid']>;
-  resume_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   resume_name?: InputMaybe<Scalars['String']>;
   resume_project?: InputMaybe<Projects_Obj_Rel_Insert_Input>;
   resume_skill?: InputMaybe<Skills_Obj_Rel_Insert_Input>;
+  resumes_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   skills_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -4122,10 +4132,10 @@ export type Resumes_Order_By = {
   project_id?: InputMaybe<Order_By>;
   resume_experience_work?: InputMaybe<Experience_Work_Order_By>;
   resume_id?: InputMaybe<Order_By>;
-  resume_jobseeker?: InputMaybe<Jobseeker_Order_By>;
   resume_name?: InputMaybe<Order_By>;
   resume_project?: InputMaybe<Projects_Order_By>;
   resume_skill?: InputMaybe<Skills_Order_By>;
+  resumes_jobseeker?: InputMaybe<Jobseeker_Order_By>;
   skills_id?: InputMaybe<Order_By>;
 };
 
@@ -4452,9 +4462,9 @@ export type Subscription_Root = {
   projects_by_pk?: Maybe<Projects>;
   /** fetch data from the table in a streaming manner: "projects" */
   projects_stream: Array<Projects>;
-  /** An array relationship */
+  /** fetch data from the table: "resumes" */
   resumes: Array<Resumes>;
-  /** An aggregate relationship */
+  /** fetch aggregated fields from the table: "resumes" */
   resumes_aggregate: Resumes_Aggregate;
   /** fetch data from the table: "resumes" using primary key columns */
   resumes_by_pk?: Maybe<Resumes>;
@@ -5320,13 +5330,18 @@ export type GetJobseekerResumesQueryVariables = Exact<{
 
 export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string }> };
 
+export type GetResumesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string }> };
+
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, resume_jobseeker?: { __typename?: 'jobseeker', jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null }> } | null };
+export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string }> } | null };
 
 export type DeleteResumeMutationVariables = Exact<{
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -5335,12 +5350,20 @@ export type DeleteResumeMutationVariables = Exact<{
 
 export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resumes?: { __typename?: 'resumes_mutation_response', affected_rows: number } | null };
 
+export type UpdateResumeNameMutationVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+  resume_name?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type UpdateResumeNameMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, resume_name: string, jobseeker_id?: string | null }> } | null };
+
 export type GetResumeQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: any | null, date_employment?: any | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resume_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
+export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resumes_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
 
 export type GetJobseekerContactsQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -5357,6 +5380,26 @@ export type UpdateContactsMutationVariables = Exact<{
 
 
 export type UpdateContactsMutation = { __typename?: 'mutation_root', update_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', phone?: string | null, name: string, middleName: string, lastName: string, jobseeker_id: string }> } | null };
+
+export type InsertWorkExperienceMutationVariables = Exact<{
+  date_dismissal?: InputMaybe<Scalars['String']>;
+  date_employment?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  jobposition?: InputMaybe<Scalars['String']>;
+  name_company?: InputMaybe<Scalars['String']>;
+  workLocation?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type InsertWorkExperienceMutation = { __typename?: 'mutation_root', insert_experience_work?: { __typename?: 'experience_work_mutation_response', returning: Array<{ __typename?: 'experience_work', experience_work_id: string, jobposition?: string | null, name_company: string, date_employment?: string | null, description?: string | null, date_dismissal?: string | null, workLocation?: string | null }> } | null };
+
+export type UpdateResumeWorkExperienceMutationVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+  experience_work_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type UpdateResumeWorkExperienceMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, experience_work_id?: string | null }> } | null };
 
 
 export const AuthLoginDocument = gql`
@@ -5876,6 +5919,42 @@ export function useGetJobseekerResumesLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetJobseekerResumesQueryHookResult = ReturnType<typeof useGetJobseekerResumesQuery>;
 export type GetJobseekerResumesLazyQueryHookResult = ReturnType<typeof useGetJobseekerResumesLazyQuery>;
 export type GetJobseekerResumesQueryResult = Apollo.QueryResult<GetJobseekerResumesQuery, GetJobseekerResumesQueryVariables>;
+export const GetResumesDocument = gql`
+    query GetResumes {
+  resumes {
+    jobseeker_id
+    resume_id
+    resume_name
+  }
+}
+    `;
+
+/**
+ * __useGetResumesQuery__
+ *
+ * To run a query within a React component, call `useGetResumesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetResumesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetResumesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetResumesQuery(baseOptions?: Apollo.QueryHookOptions<GetResumesQuery, GetResumesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetResumesQuery, GetResumesQueryVariables>(GetResumesDocument, options);
+      }
+export function useGetResumesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetResumesQuery, GetResumesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetResumesQuery, GetResumesQueryVariables>(GetResumesDocument, options);
+        }
+export type GetResumesQueryHookResult = ReturnType<typeof useGetResumesQuery>;
+export type GetResumesLazyQueryHookResult = ReturnType<typeof useGetResumesLazyQuery>;
+export type GetResumesQueryResult = Apollo.QueryResult<GetResumesQuery, GetResumesQueryVariables>;
 export const InsertResumeDocument = gql`
     mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
   insert_resumes(
@@ -5885,20 +5964,6 @@ export const InsertResumeDocument = gql`
       jobseeker_id
       resume_name
       resume_id
-      resume_jobseeker {
-        jobseeker_educations {
-          average_score
-          education_form
-          end_date
-          faculity
-          group
-          speciality
-          start_date
-          jobseeker_education_educational_institution {
-            name_institution
-          }
-        }
-      }
     }
   }
 }
@@ -5963,6 +6028,47 @@ export function useDeleteResumeMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMutation>;
 export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
 export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
+export const UpdateResumeNameDocument = gql`
+    mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "") {
+  update_resumes(
+    where: {resume_id: {_eq: $_eq}}
+    _set: {resume_name: $resume_name}
+  ) {
+    returning {
+      resume_id
+      resume_name
+      jobseeker_id
+    }
+  }
+}
+    `;
+export type UpdateResumeNameMutationFn = Apollo.MutationFunction<UpdateResumeNameMutation, UpdateResumeNameMutationVariables>;
+
+/**
+ * __useUpdateResumeNameMutation__
+ *
+ * To run a mutation, you first call `useUpdateResumeNameMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateResumeNameMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateResumeNameMutation, { data, loading, error }] = useUpdateResumeNameMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *      resume_name: // value for 'resume_name'
+ *   },
+ * });
+ */
+export function useUpdateResumeNameMutation(baseOptions?: Apollo.MutationHookOptions<UpdateResumeNameMutation, UpdateResumeNameMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateResumeNameMutation, UpdateResumeNameMutationVariables>(UpdateResumeNameDocument, options);
+      }
+export type UpdateResumeNameMutationHookResult = ReturnType<typeof useUpdateResumeNameMutation>;
+export type UpdateResumeNameMutationResult = Apollo.MutationResult<UpdateResumeNameMutation>;
+export type UpdateResumeNameMutationOptions = Apollo.BaseMutationOptions<UpdateResumeNameMutation, UpdateResumeNameMutationVariables>;
 export const GetResumeDocument = gql`
     query GetResume($_eq: uuid = "") {
   resumes(where: {resume_id: {_eq: $_eq}}) {
@@ -5987,7 +6093,7 @@ export const GetResumeDocument = gql`
       description
       skills_id
     }
-    resume_jobseeker {
+    resumes_jobseeker {
       jobseeker_educations {
         average_score
         education_form
@@ -6046,7 +6152,7 @@ export type GetResumeLazyQueryHookResult = ReturnType<typeof useGetResumeLazyQue
 export type GetResumeQueryResult = Apollo.QueryResult<GetResumeQuery, GetResumeQueryVariables>;
 export const GetJobseekerContactsDocument = gql`
     query GetJobseekerContacts($_eq: uuid = "") {
-  jobseeker(where: {resumes: {resume_id: {_eq: $_eq}}}) {
+  jobseeker(where: {jobseeker_resumes: {resume_id: {_eq: $_eq}}}) {
     account_id
     dateBirth
     email
@@ -6131,3 +6237,91 @@ export function useUpdateContactsMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateContactsMutationHookResult = ReturnType<typeof useUpdateContactsMutation>;
 export type UpdateContactsMutationResult = Apollo.MutationResult<UpdateContactsMutation>;
 export type UpdateContactsMutationOptions = Apollo.BaseMutationOptions<UpdateContactsMutation, UpdateContactsMutationVariables>;
+export const InsertWorkExperienceDocument = gql`
+    mutation InsertWorkExperience($date_dismissal: String = "", $date_employment: String = "", $description: String = "", $jobposition: String = "", $name_company: String = "", $workLocation: String = "") {
+  insert_experience_work(
+    objects: {date_dismissal: $date_dismissal, date_employment: $date_employment, description: $description, jobposition: $jobposition, name_company: $name_company, workLocation: $workLocation}
+  ) {
+    returning {
+      experience_work_id
+      jobposition
+      name_company
+      date_employment
+      description
+      date_dismissal
+      workLocation
+    }
+  }
+}
+    `;
+export type InsertWorkExperienceMutationFn = Apollo.MutationFunction<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>;
+
+/**
+ * __useInsertWorkExperienceMutation__
+ *
+ * To run a mutation, you first call `useInsertWorkExperienceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertWorkExperienceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertWorkExperienceMutation, { data, loading, error }] = useInsertWorkExperienceMutation({
+ *   variables: {
+ *      date_dismissal: // value for 'date_dismissal'
+ *      date_employment: // value for 'date_employment'
+ *      description: // value for 'description'
+ *      jobposition: // value for 'jobposition'
+ *      name_company: // value for 'name_company'
+ *      workLocation: // value for 'workLocation'
+ *   },
+ * });
+ */
+export function useInsertWorkExperienceMutation(baseOptions?: Apollo.MutationHookOptions<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>(InsertWorkExperienceDocument, options);
+      }
+export type InsertWorkExperienceMutationHookResult = ReturnType<typeof useInsertWorkExperienceMutation>;
+export type InsertWorkExperienceMutationResult = Apollo.MutationResult<InsertWorkExperienceMutation>;
+export type InsertWorkExperienceMutationOptions = Apollo.BaseMutationOptions<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>;
+export const UpdateResumeWorkExperienceDocument = gql`
+    mutation UpdateResumeWorkExperience($_eq: uuid = "", $experience_work_id: uuid = "") {
+  update_resumes(
+    where: {resume_id: {_eq: $_eq}}
+    _set: {experience_work_id: $experience_work_id}
+  ) {
+    returning {
+      resume_id
+      experience_work_id
+    }
+  }
+}
+    `;
+export type UpdateResumeWorkExperienceMutationFn = Apollo.MutationFunction<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>;
+
+/**
+ * __useUpdateResumeWorkExperienceMutation__
+ *
+ * To run a mutation, you first call `useUpdateResumeWorkExperienceMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateResumeWorkExperienceMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateResumeWorkExperienceMutation, { data, loading, error }] = useUpdateResumeWorkExperienceMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *      experience_work_id: // value for 'experience_work_id'
+ *   },
+ * });
+ */
+export function useUpdateResumeWorkExperienceMutation(baseOptions?: Apollo.MutationHookOptions<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>(UpdateResumeWorkExperienceDocument, options);
+      }
+export type UpdateResumeWorkExperienceMutationHookResult = ReturnType<typeof useUpdateResumeWorkExperienceMutation>;
+export type UpdateResumeWorkExperienceMutationResult = Apollo.MutationResult<UpdateResumeWorkExperienceMutation>;
+export type UpdateResumeWorkExperienceMutationOptions = Apollo.BaseMutationOptions<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>;

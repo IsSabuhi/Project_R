@@ -23,8 +23,8 @@ const Account = () => {
             size="lg"
           />
           <Input
-            id="password"
-            name="password"
+            id="confrimPassword"
+            name="confrimPassword"
             type="password"
             placeholder="Пароль"
             borderRadius="15px"

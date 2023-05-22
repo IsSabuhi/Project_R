@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { GrAttachment } from 'react-icons/gr'
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './GeneralInfo.module.scss'
 import { useGetJobseekerByIdQuery } from '@/generated/projectR-hasura'
 import { useUpdateJobseekerProfileMutation } from '@/generated/projectR-hasura'

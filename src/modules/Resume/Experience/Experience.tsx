@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './Experience.module.scss'
 import {
-  Box,
   Button,
   Collapse,
   Divider,
@@ -14,9 +13,85 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import {
+  InsertWorkExperienceMutationVariables,
+  useInsertWorkExperienceMutation,
+  useUpdateResumeWorkExperienceMutation,
+} from '@/generated/projectR-hasura'
+import { useFormik } from 'formik'
+import { useSnackbar } from 'notistack'
 
-function Experience() {
+interface IExperience {
+  resume_id: string
+}
+
+const initialFormWorkExperience: InsertWorkExperienceMutationVariables = {
+  date_dismissal: '',
+  date_employment: '',
+  description: '',
+  jobposition: '',
+  name_company: '',
+  workLocation: '',
+}
+
+function Experience({ resume_id }: IExperience) {
   const { isOpen, onToggle } = useDisclosure()
+
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [values, setValues] = React.useState(initialFormWorkExperience)
+
+  const formik = useFormik({
+    initialValues: values,
+    enableReinitialize: true,
+    onSubmit: () => {
+      handleSave()
+    },
+  })
+
+  const [insertWorkExperienceMutation, { data, loading, error }] =
+    useInsertWorkExperienceMutation({
+      onCompleted() {
+        // formik.resetForm()
+        updateResumeWorkExperienceMutation()
+        return enqueueSnackbar('Данные сохранены', {
+          variant: 'success',
+        })
+      },
+      onError() {
+        // formik.resetForm()
+        enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+      },
+    })
+
+  const [updateResumeWorkExperienceMutation] =
+    useUpdateResumeWorkExperienceMutation({})
+
+  const handleSave = () => {
+    insertWorkExperienceMutation({
+      variables: {
+        date_dismissal: formik.values.date_dismissal,
+        date_employment: formik.values.date_employment,
+        description: formik.values.description,
+        jobposition: formik.values.jobposition,
+        name_company: formik.values.name_company,
+        workLocation: formik.values.workLocation,
+      },
+    })
+
+    const experience_work_id =
+      data?.insert_experience_work?.returning[0].experience_work_id
+
+    console.log(experience_work_id)
+
+    updateResumeWorkExperienceMutation({
+      variables: {
+        _eq: resume_id,
+        experience_work_id: experience_work_id,
+      },
+    })
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.container_left}>
@@ -35,34 +110,40 @@ function Experience() {
           </div>
         </Collapse>
       </div>
-      <div className={styles.container_right}>
+      <form className={styles.container_right} onSubmit={formik.handleSubmit}>
         <FormControl>
-          <FormLabel as="legend" htmlFor="jobseekerPost">
+          <FormLabel as="legend" htmlFor="jobposition">
             Кем вы работали?
           </FormLabel>
           <Input
-            id="jobseekerPost"
-            name="jobseekerPost"
+            id="jobposition"
+            name="jobposition"
             type="text"
             placeholder="Должность"
             borderRadius="15px"
             fontSize="sm"
             size="lg"
+            value={formik.values.jobposition as string}
+            onChange={formik.handleChange}
+            required
           />
         </FormControl>
 
         <FormControl>
-          <FormLabel as="legend" htmlFor="companyName">
+          <FormLabel as="legend" htmlFor="name_company">
             В какой компании вы работали?
           </FormLabel>
           <Input
-            id="companyName"
-            name="companyName"
+            id="name_company"
+            name="name_company"
             type="text"
             placeholder="Наименование компании"
             borderRadius="15px"
             fontSize="sm"
             size="lg"
+            value={formik.values.name_company as string}
+            onChange={formik.handleChange}
+            required
           />
         </FormControl>
 
@@ -73,51 +154,59 @@ function Experience() {
             </FormLabel>
             <div className={styles.container_right_dateInput}>
               <Input
-                id="dateStart"
-                name="dateStart"
+                id="date_employment"
+                name="date_employment"
                 type="date"
                 borderRadius="15px"
                 fontSize="sm"
                 size="lg"
+                value={formik.values.date_employment as string}
+                onChange={formik.handleChange}
               />
               <Input
-                id="dateEnd"
-                name="dateEnd"
+                id="date_dismissal"
+                name="date_dismissal"
                 type="date"
                 borderRadius="15px"
                 fontSize="sm"
                 size="lg"
+                value={formik.values.date_dismissal as string}
+                onChange={formik.handleChange}
               />
             </div>
           </FormControl>
 
           <FormControl>
-            <FormLabel as="legend" htmlFor="companyLocation">
+            <FormLabel as="legend" htmlFor="workLocation">
               Где находилась компания ?
             </FormLabel>
             <Input
-              id="companyLocation"
-              name="companyLocation"
+              id="workLocation"
+              name="workLocation"
               type="text"
               placeholder="Город"
               borderRadius="15px"
               fontSize="sm"
               size="lg"
+              value={formik.values.workLocation as string}
+              onChange={formik.handleChange}
             />
           </FormControl>
         </Flex>
 
         <FormControl>
-          <FormLabel as="legend" htmlFor="aboutWork">
+          <FormLabel as="legend" htmlFor="description">
             Чем вы занимались в компании ?
           </FormLabel>
           <Textarea
-            id="aboutWork"
-            name="aboutWork"
+            id="description"
+            name="description"
             placeholder="Напишите чем вы занимались на прошлой работе"
             borderRadius="15px"
             fontSize="sm"
             size="lg"
+            value={formik.values.description as string}
+            onChange={formik.handleChange}
           />
         </FormControl>
         <Button
@@ -139,7 +228,7 @@ function Experience() {
         >
           Сохранить
         </Button>
-      </div>
+      </form>
     </div>
   )
 }

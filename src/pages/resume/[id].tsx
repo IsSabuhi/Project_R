@@ -11,8 +11,8 @@ import {
 import { useRouter } from 'next/router'
 import React from 'react'
 import styles from '@/styles/Resume.module.scss'
-import Contacts from '@/modules/Resume/Contacts/Contacts'
 import Experience from '@/modules/Resume/Experience/Experience'
+import Project from '@/modules/Resume/Projects/Project'
 
 function Resume() {
   const router = useRouter()
@@ -42,10 +42,10 @@ function Resume() {
 
         <TabPanels>
           <TabPanel>
-            <Experience />
+            <Experience resume_id={resume_id as string} />
           </TabPanel>
           <TabPanel>
-            <p>Проекты!</p>
+            <Project />
           </TabPanel>
           <TabPanel>Образование</TabPanel>
           <TabPanel>Навыки</TabPanel>

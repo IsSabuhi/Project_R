@@ -225,6 +225,14 @@ query GetJobseekerResumes($_eq: uuid = "") {
   }
 }
 
+query GetResumes {
+  resumes {
+    jobseeker_id
+    resume_id
+    resume_name
+  }
+}
+
 mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
   insert_resumes(
     objects: { resume_name: $resume_name, jobseeker_id: $jobseeker_id }
@@ -233,20 +241,6 @@ mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
       jobseeker_id
       resume_name
       resume_id
-      resume_jobseeker {
-        jobseeker_educations {
-          average_score
-          education_form
-          end_date
-          faculity
-          group
-          speciality
-          start_date
-          jobseeker_education_educational_institution {
-            name_institution
-          }
-        }
-      }
     }
   }
 }
@@ -254,6 +248,19 @@ mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
 mutation DeleteResume($resume_id: uuid = "") {
   delete_resumes(where: { resume_id: { _eq: $resume_id } }) {
     affected_rows
+  }
+}
+
+mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "") {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { resume_name: $resume_name }
+  ) {
+    returning {
+      resume_id
+      resume_name
+      jobseeker_id
+    }
   }
 }
 
@@ -280,7 +287,7 @@ query GetResume($_eq: uuid = "") {
       description
       skills_id
     }
-    resume_jobseeker {
+    resumes_jobseeker {
       jobseeker_educations {
         average_score
         education_form
@@ -310,7 +317,7 @@ query GetResume($_eq: uuid = "") {
 }
 
 query GetJobseekerContacts($_eq: uuid = "") {
-  jobseeker(where: { resumes: { resume_id: { _eq: $_eq } } }) {
+  jobseeker(where: { jobseeker_resumes: { resume_id: { _eq: $_eq } } }) {
     account_id
     dateBirth
     email
@@ -338,6 +345,51 @@ mutation UpdateContacts(
       middleName
       lastName
       jobseeker_id
+    }
+  }
+}
+
+mutation InsertWorkExperience(
+  $date_dismissal: String = ""
+  $date_employment: String = ""
+  $description: String = ""
+  $jobposition: String = ""
+  $name_company: String = ""
+  $workLocation: String = ""
+) {
+  insert_experience_work(
+    objects: {
+      date_dismissal: $date_dismissal
+      date_employment: $date_employment
+      description: $description
+      jobposition: $jobposition
+      name_company: $name_company
+      workLocation: $workLocation
+    }
+  ) {
+    returning {
+      experience_work_id
+      jobposition
+      name_company
+      date_employment
+      description
+      date_dismissal
+      workLocation
+    }
+  }
+}
+
+mutation UpdateResumeWorkExperience(
+  $_eq: uuid = ""
+  $experience_work_id: uuid = ""
+) {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { experience_work_id: $experience_work_id }
+  ) {
+    returning {
+      resume_id
+      experience_work_id
     }
   }
 }

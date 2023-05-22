@@ -1,18 +1,10 @@
 import React from 'react'
 import styles from './ResumeCard.module.scss'
 import {
-  Button,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   Text,
   useDisclosure,
 } from '@chakra-ui/react'
@@ -23,19 +15,30 @@ import {
 } from 'react-icons/md'
 import Link from 'next/link'
 import { APP_URLS } from '@/configs/urls'
+import ResumeDeleteModal from './ResumeDeleteModal/ResumeDeleteModal'
+import ResumeUpdateModal from './ResumeUpdateModal/ResumeUpdateModal'
 
 interface IResumeCard {
-  name_resume: string
+  resume_name: string
   resume_id: string
   deleteResume: () => void
 }
 
-function ResumeCard({ name_resume, resume_id, deleteResume }: IResumeCard) {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+function ResumeCard({ resume_name, resume_id, deleteResume }: IResumeCard) {
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure()
+  const {
+    isOpen: isDeleteOpen,
+    onOpen: onDeleteOpen,
+    onClose: onDeleteClose,
+  } = useDisclosure()
 
   const handleDeleteResume = () => {
     deleteResume()
-    onClose()
+    onDeleteClose()
   }
 
   return (
@@ -44,38 +47,35 @@ function ResumeCard({ name_resume, resume_id, deleteResume }: IResumeCard) {
         <div className={styles.main}>Нажмите чтобы открыть резюме</div>
       </Link>
       <div className={styles.container_footer}>
-        <Text>{name_resume || 'Название резюме'}</Text>
+        <Text>{resume_name || 'Название резюме'}</Text>
         <Menu>
           <MenuButton>
             <MdOutlineMoreVert />
           </MenuButton>
           <MenuList>
-            <MenuItem icon={<MdOutlineDriveFileRenameOutline />}>
+            <MenuItem
+              icon={<MdOutlineDriveFileRenameOutline />}
+              onClick={onEditOpen}
+            >
               Изменить
             </MenuItem>
-            <MenuItem icon={<MdOutlineDeleteOutline />} onClick={onOpen}>
+            <MenuItem icon={<MdOutlineDeleteOutline />} onClick={onDeleteOpen}>
               Удалить
             </MenuItem>
           </MenuList>
         </Menu>
       </div>
-      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>
-            Вы уверены что хотите удалить данное резюме?
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>{name_resume}</ModalBody>
-
-          <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={handleDeleteResume}>
-              Удалить
-            </Button>
-            <Button onClick={onClose}>Отмена</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <ResumeDeleteModal
+        resume_name={resume_name}
+        handleDeleteResume={handleDeleteResume}
+        isOpen={isDeleteOpen}
+        onClose={onDeleteClose}
+      />
+      <ResumeUpdateModal
+        resume_id={resume_id}
+        isOpen={isEditOpen}
+        onClose={onEditClose}
+      />
     </div>
   )
 }
