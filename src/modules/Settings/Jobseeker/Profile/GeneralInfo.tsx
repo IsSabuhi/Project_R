@@ -109,7 +109,8 @@ const GeneralInfo = () => {
                   fontSize="sm"
                   size="lg"
                   placeholder="Фамилия"
-                  value={userData?.lastName!}
+                  value={formik.values.lastName as string}
+                  onChange={formik.handleChange}
                   disabled
                 />
               </FormControl>
@@ -125,7 +126,8 @@ const GeneralInfo = () => {
                   fontSize="sm"
                   size="lg"
                   placeholder="Имя"
-                  value={userData?.name}
+                  value={formik.values.name as string}
+                  onChange={formik.handleChange}
                   disabled
                 />
               </FormControl>
@@ -142,8 +144,9 @@ const GeneralInfo = () => {
                 fontSize="sm"
                 size="lg"
                 placeholder="Отчество"
+                value={formik.values.middleName as string}
+                onChange={formik.handleChange}
                 disabled
-                value={userData?.middleName}
               />
             </FormControl>
             <Flex gap={4}>
@@ -184,7 +187,7 @@ const GeneralInfo = () => {
             </Flex>
             <Flex gap={4}>
               <FormControl>
-                <FormLabel as="legend" htmlFor="gender">
+                <FormLabel as="legend" htmlFor="email">
                   Электронная почта
                 </FormLabel>
                 <Input
@@ -204,7 +207,7 @@ const GeneralInfo = () => {
                 />
               </FormControl>
               <FormControl>
-                <FormLabel as="legend" htmlFor="gender">
+                <FormLabel as="legend" htmlFor="phone">
                   Телефон
                 </FormLabel>
                 <Input

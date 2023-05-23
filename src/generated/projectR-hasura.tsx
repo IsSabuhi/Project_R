@@ -5292,6 +5292,13 @@ export type GetOrganizationByIdQueryVariables = Exact<{
 
 export type GetOrganizationByIdQuery = { __typename?: 'query_root', organization: Array<{ __typename?: 'organization', account_id: string, date_registration?: any | null, employer_id: string, id_organization: string, inn_organization: string, kpp_organization?: string | null, main_activity?: string | null, name_organization?: string | null, ogrn?: string | null, status?: string | null, verified: boolean, legal_address?: string | null, organization_account: { __typename?: 'account', avatar?: string | null, login: string, role?: string | null }, organization_employer: { __typename?: 'employer', email?: string | null, name_employer: string, phone?: string | null } }> };
 
+export type GetJobseekeEducationsQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetJobseekeEducationsQuery = { __typename?: 'query_root', jobseeker_education: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string, jobseeker_id?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', icon?: string | null, name_institution: string, educational_institution_id: string } | null }> };
+
 export type UpdateOrganizationMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
   legal_address?: InputMaybe<Scalars['String']>;
@@ -5752,6 +5759,54 @@ export function useGetOrganizationByIdLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetOrganizationByIdQueryHookResult = ReturnType<typeof useGetOrganizationByIdQuery>;
 export type GetOrganizationByIdLazyQueryHookResult = ReturnType<typeof useGetOrganizationByIdLazyQuery>;
 export type GetOrganizationByIdQueryResult = Apollo.QueryResult<GetOrganizationByIdQuery, GetOrganizationByIdQueryVariables>;
+export const GetJobseekeEducationsDocument = gql`
+    query GetJobseekeEducations($_eq: uuid = "") {
+  jobseeker_education(where: {jobseeker: {account_id: {_eq: $_eq}}}) {
+    average_score
+    education_form
+    end_date
+    faculity
+    group
+    jobseeker_education_educational_institution {
+      icon
+      name_institution
+      educational_institution_id
+    }
+    speciality
+    start_date
+    jobseeker_education_id
+    jobseeker_id
+  }
+}
+    `;
+
+/**
+ * __useGetJobseekeEducationsQuery__
+ *
+ * To run a query within a React component, call `useGetJobseekeEducationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobseekeEducationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJobseekeEducationsQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetJobseekeEducationsQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>(GetJobseekeEducationsDocument, options);
+      }
+export function useGetJobseekeEducationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>(GetJobseekeEducationsDocument, options);
+        }
+export type GetJobseekeEducationsQueryHookResult = ReturnType<typeof useGetJobseekeEducationsQuery>;
+export type GetJobseekeEducationsLazyQueryHookResult = ReturnType<typeof useGetJobseekeEducationsLazyQuery>;
+export type GetJobseekeEducationsQueryResult = Apollo.QueryResult<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>;
 export const UpdateOrganizationDocument = gql`
     mutation UpdateOrganization($_eq: uuid = "", $legal_address: String = "") {
   update_organization(

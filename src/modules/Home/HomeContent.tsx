@@ -87,7 +87,7 @@ function HomeContent() {
       ) : (
         <div className={styles.main_cards}>
           {resumesData?.map((resume, index) => {
-            return <ResumeCardView />
+            return <ResumeCardView key={index} />
           })}
         </div>
       )}

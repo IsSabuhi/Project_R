@@ -157,6 +157,25 @@ query GetOrganizationById($_eq: uuid = "") {
   }
 }
 
+query GetJobseekeEducations($_eq: uuid = "") {
+  jobseeker_education(where: { jobseeker: { account_id: { _eq: $_eq } } }) {
+    average_score
+    education_form
+    end_date
+    faculity
+    group
+    jobseeker_education_educational_institution {
+      icon
+      name_institution
+      educational_institution_id
+    }
+    speciality
+    start_date
+    jobseeker_education_id
+    jobseeker_id
+  }
+}
+
 mutation UpdateOrganization($_eq: uuid = "", $legal_address: String = "") {
   update_organization(
     where: { account_id: { _eq: $_eq } }
