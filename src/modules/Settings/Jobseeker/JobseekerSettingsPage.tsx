@@ -1,6 +1,5 @@
 import {
   Avatar,
-  AvatarBadge,
   Box,
   Icon,
   IconButton,
@@ -11,7 +10,6 @@ import {
   TabPanels,
   Tabs,
   Text,
-  background,
 } from '@chakra-ui/react'
 import React from 'react'
 import GeneralInfo from './Profile/GeneralInfo'
@@ -23,10 +21,6 @@ import { useGetJobseekerByIdQuery } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import { joinName } from '@/utils/joinName'
 
-interface ColorMap {
-  [key: string]: string
-}
-
 function JobseekerSettingsPage() {
   const { userId } = useAuthContext()
 
@@ -37,25 +31,6 @@ function JobseekerSettingsPage() {
   })
 
   const userData = data?.jobseeker[0]
-
-  const averageScore = parseFloat(
-    userData?.jobseeker_educations[0].average_score!
-  )
-
-  const colorMap: ColorMap = {
-    5: 'green',
-    4.5: 'blue',
-    3.5: 'yellow',
-  }
-
-  let textColor = 'gray' // Цвет по умолчанию
-
-  for (const score of Object.keys(colorMap)) {
-    if (averageScore <= parseFloat(score)) {
-      textColor = colorMap[score]
-      break
-    }
-  }
 
   return (
     <div className={styles.container_settings}>
@@ -86,25 +61,6 @@ function JobseekerSettingsPage() {
             </Text>
             <Text>{userData?.email}</Text>
           </div>
-          <Box
-            className={
-              styles.container_settings_leftContent_profile_averageScore
-            }
-          >
-            <IconButton
-              aria-label="averageScore"
-              sx={{ background: textColor, borderRadius: '20px' }}
-              _hover={{ background: textColor }}
-            >
-              <Text
-                className={
-                  styles.container_settings_leftContent_profile_averageScore_text
-                }
-              >
-                {userData?.jobseeker_educations[0].average_score}
-              </Text>
-            </IconButton>
-          </Box>
         </div>
         {/* Дополнительный блок */}
       </div>
@@ -135,26 +91,6 @@ function JobseekerSettingsPage() {
         </Tabs>
       </div>
     </div>
-
-    // <Tabs position="relative" variant="unstyled">
-    //   <TabList>
-    //     <Tab>Профиль</Tab>
-    //     <Tab>Аккаунт</Tab>
-    //     <Tab>Образование</Tab>
-    //   </TabList>
-    //   <TabIndicator mt="-1.5px" height="2px" bg="blue.500" borderRadius="1px" />
-    //   <TabPanels>
-    //     <TabPanel p={0}>
-    //       <GeneralInfo />
-    //     </TabPanel>
-    //     <TabPanel p={0}>
-    //       <Account />
-    //     </TabPanel>
-    //     <TabPanel p={0}>
-    //       <Education />
-    //     </TabPanel>
-    //   </TabPanels>
-    // </Tabs>
   )
 }
 

@@ -996,33 +996,9 @@ export type Experience_Work = {
   date_employment?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   experience_work_id: Scalars['uuid'];
-  /** An array relationship */
-  experience_work_resumes: Array<Resumes>;
-  /** An aggregate relationship */
-  experience_work_resumes_aggregate: Resumes_Aggregate;
   jobposition?: Maybe<Scalars['String']>;
   name_company: Scalars['String'];
   workLocation?: Maybe<Scalars['String']>;
-};
-
-
-/** columns and relationships of "experience_work" */
-export type Experience_WorkExperience_Work_ResumesArgs = {
-  distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Resumes_Order_By>>;
-  where?: InputMaybe<Resumes_Bool_Exp>;
-};
-
-
-/** columns and relationships of "experience_work" */
-export type Experience_WorkExperience_Work_Resumes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Resumes_Order_By>>;
-  where?: InputMaybe<Resumes_Bool_Exp>;
 };
 
 /** aggregated selection of "experience_work" */
@@ -1056,8 +1032,6 @@ export type Experience_Work_Bool_Exp = {
   date_employment?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   experience_work_id?: InputMaybe<Uuid_Comparison_Exp>;
-  experience_work_resumes?: InputMaybe<Resumes_Bool_Exp>;
-  experience_work_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Bool_Exp>;
   jobposition?: InputMaybe<String_Comparison_Exp>;
   name_company?: InputMaybe<String_Comparison_Exp>;
   workLocation?: InputMaybe<String_Comparison_Exp>;
@@ -1075,7 +1049,6 @@ export type Experience_Work_Insert_Input = {
   date_employment?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   experience_work_id?: InputMaybe<Scalars['uuid']>;
-  experience_work_resumes?: InputMaybe<Resumes_Arr_Rel_Insert_Input>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
   workLocation?: InputMaybe<Scalars['String']>;
@@ -1114,13 +1087,6 @@ export type Experience_Work_Mutation_Response = {
   returning: Array<Experience_Work>;
 };
 
-/** input type for inserting object relation for remote table "experience_work" */
-export type Experience_Work_Obj_Rel_Insert_Input = {
-  data: Experience_Work_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Experience_Work_On_Conflict>;
-};
-
 /** on_conflict condition type for table "experience_work" */
 export type Experience_Work_On_Conflict = {
   constraint: Experience_Work_Constraint;
@@ -1134,7 +1100,6 @@ export type Experience_Work_Order_By = {
   date_employment?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   experience_work_id?: InputMaybe<Order_By>;
-  experience_work_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Order_By>;
   jobposition?: InputMaybe<Order_By>;
   name_company?: InputMaybe<Order_By>;
   workLocation?: InputMaybe<Order_By>;
@@ -1363,6 +1328,7 @@ export type Jobseeker_Education = {
   __typename?: 'jobseeker_education';
   average_score?: Maybe<Scalars['String']>;
   course_work_id?: Maybe<Scalars['uuid']>;
+  degree_education?: Maybe<Scalars['String']>;
   education_form: Scalars['String'];
   educational_institution_id?: Maybe<Scalars['uuid']>;
   end_date?: Maybe<Scalars['String']>;
@@ -1434,6 +1400,7 @@ export type Jobseeker_Education_Bool_Exp = {
   _or?: InputMaybe<Array<Jobseeker_Education_Bool_Exp>>;
   average_score?: InputMaybe<String_Comparison_Exp>;
   course_work_id?: InputMaybe<Uuid_Comparison_Exp>;
+  degree_education?: InputMaybe<String_Comparison_Exp>;
   education_form?: InputMaybe<String_Comparison_Exp>;
   educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
   end_date?: InputMaybe<String_Comparison_Exp>;
@@ -1458,6 +1425,7 @@ export enum Jobseeker_Education_Constraint {
 export type Jobseeker_Education_Insert_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   course_work_id?: InputMaybe<Scalars['uuid']>;
+  degree_education?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
   end_date?: InputMaybe<Scalars['String']>;
@@ -1477,6 +1445,7 @@ export type Jobseeker_Education_Max_Fields = {
   __typename?: 'jobseeker_education_max_fields';
   average_score?: Maybe<Scalars['String']>;
   course_work_id?: Maybe<Scalars['uuid']>;
+  degree_education?: Maybe<Scalars['String']>;
   education_form?: Maybe<Scalars['String']>;
   educational_institution_id?: Maybe<Scalars['uuid']>;
   end_date?: Maybe<Scalars['String']>;
@@ -1492,6 +1461,7 @@ export type Jobseeker_Education_Max_Fields = {
 export type Jobseeker_Education_Max_Order_By = {
   average_score?: InputMaybe<Order_By>;
   course_work_id?: InputMaybe<Order_By>;
+  degree_education?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
   educational_institution_id?: InputMaybe<Order_By>;
   end_date?: InputMaybe<Order_By>;
@@ -1508,6 +1478,7 @@ export type Jobseeker_Education_Min_Fields = {
   __typename?: 'jobseeker_education_min_fields';
   average_score?: Maybe<Scalars['String']>;
   course_work_id?: Maybe<Scalars['uuid']>;
+  degree_education?: Maybe<Scalars['String']>;
   education_form?: Maybe<Scalars['String']>;
   educational_institution_id?: Maybe<Scalars['uuid']>;
   end_date?: Maybe<Scalars['String']>;
@@ -1523,6 +1494,7 @@ export type Jobseeker_Education_Min_Fields = {
 export type Jobseeker_Education_Min_Order_By = {
   average_score?: InputMaybe<Order_By>;
   course_work_id?: InputMaybe<Order_By>;
+  degree_education?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
   educational_institution_id?: InputMaybe<Order_By>;
   end_date?: InputMaybe<Order_By>;
@@ -1554,6 +1526,7 @@ export type Jobseeker_Education_On_Conflict = {
 export type Jobseeker_Education_Order_By = {
   average_score?: InputMaybe<Order_By>;
   course_work_id?: InputMaybe<Order_By>;
+  degree_education?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
   educational_institution_id?: InputMaybe<Order_By>;
   end_date?: InputMaybe<Order_By>;
@@ -1580,6 +1553,8 @@ export enum Jobseeker_Education_Select_Column {
   /** column name */
   CourseWorkId = 'course_work_id',
   /** column name */
+  DegreeEducation = 'degree_education',
+  /** column name */
   EducationForm = 'education_form',
   /** column name */
   EducationalInstitutionId = 'educational_institution_id',
@@ -1603,6 +1578,7 @@ export enum Jobseeker_Education_Select_Column {
 export type Jobseeker_Education_Set_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   course_work_id?: InputMaybe<Scalars['uuid']>;
+  degree_education?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
   end_date?: InputMaybe<Scalars['String']>;
@@ -1626,6 +1602,7 @@ export type Jobseeker_Education_Stream_Cursor_Input = {
 export type Jobseeker_Education_Stream_Cursor_Value_Input = {
   average_score?: InputMaybe<Scalars['String']>;
   course_work_id?: InputMaybe<Scalars['uuid']>;
+  degree_education?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
   end_date?: InputMaybe<Scalars['String']>;
@@ -1643,6 +1620,8 @@ export enum Jobseeker_Education_Update_Column {
   AverageScore = 'average_score',
   /** column name */
   CourseWorkId = 'course_work_id',
+  /** column name */
+  DegreeEducation = 'degree_education',
   /** column name */
   EducationForm = 'education_form',
   /** column name */
@@ -3970,8 +3949,6 @@ export type Resumes = {
   experience_work_id?: Maybe<Scalars['uuid']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
-  /** An object relationship */
-  resume_experience_work?: Maybe<Experience_Work>;
   resume_id: Scalars['uuid'];
   resume_name: Scalars['String'];
   /** An object relationship */
@@ -4038,7 +4015,6 @@ export type Resumes_Bool_Exp = {
   experience_work_id?: InputMaybe<Uuid_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   project_id?: InputMaybe<Uuid_Comparison_Exp>;
-  resume_experience_work?: InputMaybe<Experience_Work_Bool_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_name?: InputMaybe<String_Comparison_Exp>;
   resume_project?: InputMaybe<Projects_Bool_Exp>;
@@ -4058,7 +4034,6 @@ export type Resumes_Insert_Input = {
   experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
-  resume_experience_work?: InputMaybe<Experience_Work_Obj_Rel_Insert_Input>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
   resume_project?: InputMaybe<Projects_Obj_Rel_Insert_Input>;
@@ -4130,7 +4105,6 @@ export type Resumes_Order_By = {
   experience_work_id?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
-  resume_experience_work?: InputMaybe<Experience_Work_Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
   resume_project?: InputMaybe<Projects_Order_By>;
@@ -5292,12 +5266,12 @@ export type GetOrganizationByIdQueryVariables = Exact<{
 
 export type GetOrganizationByIdQuery = { __typename?: 'query_root', organization: Array<{ __typename?: 'organization', account_id: string, date_registration?: any | null, employer_id: string, id_organization: string, inn_organization: string, kpp_organization?: string | null, main_activity?: string | null, name_organization?: string | null, ogrn?: string | null, status?: string | null, verified: boolean, legal_address?: string | null, organization_account: { __typename?: 'account', avatar?: string | null, login: string, role?: string | null }, organization_employer: { __typename?: 'employer', email?: string | null, name_employer: string, phone?: string | null } }> };
 
-export type GetJobseekeEducationsQueryVariables = Exact<{
+export type GetJobseekerEducationsQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type GetJobseekeEducationsQuery = { __typename?: 'query_root', jobseeker_education: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string, jobseeker_id?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', icon?: string | null, name_institution: string, educational_institution_id: string } | null }> };
+export type GetJobseekerEducationsQuery = { __typename?: 'query_root', jobseeker_education: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_id: string, jobseeker_id?: string | null, degree_education?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', icon?: string | null, name_institution: string, educational_institution_id: string } | null }> };
 
 export type UpdateOrganizationMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -5370,7 +5344,7 @@ export type GetResumeQueryVariables = Exact<{
 }>;
 
 
-export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_experience_work?: { __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string } | null, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resumes_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
+export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resumes_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
 
 export type GetJobseekerContactsQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -5759,8 +5733,8 @@ export function useGetOrganizationByIdLazyQuery(baseOptions?: Apollo.LazyQueryHo
 export type GetOrganizationByIdQueryHookResult = ReturnType<typeof useGetOrganizationByIdQuery>;
 export type GetOrganizationByIdLazyQueryHookResult = ReturnType<typeof useGetOrganizationByIdLazyQuery>;
 export type GetOrganizationByIdQueryResult = Apollo.QueryResult<GetOrganizationByIdQuery, GetOrganizationByIdQueryVariables>;
-export const GetJobseekeEducationsDocument = gql`
-    query GetJobseekeEducations($_eq: uuid = "") {
+export const GetJobseekerEducationsDocument = gql`
+    query GetJobseekerEducations($_eq: uuid = "") {
   jobseeker_education(where: {jobseeker: {account_id: {_eq: $_eq}}}) {
     average_score
     education_form
@@ -5776,37 +5750,38 @@ export const GetJobseekeEducationsDocument = gql`
     start_date
     jobseeker_education_id
     jobseeker_id
+    degree_education
   }
 }
     `;
 
 /**
- * __useGetJobseekeEducationsQuery__
+ * __useGetJobseekerEducationsQuery__
  *
- * To run a query within a React component, call `useGetJobseekeEducationsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetJobseekeEducationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetJobseekerEducationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobseekerEducationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetJobseekeEducationsQuery({
+ * const { data, loading, error } = useGetJobseekerEducationsQuery({
  *   variables: {
  *      _eq: // value for '_eq'
  *   },
  * });
  */
-export function useGetJobseekeEducationsQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>) {
+export function useGetJobseekerEducationsQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekerEducationsQuery, GetJobseekerEducationsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>(GetJobseekeEducationsDocument, options);
+        return Apollo.useQuery<GetJobseekerEducationsQuery, GetJobseekerEducationsQueryVariables>(GetJobseekerEducationsDocument, options);
       }
-export function useGetJobseekeEducationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>) {
+export function useGetJobseekerEducationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekerEducationsQuery, GetJobseekerEducationsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>(GetJobseekeEducationsDocument, options);
+          return Apollo.useLazyQuery<GetJobseekerEducationsQuery, GetJobseekerEducationsQueryVariables>(GetJobseekerEducationsDocument, options);
         }
-export type GetJobseekeEducationsQueryHookResult = ReturnType<typeof useGetJobseekeEducationsQuery>;
-export type GetJobseekeEducationsLazyQueryHookResult = ReturnType<typeof useGetJobseekeEducationsLazyQuery>;
-export type GetJobseekeEducationsQueryResult = Apollo.QueryResult<GetJobseekeEducationsQuery, GetJobseekeEducationsQueryVariables>;
+export type GetJobseekerEducationsQueryHookResult = ReturnType<typeof useGetJobseekerEducationsQuery>;
+export type GetJobseekerEducationsLazyQueryHookResult = ReturnType<typeof useGetJobseekerEducationsLazyQuery>;
+export type GetJobseekerEducationsQueryResult = Apollo.QueryResult<GetJobseekerEducationsQuery, GetJobseekerEducationsQueryVariables>;
 export const UpdateOrganizationDocument = gql`
     mutation UpdateOrganization($_eq: uuid = "", $legal_address: String = "") {
   update_organization(
@@ -6130,14 +6105,6 @@ export const GetResumeDocument = gql`
     jobseeker_id
     resume_id
     resume_name
-    resume_experience_work {
-      date_dismissal
-      date_employment
-      description
-      experience_work_id
-      jobposition
-      name_company
-    }
     resume_project {
       description
       name_organization

@@ -157,7 +157,7 @@ query GetOrganizationById($_eq: uuid = "") {
   }
 }
 
-query GetJobseekeEducations($_eq: uuid = "") {
+query GetJobseekerEducations($_eq: uuid = "") {
   jobseeker_education(where: { jobseeker: { account_id: { _eq: $_eq } } }) {
     average_score
     education_form
@@ -173,6 +173,7 @@ query GetJobseekeEducations($_eq: uuid = "") {
     start_date
     jobseeker_education_id
     jobseeker_id
+    degree_education
   }
 }
 
@@ -288,14 +289,6 @@ query GetResume($_eq: uuid = "") {
     jobseeker_id
     resume_id
     resume_name
-    resume_experience_work {
-      date_dismissal
-      date_employment
-      description
-      experience_work_id
-      jobposition
-      name_company
-    }
     resume_project {
       description
       name_organization
