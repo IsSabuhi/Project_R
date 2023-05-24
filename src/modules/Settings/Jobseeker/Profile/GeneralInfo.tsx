@@ -92,7 +92,6 @@ const GeneralInfo = () => {
             id="lastName"
             name="lastName"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="Фамилия"
@@ -109,7 +108,6 @@ const GeneralInfo = () => {
             id="name"
             name="name"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="Имя"
@@ -127,7 +125,6 @@ const GeneralInfo = () => {
           id="middleName"
           name="middleName"
           type="text"
-          borderRadius="15px"
           fontSize="sm"
           size="lg"
           placeholder="Отчество"
@@ -146,7 +143,6 @@ const GeneralInfo = () => {
             name="dateBirth"
             placeholder="Дата рождения"
             type="date"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.dateBirth!}
@@ -161,7 +157,6 @@ const GeneralInfo = () => {
             placeholder="Пол"
             id="gender"
             name="gender"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.gender!}
@@ -182,7 +177,6 @@ const GeneralInfo = () => {
             name="email"
             type="email"
             placeholder="Email"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.email || ''}
@@ -200,7 +194,6 @@ const GeneralInfo = () => {
             name="phone"
             type="tel"
             placeholder="Телефон"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.phone || ''}

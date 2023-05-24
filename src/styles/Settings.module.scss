@@ -25,6 +25,7 @@
         width: 100%;
 
         .container_settings_leftContent_profile {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,6 +42,19 @@
                 align-items: center;
                 text-align: center;
                 gap: 5px;
+            }
+
+            .container_settings_leftContent_profile_averageScore{
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 20px;
+
+                .container_settings_leftContent_profile_averageScore_text {
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #fff
+                }
             }
         }
     }

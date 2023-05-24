@@ -79,7 +79,6 @@ const SignIn = () => {
             id="login"
             name="login"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="Логин"
@@ -92,7 +91,6 @@ const SignIn = () => {
               id="password"
               name="password"
               type={showPassword ? 'text' : 'password'}
-              borderRadius="15px"
               fontSize="sm"
               size="lg"
               placeholder="Пароль"

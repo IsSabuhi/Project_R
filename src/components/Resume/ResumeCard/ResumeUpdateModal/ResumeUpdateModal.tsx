@@ -80,7 +80,6 @@ function ResumeUpdateModal({
               name="resume_name"
               type="text"
               placeholder="Название резюме"
-              borderRadius="15px"
               fontSize="sm"
               size="lg"
               value={formik.values.resume_name as string}
