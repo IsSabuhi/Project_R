@@ -38,7 +38,8 @@ const initialFormWorkExperience: InsertExperienceWorkMutationVariables = {
 }
 
 function Experience({ resume_id }: IExperience) {
-  const { isOpen, onToggle } = useDisclosure()
+  // const { isOpen, onToggle } = useDisclosure()
+  const [isOpen, setIsOpen] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -82,12 +83,22 @@ function Experience({ resume_id }: IExperience) {
     },
     onCompleted(data) {
       setexperience_workData(data.experience_work)
+      if (data.experience_work?.length === 0) {
+        setIsOpen(false)
+      } else {
+        setIsOpen(true)
+      }
     },
   })
 
   const [deleteExperienceWorkMutation] = useDeleteExperienceWorkMutation({
     onCompleted() {
       getexperienceWorkList()
+      if (experience_workData?.length === 0) {
+        setIsOpen(false)
+      } else {
+        setIsOpen(true)
+      }
       return enqueueSnackbar('Запрос выполнен успешно', {
         variant: 'success',
       })
@@ -104,7 +115,10 @@ function Experience({ resume_id }: IExperience) {
   return (
     <div className={styles.container}>
       <div className={styles.container_left}>
-        <div className={styles.container_left_title} onClick={onToggle}>
+        <div
+          className={styles.container_left_title}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <Text className={styles.container_left_titleText}>Ваш опыт</Text>
           {isOpen ? (
             <ArrowDownIcon boxSize={5} />
