@@ -1011,17 +1011,6 @@ export type Experience_Work_Aggregate = {
   nodes: Array<Experience_Work>;
 };
 
-export type Experience_Work_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Experience_Work_Aggregate_Bool_Exp_Count>;
-};
-
-export type Experience_Work_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Experience_Work_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
-  filter?: InputMaybe<Experience_Work_Bool_Exp>;
-  predicate: Int_Comparison_Exp;
-};
-
 /** aggregate fields of "experience_work" */
 export type Experience_Work_Aggregate_Fields = {
   __typename?: 'experience_work_aggregate_fields';
@@ -1035,20 +1024,6 @@ export type Experience_Work_Aggregate_Fields = {
 export type Experience_Work_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Experience_Work_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** order by aggregate values of table "experience_work" */
-export type Experience_Work_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Experience_Work_Max_Order_By>;
-  min?: InputMaybe<Experience_Work_Min_Order_By>;
-};
-
-/** input type for inserting array relation for remote table "experience_work" */
-export type Experience_Work_Arr_Rel_Insert_Input = {
-  data: Array<Experience_Work_Insert_Input>;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Experience_Work_On_Conflict>;
 };
 
 /** Boolean expression to filter rows from the table "experience_work". All fields are combined with a logical 'AND'. */
@@ -1099,18 +1074,6 @@ export type Experience_Work_Max_Fields = {
   workLocation?: Maybe<Scalars['String']>;
 };
 
-/** order by max() on columns of table "experience_work" */
-export type Experience_Work_Max_Order_By = {
-  date_dismissal?: InputMaybe<Order_By>;
-  date_employment?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  experience_work_id?: InputMaybe<Order_By>;
-  jobposition?: InputMaybe<Order_By>;
-  name_company?: InputMaybe<Order_By>;
-  resume_id?: InputMaybe<Order_By>;
-  workLocation?: InputMaybe<Order_By>;
-};
-
 /** aggregate min on columns */
 export type Experience_Work_Min_Fields = {
   __typename?: 'experience_work_min_fields';
@@ -1122,18 +1085,6 @@ export type Experience_Work_Min_Fields = {
   name_company?: Maybe<Scalars['String']>;
   resume_id?: Maybe<Scalars['uuid']>;
   workLocation?: Maybe<Scalars['String']>;
-};
-
-/** order by min() on columns of table "experience_work" */
-export type Experience_Work_Min_Order_By = {
-  date_dismissal?: InputMaybe<Order_By>;
-  date_employment?: InputMaybe<Order_By>;
-  description?: InputMaybe<Order_By>;
-  experience_work_id?: InputMaybe<Order_By>;
-  jobposition?: InputMaybe<Order_By>;
-  name_company?: InputMaybe<Order_By>;
-  resume_id?: InputMaybe<Order_By>;
-  workLocation?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "experience_work" */
@@ -4020,33 +3971,9 @@ export type Resumes = {
   resume_project?: Maybe<Projects>;
   /** An object relationship */
   resume_skill?: Maybe<Skills>;
-  /** An array relationship */
-  resumes_experience_works: Array<Experience_Work>;
-  /** An aggregate relationship */
-  resumes_experience_works_aggregate: Experience_Work_Aggregate;
   /** An object relationship */
   resumes_jobseeker?: Maybe<Jobseeker>;
   skills_id?: Maybe<Scalars['uuid']>;
-};
-
-
-/** columns and relationships of "resumes" */
-export type ResumesResumes_Experience_WorksArgs = {
-  distinct_on?: InputMaybe<Array<Experience_Work_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Experience_Work_Order_By>>;
-  where?: InputMaybe<Experience_Work_Bool_Exp>;
-};
-
-
-/** columns and relationships of "resumes" */
-export type ResumesResumes_Experience_Works_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Experience_Work_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Experience_Work_Order_By>>;
-  where?: InputMaybe<Experience_Work_Bool_Exp>;
 };
 
 /** aggregated selection of "resumes" */
@@ -4107,8 +4034,6 @@ export type Resumes_Bool_Exp = {
   resume_name?: InputMaybe<String_Comparison_Exp>;
   resume_project?: InputMaybe<Projects_Bool_Exp>;
   resume_skill?: InputMaybe<Skills_Bool_Exp>;
-  resumes_experience_works?: InputMaybe<Experience_Work_Bool_Exp>;
-  resumes_experience_works_aggregate?: InputMaybe<Experience_Work_Aggregate_Bool_Exp>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   skills_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
@@ -4127,7 +4052,6 @@ export type Resumes_Insert_Input = {
   resume_name?: InputMaybe<Scalars['String']>;
   resume_project?: InputMaybe<Projects_Obj_Rel_Insert_Input>;
   resume_skill?: InputMaybe<Skills_Obj_Rel_Insert_Input>;
-  resumes_experience_works?: InputMaybe<Experience_Work_Arr_Rel_Insert_Input>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   skills_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -4201,7 +4125,6 @@ export type Resumes_Order_By = {
   resume_name?: InputMaybe<Order_By>;
   resume_project?: InputMaybe<Projects_Order_By>;
   resume_skill?: InputMaybe<Skills_Order_By>;
-  resumes_experience_works_aggregate?: InputMaybe<Experience_Work_Aggregate_Order_By>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Order_By>;
   skills_id?: InputMaybe<Order_By>;
 };

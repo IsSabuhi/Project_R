@@ -10,7 +10,6 @@ import {
   Input,
   Text,
   Textarea,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import { useFormik } from 'formik'
@@ -38,7 +37,6 @@ const initialFormWorkExperience: InsertExperienceWorkMutationVariables = {
 }
 
 function Experience({ resume_id }: IExperience) {
-  // const { isOpen, onToggle } = useDisclosure()
   const [isOpen, setIsOpen] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
