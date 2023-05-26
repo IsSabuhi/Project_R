@@ -45,15 +45,21 @@ function Experience({ resume_id }: IExperience) {
     initialValues: values,
     enableReinitialize: true,
     onSubmit: () => {
-      handleSave()
+      insertWorkExperienceMutation()
     },
   })
 
   const [insertWorkExperienceMutation, { data, loading, error }] =
     useInsertWorkExperienceMutation({
-      onCompleted() {
-        // formik.resetForm()
-        updateResumeWorkExperienceMutation()
+      onCompleted(d) {
+        updateResumeWorkExperienceMutation({
+          variables: {
+            _eq: resume_id,
+            experience_work_id:
+              d.insert_experience_work?.returning[0].experience_work_id,
+          },
+        })
+        formik.resetForm()
         return enqueueSnackbar('Данные сохранены', {
           variant: 'success',
         })
@@ -66,31 +72,6 @@ function Experience({ resume_id }: IExperience) {
 
   const [updateResumeWorkExperienceMutation] =
     useUpdateResumeWorkExperienceMutation({})
-
-  const handleSave = () => {
-    insertWorkExperienceMutation({
-      variables: {
-        date_dismissal: formik.values.date_dismissal,
-        date_employment: formik.values.date_employment,
-        description: formik.values.description,
-        jobposition: formik.values.jobposition,
-        name_company: formik.values.name_company,
-        workLocation: formik.values.workLocation,
-      },
-    })
-
-    const experience_work_id =
-      data?.insert_experience_work?.returning[0].experience_work_id
-
-    console.log(experience_work_id)
-
-    updateResumeWorkExperienceMutation({
-      variables: {
-        _eq: resume_id,
-        experience_work_id: experience_work_id,
-      },
-    })
-  }
 
   return (
     <div className={styles.container}>

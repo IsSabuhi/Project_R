@@ -11,6 +11,7 @@ import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Home.module.scss'
 import ResumeCardView from '@/components/Resume/ResumeCardView/ResumeCardView'
+import { joinName } from '@/utils/joinName'
 
 function HomeContent() {
   const { userProfileId, role } = useAuthContext()
@@ -87,7 +88,16 @@ function HomeContent() {
       ) : (
         <div className={styles.main_cards}>
           {resumesData?.map((resume, index) => {
-            return <ResumeCardView key={index} />
+            return (
+              <ResumeCardView
+                key={index}
+                userName={joinName(
+                  resume.resumes_jobseeker?.lastName!,
+                  resume.resumes_jobseeker?.name!,
+                  resume.resumes_jobseeker?.middleName!
+                )}
+              />
+            )
           })}
         </div>
       )}

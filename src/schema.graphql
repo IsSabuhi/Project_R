@@ -249,6 +249,13 @@ query GetResumes {
     jobseeker_id
     resume_id
     resume_name
+    resumes_jobseeker {
+      jobseeker_id
+      middleName
+      lastName
+      name
+      phone
+    }
   }
 }
 

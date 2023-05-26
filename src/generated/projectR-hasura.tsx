@@ -5340,7 +5340,7 @@ export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Arr
 export type GetResumesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string }> };
+export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resumes_jobseeker?: { __typename?: 'jobseeker', jobseeker_id: string, middleName: string, lastName: string, name: string, phone?: string | null } | null }> };
 
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -5980,6 +5980,13 @@ export const GetResumesDocument = gql`
     jobseeker_id
     resume_id
     resume_name
+    resumes_jobseeker {
+      jobseeker_id
+      middleName
+      lastName
+      name
+      phone
+    }
   }
 }
     `;
