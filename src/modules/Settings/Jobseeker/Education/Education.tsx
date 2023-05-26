@@ -166,7 +166,10 @@ function Education() {
                     />
                   </FormControl>
                 </Flex>
-                <FormControl as="fieldset">
+                <Text className={styles.container_averageScoreText}>
+                  Средняя оценка: <span>{item?.average_score as string}</span>
+                </Text>
+                {/* <FormControl as="fieldset">
                   <FormLabel as="legend" htmlFor="average_score">
                     Средняя оценка
                   </FormLabel>
@@ -180,7 +183,7 @@ function Education() {
                     defaultValue={item?.average_score as string}
                     disabled
                   />
-                </FormControl>
+                </FormControl> */}
               </AccordionPanel>
             </AccordionItem>
           )

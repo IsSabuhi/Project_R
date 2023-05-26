@@ -1,47 +1,49 @@
+import React, { useState } from 'react'
+import styles from './Сourses.module.scss'
 import {
   Button,
   Collapse,
   Divider,
-  Flex,
   FormControl,
   FormLabel,
   Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Text,
-  Textarea,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import styles from './Project.module.scss'
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import {
-  InsertProjectMutationVariables,
-  Projects,
-  useDeleteProjectMutation,
-  useGetProjectsLazyQuery,
-  useInsertProjectMutation,
-} from '@/generated/projectR-hasura'
-import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
-import ProjectCards from './ProjectCards/ProjectCards'
+import { useFormik } from 'formik'
+import {
+  Course,
+  InsertCourseMutationVariables,
+  useDeleteCourseMutation,
+  useGetCourseLazyQuery,
+  useInsertCourseMutation,
+} from '@/generated/projectR-hasura'
+import CourseCards from './CourseCards/CourseCards'
 
-interface IProject {
+interface IСourse {
   resume_id: string
 }
 
-const initialFormProject: InsertProjectMutationVariables = {
+const initialFormСourse: InsertCourseMutationVariables = {
+  course_name: '',
+  course_location: '',
+  date_receipt: '',
   description: '',
-  name_organization: '',
-  project_name: '',
 }
 
-function Project({ resume_id }: IProject) {
+function Сourse({ resume_id }: IСourse) {
   const [isOpen, setIsOpen] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const [insertProjectMutation] = useInsertProjectMutation({
+  const [insertCourseWorkMutation] = useInsertCourseMutation({
     onCompleted() {
       formik.resetForm()
-      getProjectsList()
+      getCourseList()
       return enqueueSnackbar('Данные сохранены', {
         variant: 'success',
       })
@@ -52,29 +54,30 @@ function Project({ resume_id }: IProject) {
   })
 
   const formik = useFormik({
-    initialValues: initialFormProject,
+    initialValues: initialFormСourse,
     enableReinitialize: true,
     onSubmit: () => {
-      insertProjectMutation({
+      insertCourseWorkMutation({
         variables: {
+          course_location: formik.values.course_location,
+          course_name: formik.values.course_name,
+          date_receipt: formik.values.date_receipt,
           description: formik.values.description,
-          name_organization: formik.values.name_organization,
-          project_name: formik.values.project_name,
           resume_id: resume_id,
         },
       })
     },
   })
 
-  const [projectData, setProjectData] = useState<Projects[]>()
+  const [courseWorkData, setCourseWorkData] = useState<Course[]>()
 
-  const [getProjectsList] = useGetProjectsLazyQuery({
+  const [getCourseList] = useGetCourseLazyQuery({
     variables: {
       _eq: resume_id,
     },
     onCompleted(data) {
-      setProjectData(data.projects)
-      if (data.projects?.length === 0) {
+      setCourseWorkData(data.course)
+      if (data.course?.length === 0) {
         setIsOpen(false)
       } else {
         setIsOpen(true)
@@ -82,10 +85,10 @@ function Project({ resume_id }: IProject) {
     },
   })
 
-  const [deleteProjectMutation] = useDeleteProjectMutation({
+  const [deleteCourseMutation] = useDeleteCourseMutation({
     onCompleted() {
-      getProjectsList()
-      if (projectData?.length === 0) {
+      getCourseList()
+      if (courseWorkData?.length === 0) {
         setIsOpen(false)
       } else {
         setIsOpen(true)
@@ -100,8 +103,10 @@ function Project({ resume_id }: IProject) {
   })
 
   React.useEffect(() => {
-    getProjectsList()
+    getCourseList()
   }, [])
+
+  console.log(courseWorkData)
 
   return (
     <div className={styles.container}>
@@ -110,7 +115,7 @@ function Project({ resume_id }: IProject) {
           className={styles.container_left_title}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <Text className={styles.container_left_titleText}>Ваши проекты</Text>
+          <Text className={styles.container_left_titleText}>Ваши курсы</Text>
           {isOpen ? (
             <ArrowDownIcon boxSize={5} />
           ) : (
@@ -120,20 +125,21 @@ function Project({ resume_id }: IProject) {
         <Collapse in={isOpen} animateOpacity>
           <div className={styles.container_left_collapse}>
             <Divider mt={5} />
-            {projectData?.length === 0 ? (
-              <Text>Добавьте свой первый проект</Text>
+            {courseWorkData?.length === 0 ? (
+              <Text>Добавьте свой первый образовательный курс</Text>
             ) : (
               <div className={styles.container_left_collapse_cards}>
-                {projectData?.map((item, index) => {
+                {courseWorkData?.map((item, index) => {
                   return (
-                    <ProjectCards
+                    <CourseCards
                       key={index}
-                      project_name={item.project_name}
-                      name_organization={item.name_organization}
+                      course_name={item.course_name as string}
+                      course_location={item.course_location as string}
+                      date_receipt={item.date_receipt as string}
                       handleDelete={() =>
-                        deleteProjectMutation({
+                        deleteCourseMutation({
                           variables: {
-                            _eq: item.project_id,
+                            _eq: item.course_id,
                           },
                         })
                       }
@@ -147,53 +153,72 @@ function Project({ resume_id }: IProject) {
       </div>
       <form className={styles.container_right} onSubmit={formik.handleSubmit}>
         <FormControl as="fieldset">
-          <FormLabel as="legend" htmlFor="project_name">
-            Название вашего проекта
+          <FormLabel as="legend" htmlFor="course_name">
+            Название курса
           </FormLabel>
           <Input
-            id="project_name"
-            name="project_name"
+            id="course_name"
+            name="course_name"
             type="text"
             fontSize="sm"
             size="lg"
-            placeholder="Тема проекта"
-            value={formik.values.project_name as string}
+            placeholder="Название курса"
+            value={formik.values.course_name as string}
             onChange={formik.handleChange}
             required
           />
         </FormControl>
 
         <FormControl as="fieldset">
-          <FormLabel as="legend" htmlFor="name_organization">
-            В какой организации вы делали свой проект?
+          <FormLabel as="legend" htmlFor="course_location">
+            Проводившая организация
           </FormLabel>
           <Input
-            id="name_organization"
-            name="name_organization"
+            id="course_location"
+            name="course_location"
             type="text"
             fontSize="sm"
             size="lg"
-            placeholder="Наименование организации"
-            value={formik.values.name_organization as string}
+            placeholder="Наименование места где вы проходили курсы"
+            value={formik.values.course_location as string}
             onChange={formik.handleChange}
             required
           />
         </FormControl>
-        <FormControl as="fieldset">
-          <FormLabel as="legend" htmlFor="description">
-            Кратко опишите что вы сделали
-          </FormLabel>
 
-          <Textarea
-            id="description"
-            name="description"
-            placeholder="Что вы сделали?"
+        <FormControl as="fieldset">
+          <FormLabel as="legend" htmlFor="date_receipt">
+            Когда вы прошли курсы?
+          </FormLabel>
+          <Input
+            id="date_receipt"
+            name="date_receipt"
+            type="date"
             fontSize="sm"
             size="lg"
-            value={formik.values.description as string}
+            value={formik.values.date_receipt as string}
             onChange={formik.handleChange}
           />
+          {/* <NumberInput
+            id="date_receipt"
+            name="date_receipt"
+            min={2000}
+            max={2023}
+            allowMouseWheel={false}
+            isInvalid={year.length !== 4} // Помечаем как недопустимое значение, если длина не равна 4
+            placeholder="2020"
+            value={formik.values.date_receipt as string}
+            onChange={formik.handleChange}
+          >
+            <NumberInputField
+              fontSize="sm"
+              placeholder="2020"
+              pattern="\d{4}" // Паттерн для ввода только цифр
+            />
+            <NumberInputStepper />
+          </NumberInput> */}
         </FormControl>
+
         <Button
           type="submit"
           colorScheme="blue"
@@ -218,4 +243,4 @@ function Project({ resume_id }: IProject) {
   )
 }
 
-export default Project
+export default Сourse

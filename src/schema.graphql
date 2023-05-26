@@ -317,11 +317,6 @@ query GetResume($_eq: uuid = "") {
         jobseeker_education_educational_institution {
           name_institution
         }
-        jobseeker_education_course_work {
-          course_work_name
-          course_work_task
-          description
-        }
       }
       lastName
       name
@@ -455,6 +450,49 @@ mutation InsertProject(
 
 mutation DeleteProject($_eq: uuid = "") {
   delete_projects(where: { project_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+query GetCourse($_eq: uuid = "") {
+  course(where: { resume_id: { _eq: $_eq } }) {
+    course_id
+    course_location
+    course_name
+    date_receipt
+    description
+    resume_id
+  }
+}
+
+mutation InsertCourse(
+  $course_location: String = ""
+  $course_name: String = ""
+  $date_receipt: String = ""
+  $description: String = ""
+  $resume_id: uuid = ""
+) {
+  insert_course(
+    objects: {
+      course_location: $course_location
+      course_name: $course_name
+      date_receipt: $date_receipt
+      description: $description
+      resume_id: $resume_id
+    }
+  ) {
+    returning {
+      course_location
+      course_id
+      course_name
+      date_receipt
+      description
+    }
+  }
+}
+
+mutation DeleteCourse($_eq: uuid = "") {
+  delete_course(where: { course_id: { _eq: $_eq } }) {
     affected_rows
   }
 }

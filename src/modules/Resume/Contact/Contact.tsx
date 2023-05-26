@@ -14,12 +14,12 @@ import { useAuthContext } from '@/hooks/use-auth-context'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 
-const initialFormContacts: UpdateContactsMutationVariables = {
+const initialFormContact: UpdateContactsMutationVariables = {
   email: '',
   phone: '',
 }
 
-function Contacts() {
+function Contact() {
   const router = useRouter()
 
   const { enqueueSnackbar } = useSnackbar()
@@ -55,7 +55,7 @@ function Contacts() {
   })
 
   const formik = useFormik({
-    initialValues: initialFormContacts,
+    initialValues: initialFormContact,
     enableReinitialize: true,
     onSubmit: () => {
       updateContactsMutation({
@@ -170,4 +170,4 @@ function Contacts() {
   )
 }
 
-export default Contacts
+export default Contact

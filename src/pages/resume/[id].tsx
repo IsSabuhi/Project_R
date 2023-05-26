@@ -13,6 +13,7 @@ import React from 'react'
 import styles from '@/styles/Resume.module.scss'
 import Experience from '@/modules/Resume/Experience/Experience'
 import Project from '@/modules/Resume/Projects/Project'
+import Сourse from '@/modules/Resume/Сourse/Сourse'
 
 function Resume() {
   const router = useRouter()
@@ -36,7 +37,7 @@ function Resume() {
           </Tooltip>
           <Tab>Опыт работы</Tab>
           <Tab>Проекты</Tab>
-          <Tab>Образование</Tab>
+          <Tab>Курсы</Tab>
           <Tab>Навыки</Tab>
         </TabList>
 
@@ -47,7 +48,9 @@ function Resume() {
           <TabPanel>
             <Project resume_id={resume_id as string} />
           </TabPanel>
-          <TabPanel>Образование</TabPanel>
+          <TabPanel>
+            <Сourse resume_id={resume_id as string} />
+          </TabPanel>
           <TabPanel>Навыки</TabPanel>
         </TabPanels>
       </Tabs>
