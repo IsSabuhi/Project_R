@@ -45,7 +45,6 @@ function Project() {
               id="project_name"
               name="project_name"
               type="text"
-              borderRadius="15px"
               fontSize="sm"
               size="lg"
               placeholder="Тема проекта"
@@ -60,7 +59,6 @@ function Project() {
               id="project_company"
               name="project_company"
               type="text"
-              borderRadius="15px"
               fontSize="sm"
               size="lg"
               placeholder="Наименование организации"
@@ -75,7 +73,6 @@ function Project() {
           <Textarea
             id="project_about"
             name="project_about"
-            borderRadius="15px"
             placeholder="Что вы сделали?"
             fontSize="sm"
             size="lg"

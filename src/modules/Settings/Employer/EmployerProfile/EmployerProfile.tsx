@@ -123,7 +123,6 @@ const EmployerProfile = () => {
                 id="name_organization"
                 name="name_organization"
                 type="text"
-                borderRadius="15px"
                 fontSize="sm"
                 size="lg"
                 placeholder="Организация"
@@ -146,7 +145,6 @@ const EmployerProfile = () => {
                 id="name_employer"
                 name="name_employer"
                 type="text"
-                borderRadius="15px"
                 fontSize="sm"
                 size="lg"
                 placeholder="Руководитель"
@@ -172,7 +170,6 @@ const EmployerProfile = () => {
                   name="inn"
                   placeholder="ИНН"
                   type="text"
-                  borderRadius="15px"
                   fontSize="sm"
                   size="lg"
                   value={employerData?.inn_organization || 'ИНН организации'}
@@ -193,7 +190,6 @@ const EmployerProfile = () => {
                   name="ogrn"
                   placeholder="ОГРН"
                   type="text"
-                  borderRadius="15px"
                   fontSize="sm"
                   size="lg"
                   value={employerData?.kpp_organization || 'ОГРН организации'}
@@ -216,7 +212,6 @@ const EmployerProfile = () => {
                   name="email"
                   type="email"
                   placeholder="Email"
-                  borderRadius="15px"
                   fontSize="sm"
                   size="lg"
                   value={formik.values.email || ''}
@@ -236,7 +231,6 @@ const EmployerProfile = () => {
                   name="phone"
                   type="tel"
                   placeholder="Телефон"
-                  borderRadius="15px"
                   fontSize="sm"
                   size="lg"
                   value={formik.values.phone || ''}
@@ -258,7 +252,6 @@ const EmployerProfile = () => {
                 name="legal_address"
                 type="tel"
                 placeholder="Юридический адрес"
-                borderRadius="15px"
                 fontSize="sm"
                 size="lg"
                 value={formik.values.legal_address || ''}

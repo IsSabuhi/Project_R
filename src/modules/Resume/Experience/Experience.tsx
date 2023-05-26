@@ -101,7 +101,6 @@ function Experience({ resume_id }: IExperience) {
             name="jobposition"
             type="text"
             placeholder="Должность"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.jobposition as string}
@@ -119,7 +118,6 @@ function Experience({ resume_id }: IExperience) {
             name="name_company"
             type="text"
             placeholder="Наименование компании"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.name_company as string}
@@ -138,7 +136,6 @@ function Experience({ resume_id }: IExperience) {
                 id="date_employment"
                 name="date_employment"
                 type="date"
-                borderRadius="15px"
                 fontSize="sm"
                 size="lg"
                 value={formik.values.date_employment as string}
@@ -148,7 +145,6 @@ function Experience({ resume_id }: IExperience) {
                 id="date_dismissal"
                 name="date_dismissal"
                 type="date"
-                borderRadius="15px"
                 fontSize="sm"
                 size="lg"
                 value={formik.values.date_dismissal as string}
@@ -166,7 +162,6 @@ function Experience({ resume_id }: IExperience) {
               name="workLocation"
               type="text"
               placeholder="Город"
-              borderRadius="15px"
               fontSize="sm"
               size="lg"
               value={formik.values.workLocation as string}
@@ -183,7 +178,6 @@ function Experience({ resume_id }: IExperience) {
             id="description"
             name="description"
             placeholder="Напишите чем вы занимались на прошлой работе"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             value={formik.values.description as string}

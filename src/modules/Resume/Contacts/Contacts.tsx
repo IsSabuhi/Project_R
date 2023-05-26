@@ -72,8 +72,6 @@ function Contacts() {
     formik.setFieldValue(name, value)
   }
 
-  console.log(formik.values)
-
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
       <Flex gap={4} mt={5}>
@@ -85,7 +83,6 @@ function Contacts() {
             id="fullName"
             name="fullName"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="Введите ваше полное имя"
@@ -106,7 +103,6 @@ function Contacts() {
             id="email"
             name="email"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="Введите ваш email"
@@ -127,7 +123,6 @@ function Contacts() {
             id="phone"
             name="phone"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="Введите ваш номер телефона"
@@ -146,7 +141,6 @@ function Contacts() {
             id="myLink"
             name="myLink"
             type="text"
-            borderRadius="15px"
             fontSize="sm"
             size="lg"
             placeholder="http://www.mysite.com"
