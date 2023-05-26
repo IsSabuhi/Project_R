@@ -3963,6 +3963,7 @@ export type Response = {
 /** columns and relationships of "resumes" */
 export type Resumes = {
   __typename?: 'resumes';
+  desired_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
   resume_id: Scalars['uuid'];
@@ -4028,6 +4029,7 @@ export type Resumes_Bool_Exp = {
   _and?: InputMaybe<Array<Resumes_Bool_Exp>>;
   _not?: InputMaybe<Resumes_Bool_Exp>;
   _or?: InputMaybe<Array<Resumes_Bool_Exp>>;
+  desired_position?: InputMaybe<String_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   project_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -4046,6 +4048,7 @@ export enum Resumes_Constraint {
 
 /** input type for inserting data into table "resumes" */
 export type Resumes_Insert_Input = {
+  desired_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -4059,6 +4062,7 @@ export type Resumes_Insert_Input = {
 /** aggregate max on columns */
 export type Resumes_Max_Fields = {
   __typename?: 'resumes_max_fields';
+  desired_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
   resume_id?: Maybe<Scalars['uuid']>;
@@ -4068,6 +4072,7 @@ export type Resumes_Max_Fields = {
 
 /** order by max() on columns of table "resumes" */
 export type Resumes_Max_Order_By = {
+  desired_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
@@ -4078,6 +4083,7 @@ export type Resumes_Max_Order_By = {
 /** aggregate min on columns */
 export type Resumes_Min_Fields = {
   __typename?: 'resumes_min_fields';
+  desired_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
   resume_id?: Maybe<Scalars['uuid']>;
@@ -4087,6 +4093,7 @@ export type Resumes_Min_Fields = {
 
 /** order by min() on columns of table "resumes" */
 export type Resumes_Min_Order_By = {
+  desired_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
@@ -4119,6 +4126,7 @@ export type Resumes_On_Conflict = {
 
 /** Ordering options when selecting data from "resumes". */
 export type Resumes_Order_By = {
+  desired_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
@@ -4137,6 +4145,8 @@ export type Resumes_Pk_Columns_Input = {
 /** select columns of table "resumes" */
 export enum Resumes_Select_Column {
   /** column name */
+  DesiredPosition = 'desired_position',
+  /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
   ProjectId = 'project_id',
@@ -4150,6 +4160,7 @@ export enum Resumes_Select_Column {
 
 /** input type for updating data in table "resumes" */
 export type Resumes_Set_Input = {
+  desired_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -4167,6 +4178,7 @@ export type Resumes_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Resumes_Stream_Cursor_Value_Input = {
+  desired_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -4176,6 +4188,8 @@ export type Resumes_Stream_Cursor_Value_Input = {
 
 /** update columns of table "resumes" */
 export enum Resumes_Update_Column {
+  /** column name */
+  DesiredPosition = 'desired_position',
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
@@ -5329,10 +5343,11 @@ export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __ty
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
+  desired_position?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string }> } | null };
+export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, desired_position?: string | null }> } | null };
 
 export type DeleteResumeMutationVariables = Exact<{
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -6010,14 +6025,15 @@ export type GetResumesQueryHookResult = ReturnType<typeof useGetResumesQuery>;
 export type GetResumesLazyQueryHookResult = ReturnType<typeof useGetResumesLazyQuery>;
 export type GetResumesQueryResult = Apollo.QueryResult<GetResumesQuery, GetResumesQueryVariables>;
 export const InsertResumeDocument = gql`
-    mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
+    mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "", $desired_position: String = "") {
   insert_resumes(
-    objects: {resume_name: $resume_name, jobseeker_id: $jobseeker_id}
+    objects: {resume_name: $resume_name, jobseeker_id: $jobseeker_id, desired_position: $desired_position}
   ) {
     returning {
       jobseeker_id
       resume_name
       resume_id
+      desired_position
     }
   }
 }
@@ -6039,6 +6055,7 @@ export type InsertResumeMutationFn = Apollo.MutationFunction<InsertResumeMutatio
  *   variables: {
  *      resume_name: // value for 'resume_name'
  *      jobseeker_id: // value for 'jobseeker_id'
+ *      desired_position: // value for 'desired_position'
  *   },
  * });
  */

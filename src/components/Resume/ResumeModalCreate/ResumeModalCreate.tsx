@@ -38,6 +38,7 @@ interface IResumeModalCreate {
 
 const initialResumeModal: InsertResumeMutationVariables = {
   resume_name: '',
+  desired_position: '',
 }
 
 const ResumeModalCreate = ({
@@ -57,6 +58,7 @@ const ResumeModalCreate = ({
         variables: {
           jobseeker_id: userProfileId,
           resume_name: formik.values.resume_name,
+          desired_position: formik.values.desired_position,
         },
       })
     },
@@ -100,6 +102,25 @@ const ResumeModalCreate = ({
                 placeholder="Введите название резюме"
                 onChange={formik.handleChange}
                 value={formik.values.resume_name!}
+              />
+            </FormControl>
+            <FormControl>
+              <FormLabel
+                htmlFor="desired_position"
+                fontWeight={'normal'}
+                mt={2}
+              >
+                Желаемая должность
+              </FormLabel>
+              <Input
+                id="desired_position"
+                name="desired_position"
+                type="text"
+                fontSize="sm"
+                size="lg"
+                placeholder="React Developer, Python Developer ..."
+                onChange={formik.handleChange}
+                value={formik.values.desired_position as string}
               />
             </FormControl>
             {/* <FormControl>

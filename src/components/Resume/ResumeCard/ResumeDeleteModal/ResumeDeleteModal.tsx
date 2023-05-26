@@ -7,8 +7,10 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Text,
 } from '@chakra-ui/react'
 import React from 'react'
+import styles from './ResumeDeleteModal.module.scss'
 
 interface IResumeDeleteModal {
   resume_name: string
@@ -29,12 +31,15 @@ function ResumeDeleteModal({
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            Вы уверены что хотите удалить данное резюме? Это действие
-            необратимо.
+            <Text className={styles.text}>
+              Удалить резюме <span>{resume_name}</span> ?
+            </Text>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>{resume_name}</ModalBody>
-
+          <ModalBody pb={6}>
+            Вы уверены что хотите удалить данное резюме? Это действие
+            необратимо.
+          </ModalBody>
           <ModalFooter>
             <Button colorScheme="red" mr={3} onClick={handleDeleteResume}>
               Удалить

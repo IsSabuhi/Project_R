@@ -260,14 +260,23 @@ query GetResumes {
   }
 }
 
-mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
+mutation InsertResume(
+  $resume_name: String = ""
+  $jobseeker_id: uuid = ""
+  $desired_position: String = ""
+) {
   insert_resumes(
-    objects: { resume_name: $resume_name, jobseeker_id: $jobseeker_id }
+    objects: {
+      resume_name: $resume_name
+      jobseeker_id: $jobseeker_id
+      desired_position: $desired_position
+    }
   ) {
     returning {
       jobseeker_id
       resume_name
       resume_id
+      desired_position
     }
   }
 }

@@ -4,6 +4,8 @@ import {
 } from '@/generated/projectR-hasura'
 import {
   Button,
+  FormControl,
+  FormLabel,
   Input,
   Modal,
   ModalBody,
@@ -34,20 +36,6 @@ function ResumeUpdateModal({
 }: IResumeIUpdateModal) {
   const { enqueueSnackbar } = useSnackbar()
 
-  const [updateResumeNameMutation] = useUpdateResumeNameMutation({
-    onCompleted() {
-      onClose()
-      return enqueueSnackbar('Данные изменены успешно', {
-        variant: 'success',
-      })
-    },
-    onError() {
-      return enqueueSnackbar('Произошла непредвиденная ошибка', {
-        variant: 'error',
-      })
-    },
-  })
-
   const formik = useFormik({
     initialValues: initialFormUpdate,
     enableReinitialize: true,
@@ -57,6 +45,21 @@ function ResumeUpdateModal({
           _eq: resume_id,
           resume_name: formik.values.resume_name,
         },
+      })
+    },
+  })
+
+  const [updateResumeNameMutation] = useUpdateResumeNameMutation({
+    onCompleted() {
+      onClose()
+      formik.resetForm()
+      return enqueueSnackbar('Данные изменены успешно', {
+        variant: 'success',
+      })
+    },
+    onError() {
+      return enqueueSnackbar('Произошла непредвиденная ошибка', {
+        variant: 'error',
       })
     },
   })
@@ -72,21 +75,28 @@ function ResumeUpdateModal({
       <form onSubmit={formik.handleSubmit}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Изменить</ModalHeader>
+          <ModalHeader>Обновите свое резюме</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <Input
-              id="resume_name"
-              name="resume_name"
-              type="text"
-              placeholder="Название резюме"
-              fontSize="sm"
-              size="lg"
-              value={formik.values.resume_name as string}
-              onChange={(event) => {
-                handleChangeField(event as React.ChangeEvent<HTMLInputElement>)
-              }}
-            />
+            <FormControl>
+              <FormLabel htmlFor="resume_name" fontWeight={'normal'}>
+                Название резюме
+              </FormLabel>
+              <Input
+                id="resume_name"
+                name="resume_name"
+                type="text"
+                placeholder="Введите название резюме"
+                fontSize="sm"
+                size="lg"
+                value={formik.values.resume_name as string}
+                onChange={(event) => {
+                  handleChangeField(
+                    event as React.ChangeEvent<HTMLInputElement>
+                  )
+                }}
+              />
+            </FormControl>
           </ModalBody>
 
           <ModalFooter>
