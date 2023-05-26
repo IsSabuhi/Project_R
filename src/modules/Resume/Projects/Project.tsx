@@ -8,19 +8,89 @@ import {
   Input,
   Text,
   Textarea,
-  useDisclosure,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Project.module.scss'
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
+import {
+  InsertProjectMutationVariables,
+  Projects,
+  useGetProjectsLazyQuery,
+  useGetProjectsQuery,
+  useInsertProjectMutation,
+} from '@/generated/projectR-hasura'
+import { useFormik } from 'formik'
+import { useSnackbar } from 'notistack'
 
-function Project() {
-  const { isOpen, onToggle } = useDisclosure()
+interface IProject {
+  resume_id: string
+}
+
+const initialFormProject: InsertProjectMutationVariables = {
+  description: '',
+  name_organization: '',
+  project_name: '',
+}
+
+function Project({ resume_id }: IProject) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const { enqueueSnackbar } = useSnackbar()
+
+  const [insertProjectMutation] = useInsertProjectMutation({
+    onCompleted() {
+      formik.resetForm()
+      return enqueueSnackbar('Данные сохранены', {
+        variant: 'success',
+      })
+    },
+    onError() {
+      enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+    },
+  })
+
+  const formik = useFormik({
+    initialValues: initialFormProject,
+    enableReinitialize: true,
+    onSubmit: () => {
+      insertProjectMutation({
+        variables: {
+          description: formik.values.description,
+          name_organization: formik.values.name_organization,
+          project_name: formik.values.project_name,
+          resume_id: resume_id,
+        },
+      })
+    },
+  })
+
+  const [projectData, setProjectData] = useState<Projects[]>()
+
+  const [getProjectsList] = useGetProjectsLazyQuery({
+    variables: {
+      _eq: resume_id,
+    },
+    onCompleted(data) {
+      setProjectData(data.projects)
+      if (data.projects?.length === 0) {
+        setIsOpen(false)
+      } else {
+        setIsOpen(true)
+      }
+    },
+  })
+
+  React.useEffect(() => {
+    getProjectsList()
+  }, [])
 
   return (
     <div className={styles.container}>
       <div className={styles.container_left}>
-        <div className={styles.container_left_title} onClick={onToggle}>
+        <div
+          className={styles.container_left_title}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           <Text className={styles.container_left_titleText}>Ваши проекты</Text>
           {isOpen ? (
             <ArrowDownIcon boxSize={5} />

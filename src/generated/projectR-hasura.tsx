@@ -3373,30 +3373,9 @@ export type Projects = {
   name_organization: Scalars['String'];
   project_id: Scalars['uuid'];
   project_name: Scalars['String'];
-  /** An array relationship */
-  projects_resumes: Array<Resumes>;
-  /** An aggregate relationship */
-  projects_resumes_aggregate: Resumes_Aggregate;
-};
-
-
-/** columns and relationships of "projects" */
-export type ProjectsProjects_ResumesArgs = {
-  distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Resumes_Order_By>>;
-  where?: InputMaybe<Resumes_Bool_Exp>;
-};
-
-
-/** columns and relationships of "projects" */
-export type ProjectsProjects_Resumes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Resumes_Order_By>>;
-  where?: InputMaybe<Resumes_Bool_Exp>;
+  /** An object relationship */
+  projects_resume?: Maybe<Resumes>;
+  resume_id?: Maybe<Scalars['uuid']>;
 };
 
 /** aggregated selection of "projects" */
@@ -3430,8 +3409,8 @@ export type Projects_Bool_Exp = {
   name_organization?: InputMaybe<String_Comparison_Exp>;
   project_id?: InputMaybe<Uuid_Comparison_Exp>;
   project_name?: InputMaybe<String_Comparison_Exp>;
-  projects_resumes?: InputMaybe<Resumes_Bool_Exp>;
-  projects_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Bool_Exp>;
+  projects_resume?: InputMaybe<Resumes_Bool_Exp>;
+  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "projects" */
@@ -3446,7 +3425,8 @@ export type Projects_Insert_Input = {
   name_organization?: InputMaybe<Scalars['String']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   project_name?: InputMaybe<Scalars['String']>;
-  projects_resumes?: InputMaybe<Resumes_Arr_Rel_Insert_Input>;
+  projects_resume?: InputMaybe<Resumes_Obj_Rel_Insert_Input>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -3456,6 +3436,7 @@ export type Projects_Max_Fields = {
   name_organization?: Maybe<Scalars['String']>;
   project_id?: Maybe<Scalars['uuid']>;
   project_name?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
 };
 
 /** aggregate min on columns */
@@ -3465,6 +3446,7 @@ export type Projects_Min_Fields = {
   name_organization?: Maybe<Scalars['String']>;
   project_id?: Maybe<Scalars['uuid']>;
   project_name?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
 };
 
 /** response of any mutation on the table "projects" */
@@ -3474,13 +3456,6 @@ export type Projects_Mutation_Response = {
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
   returning: Array<Projects>;
-};
-
-/** input type for inserting object relation for remote table "projects" */
-export type Projects_Obj_Rel_Insert_Input = {
-  data: Projects_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Projects_On_Conflict>;
 };
 
 /** on_conflict condition type for table "projects" */
@@ -3496,7 +3471,8 @@ export type Projects_Order_By = {
   name_organization?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   project_name?: InputMaybe<Order_By>;
-  projects_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Order_By>;
+  projects_resume?: InputMaybe<Resumes_Order_By>;
+  resume_id?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: projects */
@@ -3513,7 +3489,9 @@ export enum Projects_Select_Column {
   /** column name */
   ProjectId = 'project_id',
   /** column name */
-  ProjectName = 'project_name'
+  ProjectName = 'project_name',
+  /** column name */
+  ResumeId = 'resume_id'
 }
 
 /** input type for updating data in table "projects" */
@@ -3522,6 +3500,7 @@ export type Projects_Set_Input = {
   name_organization?: InputMaybe<Scalars['String']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   project_name?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "projects" */
@@ -3538,6 +3517,7 @@ export type Projects_Stream_Cursor_Value_Input = {
   name_organization?: InputMaybe<Scalars['String']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   project_name?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "projects" */
@@ -3549,7 +3529,9 @@ export enum Projects_Update_Column {
   /** column name */
   ProjectId = 'project_id',
   /** column name */
-  ProjectName = 'project_name'
+  ProjectName = 'project_name',
+  /** column name */
+  ResumeId = 'resume_id'
 }
 
 export type Projects_Updates = {
@@ -3965,16 +3947,10 @@ export type Resumes = {
   __typename?: 'resumes';
   desired_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
-  project_id?: Maybe<Scalars['uuid']>;
   resume_id: Scalars['uuid'];
   resume_name: Scalars['String'];
   /** An object relationship */
-  resume_project?: Maybe<Projects>;
-  /** An object relationship */
-  resume_skill?: Maybe<Skills>;
-  /** An object relationship */
   resumes_jobseeker?: Maybe<Jobseeker>;
-  skills_id?: Maybe<Scalars['uuid']>;
 };
 
 /** aggregated selection of "resumes" */
@@ -4031,13 +4007,9 @@ export type Resumes_Bool_Exp = {
   _or?: InputMaybe<Array<Resumes_Bool_Exp>>;
   desired_position?: InputMaybe<String_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
-  project_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_name?: InputMaybe<String_Comparison_Exp>;
-  resume_project?: InputMaybe<Projects_Bool_Exp>;
-  resume_skill?: InputMaybe<Skills_Bool_Exp>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
-  skills_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "resumes" */
@@ -4050,13 +4022,9 @@ export enum Resumes_Constraint {
 export type Resumes_Insert_Input = {
   desired_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
-  project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
-  resume_project?: InputMaybe<Projects_Obj_Rel_Insert_Input>;
-  resume_skill?: InputMaybe<Skills_Obj_Rel_Insert_Input>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
-  skills_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** aggregate max on columns */
@@ -4064,20 +4032,16 @@ export type Resumes_Max_Fields = {
   __typename?: 'resumes_max_fields';
   desired_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
-  project_id?: Maybe<Scalars['uuid']>;
   resume_id?: Maybe<Scalars['uuid']>;
   resume_name?: Maybe<Scalars['String']>;
-  skills_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by max() on columns of table "resumes" */
 export type Resumes_Max_Order_By = {
   desired_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
-  project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
-  skills_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -4085,20 +4049,16 @@ export type Resumes_Min_Fields = {
   __typename?: 'resumes_min_fields';
   desired_position?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
-  project_id?: Maybe<Scalars['uuid']>;
   resume_id?: Maybe<Scalars['uuid']>;
   resume_name?: Maybe<Scalars['String']>;
-  skills_id?: Maybe<Scalars['uuid']>;
 };
 
 /** order by min() on columns of table "resumes" */
 export type Resumes_Min_Order_By = {
   desired_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
-  project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
-  skills_id?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "resumes" */
@@ -4128,13 +4088,9 @@ export type Resumes_On_Conflict = {
 export type Resumes_Order_By = {
   desired_position?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
-  project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
-  resume_project?: InputMaybe<Projects_Order_By>;
-  resume_skill?: InputMaybe<Skills_Order_By>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Order_By>;
-  skills_id?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: resumes */
@@ -4149,23 +4105,17 @@ export enum Resumes_Select_Column {
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
-  ProjectId = 'project_id',
-  /** column name */
   ResumeId = 'resume_id',
   /** column name */
-  ResumeName = 'resume_name',
-  /** column name */
-  SkillsId = 'skills_id'
+  ResumeName = 'resume_name'
 }
 
 /** input type for updating data in table "resumes" */
 export type Resumes_Set_Input = {
   desired_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
-  project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
-  skills_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** Streaming cursor of the table "resumes" */
@@ -4180,10 +4130,8 @@ export type Resumes_Stream_Cursor_Input = {
 export type Resumes_Stream_Cursor_Value_Input = {
   desired_position?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
-  project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
-  skills_id?: InputMaybe<Scalars['uuid']>;
 };
 
 /** update columns of table "resumes" */
@@ -4193,13 +4141,9 @@ export enum Resumes_Update_Column {
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
-  ProjectId = 'project_id',
-  /** column name */
   ResumeId = 'resume_id',
   /** column name */
-  ResumeName = 'resume_name',
-  /** column name */
-  SkillsId = 'skills_id'
+  ResumeName = 'resume_name'
 }
 
 export type Resumes_Updates = {
@@ -4213,31 +4157,10 @@ export type Resumes_Updates = {
 export type Skills = {
   __typename?: 'skills';
   description: Scalars['String'];
+  resume_id?: Maybe<Scalars['uuid']>;
   skills_id: Scalars['uuid'];
-  /** An array relationship */
-  skills_resumes: Array<Resumes>;
-  /** An aggregate relationship */
-  skills_resumes_aggregate: Resumes_Aggregate;
-};
-
-
-/** columns and relationships of "skills" */
-export type SkillsSkills_ResumesArgs = {
-  distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Resumes_Order_By>>;
-  where?: InputMaybe<Resumes_Bool_Exp>;
-};
-
-
-/** columns and relationships of "skills" */
-export type SkillsSkills_Resumes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Resumes_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Resumes_Order_By>>;
-  where?: InputMaybe<Resumes_Bool_Exp>;
+  /** An object relationship */
+  skills_resume?: Maybe<Resumes>;
 };
 
 /** aggregated selection of "skills" */
@@ -4268,9 +4191,9 @@ export type Skills_Bool_Exp = {
   _not?: InputMaybe<Skills_Bool_Exp>;
   _or?: InputMaybe<Array<Skills_Bool_Exp>>;
   description?: InputMaybe<String_Comparison_Exp>;
+  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   skills_id?: InputMaybe<Uuid_Comparison_Exp>;
-  skills_resumes?: InputMaybe<Resumes_Bool_Exp>;
-  skills_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Bool_Exp>;
+  skills_resume?: InputMaybe<Resumes_Bool_Exp>;
 };
 
 /** unique or primary key constraints on table "skills" */
@@ -4282,14 +4205,16 @@ export enum Skills_Constraint {
 /** input type for inserting data into table "skills" */
 export type Skills_Insert_Input = {
   description?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   skills_id?: InputMaybe<Scalars['uuid']>;
-  skills_resumes?: InputMaybe<Resumes_Arr_Rel_Insert_Input>;
+  skills_resume?: InputMaybe<Resumes_Obj_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
 export type Skills_Max_Fields = {
   __typename?: 'skills_max_fields';
   description?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
   skills_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -4297,6 +4222,7 @@ export type Skills_Max_Fields = {
 export type Skills_Min_Fields = {
   __typename?: 'skills_min_fields';
   description?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
   skills_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -4309,13 +4235,6 @@ export type Skills_Mutation_Response = {
   returning: Array<Skills>;
 };
 
-/** input type for inserting object relation for remote table "skills" */
-export type Skills_Obj_Rel_Insert_Input = {
-  data: Skills_Insert_Input;
-  /** upsert condition */
-  on_conflict?: InputMaybe<Skills_On_Conflict>;
-};
-
 /** on_conflict condition type for table "skills" */
 export type Skills_On_Conflict = {
   constraint: Skills_Constraint;
@@ -4326,8 +4245,9 @@ export type Skills_On_Conflict = {
 /** Ordering options when selecting data from "skills". */
 export type Skills_Order_By = {
   description?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
   skills_id?: InputMaybe<Order_By>;
-  skills_resumes_aggregate?: InputMaybe<Resumes_Aggregate_Order_By>;
+  skills_resume?: InputMaybe<Resumes_Order_By>;
 };
 
 /** primary key columns input for table: skills */
@@ -4340,12 +4260,15 @@ export enum Skills_Select_Column {
   /** column name */
   Description = 'description',
   /** column name */
+  ResumeId = 'resume_id',
+  /** column name */
   SkillsId = 'skills_id'
 }
 
 /** input type for updating data in table "skills" */
 export type Skills_Set_Input = {
   description?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   skills_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -4360,6 +4283,7 @@ export type Skills_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Skills_Stream_Cursor_Value_Input = {
   description?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   skills_id?: InputMaybe<Scalars['uuid']>;
 };
 
@@ -4367,6 +4291,8 @@ export type Skills_Stream_Cursor_Value_Input = {
 export enum Skills_Update_Column {
   /** column name */
   Description = 'description',
+  /** column name */
+  ResumeId = 'resume_id',
   /** column name */
   SkillsId = 'skills_id'
 }
@@ -5369,7 +5295,7 @@ export type GetResumeQueryVariables = Exact<{
 }>;
 
 
-export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resume_project?: { __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string } | null, resume_skill?: { __typename?: 'skills', description: string, skills_id: string } | null, resumes_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
+export type GetResumeQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, resumes_jobseeker?: { __typename?: 'jobseeker', lastName: string, name: string, phone?: string | null, middleName: string, dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null, jobseeker_education_course_work?: { __typename?: 'course_work', course_work_name: string, course_work_task: string, description: string } | null }> } | null }> };
 
 export type GetJobseekerContactsQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -5413,6 +5339,23 @@ export type DeleteExperienceWorkMutationVariables = Exact<{
 
 
 export type DeleteExperienceWorkMutation = { __typename?: 'mutation_root', delete_experience_work?: { __typename?: 'experience_work_mutation_response', affected_rows: number } | null };
+
+export type GetProjectsQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetProjectsQuery = { __typename?: 'query_root', projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string, resume_id?: string | null }> };
+
+export type InsertProjectMutationVariables = Exact<{
+  description?: InputMaybe<Scalars['String']>;
+  name_organization?: InputMaybe<Scalars['String']>;
+  project_name?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type InsertProjectMutation = { __typename?: 'mutation_root', insert_projects?: { __typename?: 'projects_mutation_response', returning: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string, resume_id?: string | null }> } | null };
 
 
 export const AuthLoginDocument = gql`
@@ -6146,16 +6089,6 @@ export const GetResumeDocument = gql`
     jobseeker_id
     resume_id
     resume_name
-    resume_project {
-      description
-      name_organization
-      project_id
-      project_name
-    }
-    resume_skill {
-      description
-      skills_id
-    }
     resumes_jobseeker {
       jobseeker_educations {
         average_score
@@ -6425,3 +6358,86 @@ export function useDeleteExperienceWorkMutation(baseOptions?: Apollo.MutationHoo
 export type DeleteExperienceWorkMutationHookResult = ReturnType<typeof useDeleteExperienceWorkMutation>;
 export type DeleteExperienceWorkMutationResult = Apollo.MutationResult<DeleteExperienceWorkMutation>;
 export type DeleteExperienceWorkMutationOptions = Apollo.BaseMutationOptions<DeleteExperienceWorkMutation, DeleteExperienceWorkMutationVariables>;
+export const GetProjectsDocument = gql`
+    query GetProjects($_eq: uuid = "") {
+  projects(where: {resume_id: {_eq: $_eq}}) {
+    description
+    name_organization
+    project_id
+    project_name
+    resume_id
+  }
+}
+    `;
+
+/**
+ * __useGetProjectsQuery__
+ *
+ * To run a query within a React component, call `useGetProjectsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProjectsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProjectsQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetProjectsQuery(baseOptions?: Apollo.QueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, options);
+      }
+export function useGetProjectsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProjectsQuery, GetProjectsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, options);
+        }
+export type GetProjectsQueryHookResult = ReturnType<typeof useGetProjectsQuery>;
+export type GetProjectsLazyQueryHookResult = ReturnType<typeof useGetProjectsLazyQuery>;
+export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>;
+export const InsertProjectDocument = gql`
+    mutation InsertProject($description: String = "", $name_organization: String = "", $project_name: String = "", $resume_id: uuid = "") {
+  insert_projects(
+    objects: {description: $description, name_organization: $name_organization, project_name: $project_name, resume_id: $resume_id}
+  ) {
+    returning {
+      description
+      name_organization
+      project_id
+      project_name
+      resume_id
+    }
+  }
+}
+    `;
+export type InsertProjectMutationFn = Apollo.MutationFunction<InsertProjectMutation, InsertProjectMutationVariables>;
+
+/**
+ * __useInsertProjectMutation__
+ *
+ * To run a mutation, you first call `useInsertProjectMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertProjectMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertProjectMutation, { data, loading, error }] = useInsertProjectMutation({
+ *   variables: {
+ *      description: // value for 'description'
+ *      name_organization: // value for 'name_organization'
+ *      project_name: // value for 'project_name'
+ *      resume_id: // value for 'resume_id'
+ *   },
+ * });
+ */
+export function useInsertProjectMutation(baseOptions?: Apollo.MutationHookOptions<InsertProjectMutation, InsertProjectMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertProjectMutation, InsertProjectMutationVariables>(InsertProjectDocument, options);
+      }
+export type InsertProjectMutationHookResult = ReturnType<typeof useInsertProjectMutation>;
+export type InsertProjectMutationResult = Apollo.MutationResult<InsertProjectMutation>;
+export type InsertProjectMutationOptions = Apollo.BaseMutationOptions<InsertProjectMutation, InsertProjectMutationVariables>;

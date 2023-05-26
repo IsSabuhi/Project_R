@@ -305,16 +305,6 @@ query GetResume($_eq: uuid = "") {
     jobseeker_id
     resume_id
     resume_name
-    resume_project {
-      description
-      name_organization
-      project_id
-      project_name
-    }
-    resume_skill {
-      description
-      skills_id
-    }
     resumes_jobseeker {
       jobseeker_educations {
         average_score
@@ -426,5 +416,39 @@ mutation InsertExperienceWork(
 mutation DeleteExperienceWork($_eq: uuid = "") {
   delete_experience_work(where: { experience_work_id: { _eq: $_eq } }) {
     affected_rows
+  }
+}
+
+query GetProjects($_eq: uuid = "") {
+  projects(where: { resume_id: { _eq: $_eq } }) {
+    description
+    name_organization
+    project_id
+    project_name
+    resume_id
+  }
+}
+
+mutation InsertProject(
+  $description: String = ""
+  $name_organization: String = ""
+  $project_name: String = ""
+  $resume_id: uuid = ""
+) {
+  insert_projects(
+    objects: {
+      description: $description
+      name_organization: $name_organization
+      project_name: $project_name
+      resume_id: $resume_id
+    }
+  ) {
+    returning {
+      description
+      name_organization
+      project_id
+      project_name
+      resume_id
+    }
   }
 }
