@@ -102,7 +102,7 @@ const ResumeModalCreate = ({
                 value={formik.values.resume_name!}
               />
             </FormControl>
-            <FormControl>
+            {/* <FormControl>
               <FormLabel htmlFor="specialization" fontWeight={'normal'}>
                 Специальность
               </FormLabel>
@@ -114,9 +114,9 @@ const ResumeModalCreate = ({
                 size="lg"
                 placeholder="Введите название резюме"
                 disabled
-              />
-              {/* TODO Возможно нужно будет сделать Select для тех пользователей которые не зареганы в системе*/}
-              {/* <Select
+              /> */}
+            {/* TODO Возможно нужно будет сделать Select для тех пользователей которые не зареганы в системе*/}
+            {/* <Select
                 placeholder="Специальность"
                 id="specialization"
                 name="specialization"
@@ -129,7 +129,7 @@ const ResumeModalCreate = ({
                 </option>
                 <option value="EIA">Электроэнергетика и автоматика</option>
               </Select> */}
-            </FormControl>
+            {/* </FormControl> */}
           </ModalBody>
 
           <ModalFooter>

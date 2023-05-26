@@ -996,8 +996,11 @@ export type Experience_Work = {
   date_employment?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   experience_work_id: Scalars['uuid'];
+  /** An object relationship */
+  experience_work_resume?: Maybe<Resumes>;
   jobposition?: Maybe<Scalars['String']>;
   name_company: Scalars['String'];
+  resume_id?: Maybe<Scalars['uuid']>;
   workLocation?: Maybe<Scalars['String']>;
 };
 
@@ -1006,6 +1009,17 @@ export type Experience_Work_Aggregate = {
   __typename?: 'experience_work_aggregate';
   aggregate?: Maybe<Experience_Work_Aggregate_Fields>;
   nodes: Array<Experience_Work>;
+};
+
+export type Experience_Work_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Experience_Work_Aggregate_Bool_Exp_Count>;
+};
+
+export type Experience_Work_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Experience_Work_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Experience_Work_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
 };
 
 /** aggregate fields of "experience_work" */
@@ -1023,6 +1037,20 @@ export type Experience_Work_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** order by aggregate values of table "experience_work" */
+export type Experience_Work_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Experience_Work_Max_Order_By>;
+  min?: InputMaybe<Experience_Work_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "experience_work" */
+export type Experience_Work_Arr_Rel_Insert_Input = {
+  data: Array<Experience_Work_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Experience_Work_On_Conflict>;
+};
+
 /** Boolean expression to filter rows from the table "experience_work". All fields are combined with a logical 'AND'. */
 export type Experience_Work_Bool_Exp = {
   _and?: InputMaybe<Array<Experience_Work_Bool_Exp>>;
@@ -1032,8 +1060,10 @@ export type Experience_Work_Bool_Exp = {
   date_employment?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   experience_work_id?: InputMaybe<Uuid_Comparison_Exp>;
+  experience_work_resume?: InputMaybe<Resumes_Bool_Exp>;
   jobposition?: InputMaybe<String_Comparison_Exp>;
   name_company?: InputMaybe<String_Comparison_Exp>;
+  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   workLocation?: InputMaybe<String_Comparison_Exp>;
 };
 
@@ -1049,8 +1079,10 @@ export type Experience_Work_Insert_Input = {
   date_employment?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   experience_work_id?: InputMaybe<Scalars['uuid']>;
+  experience_work_resume?: InputMaybe<Resumes_Obj_Rel_Insert_Input>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   workLocation?: InputMaybe<Scalars['String']>;
 };
 
@@ -1063,7 +1095,20 @@ export type Experience_Work_Max_Fields = {
   experience_work_id?: Maybe<Scalars['uuid']>;
   jobposition?: Maybe<Scalars['String']>;
   name_company?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
   workLocation?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "experience_work" */
+export type Experience_Work_Max_Order_By = {
+  date_dismissal?: InputMaybe<Order_By>;
+  date_employment?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  experience_work_id?: InputMaybe<Order_By>;
+  jobposition?: InputMaybe<Order_By>;
+  name_company?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+  workLocation?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -1075,7 +1120,20 @@ export type Experience_Work_Min_Fields = {
   experience_work_id?: Maybe<Scalars['uuid']>;
   jobposition?: Maybe<Scalars['String']>;
   name_company?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
   workLocation?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "experience_work" */
+export type Experience_Work_Min_Order_By = {
+  date_dismissal?: InputMaybe<Order_By>;
+  date_employment?: InputMaybe<Order_By>;
+  description?: InputMaybe<Order_By>;
+  experience_work_id?: InputMaybe<Order_By>;
+  jobposition?: InputMaybe<Order_By>;
+  name_company?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+  workLocation?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "experience_work" */
@@ -1100,8 +1158,10 @@ export type Experience_Work_Order_By = {
   date_employment?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   experience_work_id?: InputMaybe<Order_By>;
+  experience_work_resume?: InputMaybe<Resumes_Order_By>;
   jobposition?: InputMaybe<Order_By>;
   name_company?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
   workLocation?: InputMaybe<Order_By>;
 };
 
@@ -1125,6 +1185,8 @@ export enum Experience_Work_Select_Column {
   /** column name */
   NameCompany = 'name_company',
   /** column name */
+  ResumeId = 'resume_id',
+  /** column name */
   WorkLocation = 'workLocation'
 }
 
@@ -1136,6 +1198,7 @@ export type Experience_Work_Set_Input = {
   experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   workLocation?: InputMaybe<Scalars['String']>;
 };
 
@@ -1155,6 +1218,7 @@ export type Experience_Work_Stream_Cursor_Value_Input = {
   experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   workLocation?: InputMaybe<Scalars['String']>;
 };
 
@@ -1172,6 +1236,8 @@ export enum Experience_Work_Update_Column {
   Jobposition = 'jobposition',
   /** column name */
   NameCompany = 'name_company',
+  /** column name */
+  ResumeId = 'resume_id',
   /** column name */
   WorkLocation = 'workLocation'
 }
@@ -3946,7 +4012,6 @@ export type Response = {
 /** columns and relationships of "resumes" */
 export type Resumes = {
   __typename?: 'resumes';
-  experience_work_id?: Maybe<Scalars['uuid']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
   resume_id: Scalars['uuid'];
@@ -3955,9 +4020,33 @@ export type Resumes = {
   resume_project?: Maybe<Projects>;
   /** An object relationship */
   resume_skill?: Maybe<Skills>;
+  /** An array relationship */
+  resumes_experience_works: Array<Experience_Work>;
+  /** An aggregate relationship */
+  resumes_experience_works_aggregate: Experience_Work_Aggregate;
   /** An object relationship */
   resumes_jobseeker?: Maybe<Jobseeker>;
   skills_id?: Maybe<Scalars['uuid']>;
+};
+
+
+/** columns and relationships of "resumes" */
+export type ResumesResumes_Experience_WorksArgs = {
+  distinct_on?: InputMaybe<Array<Experience_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Experience_Work_Order_By>>;
+  where?: InputMaybe<Experience_Work_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resumes" */
+export type ResumesResumes_Experience_Works_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Experience_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Experience_Work_Order_By>>;
+  where?: InputMaybe<Experience_Work_Bool_Exp>;
 };
 
 /** aggregated selection of "resumes" */
@@ -4012,13 +4101,14 @@ export type Resumes_Bool_Exp = {
   _and?: InputMaybe<Array<Resumes_Bool_Exp>>;
   _not?: InputMaybe<Resumes_Bool_Exp>;
   _or?: InputMaybe<Array<Resumes_Bool_Exp>>;
-  experience_work_id?: InputMaybe<Uuid_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   project_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_name?: InputMaybe<String_Comparison_Exp>;
   resume_project?: InputMaybe<Projects_Bool_Exp>;
   resume_skill?: InputMaybe<Skills_Bool_Exp>;
+  resumes_experience_works?: InputMaybe<Experience_Work_Bool_Exp>;
+  resumes_experience_works_aggregate?: InputMaybe<Experience_Work_Aggregate_Bool_Exp>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   skills_id?: InputMaybe<Uuid_Comparison_Exp>;
 };
@@ -4031,13 +4121,13 @@ export enum Resumes_Constraint {
 
 /** input type for inserting data into table "resumes" */
 export type Resumes_Insert_Input = {
-  experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
   resume_project?: InputMaybe<Projects_Obj_Rel_Insert_Input>;
   resume_skill?: InputMaybe<Skills_Obj_Rel_Insert_Input>;
+  resumes_experience_works?: InputMaybe<Experience_Work_Arr_Rel_Insert_Input>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   skills_id?: InputMaybe<Scalars['uuid']>;
 };
@@ -4045,7 +4135,6 @@ export type Resumes_Insert_Input = {
 /** aggregate max on columns */
 export type Resumes_Max_Fields = {
   __typename?: 'resumes_max_fields';
-  experience_work_id?: Maybe<Scalars['uuid']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
   resume_id?: Maybe<Scalars['uuid']>;
@@ -4055,7 +4144,6 @@ export type Resumes_Max_Fields = {
 
 /** order by max() on columns of table "resumes" */
 export type Resumes_Max_Order_By = {
-  experience_work_id?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
@@ -4066,7 +4154,6 @@ export type Resumes_Max_Order_By = {
 /** aggregate min on columns */
 export type Resumes_Min_Fields = {
   __typename?: 'resumes_min_fields';
-  experience_work_id?: Maybe<Scalars['uuid']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
   project_id?: Maybe<Scalars['uuid']>;
   resume_id?: Maybe<Scalars['uuid']>;
@@ -4076,7 +4163,6 @@ export type Resumes_Min_Fields = {
 
 /** order by min() on columns of table "resumes" */
 export type Resumes_Min_Order_By = {
-  experience_work_id?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
@@ -4093,6 +4179,13 @@ export type Resumes_Mutation_Response = {
   returning: Array<Resumes>;
 };
 
+/** input type for inserting object relation for remote table "resumes" */
+export type Resumes_Obj_Rel_Insert_Input = {
+  data: Resumes_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Resumes_On_Conflict>;
+};
+
 /** on_conflict condition type for table "resumes" */
 export type Resumes_On_Conflict = {
   constraint: Resumes_Constraint;
@@ -4102,13 +4195,13 @@ export type Resumes_On_Conflict = {
 
 /** Ordering options when selecting data from "resumes". */
 export type Resumes_Order_By = {
-  experience_work_id?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   project_id?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
   resume_project?: InputMaybe<Projects_Order_By>;
   resume_skill?: InputMaybe<Skills_Order_By>;
+  resumes_experience_works_aggregate?: InputMaybe<Experience_Work_Aggregate_Order_By>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Order_By>;
   skills_id?: InputMaybe<Order_By>;
 };
@@ -4120,8 +4213,6 @@ export type Resumes_Pk_Columns_Input = {
 
 /** select columns of table "resumes" */
 export enum Resumes_Select_Column {
-  /** column name */
-  ExperienceWorkId = 'experience_work_id',
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
@@ -4136,7 +4227,6 @@ export enum Resumes_Select_Column {
 
 /** input type for updating data in table "resumes" */
 export type Resumes_Set_Input = {
-  experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -4154,7 +4244,6 @@ export type Resumes_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Resumes_Stream_Cursor_Value_Input = {
-  experience_work_id?: InputMaybe<Scalars['uuid']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   project_id?: InputMaybe<Scalars['uuid']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -4164,8 +4253,6 @@ export type Resumes_Stream_Cursor_Value_Input = {
 
 /** update columns of table "resumes" */
 export enum Resumes_Update_Column {
-  /** column name */
-  ExperienceWorkId = 'experience_work_id',
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
@@ -5362,25 +5449,32 @@ export type UpdateContactsMutationVariables = Exact<{
 
 export type UpdateContactsMutation = { __typename?: 'mutation_root', update_jobseeker?: { __typename?: 'jobseeker_mutation_response', returning: Array<{ __typename?: 'jobseeker', phone?: string | null, name: string, middleName: string, lastName: string, jobseeker_id: string }> } | null };
 
-export type InsertWorkExperienceMutationVariables = Exact<{
+export type GetExperienceWorkQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetExperienceWorkQuery = { __typename?: 'query_root', experience_work: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, resume_id?: string | null, workLocation?: string | null }> };
+
+export type InsertExperienceWorkMutationVariables = Exact<{
   date_dismissal?: InputMaybe<Scalars['String']>;
   date_employment?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   jobposition?: InputMaybe<Scalars['String']>;
   name_company?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
   workLocation?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type InsertWorkExperienceMutation = { __typename?: 'mutation_root', insert_experience_work?: { __typename?: 'experience_work_mutation_response', returning: Array<{ __typename?: 'experience_work', experience_work_id: string, jobposition?: string | null, name_company: string, date_employment?: string | null, description?: string | null, date_dismissal?: string | null, workLocation?: string | null }> } | null };
+export type InsertExperienceWorkMutation = { __typename?: 'mutation_root', insert_experience_work?: { __typename?: 'experience_work_mutation_response', returning: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, resume_id?: string | null, workLocation?: string | null }> } | null };
 
-export type UpdateResumeWorkExperienceMutationVariables = Exact<{
+export type DeleteExperienceWorkMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
-  experience_work_id?: InputMaybe<Scalars['uuid']>;
 }>;
 
 
-export type UpdateResumeWorkExperienceMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, experience_work_id?: string | null }> } | null };
+export type DeleteExperienceWorkMutation = { __typename?: 'mutation_root', delete_experience_work?: { __typename?: 'experience_work_mutation_response', affected_rows: number } | null };
 
 
 export const AuthLoginDocument = gql`
@@ -6266,91 +6360,128 @@ export function useUpdateContactsMutation(baseOptions?: Apollo.MutationHookOptio
 export type UpdateContactsMutationHookResult = ReturnType<typeof useUpdateContactsMutation>;
 export type UpdateContactsMutationResult = Apollo.MutationResult<UpdateContactsMutation>;
 export type UpdateContactsMutationOptions = Apollo.BaseMutationOptions<UpdateContactsMutation, UpdateContactsMutationVariables>;
-export const InsertWorkExperienceDocument = gql`
-    mutation InsertWorkExperience($date_dismissal: String = "", $date_employment: String = "", $description: String = "", $jobposition: String = "", $name_company: String = "", $workLocation: String = "") {
+export const GetExperienceWorkDocument = gql`
+    query GetExperienceWork($_eq: uuid = "") {
+  experience_work(where: {resume_id: {_eq: $_eq}}) {
+    date_dismissal
+    date_employment
+    description
+    experience_work_id
+    jobposition
+    name_company
+    resume_id
+    workLocation
+  }
+}
+    `;
+
+/**
+ * __useGetExperienceWorkQuery__
+ *
+ * To run a query within a React component, call `useGetExperienceWorkQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetExperienceWorkQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetExperienceWorkQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetExperienceWorkQuery(baseOptions?: Apollo.QueryHookOptions<GetExperienceWorkQuery, GetExperienceWorkQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetExperienceWorkQuery, GetExperienceWorkQueryVariables>(GetExperienceWorkDocument, options);
+      }
+export function useGetExperienceWorkLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetExperienceWorkQuery, GetExperienceWorkQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetExperienceWorkQuery, GetExperienceWorkQueryVariables>(GetExperienceWorkDocument, options);
+        }
+export type GetExperienceWorkQueryHookResult = ReturnType<typeof useGetExperienceWorkQuery>;
+export type GetExperienceWorkLazyQueryHookResult = ReturnType<typeof useGetExperienceWorkLazyQuery>;
+export type GetExperienceWorkQueryResult = Apollo.QueryResult<GetExperienceWorkQuery, GetExperienceWorkQueryVariables>;
+export const InsertExperienceWorkDocument = gql`
+    mutation InsertExperienceWork($date_dismissal: String = "", $date_employment: String = "", $description: String = "", $jobposition: String = "", $name_company: String = "", $resume_id: uuid = "", $workLocation: String = "") {
   insert_experience_work(
-    objects: {date_dismissal: $date_dismissal, date_employment: $date_employment, description: $description, jobposition: $jobposition, name_company: $name_company, workLocation: $workLocation}
+    objects: {date_dismissal: $date_dismissal, date_employment: $date_employment, description: $description, jobposition: $jobposition, name_company: $name_company, resume_id: $resume_id, workLocation: $workLocation}
   ) {
     returning {
+      date_dismissal
+      date_employment
+      description
       experience_work_id
       jobposition
       name_company
-      date_employment
-      description
-      date_dismissal
+      resume_id
       workLocation
     }
   }
 }
     `;
-export type InsertWorkExperienceMutationFn = Apollo.MutationFunction<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>;
+export type InsertExperienceWorkMutationFn = Apollo.MutationFunction<InsertExperienceWorkMutation, InsertExperienceWorkMutationVariables>;
 
 /**
- * __useInsertWorkExperienceMutation__
+ * __useInsertExperienceWorkMutation__
  *
- * To run a mutation, you first call `useInsertWorkExperienceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useInsertWorkExperienceMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useInsertExperienceWorkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertExperienceWorkMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [insertWorkExperienceMutation, { data, loading, error }] = useInsertWorkExperienceMutation({
+ * const [insertExperienceWorkMutation, { data, loading, error }] = useInsertExperienceWorkMutation({
  *   variables: {
  *      date_dismissal: // value for 'date_dismissal'
  *      date_employment: // value for 'date_employment'
  *      description: // value for 'description'
  *      jobposition: // value for 'jobposition'
  *      name_company: // value for 'name_company'
+ *      resume_id: // value for 'resume_id'
  *      workLocation: // value for 'workLocation'
  *   },
  * });
  */
-export function useInsertWorkExperienceMutation(baseOptions?: Apollo.MutationHookOptions<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>) {
+export function useInsertExperienceWorkMutation(baseOptions?: Apollo.MutationHookOptions<InsertExperienceWorkMutation, InsertExperienceWorkMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>(InsertWorkExperienceDocument, options);
+        return Apollo.useMutation<InsertExperienceWorkMutation, InsertExperienceWorkMutationVariables>(InsertExperienceWorkDocument, options);
       }
-export type InsertWorkExperienceMutationHookResult = ReturnType<typeof useInsertWorkExperienceMutation>;
-export type InsertWorkExperienceMutationResult = Apollo.MutationResult<InsertWorkExperienceMutation>;
-export type InsertWorkExperienceMutationOptions = Apollo.BaseMutationOptions<InsertWorkExperienceMutation, InsertWorkExperienceMutationVariables>;
-export const UpdateResumeWorkExperienceDocument = gql`
-    mutation UpdateResumeWorkExperience($_eq: uuid = "", $experience_work_id: uuid = "") {
-  update_resumes(
-    where: {resume_id: {_eq: $_eq}}
-    _set: {experience_work_id: $experience_work_id}
-  ) {
-    returning {
-      resume_id
-      experience_work_id
-    }
+export type InsertExperienceWorkMutationHookResult = ReturnType<typeof useInsertExperienceWorkMutation>;
+export type InsertExperienceWorkMutationResult = Apollo.MutationResult<InsertExperienceWorkMutation>;
+export type InsertExperienceWorkMutationOptions = Apollo.BaseMutationOptions<InsertExperienceWorkMutation, InsertExperienceWorkMutationVariables>;
+export const DeleteExperienceWorkDocument = gql`
+    mutation DeleteExperienceWork($_eq: uuid = "") {
+  delete_experience_work(where: {experience_work_id: {_eq: $_eq}}) {
+    affected_rows
   }
 }
     `;
-export type UpdateResumeWorkExperienceMutationFn = Apollo.MutationFunction<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>;
+export type DeleteExperienceWorkMutationFn = Apollo.MutationFunction<DeleteExperienceWorkMutation, DeleteExperienceWorkMutationVariables>;
 
 /**
- * __useUpdateResumeWorkExperienceMutation__
+ * __useDeleteExperienceWorkMutation__
  *
- * To run a mutation, you first call `useUpdateResumeWorkExperienceMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateResumeWorkExperienceMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useDeleteExperienceWorkMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteExperienceWorkMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [updateResumeWorkExperienceMutation, { data, loading, error }] = useUpdateResumeWorkExperienceMutation({
+ * const [deleteExperienceWorkMutation, { data, loading, error }] = useDeleteExperienceWorkMutation({
  *   variables: {
  *      _eq: // value for '_eq'
- *      experience_work_id: // value for 'experience_work_id'
  *   },
  * });
  */
-export function useUpdateResumeWorkExperienceMutation(baseOptions?: Apollo.MutationHookOptions<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>) {
+export function useDeleteExperienceWorkMutation(baseOptions?: Apollo.MutationHookOptions<DeleteExperienceWorkMutation, DeleteExperienceWorkMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>(UpdateResumeWorkExperienceDocument, options);
+        return Apollo.useMutation<DeleteExperienceWorkMutation, DeleteExperienceWorkMutationVariables>(DeleteExperienceWorkDocument, options);
       }
-export type UpdateResumeWorkExperienceMutationHookResult = ReturnType<typeof useUpdateResumeWorkExperienceMutation>;
-export type UpdateResumeWorkExperienceMutationResult = Apollo.MutationResult<UpdateResumeWorkExperienceMutation>;
-export type UpdateResumeWorkExperienceMutationOptions = Apollo.BaseMutationOptions<UpdateResumeWorkExperienceMutation, UpdateResumeWorkExperienceMutationVariables>;
+export type DeleteExperienceWorkMutationHookResult = ReturnType<typeof useDeleteExperienceWorkMutation>;
+export type DeleteExperienceWorkMutationResult = Apollo.MutationResult<DeleteExperienceWorkMutation>;
+export type DeleteExperienceWorkMutationOptions = Apollo.BaseMutationOptions<DeleteExperienceWorkMutation, DeleteExperienceWorkMutationVariables>;

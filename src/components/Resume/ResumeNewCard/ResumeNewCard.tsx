@@ -2,9 +2,20 @@ import React from 'react'
 import styles from './ResumeNewCard.module.scss'
 import { Text, useDisclosure } from '@chakra-ui/react'
 import ResumeModalCreate from '../ResumeModalCreate/ResumeModalCreate'
+import {
+  Exact,
+  GetJobseekerResumesQuery,
+  InputMaybe,
+} from '@/generated/projectR-hasura'
+import { LazyQueryExecFunction } from '@apollo/client'
 
 interface IResumeNewCard {
-  getResumeList: any
+  getResumeList: LazyQueryExecFunction<
+    GetJobseekerResumesQuery,
+    Exact<{
+      _eq?: InputMaybe<string> | undefined
+    }>
+  >
 }
 
 const ResumeNewCard = ({ getResumeList }: IResumeNewCard) => {

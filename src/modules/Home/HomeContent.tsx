@@ -29,10 +29,6 @@ function HomeContent() {
     },
   })
 
-  const { data, loading, error } = useGetResumesQuery({})
-
-  const resumesData = data?.resumes
-
   const [deleteResumeMutation] = useDeleteResumeMutation({
     onCompleted() {
       return enqueueSnackbar('Резюме успешно удалено', {
@@ -63,6 +59,10 @@ function HomeContent() {
       },
     })
   }
+
+  const { data, loading, error } = useGetResumesQuery({})
+
+  const resumesData = data?.resumes
 
   useEffect(() => {
     getResumeList()
