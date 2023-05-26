@@ -45,7 +45,7 @@ function Resume() {
             <Experience resume_id={resume_id as string} />
           </TabPanel>
           <TabPanel>
-            <Project />
+            <Project resume_id={resume_id as string} />
           </TabPanel>
           <TabPanel>Образование</TabPanel>
           <TabPanel>Навыки</TabPanel>
