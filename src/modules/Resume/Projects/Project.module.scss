@@ -30,6 +30,12 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+
+            .container_left_collapse_cards {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     }
 

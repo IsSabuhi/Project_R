@@ -15,12 +15,13 @@ import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import {
   InsertProjectMutationVariables,
   Projects,
+  useDeleteProjectMutation,
   useGetProjectsLazyQuery,
-  useGetProjectsQuery,
   useInsertProjectMutation,
 } from '@/generated/projectR-hasura'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
+import ProjectCards from './ProjectCards/ProjectCards'
 
 interface IProject {
   resume_id: string
@@ -40,6 +41,7 @@ function Project({ resume_id }: IProject) {
   const [insertProjectMutation] = useInsertProjectMutation({
     onCompleted() {
       formik.resetForm()
+      getProjectsList()
       return enqueueSnackbar('Данные сохранены', {
         variant: 'success',
       })
@@ -80,6 +82,23 @@ function Project({ resume_id }: IProject) {
     },
   })
 
+  const [deleteProjectMutation] = useDeleteProjectMutation({
+    onCompleted() {
+      getProjectsList()
+      if (projectData?.length === 0) {
+        setIsOpen(false)
+      } else {
+        setIsOpen(true)
+      }
+      return enqueueSnackbar('Запрос выполнен успешно', {
+        variant: 'success',
+      })
+    },
+    onError() {
+      enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+    },
+  })
+
   React.useEffect(() => {
     getProjectsList()
   }, [])
@@ -101,11 +120,33 @@ function Project({ resume_id }: IProject) {
         <Collapse in={isOpen} animateOpacity>
           <div className={styles.container_left_collapse}>
             <Divider mt={5} />
-            Добавьте свой первый проект
+
+            {projectData?.length === 0 ? (
+              <Text>Добавьте свой первый проект</Text>
+            ) : (
+              <div className={styles.container_left_collapse_cards}>
+                {projectData?.map((item, index) => {
+                  return (
+                    <ProjectCards
+                      key={index}
+                      project_name={item.project_name}
+                      name_organization={item.name_organization}
+                      handleDelete={() =>
+                        deleteProjectMutation({
+                          variables: {
+                            _eq: item.project_id,
+                          },
+                        })
+                      }
+                    />
+                  )
+                })}
+              </div>
+            )}
           </div>
         </Collapse>
       </div>
-      <form className={styles.container_right}>
+      <form className={styles.container_right} onSubmit={formik.handleSubmit}>
         <Flex gap={5}>
           <FormControl as="fieldset">
             <FormLabel as="legend" htmlFor="project_name">
@@ -118,34 +159,42 @@ function Project({ resume_id }: IProject) {
               fontSize="sm"
               size="lg"
               placeholder="Тема проекта"
+              value={formik.values.project_name as string}
+              onChange={formik.handleChange}
+              required
             />
           </FormControl>
 
           <FormControl as="fieldset">
-            <FormLabel as="legend" htmlFor="project_company">
+            <FormLabel as="legend" htmlFor="name_organization">
               В какой организации вы делали свой проект?
             </FormLabel>
             <Input
-              id="project_company"
-              name="project_company"
+              id="name_organization"
+              name="name_organization"
               type="text"
               fontSize="sm"
               size="lg"
               placeholder="Наименование организации"
+              value={formik.values.name_organization as string}
+              onChange={formik.handleChange}
+              required
             />
           </FormControl>
         </Flex>
         <FormControl as="fieldset">
-          <FormLabel as="legend" htmlFor="project_about">
+          <FormLabel as="legend" htmlFor="description">
             Кратко опишите что вы сделали
           </FormLabel>
 
           <Textarea
-            id="project_about"
-            name="project_about"
+            id="description"
+            name="description"
             placeholder="Что вы сделали?"
             fontSize="sm"
             size="lg"
+            value={formik.values.description as string}
+            onChange={formik.handleChange}
           />
         </FormControl>
         <Button
