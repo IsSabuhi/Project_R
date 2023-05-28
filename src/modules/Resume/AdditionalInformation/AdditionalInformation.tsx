@@ -52,7 +52,6 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
       },
     })
 
-  console.log(formik.values)
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
       <Checkbox
