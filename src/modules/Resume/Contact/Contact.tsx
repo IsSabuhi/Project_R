@@ -1,9 +1,22 @@
-import { Button, Flex, FormControl, FormLabel, Input } from '@chakra-ui/react'
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Icon,
+  Input,
+  Select,
+  Text,
+} from '@chakra-ui/react'
 import React from 'react'
 import styles from './Contacts.module.scss'
 import {
-  Jobseeker,
-  Resumes,
   UpdateContactsMutationVariables,
   useGetJobseekerContactsQuery,
   useUpdateContactsMutation,
@@ -13,88 +26,31 @@ import { joinName } from '@/utils/joinName'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
+import { contactsItem } from '@/configs'
+
+interface IContact {
+  resume_id: string
+}
 
 const initialFormContact: UpdateContactsMutationVariables = {
   email: '',
   phone: '',
 }
 
-function Contact() {
-  const router = useRouter()
-
+function Contact({ resume_id }: IContact) {
   const { enqueueSnackbar } = useSnackbar()
 
-  const resume_id = router.query.id
-
   const { userId } = useAuthContext()
-
-  // const [values, setValues] = React.useState(initialFormContacts)
-
-  const { data, loading, error } = useGetJobseekerContactsQuery({
-    variables: {
-      _eq: resume_id as string,
-    },
-    onCompleted(data) {
-      // setValues(data.jobseeker[0])
-    },
-  })
-
-  const userData = data?.jobseeker[0]!
-
-  const [updateContactsMutation] = useUpdateContactsMutation({
-    onCompleted() {
-      return enqueueSnackbar('Данные сохранены успешно', {
-        variant: 'success',
-      })
-    },
-    onError() {
-      return enqueueSnackbar('Произошла непредвиденная ошибка', {
-        variant: 'error',
-      })
-    },
-  })
 
   const formik = useFormik({
     initialValues: initialFormContact,
     enableReinitialize: true,
-    onSubmit: () => {
-      updateContactsMutation({
-        variables: {
-          _eq: userId,
-        },
-      })
-    },
+    onSubmit: () => {},
   })
-
-  const handleChangeField = ({
-    target: { value, name },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    formik.setFieldValue(name, value)
-  }
 
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
       <Flex gap={4} mt={5}>
-        <FormControl as="fieldset">
-          <FormLabel as="legend" htmlFor="fullName">
-            Полное имя
-          </FormLabel>
-          <Input
-            id="fullName"
-            name="fullName"
-            type="text"
-            fontSize="sm"
-            size="lg"
-            placeholder="Введите ваше полное имя"
-            value={joinName(
-              userData?.lastName!,
-              userData?.name!,
-              userData?.middleName!
-            )}
-            disabled
-          />
-        </FormControl>
-
         <FormControl as="fieldset">
           <FormLabel as="legend" htmlFor="email">
             Адрес электронной почты
@@ -106,15 +62,9 @@ function Contact() {
             fontSize="sm"
             size="lg"
             placeholder="Введите ваш email"
-            value={formik.values.email || ''}
-            onChange={(event) => {
-              handleChangeField(event as React.ChangeEvent<HTMLInputElement>)
-            }}
           />
         </FormControl>
-      </Flex>
 
-      <Flex gap={4} mt={5}>
         <FormControl as="fieldset">
           <FormLabel as="legend" htmlFor="phone">
             Номер телефона
@@ -126,27 +76,40 @@ function Contact() {
             fontSize="sm"
             size="lg"
             placeholder="Введите ваш номер телефона"
-            value={formik.values.phone || ''}
-            onChange={(event) => {
-              handleChangeField(event as React.ChangeEvent<HTMLInputElement>)
-            }}
-          />
-        </FormControl>
-
-        <FormControl as="fieldset">
-          <FormLabel as="legend" htmlFor="fullName">
-            Личный сайт или релевантная ссылка
-          </FormLabel>
-          <Input
-            id="myLink"
-            name="myLink"
-            type="text"
-            fontSize="sm"
-            size="lg"
-            placeholder="http://www.mysite.com"
           />
         </FormControl>
       </Flex>
+
+      <Accordion allowToggle>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                Section 1 title
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <Flex gap={4}>
+              <Select placeholder="Select option">
+                {contactsItem.map((contact, index) => {
+                  return (
+                    <option key={index} value={contact.label}>
+                      <Flex alignItems="center">
+                        <Icon as={contact.icon} mr={2} />
+                        <Text>{contact.label}</Text>
+                      </Flex>
+                    </option>
+                  )
+                })}
+              </Select>
+              <Input type="text" />
+            </Flex>
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+
       <Button
         type="submit"
         colorScheme="blue"

@@ -496,3 +496,32 @@ mutation DeleteCourse($_eq: uuid = "") {
     affected_rows
   }
 }
+
+mutation AddAdditionalInformation(
+  $_eq: uuid = ""
+  $about_me: String = ""
+  $driving_categories: String = ""
+  $medical_book: Boolean = false
+  $military_service: Boolean = false
+) {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: {
+      about_me: $about_me
+      driving_categories: $driving_categories
+      medical_book: $medical_book
+      military_service: $military_service
+    }
+  ) {
+    returning {
+      about_me
+      desired_position
+      driving_categories
+      jobseeker_id
+      medical_book
+      military_service
+      resume_id
+      resume_name
+    }
+  }
+}

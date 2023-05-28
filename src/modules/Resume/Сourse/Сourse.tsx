@@ -188,7 +188,7 @@ function Сourse({ resume_id }: IСourse) {
 
         <FormControl as="fieldset">
           <FormLabel as="legend" htmlFor="date_receipt">
-            Когда вы прошли курсы?
+            Дата окончания *
           </FormLabel>
           <Input
             id="date_receipt"
@@ -198,7 +198,12 @@ function Сourse({ resume_id }: IСourse) {
             size="lg"
             value={formik.values.date_receipt as string}
             onChange={formik.handleChange}
+            required
           />
+          <Text>
+            * Если учитесь в настоящее время, укажите год предполагаемого
+            окончания
+          </Text>
           {/* <NumberInput
             id="date_receipt"
             name="date_receipt"

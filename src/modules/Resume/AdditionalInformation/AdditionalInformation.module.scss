@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .container_drivingCategories {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .container_drivingCategories_items {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+    }
+}

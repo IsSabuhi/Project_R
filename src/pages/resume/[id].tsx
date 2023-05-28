@@ -14,6 +14,8 @@ import styles from '@/styles/Resume.module.scss'
 import Experience from '@/modules/Resume/Experience/Experience'
 import Project from '@/modules/Resume/Projects/Project'
 import Сourse from '@/modules/Resume/Сourse/Сourse'
+import AdditionalInformation from '@/modules/Resume/AdditionalInformation/AdditionalInformation'
+import Skills from '@/modules/Resume/Skills/Skills'
 
 function Resume() {
   const router = useRouter()
@@ -39,6 +41,7 @@ function Resume() {
           <Tab>Проекты</Tab>
           <Tab>Курсы</Tab>
           <Tab>Навыки</Tab>
+          <Tab>Дополнительная информация</Tab>
         </TabList>
 
         <TabPanels>
@@ -51,7 +54,12 @@ function Resume() {
           <TabPanel>
             <Сourse resume_id={resume_id as string} />
           </TabPanel>
-          <TabPanel>Навыки</TabPanel>
+          <TabPanel>
+            <Skills />
+          </TabPanel>
+          <TabPanel>
+            <AdditionalInformation resume_id={resume_id as string} />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </div>
