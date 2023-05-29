@@ -1,0 +1,38 @@
+.container {
+
+    .container_top {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+
+        .container_top_text {
+            display: flex;
+            flex-direction: column;
+
+            .container_top__text_bottom {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+            }
+        }
+    }
+
+    .main {
+        display: flex;
+        flex-direction: row;
+
+        .main_left {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            .main_left_experienceWork {
+
+            }
+        }
+
+        .main_right {
+
+        }
+    }
+}

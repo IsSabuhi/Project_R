@@ -76,7 +76,7 @@ function Сourse({ resume_id }: IСourse) {
       _eq: resume_id,
     },
     onCompleted(data) {
-      setCourseWorkData(data.course)
+      setCourseWorkData(data.course as Course[])
       if (data.course?.length === 0) {
         setIsOpen(false)
       } else {
@@ -105,8 +105,6 @@ function Сourse({ resume_id }: IСourse) {
   React.useEffect(() => {
     getCourseList()
   }, [])
-
-  console.log(courseWorkData)
 
   return (
     <div className={styles.container}>

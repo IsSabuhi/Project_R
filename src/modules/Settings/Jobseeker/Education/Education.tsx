@@ -53,8 +53,6 @@ function Education() {
 
   const educationsData = data?.jobseeker_education
 
-  console.log(educationsData)
-
   return (
     <div className={styles.container}>
       <Accordion defaultIndex={[0]} allowToggle>

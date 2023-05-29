@@ -73,7 +73,7 @@ function Project({ resume_id }: IProject) {
       _eq: resume_id,
     },
     onCompleted(data) {
-      setProjectData(data.projects)
+      setProjectData(data.projects as Projects[])
       if (data.projects?.length === 0) {
         setIsOpen(false)
       } else {

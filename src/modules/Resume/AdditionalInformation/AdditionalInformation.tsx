@@ -1,25 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './AdditionalInformation.module.scss'
-import { Button, Checkbox, Flex, Text, Textarea } from '@chakra-ui/react'
-import { drivingCategories } from '@/configs'
-import { useFormik } from 'formik'
-import { useSnackbar } from 'notistack'
 import {
-  AddAdditionalInformationMutationVariables,
-  useAddAdditionalInformationMutation,
-} from '@/generated/projectR-hasura'
+  Box,
+  Button,
+  Checkbox,
+  Heading,
+  Text,
+  Textarea,
+  VStack,
+} from '@chakra-ui/react'
+import { drivingCategories, languages, languagesLevel } from '@/configs'
+import { FieldArray, useFormik } from 'formik'
+import { useSnackbar } from 'notistack'
+import { useAddAdditionalInformationMutation } from '@/generated/projectR-hasura'
+import Language from './LanguageComponent/LanguageComponent'
 
 interface IAdditionalInformation {
   resume_id: string
 }
 
-const initialFormAdditionalInformation: AddAdditionalInformationMutationVariables =
-  {
-    about_me: '',
-    driving_categories: '',
-    medical_book: false,
-    military_service: false,
-  }
+interface Language {
+  language: string
+  level: string
+}
+
+interface AddAdditionalInformationType {
+  about_me?: string | null
+  driving_categories?: string | null
+  medical_book?: boolean | null
+  military_service?: boolean | null
+  languages?: Language[] | null
+}
+
+const initialFormAdditionalInformation: AddAdditionalInformationType = {
+  about_me: '',
+  driving_categories: '',
+  medical_book: false,
+  military_service: false,
+  languages: languages.map((language) => ({
+    language: language.name,
+    level: '',
+  })),
+}
 
 function AdditionalInformation({ resume_id }: IAdditionalInformation) {
   const { enqueueSnackbar } = useSnackbar()
@@ -28,6 +50,20 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
     initialValues: initialFormAdditionalInformation,
     enableReinitialize: true,
     onSubmit: () => {
+      const {
+        about_me,
+        driving_categories,
+        medical_book,
+        military_service,
+        languages,
+      } = formik.values
+
+      // Преобразование массива языков в нужный формат перед отправкой
+      const formattedLanguages = languages?.map((language) => ({
+        language: language.language,
+        level: language.level,
+      }))
+
       addAdditionalInformationMutation({
         variables: {
           _eq: resume_id,
@@ -87,11 +123,12 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
           })}
         </div>
       </div>
+
       <Textarea
         id="about_me"
         name="about_me"
         placeholder="О себе"
-        value={formik.values.about_me}
+        value={formik.values.about_me as string}
         onChange={formik.handleChange}
       />
       <Button

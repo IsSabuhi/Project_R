@@ -245,17 +245,67 @@ query GetJobseekerResumes($_eq: uuid = "") {
   }
 }
 
-query GetResumes {
-  resumes {
+query GetResumes($_eq: uuid = "") {
+  resumes(where: { resume_id: { _eq: $_eq } }) {
+    about_me
+    data_create
+    desired_position
+    driving_categories
     jobseeker_id
+    medical_book
+    military_service
     resume_id
     resume_name
+    resumes_courses {
+      course_id
+      course_location
+      course_name
+      description
+      date_receipt
+    }
+    resumes_projects {
+      description
+      name_organization
+      project_name
+      project_id
+    }
+    resumes_skills {
+      description
+      skills_id
+    }
+    experience_works {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+      workLocation
+    }
     resumes_jobseeker {
-      jobseeker_id
-      middleName
+      account_id
+      dateBirth
+      email
+      gender
       lastName
+      middleName
       name
       phone
+      jobseeker_educations {
+        average_score
+        degree_education
+        education_form
+        educational_institution_id
+        end_date
+        faculity
+        group
+        jobseeker_education_id
+        speciality
+        start_date
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
     }
   }
 }
@@ -523,5 +573,29 @@ mutation AddAdditionalInformation(
       resume_id
       resume_name
     }
+  }
+}
+
+query GetSkills($_eq: uuid = "") {
+  skills(where: { resume_id: { _eq: $_eq } }) {
+    description
+    resume_id
+    skills_id
+  }
+}
+
+mutation InsertSkills($description: String = "", $resume_id: uuid = "") {
+  insert_skills(objects: { description: $description, resume_id: $resume_id }) {
+    returning {
+      description
+      resume_id
+      skills_id
+    }
+  }
+}
+
+mutation DeleteSkills($_eq: uuid = "") {
+  delete_skills(where: { skills_id: { _eq: $_eq } }) {
+    affected_rows
   }
 }

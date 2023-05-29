@@ -80,7 +80,7 @@ function Experience({ resume_id }: IExperience) {
       _eq: resume_id,
     },
     onCompleted(data) {
-      setexperience_workData(data.experience_work)
+      setexperience_workData(data.experience_work as Experience_Work[])
       if (data.experience_work?.length === 0) {
         setIsOpen(false)
       } else {

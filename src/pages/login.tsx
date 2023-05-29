@@ -37,7 +37,7 @@ const SignIn = () => {
 
   const titleColor = useColorModeValue('teal.300', 'teal.200')
 
-  const { userId, startAuthSession } = useAuthContext()
+  const { userId, isAuthorized, startAuthSession } = useAuthContext()
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -66,6 +66,12 @@ const SignIn = () => {
       })
     },
   })
+
+  React.useEffect(() => {
+    if (isAuthorized) {
+      router.push(APP_URLS.getHomePage(userId!))
+    }
+  }, [router])
 
   return (
     <Flex p={8} flex={1} align={'center'}>
