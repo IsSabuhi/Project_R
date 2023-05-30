@@ -7,6 +7,7 @@ import { APP_URLS } from '../configs/urls'
 import { AUTH_TOKEN } from '../constants'
 import { parseJwt } from '../utils/parse-jwt'
 import { useUpdateTokenMutation } from '@/generated/projectR-hasura'
+import Cookies from 'universal-cookie'
 
 const KEY = AUTH_TOKEN
 
@@ -105,6 +106,13 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     [authState]
   )
 
+  const cookies = new Cookies()
+
+  // Функция для очистки куки "refresh_token"
+  const clearTokenCookie = () => {
+    cookies.remove('refresh_token')
+  }
+
   const stopAuthSession: IAuthContext['stopAuthSession'] =
     useCallback(async () => {
       setAuthData({
@@ -113,6 +121,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: undefined,
       })
       localStorage.removeItem(KEY)
+      clearTokenCookie()
       sessionStorage.setItem('skipAuthEvent', 'false')
       router.push(APP_URLS.SIGN_OUT)
     }, [])

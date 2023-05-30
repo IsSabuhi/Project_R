@@ -30,6 +30,7 @@ function ResumeContent({ resume_id }: IResumeContent) {
 
   const specialityJobseeker =
     data?.resumes[0].resumes_jobseeker?.jobseeker_educations[0].speciality
+
   return (
     <Tabs position="relative" variant="unstyled">
       <TabList>
