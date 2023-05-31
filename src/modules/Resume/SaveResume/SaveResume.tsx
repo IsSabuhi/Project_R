@@ -12,6 +12,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons'
 import { useGetResumesQuery } from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
 import ClassicTemplate from '../templates/Classic/ClassicTemplate'
+import { calculateAgeWithUnit } from '@/utils/calculateAge'
 
 interface ISaveResume {
   resume_id: string
@@ -25,6 +26,10 @@ function SaveResume({ resume_id }: ISaveResume) {
   })
 
   const userResumeData = data?.resumes[0]
+
+  console.log(
+    calculateAgeWithUnit(userResumeData?.resumes_jobseeker?.dateBirth!)
+  )
 
   return (
     <div className={styles.container}>

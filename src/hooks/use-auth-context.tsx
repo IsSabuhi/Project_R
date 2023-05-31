@@ -106,13 +106,6 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     [authState]
   )
 
-  const cookies = new Cookies()
-
-  // Функция для очистки куки "refresh_token"
-  const clearTokenCookie = () => {
-    cookies.remove('refresh_token')
-  }
-
   const stopAuthSession: IAuthContext['stopAuthSession'] =
     useCallback(async () => {
       setAuthData({
@@ -121,7 +114,8 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: undefined,
       })
       localStorage.removeItem(KEY)
-      clearTokenCookie()
+      // const cookies = new Cookies()
+      // cookies.remove('refresh_token')
       sessionStorage.setItem('skipAuthEvent', 'false')
       router.push(APP_URLS.SIGN_OUT)
     }, [])

@@ -1,3 +1,27 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section_right_title {
+    position: relative;
+    font-size: 17px;
+    font-weight: 600;
+    color: #000;
+    line-height: 34px;
+    border-bottom: 2px solid #e5e5e5;
+
+    &::before {
+        position: absolute;
+        bottom: -2px;
+        content: " ";
+        width: 50px;
+        height: 2px;
+        background: #000;
+    }
+}
+
 .container {
     max-width: 790px;
     min-height: calc(28cm + 4rem);
@@ -6,22 +30,37 @@
 
     .container_top {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 300px;
-        padding: 10px;
+        flex-direction: column;
+        margin-bottom: 20px;
 
-        .container_top_text {
+        .container_top_content {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            align-items: center;
+            gap: 60px;
+            padding: 10px;
 
-            .container_top__text_bottom {
+            .container_top_text {
                 display: flex;
-                flex-direction: row;
-                gap: 10px;
+                flex-direction: column;
+                gap: 5px;
+    
+                .container_top__text_bottom {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+    
+                    font-weight: 14px;
+                    color: #525252
+                }
+            }
+        }
 
-                font-weight: 14px;
-                color: #525252
+        .container_top_line {
+            padding: 10px;
+
+            .container_top_line_hr {
+                border-bottom: 2px solid black;
             }
         }
     }
@@ -38,16 +77,150 @@
             height: 100%;
 
             .main_left_experienceWork {
-                
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 0 15px;
 
                 .main_left_experienceWork_header {
-                    border-bottom: 2px solid #e5e5e5;
+                  
+
+                    .main_left_experienceWork_header_title {
+                        position: relative;
+                        font-size: 17px;
+                        font-weight: 600;
+                        color: #000;
+                        line-height: 34px;
+                        border-bottom: 2px solid #e5e5e5;
+                    }
+
+                    .main_left_experienceWork_header_title::before {
+                        position: absolute;
+                        bottom: -2px;
+                        content: " ";
+                        width: 50px;
+                        height: 2px;
+                        background: #000;
+                    }
                 }
+
+                .main_left_experienceWork_content {
+                    display: flex;
+                    flex-direction: column;
+
+                    .main_left_experienceWork_content_companyName {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        .main_left_experienceWork_content_companyName_text {
+                            font-size: 14px;
+                            font-weight: bold;
+                            color: #000000;
+                            line-height: 1.2em;
+                        }
+
+                        .main_left_experienceWork_content_companyName_textDate {
+                            font-size: 12px;
+                            color: #000000;
+                            line-height: 1.2em;
+                            white-space: nowrap;
+                        }
+                    }
+
+                    .main_left_experienceWork_content_jobseekerPosition {
+                        font-style: italic;
+                        font-size: 14px;
+                        text-decoration: none;
+                        line-height: 1.2em;
+                        padding: 5px 0 10px 15px;
+                    }
+
+                    .main_left_experienceWork_content_description {
+                        padding-left: 30px;
+                        
+                        .main_left_experienceWork_content_description_text {
+                            font-size: 12px;
+                            line-height: 1.2em;
+                        }
+                    }
+                }
+            }
+
+            .main_left_educations {
+
+            }
+
+            .main_left_course {
+
             }
         }
 
         .main_right {
+            display: flex;
+            flex-direction: column;
+            border-left: 0.5mm solid black;
+            padding: 0 5mm;
+            width: 100%;
+            max-width: 270px;
 
+            .main_right_contacts {
+                @extend .section;
+
+                .main_right_contacts_title {
+                    @extend .section_right_title;         
+                }
+
+                .main_right_contacts_block {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                }
+            }
+
+            .main_right_languages {
+                @extend .section;
+                padding-top: 15px;
+
+                .main_right_languages_title {
+                    @extend .section_right_title;
+                }
+                
+                .main_right_languages_content {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 20px;
+
+                    .main_right_languages_content_language {
+                        font-size: 15px;
+                        line-height: 1.2em;
+                    }
+
+                    .main_right_languages_content_level {
+                        font-size: 12px;
+                        white-space: nowrap;
+                        line-height: 1.2em;
+                        color: #444;
+                    }
+                }
+            }
+
+            .main_right_hobby {
+                @extend .section;
+                padding-top: 15px;
+                
+                .main_right_hobby_title {
+                   @extend .section_right_title;
+                }
+
+                .main_right_hobby_content {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
         }
     }
 }
