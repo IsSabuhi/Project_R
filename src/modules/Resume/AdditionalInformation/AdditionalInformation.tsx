@@ -1,19 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './AdditionalInformation.module.scss'
-import {
-  Box,
-  Button,
-  Checkbox,
-  Heading,
-  Text,
-  Textarea,
-  VStack,
-} from '@chakra-ui/react'
-import { drivingCategories, languages, languagesLevel } from '@/configs'
-import { FieldArray, useFormik } from 'formik'
+import { Button, Checkbox, Text } from '@chakra-ui/react'
+import { drivingCategories, languages } from '@/configs'
+import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 import { useAddAdditionalInformationMutation } from '@/generated/projectR-hasura'
 import Language from './LanguageComponent/LanguageComponent'
+import ReactQuillWrapper from '@/components/ReactQuillWrapper'
 
 interface IAdditionalInformation {
   resume_id: string
@@ -24,7 +17,7 @@ interface Language {
   level: string
 }
 
-interface AddAdditionalInformationType {
+export interface AddAdditionalInformationType {
   about_me?: string | null
   driving_categories?: string | null
   medical_book?: boolean | null
@@ -50,20 +43,6 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
     initialValues: initialFormAdditionalInformation,
     enableReinitialize: true,
     onSubmit: () => {
-      const {
-        about_me,
-        driving_categories,
-        medical_book,
-        military_service,
-        languages,
-      } = formik.values
-
-      // Преобразование массива языков в нужный формат перед отправкой
-      const formattedLanguages = languages?.map((language) => ({
-        language: language.language,
-        level: language.level,
-      }))
-
       addAdditionalInformationMutation({
         variables: {
           _eq: resume_id,
@@ -87,6 +66,8 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
         enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
       },
     })
+
+  console.log(formik.values)
 
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
@@ -124,13 +105,19 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
         </div>
       </div>
 
-      <Textarea
+      <ReactQuillWrapper
+        id="about_me"
+        value={formik.values.about_me as string}
+        onChange={(v: string) => formik.setFieldValue('about_me', v)!}
+      />
+
+      {/* <Textarea
         id="about_me"
         name="about_me"
         placeholder="О себе"
         value={formik.values.about_me as string}
         onChange={formik.handleChange}
-      />
+      /> */}
       <Button
         type="submit"
         colorScheme="blue"

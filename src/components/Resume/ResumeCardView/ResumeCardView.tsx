@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './ResumeCardView.module.scss'
 import Link from 'next/link'
+import { Text } from '@chakra-ui/react'
 
 interface IResumeCardView {
   userName: string

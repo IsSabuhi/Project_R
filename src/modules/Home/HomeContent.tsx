@@ -25,7 +25,7 @@ function HomeContent() {
       _eq: userProfileId,
     },
     onCompleted(data) {
-      setResumeData(data.resumes)
+      setResumeData(data.resumes as Resumes[])
     },
   })
 

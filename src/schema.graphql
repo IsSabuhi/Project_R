@@ -242,6 +242,9 @@ query GetJobseekerResumes($_eq: uuid = "") {
     jobseeker_id
     resume_id
     resume_name
+    about_me
+    data_create
+    desired_position
   }
 }
 
