@@ -87,7 +87,7 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
       >
         Медицинская книжка
       </Checkbox>
-      <div className={styles.container_drivingCategories}>
+      {/* <div className={styles.container_drivingCategories}>
         <Text>Водительские права (категории):</Text>
         <div className={styles.container_drivingCategories_items}>
           {drivingCategories.map((item, index) => {
@@ -103,7 +103,7 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
             )
           })}
         </div>
-      </div>
+      </div> */}
 
       <ReactQuillWrapper
         id="about_me"

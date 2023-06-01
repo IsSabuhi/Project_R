@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 5px 15px;
+
+    .container_top {
+
+        .container_top_title {
+            position: relative;
+            font-size: 17px;
+            font-weight: 600;
+            color: #000;
+            line-height: 34px;
+            border-bottom: 2px solid #e5e5e5;
+
+            &::before {
+                position: absolute;
+                bottom: -2px;
+                content: " ";
+                width: 50px;
+                height: 2px;
+                background: #000;
+            }
+        }
+    }
+
+    .main_skills {
+        font-size: 14px;
+        line-height: 1.2em;
+    }
+
+}

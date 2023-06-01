@@ -1287,6 +1287,196 @@ export type Experience_Work_Updates = {
   where: Experience_Work_Bool_Exp;
 };
 
+/** hobby */
+export type Hobby = {
+  __typename?: 'hobby';
+  description: Scalars['String'];
+  hobby_id: Scalars['uuid'];
+  /** An object relationship */
+  hobby_resume?: Maybe<Resumes>;
+  resume_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregated selection of "hobby" */
+export type Hobby_Aggregate = {
+  __typename?: 'hobby_aggregate';
+  aggregate?: Maybe<Hobby_Aggregate_Fields>;
+  nodes: Array<Hobby>;
+};
+
+export type Hobby_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Hobby_Aggregate_Bool_Exp_Count>;
+};
+
+export type Hobby_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Hobby_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Hobby_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "hobby" */
+export type Hobby_Aggregate_Fields = {
+  __typename?: 'hobby_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Hobby_Max_Fields>;
+  min?: Maybe<Hobby_Min_Fields>;
+};
+
+
+/** aggregate fields of "hobby" */
+export type Hobby_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Hobby_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "hobby" */
+export type Hobby_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Hobby_Max_Order_By>;
+  min?: InputMaybe<Hobby_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "hobby" */
+export type Hobby_Arr_Rel_Insert_Input = {
+  data: Array<Hobby_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Hobby_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "hobby". All fields are combined with a logical 'AND'. */
+export type Hobby_Bool_Exp = {
+  _and?: InputMaybe<Array<Hobby_Bool_Exp>>;
+  _not?: InputMaybe<Hobby_Bool_Exp>;
+  _or?: InputMaybe<Array<Hobby_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  hobby_id?: InputMaybe<Uuid_Comparison_Exp>;
+  hobby_resume?: InputMaybe<Resumes_Bool_Exp>;
+  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "hobby" */
+export enum Hobby_Constraint {
+  /** unique or primary key constraint on columns "hobby_id" */
+  HobbyPkey = 'hobby_pkey'
+}
+
+/** input type for inserting data into table "hobby" */
+export type Hobby_Insert_Input = {
+  description?: InputMaybe<Scalars['String']>;
+  hobby_id?: InputMaybe<Scalars['uuid']>;
+  hobby_resume?: InputMaybe<Resumes_Obj_Rel_Insert_Input>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type Hobby_Max_Fields = {
+  __typename?: 'hobby_max_fields';
+  description?: Maybe<Scalars['String']>;
+  hobby_id?: Maybe<Scalars['uuid']>;
+  resume_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "hobby" */
+export type Hobby_Max_Order_By = {
+  description?: InputMaybe<Order_By>;
+  hobby_id?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Hobby_Min_Fields = {
+  __typename?: 'hobby_min_fields';
+  description?: Maybe<Scalars['String']>;
+  hobby_id?: Maybe<Scalars['uuid']>;
+  resume_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "hobby" */
+export type Hobby_Min_Order_By = {
+  description?: InputMaybe<Order_By>;
+  hobby_id?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "hobby" */
+export type Hobby_Mutation_Response = {
+  __typename?: 'hobby_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Hobby>;
+};
+
+/** on_conflict condition type for table "hobby" */
+export type Hobby_On_Conflict = {
+  constraint: Hobby_Constraint;
+  update_columns?: Array<Hobby_Update_Column>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "hobby". */
+export type Hobby_Order_By = {
+  description?: InputMaybe<Order_By>;
+  hobby_id?: InputMaybe<Order_By>;
+  hobby_resume?: InputMaybe<Resumes_Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: hobby */
+export type Hobby_Pk_Columns_Input = {
+  hobby_id: Scalars['uuid'];
+};
+
+/** select columns of table "hobby" */
+export enum Hobby_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  HobbyId = 'hobby_id',
+  /** column name */
+  ResumeId = 'resume_id'
+}
+
+/** input type for updating data in table "hobby" */
+export type Hobby_Set_Input = {
+  description?: InputMaybe<Scalars['String']>;
+  hobby_id?: InputMaybe<Scalars['uuid']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** Streaming cursor of the table "hobby" */
+export type Hobby_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Hobby_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Hobby_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']>;
+  hobby_id?: InputMaybe<Scalars['uuid']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** update columns of table "hobby" */
+export enum Hobby_Update_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  HobbyId = 'hobby_id',
+  /** column name */
+  ResumeId = 'resume_id'
+}
+
+export type Hobby_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Hobby_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Hobby_Bool_Exp;
+};
+
 /** columns and relationships of "jobseeker" */
 export type Jobseeker = {
   __typename?: 'jobseeker';
@@ -2445,6 +2635,10 @@ export type Mutation_Root = {
   delete_experience_work?: Maybe<Experience_Work_Mutation_Response>;
   /** delete single row from the table: "experience_work" */
   delete_experience_work_by_pk?: Maybe<Experience_Work>;
+  /** delete data from the table: "hobby" */
+  delete_hobby?: Maybe<Hobby_Mutation_Response>;
+  /** delete single row from the table: "hobby" */
+  delete_hobby_by_pk?: Maybe<Hobby>;
   /** delete data from the table: "jobseeker" */
   delete_jobseeker?: Maybe<Jobseeker_Mutation_Response>;
   /** delete single row from the table: "jobseeker" */
@@ -2501,6 +2695,10 @@ export type Mutation_Root = {
   insert_experience_work?: Maybe<Experience_Work_Mutation_Response>;
   /** insert a single row into the table: "experience_work" */
   insert_experience_work_one?: Maybe<Experience_Work>;
+  /** insert data into the table: "hobby" */
+  insert_hobby?: Maybe<Hobby_Mutation_Response>;
+  /** insert a single row into the table: "hobby" */
+  insert_hobby_one?: Maybe<Hobby>;
   /** insert data into the table: "jobseeker" */
   insert_jobseeker?: Maybe<Jobseeker_Mutation_Response>;
   /** insert data into the table: "jobseeker_education" */
@@ -2575,6 +2773,12 @@ export type Mutation_Root = {
   update_experience_work_by_pk?: Maybe<Experience_Work>;
   /** update multiples rows of table: "experience_work" */
   update_experience_work_many?: Maybe<Array<Maybe<Experience_Work_Mutation_Response>>>;
+  /** update data of the table: "hobby" */
+  update_hobby?: Maybe<Hobby_Mutation_Response>;
+  /** update single row of the table: "hobby" */
+  update_hobby_by_pk?: Maybe<Hobby>;
+  /** update multiples rows of table: "hobby" */
+  update_hobby_many?: Maybe<Array<Maybe<Hobby_Mutation_Response>>>;
   /** update data of the table: "jobseeker" */
   update_jobseeker?: Maybe<Jobseeker_Mutation_Response>;
   /** update single row of the table: "jobseeker" */
@@ -2689,6 +2893,18 @@ export type Mutation_RootDelete_Experience_WorkArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Experience_Work_By_PkArgs = {
   experience_work_id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_HobbyArgs = {
+  where: Hobby_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Hobby_By_PkArgs = {
+  hobby_id: Scalars['uuid'];
 };
 
 
@@ -2867,6 +3083,20 @@ export type Mutation_RootInsert_Experience_WorkArgs = {
 export type Mutation_RootInsert_Experience_Work_OneArgs = {
   object: Experience_Work_Insert_Input;
   on_conflict?: InputMaybe<Experience_Work_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_HobbyArgs = {
+  objects: Array<Hobby_Insert_Input>;
+  on_conflict?: InputMaybe<Hobby_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Hobby_OneArgs = {
+  object: Hobby_Insert_Input;
+  on_conflict?: InputMaybe<Hobby_On_Conflict>;
 };
 
 
@@ -3143,6 +3373,26 @@ export type Mutation_RootUpdate_Experience_Work_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Experience_Work_ManyArgs = {
   updates: Array<Experience_Work_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_HobbyArgs = {
+  _set?: InputMaybe<Hobby_Set_Input>;
+  where: Hobby_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Hobby_By_PkArgs = {
+  _set?: InputMaybe<Hobby_Set_Input>;
+  pk_columns: Hobby_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Hobby_ManyArgs = {
+  updates: Array<Hobby_Updates>;
 };
 
 
@@ -3948,6 +4198,12 @@ export type Query_Root = {
   experience_work_aggregate: Experience_Work_Aggregate;
   /** fetch data from the table: "experience_work" using primary key columns */
   experience_work_by_pk?: Maybe<Experience_Work>;
+  /** fetch data from the table: "hobby" */
+  hobby: Array<Hobby>;
+  /** fetch aggregated fields from the table: "hobby" */
+  hobby_aggregate: Hobby_Aggregate;
+  /** fetch data from the table: "hobby" using primary key columns */
+  hobby_by_pk?: Maybe<Hobby>;
   /** fetch data from the table: "jobseeker" */
   jobseeker: Array<Jobseeker>;
   /** fetch aggregated fields from the table: "jobseeker" */
@@ -4117,6 +4373,29 @@ export type Query_RootExperience_Work_AggregateArgs = {
 
 export type Query_RootExperience_Work_By_PkArgs = {
   experience_work_id: Scalars['uuid'];
+};
+
+
+export type Query_RootHobbyArgs = {
+  distinct_on?: InputMaybe<Array<Hobby_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Hobby_Order_By>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
+};
+
+
+export type Query_RootHobby_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Hobby_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Hobby_Order_By>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
+};
+
+
+export type Query_RootHobby_By_PkArgs = {
+  hobby_id: Scalars['uuid'];
 };
 
 
@@ -4370,6 +4649,10 @@ export type Resumes = {
   resumes_courses: Array<Course>;
   /** An aggregate relationship */
   resumes_courses_aggregate: Course_Aggregate;
+  /** An array relationship */
+  resumes_hobbies: Array<Hobby>;
+  /** An aggregate relationship */
+  resumes_hobbies_aggregate: Hobby_Aggregate;
   /** An object relationship */
   resumes_jobseeker?: Maybe<Jobseeker>;
   /** An array relationship */
@@ -4440,6 +4723,26 @@ export type ResumesResumes_Courses_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Course_Order_By>>;
   where?: InputMaybe<Course_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resumes" */
+export type ResumesResumes_HobbiesArgs = {
+  distinct_on?: InputMaybe<Array<Hobby_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Hobby_Order_By>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resumes" */
+export type ResumesResumes_Hobbies_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Hobby_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Hobby_Order_By>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
 };
 
 
@@ -4565,6 +4868,8 @@ export type Resumes_Bool_Exp = {
   resume_name?: InputMaybe<String_Comparison_Exp>;
   resumes_courses?: InputMaybe<Course_Bool_Exp>;
   resumes_courses_aggregate?: InputMaybe<Course_Aggregate_Bool_Exp>;
+  resumes_hobbies?: InputMaybe<Hobby_Bool_Exp>;
+  resumes_hobbies_aggregate?: InputMaybe<Hobby_Aggregate_Bool_Exp>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Bool_Exp>;
   resumes_projects?: InputMaybe<Projects_Bool_Exp>;
   resumes_projects_aggregate?: InputMaybe<Projects_Aggregate_Bool_Exp>;
@@ -4592,6 +4897,7 @@ export type Resumes_Insert_Input = {
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
   resumes_courses?: InputMaybe<Course_Arr_Rel_Insert_Input>;
+  resumes_hobbies?: InputMaybe<Hobby_Arr_Rel_Insert_Input>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
   resumes_projects?: InputMaybe<Projects_Arr_Rel_Insert_Input>;
   resumes_skills?: InputMaybe<Skills_Arr_Rel_Insert_Input>;
@@ -4680,6 +4986,7 @@ export type Resumes_Order_By = {
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
   resumes_courses_aggregate?: InputMaybe<Course_Aggregate_Order_By>;
+  resumes_hobbies_aggregate?: InputMaybe<Hobby_Aggregate_Order_By>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Order_By>;
   resumes_projects_aggregate?: InputMaybe<Projects_Aggregate_Order_By>;
   resumes_skills_aggregate?: InputMaybe<Skills_Aggregate_Order_By>;
@@ -5023,6 +5330,14 @@ export type Subscription_Root = {
   experience_work_by_pk?: Maybe<Experience_Work>;
   /** fetch data from the table in a streaming manner: "experience_work" */
   experience_work_stream: Array<Experience_Work>;
+  /** fetch data from the table: "hobby" */
+  hobby: Array<Hobby>;
+  /** fetch aggregated fields from the table: "hobby" */
+  hobby_aggregate: Hobby_Aggregate;
+  /** fetch data from the table: "hobby" using primary key columns */
+  hobby_by_pk?: Maybe<Hobby>;
+  /** fetch data from the table in a streaming manner: "hobby" */
+  hobby_stream: Array<Hobby>;
   /** fetch data from the table: "jobseeker" */
   jobseeker: Array<Jobseeker>;
   /** fetch aggregated fields from the table: "jobseeker" */
@@ -5245,6 +5560,36 @@ export type Subscription_RootExperience_Work_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Experience_Work_Stream_Cursor_Input>>;
   where?: InputMaybe<Experience_Work_Bool_Exp>;
+};
+
+
+export type Subscription_RootHobbyArgs = {
+  distinct_on?: InputMaybe<Array<Hobby_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Hobby_Order_By>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
+};
+
+
+export type Subscription_RootHobby_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Hobby_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Hobby_Order_By>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
+};
+
+
+export type Subscription_RootHobby_By_PkArgs = {
+  hobby_id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootHobby_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Hobby_Stream_Cursor_Input>>;
+  where?: InputMaybe<Hobby_Bool_Exp>;
 };
 
 
@@ -6015,10 +6360,11 @@ export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resume
 export type UpdateResumeNameMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
+  desired_position?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type UpdateResumeNameMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, resume_name: string, jobseeker_id?: string | null }> } | null };
+export type UpdateResumeNameMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, resume_name: string, jobseeker_id?: string | null, desired_position?: string | null }> } | null };
 
 export type GetResumeQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -6151,6 +6497,28 @@ export type DeleteSkillsMutationVariables = Exact<{
 
 
 export type DeleteSkillsMutation = { __typename?: 'mutation_root', delete_skills?: { __typename?: 'skills_mutation_response', affected_rows: number } | null };
+
+export type GetHobbyQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetHobbyQuery = { __typename?: 'query_root', hobby: Array<{ __typename?: 'hobby', hobby_id: string, description: string }> };
+
+export type InsertHobbyMutationVariables = Exact<{
+  description?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type InsertHobbyMutation = { __typename?: 'mutation_root', insert_hobby?: { __typename?: 'hobby_mutation_response', returning: Array<{ __typename?: 'hobby', hobby_id: string, description: string }> } | null };
+
+export type DeleteHobbyMutationVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type DeleteHobbyMutation = { __typename?: 'mutation_root', delete_hobby?: { __typename?: 'hobby_mutation_response', affected_rows: number } | null };
 
 
 export const AuthLoginDocument = gql`
@@ -6892,15 +7260,16 @@ export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMu
 export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
 export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
 export const UpdateResumeNameDocument = gql`
-    mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "") {
+    mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "", $desired_position: String = "") {
   update_resumes(
     where: {resume_id: {_eq: $_eq}}
-    _set: {resume_name: $resume_name}
+    _set: {resume_name: $resume_name, desired_position: $desired_position}
   ) {
     returning {
       resume_id
       resume_name
       jobseeker_id
+      desired_position
     }
   }
 }
@@ -6922,6 +7291,7 @@ export type UpdateResumeNameMutationFn = Apollo.MutationFunction<UpdateResumeNam
  *   variables: {
  *      _eq: // value for '_eq'
  *      resume_name: // value for 'resume_name'
+ *      desired_position: // value for 'desired_position'
  *   },
  * });
  */
@@ -7593,3 +7963,109 @@ export function useDeleteSkillsMutation(baseOptions?: Apollo.MutationHookOptions
 export type DeleteSkillsMutationHookResult = ReturnType<typeof useDeleteSkillsMutation>;
 export type DeleteSkillsMutationResult = Apollo.MutationResult<DeleteSkillsMutation>;
 export type DeleteSkillsMutationOptions = Apollo.BaseMutationOptions<DeleteSkillsMutation, DeleteSkillsMutationVariables>;
+export const GetHobbyDocument = gql`
+    query GetHobby($_eq: uuid = "") {
+  hobby(where: {resume_id: {_eq: $_eq}}) {
+    hobby_id
+    description
+  }
+}
+    `;
+
+/**
+ * __useGetHobbyQuery__
+ *
+ * To run a query within a React component, call `useGetHobbyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetHobbyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetHobbyQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetHobbyQuery(baseOptions?: Apollo.QueryHookOptions<GetHobbyQuery, GetHobbyQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetHobbyQuery, GetHobbyQueryVariables>(GetHobbyDocument, options);
+      }
+export function useGetHobbyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetHobbyQuery, GetHobbyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetHobbyQuery, GetHobbyQueryVariables>(GetHobbyDocument, options);
+        }
+export type GetHobbyQueryHookResult = ReturnType<typeof useGetHobbyQuery>;
+export type GetHobbyLazyQueryHookResult = ReturnType<typeof useGetHobbyLazyQuery>;
+export type GetHobbyQueryResult = Apollo.QueryResult<GetHobbyQuery, GetHobbyQueryVariables>;
+export const InsertHobbyDocument = gql`
+    mutation InsertHobby($description: String = "", $resume_id: uuid = "") {
+  insert_hobby(objects: {description: $description, resume_id: $resume_id}) {
+    returning {
+      hobby_id
+      description
+    }
+  }
+}
+    `;
+export type InsertHobbyMutationFn = Apollo.MutationFunction<InsertHobbyMutation, InsertHobbyMutationVariables>;
+
+/**
+ * __useInsertHobbyMutation__
+ *
+ * To run a mutation, you first call `useInsertHobbyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertHobbyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertHobbyMutation, { data, loading, error }] = useInsertHobbyMutation({
+ *   variables: {
+ *      description: // value for 'description'
+ *      resume_id: // value for 'resume_id'
+ *   },
+ * });
+ */
+export function useInsertHobbyMutation(baseOptions?: Apollo.MutationHookOptions<InsertHobbyMutation, InsertHobbyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertHobbyMutation, InsertHobbyMutationVariables>(InsertHobbyDocument, options);
+      }
+export type InsertHobbyMutationHookResult = ReturnType<typeof useInsertHobbyMutation>;
+export type InsertHobbyMutationResult = Apollo.MutationResult<InsertHobbyMutation>;
+export type InsertHobbyMutationOptions = Apollo.BaseMutationOptions<InsertHobbyMutation, InsertHobbyMutationVariables>;
+export const DeleteHobbyDocument = gql`
+    mutation DeleteHobby($_eq: uuid = "") {
+  delete_hobby(where: {hobby_id: {_eq: $_eq}}) {
+    affected_rows
+  }
+}
+    `;
+export type DeleteHobbyMutationFn = Apollo.MutationFunction<DeleteHobbyMutation, DeleteHobbyMutationVariables>;
+
+/**
+ * __useDeleteHobbyMutation__
+ *
+ * To run a mutation, you first call `useDeleteHobbyMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteHobbyMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteHobbyMutation, { data, loading, error }] = useDeleteHobbyMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useDeleteHobbyMutation(baseOptions?: Apollo.MutationHookOptions<DeleteHobbyMutation, DeleteHobbyMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteHobbyMutation, DeleteHobbyMutationVariables>(DeleteHobbyDocument, options);
+      }
+export type DeleteHobbyMutationHookResult = ReturnType<typeof useDeleteHobbyMutation>;
+export type DeleteHobbyMutationResult = Apollo.MutationResult<DeleteHobbyMutation>;
+export type DeleteHobbyMutationOptions = Apollo.BaseMutationOptions<DeleteHobbyMutation, DeleteHobbyMutationVariables>;

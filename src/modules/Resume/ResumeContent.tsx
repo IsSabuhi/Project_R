@@ -16,6 +16,7 @@ import SaveResume from './SaveResume/SaveResume'
 import Сourse from '@/modules/Resume/Сourse/Сourse'
 import { useGetResumeQuery } from '@/generated/projectR-hasura'
 import styles from '@/styles/Resume.module.scss'
+import Hobby from './Hobby/Hobby'
 
 interface IResumeContent {
   resume_id: string
@@ -42,6 +43,7 @@ function ResumeContent({ resume_id }: IResumeContent) {
         <Tab>Опыт работы</Tab>
         <Tab>Проекты</Tab>
         <Tab>Курсы</Tab>
+        <Tab>Хобби</Tab>
         <Tab>Навыки</Tab>
         <Tab>Дополнительная информация</Tab>
         <Tab>Сохранение резюме</Tab>
@@ -49,22 +51,25 @@ function ResumeContent({ resume_id }: IResumeContent) {
 
       <TabPanels>
         <TabPanel>
-          <Experience resume_id={resume_id as string} />
+          <Experience resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
-          <Project resume_id={resume_id as string} />
+          <Project resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
-          <Сourse resume_id={resume_id as string} />
+          <Сourse resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
-          <Skills resume_id={resume_id as string} />
+          <Hobby resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
-          <AdditionalInformation resume_id={resume_id as string} />
+          <Skills resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
-          <SaveResume resume_id={resume_id as string} />
+          <AdditionalInformation resume_id={resume_id!} />
+        </TabPanel>
+        <TabPanel>
+          <SaveResume resume_id={resume_id!} />
         </TabPanel>
       </TabPanels>
     </Tabs>

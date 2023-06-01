@@ -7,6 +7,8 @@ import { ImPhone } from 'react-icons/im'
 import { MdEmail } from 'react-icons/md'
 import Educations from './Educations/Educations'
 import Course from './Course/Course'
+import Skills from './Skills/Skills'
+import AboutMe from './AboutMe/AboutMe'
 
 function ClassicTemplate() {
   return (
@@ -128,6 +130,12 @@ function ClassicTemplate() {
           </section>
           <section className={styles.main_left_course}>
             <Course />
+          </section>
+          <section>
+            <Skills />
+          </section>
+          <section>
+            <AboutMe />
           </section>
         </div>
 

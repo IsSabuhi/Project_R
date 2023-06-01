@@ -35,13 +35,13 @@ const SidebarContent = ({
             selected={selected}
             setSelected={setSelected}
           />
-          <Item
+          {/* <Item
             title="Шаблоны резюме"
             to="/home"
             icon={<GrTemplate size="20px" />}
             selected={selected}
             setSelected={setSelected}
-          />
+          /> */}
           <Item
             title="Настройки"
             to={APP_URLS.getSettingsPage(userId!)}

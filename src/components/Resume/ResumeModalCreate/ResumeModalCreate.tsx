@@ -102,6 +102,7 @@ const ResumeModalCreate = ({
                 placeholder="Введите название резюме"
                 onChange={formik.handleChange}
                 value={formik.values.resume_name!}
+                required
               />
             </FormControl>
             <FormControl>

@@ -1,57 +1,58 @@
+import React, { useState } from 'react'
+import styles from './Hobby.module.scss'
+import { useSnackbar } from 'notistack'
 import {
   Button,
   Collapse,
   Divider,
   FormControl,
   FormLabel,
+  Input,
   Text,
   Textarea,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import styles from './Skills.module.scss'
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import { useSnackbar } from 'notistack'
 import { useFormik } from 'formik'
+import HobbyCards from './HobbyCards/HobbyCards'
 import {
-  InsertSkillsMutationVariables,
-  Skills,
-  useDeleteSkillsMutation,
-  useGetSkillsLazyQuery,
-  useInsertSkillsMutation,
+  Hobby,
+  useDeleteHobbyMutation,
+  useGetHobbyLazyQuery,
+  useInsertHobbyMutation,
 } from '@/generated/projectR-hasura'
-import SkillsCards from './SkillsCards/SkillsCards'
 
-interface ISkills {
+interface IHobby {
   resume_id: string
 }
 
-const initialFormSkills: InsertSkillsMutationVariables = {
+const initialFormHobby = {
   description: '',
 }
 
-function Skills({ resume_id }: ISkills) {
+function Hobby({ resume_id }: IHobby) {
   const [isOpen, setIsOpen] = useState(false)
 
   const { enqueueSnackbar } = useSnackbar()
 
-  const [insertSkillsMutation] = useInsertSkillsMutation({
-    onCompleted() {
-      formik.resetForm()
-      getSkillsList()
-      return enqueueSnackbar('Данные сохранены', {
-        variant: 'success',
-      })
-    },
-    onError() {
-      enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
-    },
-  })
+  const [insertHobbyMutation, { data, loading, error }] =
+    useInsertHobbyMutation({
+      onCompleted() {
+        formik.resetForm()
+        getHobbyList()
+        return enqueueSnackbar('Данные сохранены', {
+          variant: 'success',
+        })
+      },
+      onError() {
+        enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+      },
+    })
 
   const formik = useFormik({
-    initialValues: initialFormSkills,
+    initialValues: initialFormHobby,
     enableReinitialize: true,
     onSubmit: () => {
-      insertSkillsMutation({
+      insertHobbyMutation({
         variables: {
           description: formik.values.description,
           resume_id: resume_id,
@@ -60,15 +61,15 @@ function Skills({ resume_id }: ISkills) {
     },
   })
 
-  const [skillsData, setSkillsData] = useState<Skills[]>()
+  const [hobbyData, setHobbyData] = useState<Hobby[]>()
 
-  const [getSkillsList] = useGetSkillsLazyQuery({
+  const [getHobbyList] = useGetHobbyLazyQuery({
     variables: {
       _eq: resume_id,
     },
     onCompleted(data) {
-      setSkillsData(data.skills)
-      if (data.skills?.length === 0) {
+      setHobbyData(data.hobby)
+      if (data.hobby?.length === 0) {
         setIsOpen(false)
       } else {
         setIsOpen(true)
@@ -76,10 +77,10 @@ function Skills({ resume_id }: ISkills) {
     },
   })
 
-  const [deleteSkillsMutation] = useDeleteSkillsMutation({
+  const [deleteHobbyMutation] = useDeleteHobbyMutation({
     onCompleted() {
-      getSkillsList()
-      if (skillsData?.length === 0) {
+      getHobbyList()
+      if (hobbyData?.length === 0) {
         setIsOpen(false)
       } else {
         setIsOpen(true)
@@ -94,9 +95,8 @@ function Skills({ resume_id }: ISkills) {
   })
 
   React.useEffect(() => {
-    getSkillsList()
+    getHobbyList()
   }, [])
-
   return (
     <div className={styles.container}>
       <div className={styles.container_left}>
@@ -104,7 +104,7 @@ function Skills({ resume_id }: ISkills) {
           className={styles.container_left_title}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <Text className={styles.container_left_titleText}>Ваши навыки</Text>
+          <Text className={styles.container_left_titleText}>Хобби</Text>
           {isOpen ? (
             <ArrowDownIcon boxSize={5} />
           ) : (
@@ -114,19 +114,19 @@ function Skills({ resume_id }: ISkills) {
         <Collapse in={isOpen} animateOpacity>
           <div className={styles.container_left_collapse}>
             <Divider mt={5} />
-            {skillsData?.length === 0 ? (
-              <Text>Добавьте свои первые навыки</Text>
+            {hobbyData?.length === 0 ? (
+              <Text>Напишите, чем вы увлекаетесь в свободное время</Text>
             ) : (
               <div className={styles.container_left_collapse_cards}>
-                {skillsData?.map((item, index) => {
+                {hobbyData?.map((item, index) => {
                   return (
-                    <SkillsCards
+                    <HobbyCards
                       key={index}
-                      description={item.description}
+                      description={item.description as string}
                       handleDelete={() =>
-                        deleteSkillsMutation({
+                        deleteHobbyMutation({
                           variables: {
-                            _eq: item.skills_id,
+                            _eq: item.hobby_id,
                           },
                         })
                       }
@@ -141,9 +141,9 @@ function Skills({ resume_id }: ISkills) {
       <form className={styles.container_right} onSubmit={formik.handleSubmit}>
         <FormControl as="fieldset">
           <FormLabel as="legend" htmlFor="description">
-            Ваши навыки
+            Введите ваши увлечения и интересы
           </FormLabel>
-          <Textarea
+          <Input
             id="description"
             name="description"
             value={formik.values.description as string}
@@ -156,24 +156,7 @@ function Skills({ resume_id }: ISkills) {
           type="submit"
           variant="solid"
           loadingText="Сохранение"
-          bg="#868dfb"
-          h="45"
-          mb="5px"
-          color="white"
-          _hover={{
-            bg: '#b5b9ee',
-          }}
-          _active={{
-            bg: '#868dfb',
-          }}
-          marginLeft="auto"
-        >
-          Исследователь навыков ИИ
-        </Button>
-        <Button
-          type="submit"
-          variant="solid"
-          loadingText="Сохранение"
+          isLoading={loading}
           bg="teal.300"
           h="45"
           mb="5px"
@@ -193,4 +176,4 @@ function Skills({ resume_id }: ISkills) {
   )
 }
 
-export default Skills
+export default Hobby

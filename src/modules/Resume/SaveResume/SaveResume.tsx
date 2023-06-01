@@ -27,10 +27,6 @@ function SaveResume({ resume_id }: ISaveResume) {
 
   const userResumeData = data?.resumes[0]
 
-  console.log(
-    calculateAgeWithUnit(userResumeData?.resumes_jobseeker?.dateBirth!)
-  )
-
   return (
     <div className={styles.container}>
       <div className={styles.container_main}>
