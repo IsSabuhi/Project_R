@@ -209,17 +209,11 @@
             }
 
             .main_right_hobby {
-                @extend .section;
                 padding-top: 15px;
-                
-                .main_right_hobby_title {
-                   @extend .section_right_title;
-                }
+            }
 
-                .main_right_hobby_content {
-                    display: flex;
-                    flex-direction: column;
-                }
+            .main_right_programmingLanguages {
+                padding-top: 15px;
             }
         }
     }

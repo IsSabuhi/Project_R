@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './ResumeNewCard.module.scss'
 import { Text, useDisclosure } from '@chakra-ui/react'
-import ResumeModalCreate from '../ResumeModalCreate/ResumeModalCreate'
+import ResumeModalCreate from '../ResumeCreateModal/ResumeCreateModal'
 import {
   Exact,
   GetJobseekerResumesQuery,

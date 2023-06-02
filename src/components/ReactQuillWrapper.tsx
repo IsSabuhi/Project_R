@@ -7,15 +7,21 @@ import 'react-quill/dist/quill.snow.css'
 interface IReactQuillWrapper {
   id: string
   value: string
+  placeholder?: string
   onChange: (
     v: string
   ) => Promise<void> | Promise<FormikErrors<AddAdditionalInformationType>>
 }
 
-const ReactQuillWrapper = ({ id, value, onChange }: IReactQuillWrapper) => {
+const ReactQuillWrapper = ({
+  id,
+  value,
+  placeholder,
+  onChange,
+}: IReactQuillWrapper) => {
   const modules = {
     toolbar: [
-      [{ header: [1, 2, false] }],
+      // [{ header: [1, 2, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
       [
         { list: 'ordered' },
@@ -38,15 +44,13 @@ const ReactQuillWrapper = ({ id, value, onChange }: IReactQuillWrapper) => {
     'indent',
   ]
 
-  console.log(value)
-
   return (
     <div>
       <ReactQuill
         id={id}
         value={value}
         modules={modules}
-        placeholder="О себе"
+        placeholder={placeholder}
         theme="snow"
         formats={formats}
         onChange={onChange}

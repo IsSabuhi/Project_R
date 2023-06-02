@@ -310,26 +310,18 @@ query GetResumes($_eq: uuid = "") {
         }
       }
     }
+    programming_languages
   }
 }
 
-mutation InsertResume(
-  $resume_name: String = ""
-  $jobseeker_id: uuid = ""
-  $desired_position: String = ""
-) {
+mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
   insert_resumes(
-    objects: {
-      resume_name: $resume_name
-      jobseeker_id: $jobseeker_id
-      desired_position: $desired_position
-    }
+    objects: { resume_name: $resume_name, jobseeker_id: $jobseeker_id }
   ) {
     returning {
       jobseeker_id
       resume_name
       resume_id
-      desired_position
     }
   }
 }
@@ -561,6 +553,8 @@ mutation AddAdditionalInformation(
   $driving_categories: String = ""
   $medical_book: Boolean = false
   $military_service: Boolean = false
+  $desired_position: String = ""
+  $programming_languages: String = ""
 ) {
   update_resumes(
     where: { resume_id: { _eq: $_eq } }
@@ -569,6 +563,8 @@ mutation AddAdditionalInformation(
       driving_categories: $driving_categories
       medical_book: $medical_book
       military_service: $military_service
+      desired_position: $desired_position
+      programming_languages: $programming_languages
     }
   ) {
     returning {

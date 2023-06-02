@@ -9,6 +9,8 @@ import Educations from './Educations/Educations'
 import Course from './Course/Course'
 import Skills from './Skills/Skills'
 import AboutMe from './AboutMe/AboutMe'
+import ProgrammingLanguages from './ProgrammingLanguages/ProgrammingLanguages'
+import Hobby from './Hobby/Hobby'
 
 function ClassicTemplate() {
   return (
@@ -125,15 +127,19 @@ function ClassicTemplate() {
               </div>
             </div>
           </section>
+          {/* Образование */}
           <section className={styles.main_left_educations}>
             <Educations />
           </section>
+          {/* Курсы */}
           <section className={styles.main_left_course}>
             <Course />
           </section>
+          {/* Навыки */}
           <section>
             <Skills />
           </section>
+          {/* О себе */}
           <section>
             <AboutMe />
           </section>
@@ -167,12 +173,11 @@ function ClassicTemplate() {
           </section>
           {/* Хобби */}
           <section className={styles.main_right_hobby}>
-            <Text className={styles.main_right_hobby_title}>Хобби</Text>
-            <div className={styles.main_right_hobby_content}>
-              <li>Участие в Хакатонах</li>
-              <li>Увлекаюсь AI, ML, DL</li>
-              <li>Геймдев</li>
-            </div>
+            <Hobby />
+          </section>
+          {/* Языки программирования */}
+          <section className={styles.main_right_programmingLanguages}>
+            <ProgrammingLanguages />
           </section>
         </div>
       </div>

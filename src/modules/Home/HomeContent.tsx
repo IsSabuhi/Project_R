@@ -78,7 +78,6 @@ function HomeContent() {
             return (
               <ResumeCard
                 key={index}
-                resumeData={resumeData}
                 resume_name={item.resume_name}
                 resume_id={item.resume_id}
                 deleteResume={() => deleteResume(item.resume_id)}

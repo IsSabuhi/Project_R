@@ -1,8 +1,10 @@
 import {
   Resumes,
   UpdateResumeNameMutationVariables,
+  useGetJobseekerResumesQuery,
   useUpdateResumeNameMutation,
 } from '@/generated/projectR-hasura'
+import { useAuthContext } from '@/hooks/use-auth-context'
 import {
   Button,
   FormControl,
@@ -18,13 +20,12 @@ import {
 } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 interface IResumeIUpdateModal {
   isOpen: boolean
   onClose: () => void
   resume_id: string
-  resumeData: Resumes[]
 }
 
 const initialFormUpdate: UpdateResumeNameMutationVariables = {
@@ -35,25 +36,10 @@ function ResumeUpdateModal({
   isOpen,
   onClose,
   resume_id,
-  resumeData,
 }: IResumeIUpdateModal) {
   const { enqueueSnackbar } = useSnackbar()
 
   const [values, setValues] = React.useState(initialFormUpdate)
-
-  const formik = useFormik({
-    initialValues: values,
-    enableReinitialize: true,
-    onSubmit: () => {
-      updateResumeNameMutation({
-        variables: {
-          _eq: resume_id,
-          resume_name: formik.values.resume_name,
-          desired_position: formik.values.desired_position,
-        },
-      })
-    },
-  })
 
   const [updateResumeNameMutation] = useUpdateResumeNameMutation({
     onCompleted() {
@@ -66,6 +52,20 @@ function ResumeUpdateModal({
     onError() {
       return enqueueSnackbar('Произошла непредвиденная ошибка', {
         variant: 'error',
+      })
+    },
+  })
+
+  const formik = useFormik({
+    initialValues: values,
+    enableReinitialize: true,
+    onSubmit: () => {
+      updateResumeNameMutation({
+        variables: {
+          _eq: resume_id,
+          resume_name: formik.values.resume_name,
+          desired_position: formik.values.desired_position,
+        },
       })
     },
   })

@@ -17,21 +17,14 @@ import Link from 'next/link'
 import { APP_URLS } from '@/configs/urls'
 import ResumeDeleteModal from './ResumeDeleteModal/ResumeDeleteModal'
 import ResumeUpdateModal from './ResumeUpdateModal/ResumeUpdateModal'
-import { Resumes } from '@/generated/projectR-hasura'
 
 interface IResumeCard {
   resume_name: string
   resume_id: string
-  resumeData: Resumes[]
   deleteResume: () => void
 }
 
-function ResumeCard({
-  resume_name,
-  resume_id,
-  resumeData,
-  deleteResume,
-}: IResumeCard) {
+function ResumeCard({ resume_name, resume_id, deleteResume }: IResumeCard) {
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
@@ -54,7 +47,10 @@ function ResumeCard({
         <div className={styles.main}>Нажмите чтобы открыть резюме</div>
       </Link>
       <div className={styles.container_footer}>
-        <Text>{resume_name || 'Название резюме'}</Text>
+        <div>
+          <Text>{resume_name || 'Название резюме'}</Text>
+        </div>
+
         <Menu>
           <MenuButton>
             <MdOutlineMoreVert />
@@ -80,7 +76,6 @@ function ResumeCard({
       />
       <ResumeUpdateModal
         resume_id={resume_id}
-        resumeData={resumeData}
         isOpen={isEditOpen}
         onClose={onEditClose}
       />

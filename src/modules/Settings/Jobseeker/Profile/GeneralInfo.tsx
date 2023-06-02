@@ -41,8 +41,6 @@ const GeneralInfo = () => {
     },
   })
 
-  const userData = data?.jobseeker[0]
-
   const [updateJobseekerProfileMutation] = useUpdateJobseekerProfileMutation({
     onCompleted(data) {
       return enqueueSnackbar('Данные сохранены успешно', {

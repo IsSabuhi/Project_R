@@ -1,10 +1,19 @@
 import React from 'react'
 import styles from './AdditionalInformation.module.scss'
-import { Button, Checkbox, Text } from '@chakra-ui/react'
-import { drivingCategories, languages } from '@/configs'
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react'
+import { languages } from '@/configs'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
-import { useAddAdditionalInformationMutation } from '@/generated/projectR-hasura'
+import {
+  useAddAdditionalInformationMutation,
+  useGetResumesQuery,
+} from '@/generated/projectR-hasura'
 import Language from './LanguageComponent/LanguageComponent'
 import ReactQuillWrapper from '@/components/ReactQuillWrapper'
 
@@ -19,6 +28,8 @@ interface Language {
 
 export interface AddAdditionalInformationType {
   about_me?: string | null
+  desired_position?: string | null
+  programming_languages?: string | null
   driving_categories?: string | null
   medical_book?: boolean | null
   military_service?: boolean | null
@@ -30,6 +41,8 @@ const initialFormAdditionalInformation: AddAdditionalInformationType = {
   driving_categories: '',
   medical_book: false,
   military_service: false,
+  desired_position: '',
+  programming_languages: '',
   languages: languages.map((language) => ({
     language: language.name,
     level: '',
@@ -39,8 +52,21 @@ const initialFormAdditionalInformation: AddAdditionalInformationType = {
 function AdditionalInformation({ resume_id }: IAdditionalInformation) {
   const { enqueueSnackbar } = useSnackbar()
 
+  const [values, setValues] = React.useState(initialFormAdditionalInformation)
+
+  const [checkboxData, setCheckboxData] = React.useState<boolean[]>([])
+
+  const { data, loading, error } = useGetResumesQuery({
+    variables: {
+      _eq: resume_id,
+    },
+    onCompleted(data) {
+      setValues(data.resumes[0])
+    },
+  })
+
   const formik = useFormik({
-    initialValues: initialFormAdditionalInformation,
+    initialValues: values,
     enableReinitialize: true,
     onSubmit: () => {
       addAdditionalInformationMutation({
@@ -50,6 +76,8 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
           driving_categories: formik.values.driving_categories,
           medical_book: formik.values.medical_book,
           military_service: formik.values.military_service,
+          desired_position: formik.values.desired_position,
+          programming_languages: formik.values.programming_languages,
         },
       })
     },
@@ -67,15 +95,60 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
       },
     })
 
-  console.log(formik.values)
-
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
+      <FormControl>
+        <FormLabel as="legend" htmlFor="desired_position">
+          Желаемая должность
+        </FormLabel>
+        <Input
+          id="desired_position"
+          name="desired_position"
+          type="text"
+          fontSize="sm"
+          size="lg"
+          placeholder="React разработчик, администратор баз данных ..."
+          value={formik.values.desired_position as string}
+          onChange={formik.handleChange}
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel as="legend" htmlFor="programming_languages">
+          Языки программирования
+        </FormLabel>
+        <ReactQuillWrapper
+          id="programming_languages"
+          placeholder="Языки программирования"
+          value={formik.values.programming_languages as string}
+          onChange={(v: string) =>
+            formik.setFieldValue('programming_languages', v)!
+          }
+        />
+      </FormControl>
+
+      <FormControl>
+        <FormLabel as="legend" htmlFor="about_me">
+          О себе
+        </FormLabel>
+        <ReactQuillWrapper
+          id="about_me"
+          placeholder="Напишите о себе"
+          value={formik.values.about_me as string}
+          onChange={(v: string) => formik.setFieldValue('about_me', v)!}
+        />
+      </FormControl>
+      {/* TODO Разобраться почему не работает Checkbox */}
       <Checkbox
         id="military_service"
         name="military_service"
-        checked={formik.values.military_service || false}
-        onChange={formik.handleChange}
+        checked={checkboxData[0]}
+        onChange={(e) => {
+          formik.handleChange(e)
+          const newCheckboxData = [...checkboxData]
+          newCheckboxData[0] = e.target.checked
+          setCheckboxData(newCheckboxData)
+        }}
       >
         Служба в армии
       </Checkbox>
@@ -87,37 +160,7 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
       >
         Медицинская книжка
       </Checkbox>
-      {/* <div className={styles.container_drivingCategories}>
-        <Text>Водительские права (категории):</Text>
-        <div className={styles.container_drivingCategories_items}>
-          {drivingCategories.map((item, index) => {
-            return (
-              <Checkbox
-                key={index}
-                name={`driving_categories[${index}]`}
-                checked={formik.values.driving_categories!.includes(item.label)}
-                onChange={formik.handleChange}
-              >
-                {item.label}
-              </Checkbox>
-            )
-          })}
-        </div>
-      </div> */}
 
-      <ReactQuillWrapper
-        id="about_me"
-        value={formik.values.about_me as string}
-        onChange={(v: string) => formik.setFieldValue('about_me', v)!}
-      />
-
-      {/* <Textarea
-        id="about_me"
-        name="about_me"
-        placeholder="О себе"
-        value={formik.values.about_me as string}
-        onChange={formik.handleChange}
-      /> */}
       <Button
         type="submit"
         colorScheme="blue"

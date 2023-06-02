@@ -4643,6 +4643,7 @@ export type Resumes = {
   languages_aggregate: Languages_Aggregate;
   medical_book?: Maybe<Scalars['Boolean']>;
   military_service?: Maybe<Scalars['Boolean']>;
+  programming_languages?: Maybe<Scalars['String']>;
   resume_id: Scalars['uuid'];
   resume_name: Scalars['String'];
   /** An array relationship */
@@ -4864,6 +4865,7 @@ export type Resumes_Bool_Exp = {
   languages_aggregate?: InputMaybe<Languages_Aggregate_Bool_Exp>;
   medical_book?: InputMaybe<Boolean_Comparison_Exp>;
   military_service?: InputMaybe<Boolean_Comparison_Exp>;
+  programming_languages?: InputMaybe<String_Comparison_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_name?: InputMaybe<String_Comparison_Exp>;
   resumes_courses?: InputMaybe<Course_Bool_Exp>;
@@ -4880,7 +4882,9 @@ export type Resumes_Bool_Exp = {
 /** unique or primary key constraints on table "resumes" */
 export enum Resumes_Constraint {
   /** unique or primary key constraint on columns "resume_id" */
-  ResumePkey = 'resume_pkey'
+  ResumePkey = 'resume_pkey',
+  /** unique or primary key constraint on columns "programming_languages" */
+  ResumesProgrammingLanguagesKey = 'resumes_programming_languages_key'
 }
 
 /** input type for inserting data into table "resumes" */
@@ -4894,6 +4898,7 @@ export type Resumes_Insert_Input = {
   languages?: InputMaybe<Languages_Arr_Rel_Insert_Input>;
   medical_book?: InputMaybe<Scalars['Boolean']>;
   military_service?: InputMaybe<Scalars['Boolean']>;
+  programming_languages?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
   resumes_courses?: InputMaybe<Course_Arr_Rel_Insert_Input>;
@@ -4911,6 +4916,7 @@ export type Resumes_Max_Fields = {
   desired_position?: Maybe<Scalars['String']>;
   driving_categories?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
+  programming_languages?: Maybe<Scalars['String']>;
   resume_id?: Maybe<Scalars['uuid']>;
   resume_name?: Maybe<Scalars['String']>;
 };
@@ -4922,6 +4928,7 @@ export type Resumes_Max_Order_By = {
   desired_position?: InputMaybe<Order_By>;
   driving_categories?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
+  programming_languages?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
 };
@@ -4934,6 +4941,7 @@ export type Resumes_Min_Fields = {
   desired_position?: Maybe<Scalars['String']>;
   driving_categories?: Maybe<Scalars['String']>;
   jobseeker_id?: Maybe<Scalars['uuid']>;
+  programming_languages?: Maybe<Scalars['String']>;
   resume_id?: Maybe<Scalars['uuid']>;
   resume_name?: Maybe<Scalars['String']>;
 };
@@ -4945,6 +4953,7 @@ export type Resumes_Min_Order_By = {
   desired_position?: InputMaybe<Order_By>;
   driving_categories?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
+  programming_languages?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
 };
@@ -4983,6 +4992,7 @@ export type Resumes_Order_By = {
   languages_aggregate?: InputMaybe<Languages_Aggregate_Order_By>;
   medical_book?: InputMaybe<Order_By>;
   military_service?: InputMaybe<Order_By>;
+  programming_languages?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
   resumes_courses_aggregate?: InputMaybe<Course_Aggregate_Order_By>;
@@ -5014,6 +5024,8 @@ export enum Resumes_Select_Column {
   /** column name */
   MilitaryService = 'military_service',
   /** column name */
+  ProgrammingLanguages = 'programming_languages',
+  /** column name */
   ResumeId = 'resume_id',
   /** column name */
   ResumeName = 'resume_name'
@@ -5044,6 +5056,7 @@ export type Resumes_Set_Input = {
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   medical_book?: InputMaybe<Scalars['Boolean']>;
   military_service?: InputMaybe<Scalars['Boolean']>;
+  programming_languages?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
 };
@@ -5065,6 +5078,7 @@ export type Resumes_Stream_Cursor_Value_Input = {
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   medical_book?: InputMaybe<Scalars['Boolean']>;
   military_service?: InputMaybe<Scalars['Boolean']>;
+  programming_languages?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
 };
@@ -5085,6 +5099,8 @@ export enum Resumes_Update_Column {
   MedicalBook = 'medical_book',
   /** column name */
   MilitaryService = 'military_service',
+  /** column name */
+  ProgrammingLanguages = 'programming_languages',
   /** column name */
   ResumeId = 'resume_id',
   /** column name */
@@ -6339,16 +6355,15 @@ export type GetResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, jobseeker_id?: string | null, medical_book?: boolean | null, military_service?: boolean | null, resume_id: string, resume_name: string, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, description: string, date_receipt?: string | null }>, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_name: string, project_id: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }>, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, resumes_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, jobseeker_education_id: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null }> };
+export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, jobseeker_id?: string | null, medical_book?: boolean | null, military_service?: boolean | null, resume_id: string, resume_name: string, programming_languages?: string | null, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, description: string, date_receipt?: string | null }>, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_name: string, project_id: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }>, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, resumes_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, jobseeker_education_id: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null }> };
 
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
-  desired_position?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string, desired_position?: string | null }> } | null };
+export type InsertResumeMutation = { __typename?: 'mutation_root', insert_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_name: string, resume_id: string }> } | null };
 
 export type DeleteResumeMutationVariables = Exact<{
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -6471,6 +6486,8 @@ export type AddAdditionalInformationMutationVariables = Exact<{
   driving_categories?: InputMaybe<Scalars['String']>;
   medical_book?: InputMaybe<Scalars['Boolean']>;
   military_service?: InputMaybe<Scalars['Boolean']>;
+  desired_position?: InputMaybe<Scalars['String']>;
+  programming_languages?: InputMaybe<Scalars['String']>;
 }>;
 
 
@@ -7153,6 +7170,7 @@ export const GetResumesDocument = gql`
         }
       }
     }
+    programming_languages
   }
 }
     `;
@@ -7185,15 +7203,14 @@ export type GetResumesQueryHookResult = ReturnType<typeof useGetResumesQuery>;
 export type GetResumesLazyQueryHookResult = ReturnType<typeof useGetResumesLazyQuery>;
 export type GetResumesQueryResult = Apollo.QueryResult<GetResumesQuery, GetResumesQueryVariables>;
 export const InsertResumeDocument = gql`
-    mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "", $desired_position: String = "") {
+    mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
   insert_resumes(
-    objects: {resume_name: $resume_name, jobseeker_id: $jobseeker_id, desired_position: $desired_position}
+    objects: {resume_name: $resume_name, jobseeker_id: $jobseeker_id}
   ) {
     returning {
       jobseeker_id
       resume_name
       resume_id
-      desired_position
     }
   }
 }
@@ -7215,7 +7232,6 @@ export type InsertResumeMutationFn = Apollo.MutationFunction<InsertResumeMutatio
  *   variables: {
  *      resume_name: // value for 'resume_name'
  *      jobseeker_id: // value for 'jobseeker_id'
- *      desired_position: // value for 'desired_position'
  *   },
  * });
  */
@@ -7807,10 +7823,10 @@ export type DeleteCourseMutationHookResult = ReturnType<typeof useDeleteCourseMu
 export type DeleteCourseMutationResult = Apollo.MutationResult<DeleteCourseMutation>;
 export type DeleteCourseMutationOptions = Apollo.BaseMutationOptions<DeleteCourseMutation, DeleteCourseMutationVariables>;
 export const AddAdditionalInformationDocument = gql`
-    mutation AddAdditionalInformation($_eq: uuid = "", $about_me: String = "", $driving_categories: String = "", $medical_book: Boolean = false, $military_service: Boolean = false) {
+    mutation AddAdditionalInformation($_eq: uuid = "", $about_me: String = "", $driving_categories: String = "", $medical_book: Boolean = false, $military_service: Boolean = false, $desired_position: String = "", $programming_languages: String = "") {
   update_resumes(
     where: {resume_id: {_eq: $_eq}}
-    _set: {about_me: $about_me, driving_categories: $driving_categories, medical_book: $medical_book, military_service: $military_service}
+    _set: {about_me: $about_me, driving_categories: $driving_categories, medical_book: $medical_book, military_service: $military_service, desired_position: $desired_position, programming_languages: $programming_languages}
   ) {
     returning {
       about_me
@@ -7845,6 +7861,8 @@ export type AddAdditionalInformationMutationFn = Apollo.MutationFunction<AddAddi
  *      driving_categories: // value for 'driving_categories'
  *      medical_book: // value for 'medical_book'
  *      military_service: // value for 'military_service'
+ *      desired_position: // value for 'desired_position'
+ *      programming_languages: // value for 'programming_languages'
  *   },
  * });
  */
