@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { useGetResumesQuery } from '@/generated/projectR-hasura'
+import { Resumes, useGetResumesQuery } from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
 import { calculateAgeWithUnit } from '@/utils/calculateAge'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
@@ -31,7 +31,9 @@ function SaveResume({ resume_id }: ISaveResume) {
     <div className={styles.container}>
       <div className={styles.container_main}>
         <div className={styles.container_main_header}>
-          <Text>{userResumeData?.resume_name}</Text>
+          <Text fontSize="20px" fontWeight="bold" textTransform="uppercase">
+            {userResumeData?.resume_name}
+          </Text>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
               Скачать
@@ -46,11 +48,11 @@ function SaveResume({ resume_id }: ISaveResume) {
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            <ClassicTemplate />
+            <ClassicTemplate userResumeData={userResumeData as Resumes} />
           </div>
         </div>
       </div>
-      <div className={styles.container_sidebar}></div>
+      {/* <div className={styles.container_sidebar}></div> */}
     </div>
   )
 }

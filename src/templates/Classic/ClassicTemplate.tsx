@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './ClassicTemplate.module.scss'
-import { Avatar, Box, Divider, Text } from '@chakra-ui/react'
+import { Avatar, Box, Text } from '@chakra-ui/react'
 import { BiMap } from 'react-icons/bi'
 import { FaInfo } from 'react-icons/fa'
 import { ImPhone } from 'react-icons/im'
@@ -11,8 +11,15 @@ import Skills from './Skills/Skills'
 import AboutMe from './AboutMe/AboutMe'
 import ProgrammingLanguages from './ProgrammingLanguages/ProgrammingLanguages'
 import Hobby from './Hobby/Hobby'
+import { Resumes } from '@/generated/projectR-hasura'
+import { joinName } from '@/utils/joinName'
+import { calculateAgeWithUnit } from '@/utils/calculateAge'
 
-function ClassicTemplate() {
+interface IClassicTemplate {
+  userResumeData: Resumes
+}
+
+function ClassicTemplate({ userResumeData }: IClassicTemplate) {
   return (
     <div className={styles.container}>
       <div className={styles.container_top}>
@@ -25,6 +32,11 @@ function ClassicTemplate() {
               textTransform="uppercase"
               maxWidth="500px"
             >
+              {/* {joinName(
+                userResumeData.resumes_jobseeker?.lastName!,
+                userResumeData.resumes_jobseeker?.name!,
+                userResumeData.resumes_jobseeker?.middleName!
+              ) || ''} */}
               Исрафилов Сабухи Мадад оглы
             </Text>
             <Text
@@ -33,7 +45,8 @@ function ClassicTemplate() {
               color="#525252"
               textTransform="uppercase"
             >
-              React developer
+              {/* {userResumeData.desired_position || ''} */}
+              React Developer
             </Text>
             <div className={styles.container_top__text_bottom}>
               <Box
@@ -59,7 +72,10 @@ function ClassicTemplate() {
               >
                 <FaInfo />
                 <Text fontSize="14px" color="#525252">
-                  Возраст: 21 лет
+                  Возраст:
+                  {/* {calculateAgeWithUnit(
+                    userResumeData.resumes_jobseeker?.dateBirth!
+                  )} */}
                 </Text>
               </Box>
             </div>

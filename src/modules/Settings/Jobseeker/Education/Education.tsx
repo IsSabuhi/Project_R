@@ -98,6 +98,7 @@ function Education() {
                       size="lg"
                       placeholder="Факультет"
                       defaultValue={item?.faculity as string}
+                      variant="flushed"
                       disabled
                     />
                   </FormControl>
@@ -113,10 +114,12 @@ function Education() {
                       size="lg"
                       placeholder="Специальность"
                       defaultValue={item?.speciality as string}
+                      variant="flushed"
                       disabled
                     />
                   </FormControl>
                 </Flex>
+
                 <Flex gap={4}>
                   <FormControl as="fieldset">
                     <FormLabel as="legend" htmlFor="education_form">
@@ -128,40 +131,25 @@ function Education() {
                       type="text"
                       fontSize="sm"
                       size="lg"
+                      width="50%"
                       placeholder="Форма обучения"
                       defaultValue={item?.education_form as string}
+                      variant="flushed"
                       disabled
                     />
                   </FormControl>
-
                   <FormControl as="fieldset">
                     <FormLabel as="legend" htmlFor="start_date">
                       Дата поступления
                     </FormLabel>
-                    <Input
-                      id="start_date"
-                      name="start_date"
-                      type="date"
-                      fontSize="sm"
-                      size="lg"
-                      defaultValue={item?.start_date as string}
-                      disabled
-                    />
+                    <Text>{item.start_date}</Text>
                   </FormControl>
 
                   <FormControl as="fieldset">
                     <FormLabel as="legend" htmlFor="end_date">
                       Дата выпуска
                     </FormLabel>
-                    <Input
-                      id="end_date"
-                      name="end_date"
-                      type="date"
-                      fontSize="sm"
-                      size="lg"
-                      defaultValue={item?.end_date as string}
-                      disabled
-                    />
+                    <Text>{item.end_date}</Text>
                   </FormControl>
                 </Flex>
                 <Text className={styles.container_averageScoreText}>

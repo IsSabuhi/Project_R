@@ -198,7 +198,7 @@ function Сourse({ resume_id }: IСourse) {
             onChange={formik.handleChange}
             required
           />
-          <Text>
+          <Text fontSize="12px">
             * Если учитесь в настоящее время, укажите год предполагаемого
             окончания
           </Text>

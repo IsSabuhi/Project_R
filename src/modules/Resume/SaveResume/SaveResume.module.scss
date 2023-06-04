@@ -20,12 +20,14 @@
             background: #f1f1f1;
             box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.1);
             padding: 10px;
+        }
 
-            .container_main_viewResume {
+        .container_main_viewResume {
+            display: flex;
+            justify-content: center;
 
-                .container_main_viewResume_main {
-                    display: flex;
-                }
+            .container_main_viewResume_main {
+          
             }
         }
 
