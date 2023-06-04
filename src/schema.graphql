@@ -625,3 +625,69 @@ mutation DeleteHobby($_eq: uuid = "") {
     affected_rows
   }
 }
+
+query GetJobseekerAllResumes {
+  resumes {
+    about_me
+    data_create
+    desired_position
+    driving_categories
+    medical_book
+    military_service
+    programming_languages
+    resume_name
+    resume_id
+    experience_works {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+      workLocation
+    }
+    languages {
+      language_id
+      language_level
+      language_name
+    }
+    resumes_courses {
+      course_id
+      course_location
+      course_name
+      date_receipt
+      description
+    }
+    resumes_hobbies {
+      hobby_id
+      description
+    }
+    resumes_jobseeker {
+      account {
+        account_id
+        avatar
+        expired_token_time
+        login
+        role
+      }
+      dateBirth
+      email
+      gender
+      jobseeker_id
+      lastName
+      middleName
+      name
+      phone
+    }
+    resumes_projects {
+      description
+      name_organization
+      project_id
+      project_name
+    }
+    resumes_skills {
+      description
+      skills_id
+    }
+  }
+}

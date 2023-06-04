@@ -3,6 +3,7 @@ import ResumeNewCard from '@/components/Resume/ResumeNewCard/ResumeNewCard'
 import {
   Resumes,
   useDeleteResumeMutation,
+  useGetJobseekerAllResumesQuery,
   useGetJobseekerResumesLazyQuery,
   useGetResumesQuery,
 } from '@/generated/projectR-hasura'
@@ -60,9 +61,13 @@ function HomeContent() {
     })
   }
 
-  const { data, loading, error } = useGetResumesQuery({})
+  // const { data, loading, error } = useGetResumesQuery({})
 
-  const resumesData = data?.resumes
+  // const resumesData = data?.resumes
+
+  const { data, loading, error } = useGetJobseekerAllResumesQuery({})
+
+  const resumesJobseekerData = data?.resumes
 
   useEffect(() => {
     getResumeList()
@@ -87,7 +92,7 @@ function HomeContent() {
         </div>
       ) : (
         <div className={styles.main_cards}>
-          {resumesData?.map((resume, index) => {
+          {resumesJobseekerData?.map((resume, index) => {
             return (
               <ResumeCardView
                 key={index}

@@ -11,6 +11,7 @@ function ResumeCardView({ userName }: IResumeCardView) {
   return (
     <div className={styles.container}>
       <Link href="">{userName}</Link>
+      <Text></Text>
     </div>
   )
 }

@@ -6537,6 +6537,11 @@ export type DeleteHobbyMutationVariables = Exact<{
 
 export type DeleteHobbyMutation = { __typename?: 'mutation_root', delete_hobby?: { __typename?: 'hobby_mutation_response', affected_rows: number } | null };
 
+export type GetJobseekerAllResumesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, medical_book?: boolean | null, military_service?: boolean | null, programming_languages?: string | null, resume_name: string, resume_id: string, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name: string }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }> }> };
+
 
 export const AuthLoginDocument = gql`
     mutation AuthLogin($login: String = "", $password: String = "") {
@@ -8087,3 +8092,97 @@ export function useDeleteHobbyMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteHobbyMutationHookResult = ReturnType<typeof useDeleteHobbyMutation>;
 export type DeleteHobbyMutationResult = Apollo.MutationResult<DeleteHobbyMutation>;
 export type DeleteHobbyMutationOptions = Apollo.BaseMutationOptions<DeleteHobbyMutation, DeleteHobbyMutationVariables>;
+export const GetJobseekerAllResumesDocument = gql`
+    query GetJobseekerAllResumes {
+  resumes {
+    about_me
+    data_create
+    desired_position
+    driving_categories
+    medical_book
+    military_service
+    programming_languages
+    resume_name
+    resume_id
+    experience_works {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+      workLocation
+    }
+    languages {
+      language_id
+      language_level
+      language_name
+    }
+    resumes_courses {
+      course_id
+      course_location
+      course_name
+      date_receipt
+      description
+    }
+    resumes_hobbies {
+      hobby_id
+      description
+    }
+    resumes_jobseeker {
+      account {
+        account_id
+        avatar
+        expired_token_time
+        login
+        role
+      }
+      dateBirth
+      email
+      gender
+      jobseeker_id
+      lastName
+      middleName
+      name
+      phone
+    }
+    resumes_projects {
+      description
+      name_organization
+      project_id
+      project_name
+    }
+    resumes_skills {
+      description
+      skills_id
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetJobseekerAllResumesQuery__
+ *
+ * To run a query within a React component, call `useGetJobseekerAllResumesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetJobseekerAllResumesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetJobseekerAllResumesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetJobseekerAllResumesQuery(baseOptions?: Apollo.QueryHookOptions<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>(GetJobseekerAllResumesDocument, options);
+      }
+export function useGetJobseekerAllResumesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>(GetJobseekerAllResumesDocument, options);
+        }
+export type GetJobseekerAllResumesQueryHookResult = ReturnType<typeof useGetJobseekerAllResumesQuery>;
+export type GetJobseekerAllResumesLazyQueryHookResult = ReturnType<typeof useGetJobseekerAllResumesLazyQuery>;
+export type GetJobseekerAllResumesQueryResult = Apollo.QueryResult<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>;
