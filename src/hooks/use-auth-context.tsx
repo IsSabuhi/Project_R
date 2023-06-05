@@ -98,10 +98,6 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         userProfileId: userProfileID,
         role: userRole,
       })
-
-      if (sessionStorage.getItem('skipAuthEvent') !== 'true') {
-        sessionStorage.setItem('skipAuthEvent', 'true')
-      }
     },
     [authState]
   )
@@ -116,7 +112,6 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       localStorage.removeItem(KEY)
       // const cookies = new Cookies()
       // cookies.remove('refresh_token')
-      sessionStorage.setItem('skipAuthEvent', 'false')
       router.push(APP_URLS.SIGN_OUT)
     }, [])
 
@@ -158,11 +153,11 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     }
   }, [])
 
-  // useEffect(() => {
-  //   if (!authState.isAuthorized) {
-  //     router.push(APP_URLS.SIGN_IN)
-  //   }
-  // }, [])
+  useEffect(() => {
+    if (!authState.isAuthorized) {
+      router.push(APP_URLS.SIGN_IN)
+    }
+  }, [authState.isAuthorized])
 
   return (
     <authContext.Provider
