@@ -160,6 +160,7 @@ const SignUp = () => {
   const isEmployer = formik.values.role === 'employer'
 
   const [isFirstInputFilled, setIsFirstInputFilled] = useState(false)
+  const [passwordMismatch, setPasswordMismatch] = useState(false)
 
   const handleInputChange = (e: any) => {
     formik.handleChange(e)
@@ -189,7 +190,7 @@ const SignUp = () => {
           isAnimated
         ></Progress>
         <form onSubmit={formik.handleSubmit}>
-          {step === 1 ? (
+          {/* {step === 1 ? (
             <AccountInfo
               formData={formik.values}
               onChange={handleInputChange}
@@ -236,6 +237,81 @@ const SignUp = () => {
                 <Button
                   w="7rem"
                   isDisabled={!formik.values.role || step === 3}
+                  onClick={() => {
+                    setStep(step + 1)
+                    if (step === 3) {
+                      setProgress(100)
+                    } else {
+                      setProgress(progress + 33.33)
+                    }
+                  }}
+                  colorScheme="teal"
+                  variant="outline"
+                >
+                  Далее
+                </Button>
+              </Flex>
+              {step === 3 ? (
+                <Button colorScheme="red" variant="solid" type="submit">
+                  Зарегистрироваться
+                </Button>
+              ) : null}
+              {step == 1 && (
+                <Text>
+                  У вас есть учетная запись?{' '}
+                  <Link
+                    color={titleColor}
+                    ms="5px"
+                    fontWeight="bold"
+                    href={APP_URLS.SIGN_IN}
+                  >
+                    Авторизоваться
+                  </Link>
+                </Text>
+              )}
+            </Flex>
+          </ButtonGroup> */}
+          {/* TODO пока будет регистрация только для работодателя */}
+          {step === 1 ? (
+            <AccountInfo
+              formData={formik.values}
+              onChange={handleInputChange}
+              isInputDisabled={!isFirstInputFilled}
+              passwordMismatch={passwordMismatch}
+              setPasswordMismatch={setPasswordMismatch}
+            />
+          ) : step === 2 ? (
+            <EmployerInfo
+              formData={formik.values}
+              onChange={formik.handleChange}
+            />
+          ) : (
+            <Organization
+              formData={formik.values}
+              onChange={formik.handleChange}
+            />
+          )}
+          <ButtonGroup mt="5%" w="100%">
+            <Flex w="100%" justifyContent="space-between">
+              <Flex>
+                <Button
+                  onClick={() => {
+                    setStep(step - 1)
+                    setProgress(progress - 33.33)
+                  }}
+                  isDisabled={step === 1}
+                  colorScheme="teal"
+                  variant="solid"
+                  w="7rem"
+                  mr="5%"
+                >
+                  Назад
+                </Button>
+                <Button
+                  w="7rem"
+                  isDisabled={
+                    !formik.values.login || passwordMismatch || step === 3
+                  }
                   onClick={() => {
                     setStep(step + 1)
                     if (step === 3) {

@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputRightElement,
   Select,
+  Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import styles from './AccountInfo.module.scss'
@@ -15,17 +16,27 @@ import { ISignUpProps } from '@/pages/signup'
 interface IAccountProps {
   formData: ISignUpProps
   onChange: any
+  setPasswordMismatch: React.Dispatch<React.SetStateAction<boolean>>
   isInputDisabled: boolean
+  passwordMismatch: boolean
 }
 
 const AccountInfo = ({
   formData,
   onChange,
   isInputDisabled,
+  passwordMismatch,
+  setPasswordMismatch,
 }: IAccountProps) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const [confirmPassword, setConfirmPassword] = useState('')
+  // const [passwordMismatch, setPasswordMismatch] = useState(false)
+
+  const handlePasswordChange = (e: any) => {
+    onChange(e)
+    setPasswordMismatch(e.target.value !== formData.password)
+  }
 
   return (
     <div className={styles.container}>
@@ -81,7 +92,7 @@ const AccountInfo = ({
             value={formData.confirmPassword}
             onChange={(e) => {
               setConfirmPassword(e.target.value)
-              onChange(e)
+              handlePasswordChange(e)
             }}
             disabled={isInputDisabled}
           />
@@ -96,12 +107,17 @@ const AccountInfo = ({
         </InputGroup>
       </Flex>
 
+      {passwordMismatch && (
+        <Text style={{ color: 'red' }}>Пароли не совпадают</Text>
+      )}
+
       <Select
         placeholder="Выберите роль"
         id="role"
         name="role"
-        value={formData.role}
+        value="employer"
         onChange={onChange}
+        disabled
       >
         <option value="jobseeker">Соискатель</option>
         <option value="employer">Работодатель</option>
