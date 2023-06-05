@@ -17,6 +17,7 @@ import Сourse from '@/modules/Resume/Сourse/Сourse'
 import { useGetResumeQuery } from '@/generated/projectR-hasura'
 import styles from '@/styles/Resume.module.scss'
 import Hobby from './Hobby/Hobby'
+import Languages from './Languages/Languages'
 
 interface IResumeContent {
   resume_id: string
@@ -44,6 +45,7 @@ function ResumeContent({ resume_id }: IResumeContent) {
         <Tab>Проекты</Tab>
         <Tab>Курсы</Tab>
         <Tab>Хобби</Tab>
+        <Tab>Владение языками</Tab>
         <Tab>Навыки</Tab>
         <Tab>Дополнительная информация</Tab>
         <Tab>Сохранение резюме</Tab>
@@ -61,6 +63,9 @@ function ResumeContent({ resume_id }: IResumeContent) {
         </TabPanel>
         <TabPanel>
           <Hobby resume_id={resume_id!} />
+        </TabPanel>
+        <TabPanel>
+          <Languages resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
           <Skills resume_id={resume_id!} />

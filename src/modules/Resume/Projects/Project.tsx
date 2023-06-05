@@ -181,7 +181,7 @@ function Project({ resume_id }: IProject) {
         </FormControl>
         <FormControl as="fieldset">
           <FormLabel as="legend" htmlFor="description">
-            Кратко опишите что вы сделали
+            Кратко опишите, что вы сделали и какая у вас была роль в проекте?
           </FormLabel>
 
           <Textarea

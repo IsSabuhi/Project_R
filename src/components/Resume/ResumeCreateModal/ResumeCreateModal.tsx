@@ -103,7 +103,6 @@ const ResumeCreateModal = ({
                 required
               />
             </FormControl>
-
             {/* <FormControl>
               <FormLabel htmlFor="specialization" fontWeight={'normal'}>
                 Специальность
@@ -117,7 +116,8 @@ const ResumeCreateModal = ({
                 placeholder="Введите название резюме"
                 disabled
               /> */}
-            {/* TODO Возможно нужно будет сделать Select для тех пользователей которые не зареганы в системе*/}
+            {/* TODO Возможно нужно будет сделать Select для тех пользователей
+            которые не зареганы в системе */}
             {/* <Select
                 placeholder="Специальность"
                 id="specialization"

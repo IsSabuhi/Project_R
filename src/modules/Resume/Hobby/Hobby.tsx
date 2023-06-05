@@ -16,6 +16,7 @@ import { useFormik } from 'formik'
 import HobbyCards from './HobbyCards/HobbyCards'
 import {
   Hobby,
+  InsertHobbyMutationVariables,
   useDeleteHobbyMutation,
   useGetHobbyLazyQuery,
   useInsertHobbyMutation,
@@ -25,7 +26,7 @@ interface IHobby {
   resume_id: string
 }
 
-const initialFormHobby = {
+const initialFormHobby: InsertHobbyMutationVariables = {
   description: '',
 }
 

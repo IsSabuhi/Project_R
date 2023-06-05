@@ -97,7 +97,7 @@ const AccountInfo = ({
       </Flex>
 
       <Select
-        placeholder="Роль"
+        placeholder="Выберите роль"
         id="role"
         name="role"
         value={formData.role}

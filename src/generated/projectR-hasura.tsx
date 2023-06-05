@@ -569,6 +569,212 @@ export type Course_Updates = {
   where: Course_Bool_Exp;
 };
 
+/** columns and relationships of "course_work" */
+export type Course_Work = {
+  __typename?: 'course_work';
+  course_work_id: Scalars['uuid'];
+  /** An object relationship */
+  course_work_jobseeker_education?: Maybe<Jobseeker_Education>;
+  course_work_name?: Maybe<Scalars['String']>;
+  jobseeker_education_id?: Maybe<Scalars['uuid']>;
+  score?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "course_work" */
+export type Course_Work_Aggregate = {
+  __typename?: 'course_work_aggregate';
+  aggregate?: Maybe<Course_Work_Aggregate_Fields>;
+  nodes: Array<Course_Work>;
+};
+
+export type Course_Work_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Course_Work_Aggregate_Bool_Exp_Count>;
+};
+
+export type Course_Work_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Course_Work_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Course_Work_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "course_work" */
+export type Course_Work_Aggregate_Fields = {
+  __typename?: 'course_work_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Course_Work_Max_Fields>;
+  min?: Maybe<Course_Work_Min_Fields>;
+};
+
+
+/** aggregate fields of "course_work" */
+export type Course_Work_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Course_Work_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "course_work" */
+export type Course_Work_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Course_Work_Max_Order_By>;
+  min?: InputMaybe<Course_Work_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "course_work" */
+export type Course_Work_Arr_Rel_Insert_Input = {
+  data: Array<Course_Work_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Course_Work_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "course_work". All fields are combined with a logical 'AND'. */
+export type Course_Work_Bool_Exp = {
+  _and?: InputMaybe<Array<Course_Work_Bool_Exp>>;
+  _not?: InputMaybe<Course_Work_Bool_Exp>;
+  _or?: InputMaybe<Array<Course_Work_Bool_Exp>>;
+  course_work_id?: InputMaybe<Uuid_Comparison_Exp>;
+  course_work_jobseeker_education?: InputMaybe<Jobseeker_Education_Bool_Exp>;
+  course_work_name?: InputMaybe<String_Comparison_Exp>;
+  jobseeker_education_id?: InputMaybe<Uuid_Comparison_Exp>;
+  score?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "course_work" */
+export enum Course_Work_Constraint {
+  /** unique or primary key constraint on columns "course_work_name" */
+  CourseWorkCourseWorkNameKey = 'course_work_course_work_name_key',
+  /** unique or primary key constraint on columns "course_work_id" */
+  CourseWorkPkey1 = 'course_work_pkey1'
+}
+
+/** input type for inserting data into table "course_work" */
+export type Course_Work_Insert_Input = {
+  course_work_id?: InputMaybe<Scalars['uuid']>;
+  course_work_jobseeker_education?: InputMaybe<Jobseeker_Education_Obj_Rel_Insert_Input>;
+  course_work_name?: InputMaybe<Scalars['String']>;
+  jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
+  score?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Course_Work_Max_Fields = {
+  __typename?: 'course_work_max_fields';
+  course_work_id?: Maybe<Scalars['uuid']>;
+  course_work_name?: Maybe<Scalars['String']>;
+  jobseeker_education_id?: Maybe<Scalars['uuid']>;
+  score?: Maybe<Scalars['String']>;
+};
+
+/** order by max() on columns of table "course_work" */
+export type Course_Work_Max_Order_By = {
+  course_work_id?: InputMaybe<Order_By>;
+  course_work_name?: InputMaybe<Order_By>;
+  jobseeker_education_id?: InputMaybe<Order_By>;
+  score?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Course_Work_Min_Fields = {
+  __typename?: 'course_work_min_fields';
+  course_work_id?: Maybe<Scalars['uuid']>;
+  course_work_name?: Maybe<Scalars['String']>;
+  jobseeker_education_id?: Maybe<Scalars['uuid']>;
+  score?: Maybe<Scalars['String']>;
+};
+
+/** order by min() on columns of table "course_work" */
+export type Course_Work_Min_Order_By = {
+  course_work_id?: InputMaybe<Order_By>;
+  course_work_name?: InputMaybe<Order_By>;
+  jobseeker_education_id?: InputMaybe<Order_By>;
+  score?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "course_work" */
+export type Course_Work_Mutation_Response = {
+  __typename?: 'course_work_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Course_Work>;
+};
+
+/** on_conflict condition type for table "course_work" */
+export type Course_Work_On_Conflict = {
+  constraint: Course_Work_Constraint;
+  update_columns?: Array<Course_Work_Update_Column>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "course_work". */
+export type Course_Work_Order_By = {
+  course_work_id?: InputMaybe<Order_By>;
+  course_work_jobseeker_education?: InputMaybe<Jobseeker_Education_Order_By>;
+  course_work_name?: InputMaybe<Order_By>;
+  jobseeker_education_id?: InputMaybe<Order_By>;
+  score?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: course_work */
+export type Course_Work_Pk_Columns_Input = {
+  course_work_id: Scalars['uuid'];
+};
+
+/** select columns of table "course_work" */
+export enum Course_Work_Select_Column {
+  /** column name */
+  CourseWorkId = 'course_work_id',
+  /** column name */
+  CourseWorkName = 'course_work_name',
+  /** column name */
+  JobseekerEducationId = 'jobseeker_education_id',
+  /** column name */
+  Score = 'score'
+}
+
+/** input type for updating data in table "course_work" */
+export type Course_Work_Set_Input = {
+  course_work_id?: InputMaybe<Scalars['uuid']>;
+  course_work_name?: InputMaybe<Scalars['String']>;
+  jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
+  score?: InputMaybe<Scalars['String']>;
+};
+
+/** Streaming cursor of the table "course_work" */
+export type Course_Work_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Course_Work_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Course_Work_Stream_Cursor_Value_Input = {
+  course_work_id?: InputMaybe<Scalars['uuid']>;
+  course_work_name?: InputMaybe<Scalars['String']>;
+  jobseeker_education_id?: InputMaybe<Scalars['uuid']>;
+  score?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "course_work" */
+export enum Course_Work_Update_Column {
+  /** column name */
+  CourseWorkId = 'course_work_id',
+  /** column name */
+  CourseWorkName = 'course_work_name',
+  /** column name */
+  JobseekerEducationId = 'jobseeker_education_id',
+  /** column name */
+  Score = 'score'
+}
+
+export type Course_Work_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Course_Work_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Course_Work_Bool_Exp;
+};
+
 /** ordering argument of a cursor */
 export enum Cursor_Ordering {
   /** ascending ordering of the cursor */
@@ -1621,6 +1827,10 @@ export enum Jobseeker_Constraint {
 export type Jobseeker_Education = {
   __typename?: 'jobseeker_education';
   average_score?: Maybe<Scalars['String']>;
+  /** An array relationship */
+  course_works: Array<Course_Work>;
+  /** An aggregate relationship */
+  course_works_aggregate: Course_Work_Aggregate;
   degree_education?: Maybe<Scalars['String']>;
   education_form: Scalars['String'];
   educational_institution_id?: Maybe<Scalars['uuid']>;
@@ -1635,6 +1845,27 @@ export type Jobseeker_Education = {
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality: Scalars['String'];
   start_date?: Maybe<Scalars['String']>;
+  vkr?: Maybe<Scalars['String']>;
+};
+
+
+/** columns and relationships of "jobseeker_education" */
+export type Jobseeker_EducationCourse_WorksArgs = {
+  distinct_on?: InputMaybe<Array<Course_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Course_Work_Order_By>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
+};
+
+
+/** columns and relationships of "jobseeker_education" */
+export type Jobseeker_EducationCourse_Works_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Course_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Course_Work_Order_By>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
 };
 
 /** aggregated selection of "jobseeker_education" */
@@ -1690,6 +1921,8 @@ export type Jobseeker_Education_Bool_Exp = {
   _not?: InputMaybe<Jobseeker_Education_Bool_Exp>;
   _or?: InputMaybe<Array<Jobseeker_Education_Bool_Exp>>;
   average_score?: InputMaybe<String_Comparison_Exp>;
+  course_works?: InputMaybe<Course_Work_Bool_Exp>;
+  course_works_aggregate?: InputMaybe<Course_Work_Aggregate_Bool_Exp>;
   degree_education?: InputMaybe<String_Comparison_Exp>;
   education_form?: InputMaybe<String_Comparison_Exp>;
   educational_institution_id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -1702,6 +1935,7 @@ export type Jobseeker_Education_Bool_Exp = {
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   speciality?: InputMaybe<String_Comparison_Exp>;
   start_date?: InputMaybe<String_Comparison_Exp>;
+  vkr?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "jobseeker_education" */
@@ -1713,6 +1947,7 @@ export enum Jobseeker_Education_Constraint {
 /** input type for inserting data into table "jobseeker_education" */
 export type Jobseeker_Education_Insert_Input = {
   average_score?: InputMaybe<Scalars['String']>;
+  course_works?: InputMaybe<Course_Work_Arr_Rel_Insert_Input>;
   degree_education?: InputMaybe<Scalars['String']>;
   education_form?: InputMaybe<Scalars['String']>;
   educational_institution_id?: InputMaybe<Scalars['uuid']>;
@@ -1725,6 +1960,7 @@ export type Jobseeker_Education_Insert_Input = {
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
   start_date?: InputMaybe<Scalars['String']>;
+  vkr?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -1741,6 +1977,7 @@ export type Jobseeker_Education_Max_Fields = {
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality?: Maybe<Scalars['String']>;
   start_date?: Maybe<Scalars['String']>;
+  vkr?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "jobseeker_education" */
@@ -1756,6 +1993,7 @@ export type Jobseeker_Education_Max_Order_By = {
   jobseeker_id?: InputMaybe<Order_By>;
   speciality?: InputMaybe<Order_By>;
   start_date?: InputMaybe<Order_By>;
+  vkr?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -1772,6 +2010,7 @@ export type Jobseeker_Education_Min_Fields = {
   jobseeker_id?: Maybe<Scalars['uuid']>;
   speciality?: Maybe<Scalars['String']>;
   start_date?: Maybe<Scalars['String']>;
+  vkr?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "jobseeker_education" */
@@ -1787,6 +2026,7 @@ export type Jobseeker_Education_Min_Order_By = {
   jobseeker_id?: InputMaybe<Order_By>;
   speciality?: InputMaybe<Order_By>;
   start_date?: InputMaybe<Order_By>;
+  vkr?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "jobseeker_education" */
@@ -1796,6 +2036,13 @@ export type Jobseeker_Education_Mutation_Response = {
   affected_rows: Scalars['Int'];
   /** data from the rows affected by the mutation */
   returning: Array<Jobseeker_Education>;
+};
+
+/** input type for inserting object relation for remote table "jobseeker_education" */
+export type Jobseeker_Education_Obj_Rel_Insert_Input = {
+  data: Jobseeker_Education_Insert_Input;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Jobseeker_Education_On_Conflict>;
 };
 
 /** on_conflict condition type for table "jobseeker_education" */
@@ -1808,6 +2055,7 @@ export type Jobseeker_Education_On_Conflict = {
 /** Ordering options when selecting data from "jobseeker_education". */
 export type Jobseeker_Education_Order_By = {
   average_score?: InputMaybe<Order_By>;
+  course_works_aggregate?: InputMaybe<Course_Work_Aggregate_Order_By>;
   degree_education?: InputMaybe<Order_By>;
   education_form?: InputMaybe<Order_By>;
   educational_institution_id?: InputMaybe<Order_By>;
@@ -1820,6 +2068,7 @@ export type Jobseeker_Education_Order_By = {
   jobseeker_id?: InputMaybe<Order_By>;
   speciality?: InputMaybe<Order_By>;
   start_date?: InputMaybe<Order_By>;
+  vkr?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: jobseeker_education */
@@ -1850,7 +2099,9 @@ export enum Jobseeker_Education_Select_Column {
   /** column name */
   Speciality = 'speciality',
   /** column name */
-  StartDate = 'start_date'
+  StartDate = 'start_date',
+  /** column name */
+  Vkr = 'vkr'
 }
 
 /** input type for updating data in table "jobseeker_education" */
@@ -1866,6 +2117,7 @@ export type Jobseeker_Education_Set_Input = {
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
   start_date?: InputMaybe<Scalars['String']>;
+  vkr?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "jobseeker_education" */
@@ -1889,6 +2141,7 @@ export type Jobseeker_Education_Stream_Cursor_Value_Input = {
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   speciality?: InputMaybe<Scalars['String']>;
   start_date?: InputMaybe<Scalars['String']>;
+  vkr?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "jobseeker_education" */
@@ -1914,7 +2167,9 @@ export enum Jobseeker_Education_Update_Column {
   /** column name */
   Speciality = 'speciality',
   /** column name */
-  StartDate = 'start_date'
+  StartDate = 'start_date',
+  /** column name */
+  Vkr = 'vkr'
 }
 
 export type Jobseeker_Education_Updates = {
@@ -2623,6 +2878,10 @@ export type Mutation_Root = {
   delete_course?: Maybe<Course_Mutation_Response>;
   /** delete single row from the table: "course" */
   delete_course_by_pk?: Maybe<Course>;
+  /** delete data from the table: "course_work" */
+  delete_course_work?: Maybe<Course_Work_Mutation_Response>;
+  /** delete single row from the table: "course_work" */
+  delete_course_work_by_pk?: Maybe<Course_Work>;
   /** delete data from the table: "educational_institution" */
   delete_educational_institution?: Maybe<Educational_Institution_Mutation_Response>;
   /** delete single row from the table: "educational_institution" */
@@ -2683,6 +2942,10 @@ export type Mutation_Root = {
   insert_course?: Maybe<Course_Mutation_Response>;
   /** insert a single row into the table: "course" */
   insert_course_one?: Maybe<Course>;
+  /** insert data into the table: "course_work" */
+  insert_course_work?: Maybe<Course_Work_Mutation_Response>;
+  /** insert a single row into the table: "course_work" */
+  insert_course_work_one?: Maybe<Course_Work>;
   /** insert data into the table: "educational_institution" */
   insert_educational_institution?: Maybe<Educational_Institution_Mutation_Response>;
   /** insert a single row into the table: "educational_institution" */
@@ -2755,6 +3018,12 @@ export type Mutation_Root = {
   update_course_by_pk?: Maybe<Course>;
   /** update multiples rows of table: "course" */
   update_course_many?: Maybe<Array<Maybe<Course_Mutation_Response>>>;
+  /** update data of the table: "course_work" */
+  update_course_work?: Maybe<Course_Work_Mutation_Response>;
+  /** update single row of the table: "course_work" */
+  update_course_work_by_pk?: Maybe<Course_Work>;
+  /** update multiples rows of table: "course_work" */
+  update_course_work_many?: Maybe<Array<Maybe<Course_Work_Mutation_Response>>>;
   /** update data of the table: "educational_institution" */
   update_educational_institution?: Maybe<Educational_Institution_Mutation_Response>;
   /** update single row of the table: "educational_institution" */
@@ -2857,6 +3126,18 @@ export type Mutation_RootDelete_CourseArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Course_By_PkArgs = {
   course_id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Course_WorkArgs = {
+  where: Course_Work_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Course_Work_By_PkArgs = {
+  course_work_id: Scalars['uuid'];
 };
 
 
@@ -3041,6 +3322,20 @@ export type Mutation_RootInsert_CourseArgs = {
 export type Mutation_RootInsert_Course_OneArgs = {
   object: Course_Insert_Input;
   on_conflict?: InputMaybe<Course_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Course_WorkArgs = {
+  objects: Array<Course_Work_Insert_Input>;
+  on_conflict?: InputMaybe<Course_Work_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Course_Work_OneArgs = {
+  object: Course_Work_Insert_Input;
+  on_conflict?: InputMaybe<Course_Work_On_Conflict>;
 };
 
 
@@ -3313,6 +3608,26 @@ export type Mutation_RootUpdate_Course_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Course_ManyArgs = {
   updates: Array<Course_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Course_WorkArgs = {
+  _set?: InputMaybe<Course_Work_Set_Input>;
+  where: Course_Work_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Course_Work_By_PkArgs = {
+  _set?: InputMaybe<Course_Work_Set_Input>;
+  pk_columns: Course_Work_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Course_Work_ManyArgs = {
+  updates: Array<Course_Work_Updates>;
 };
 
 
@@ -4180,6 +4495,12 @@ export type Query_Root = {
   course_aggregate: Course_Aggregate;
   /** fetch data from the table: "course" using primary key columns */
   course_by_pk?: Maybe<Course>;
+  /** fetch data from the table: "course_work" */
+  course_work: Array<Course_Work>;
+  /** fetch aggregated fields from the table: "course_work" */
+  course_work_aggregate: Course_Work_Aggregate;
+  /** fetch data from the table: "course_work" using primary key columns */
+  course_work_by_pk?: Maybe<Course_Work>;
   /** fetch data from the table: "educational_institution" */
   educational_institution: Array<Educational_Institution>;
   /** fetch aggregated fields from the table: "educational_institution" */
@@ -4304,6 +4625,29 @@ export type Query_RootCourse_AggregateArgs = {
 
 export type Query_RootCourse_By_PkArgs = {
   course_id: Scalars['uuid'];
+};
+
+
+export type Query_RootCourse_WorkArgs = {
+  distinct_on?: InputMaybe<Array<Course_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Course_Work_Order_By>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
+};
+
+
+export type Query_RootCourse_Work_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Course_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Course_Work_Order_By>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
+};
+
+
+export type Query_RootCourse_Work_By_PkArgs = {
+  course_work_id: Scalars['uuid'];
 };
 
 
@@ -5322,6 +5666,14 @@ export type Subscription_Root = {
   course_by_pk?: Maybe<Course>;
   /** fetch data from the table in a streaming manner: "course" */
   course_stream: Array<Course>;
+  /** fetch data from the table: "course_work" */
+  course_work: Array<Course_Work>;
+  /** fetch aggregated fields from the table: "course_work" */
+  course_work_aggregate: Course_Work_Aggregate;
+  /** fetch data from the table: "course_work" using primary key columns */
+  course_work_by_pk?: Maybe<Course_Work>;
+  /** fetch data from the table in a streaming manner: "course_work" */
+  course_work_stream: Array<Course_Work>;
   /** fetch data from the table: "educational_institution" */
   educational_institution: Array<Educational_Institution>;
   /** fetch aggregated fields from the table: "educational_institution" */
@@ -5486,6 +5838,36 @@ export type Subscription_RootCourse_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Course_Stream_Cursor_Input>>;
   where?: InputMaybe<Course_Bool_Exp>;
+};
+
+
+export type Subscription_RootCourse_WorkArgs = {
+  distinct_on?: InputMaybe<Array<Course_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Course_Work_Order_By>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
+};
+
+
+export type Subscription_RootCourse_Work_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Course_Work_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Course_Work_Order_By>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
+};
+
+
+export type Subscription_RootCourse_Work_By_PkArgs = {
+  course_work_id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootCourse_Work_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Course_Work_Stream_Cursor_Input>>;
+  where?: InputMaybe<Course_Work_Bool_Exp>;
 };
 
 
@@ -6536,6 +6918,29 @@ export type DeleteHobbyMutationVariables = Exact<{
 
 
 export type DeleteHobbyMutation = { __typename?: 'mutation_root', delete_hobby?: { __typename?: 'hobby_mutation_response', affected_rows: number } | null };
+
+export type GetLanguagesQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetLanguagesQuery = { __typename?: 'query_root', languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name: string }> };
+
+export type InsetLanguageMutationVariables = Exact<{
+  resume_id?: InputMaybe<Scalars['uuid']>;
+  language_name?: InputMaybe<Scalars['String']>;
+  language_level?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type InsetLanguageMutation = { __typename?: 'mutation_root', insert_languages?: { __typename?: 'languages_mutation_response', returning: Array<{ __typename?: 'languages', language_level: string, language_name: string, resume_id?: string | null, language_id: string }> } | null };
+
+export type DeleteLanguagesMutationVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type DeleteLanguagesMutation = { __typename?: 'mutation_root', delete_languages?: { __typename?: 'languages_mutation_response', affected_rows: number } | null };
 
 export type GetJobseekerAllResumesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -8092,6 +8497,118 @@ export function useDeleteHobbyMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteHobbyMutationHookResult = ReturnType<typeof useDeleteHobbyMutation>;
 export type DeleteHobbyMutationResult = Apollo.MutationResult<DeleteHobbyMutation>;
 export type DeleteHobbyMutationOptions = Apollo.BaseMutationOptions<DeleteHobbyMutation, DeleteHobbyMutationVariables>;
+export const GetLanguagesDocument = gql`
+    query GetLanguages($_eq: uuid = "") {
+  languages(where: {resume_id: {_eq: $_eq}}) {
+    language_id
+    language_level
+    language_name
+  }
+}
+    `;
+
+/**
+ * __useGetLanguagesQuery__
+ *
+ * To run a query within a React component, call `useGetLanguagesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLanguagesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLanguagesQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetLanguagesQuery(baseOptions?: Apollo.QueryHookOptions<GetLanguagesQuery, GetLanguagesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetLanguagesQuery, GetLanguagesQueryVariables>(GetLanguagesDocument, options);
+      }
+export function useGetLanguagesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetLanguagesQuery, GetLanguagesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetLanguagesQuery, GetLanguagesQueryVariables>(GetLanguagesDocument, options);
+        }
+export type GetLanguagesQueryHookResult = ReturnType<typeof useGetLanguagesQuery>;
+export type GetLanguagesLazyQueryHookResult = ReturnType<typeof useGetLanguagesLazyQuery>;
+export type GetLanguagesQueryResult = Apollo.QueryResult<GetLanguagesQuery, GetLanguagesQueryVariables>;
+export const InsetLanguageDocument = gql`
+    mutation InsetLanguage($resume_id: uuid = "", $language_name: String = "", $language_level: String = "") {
+  insert_languages(
+    objects: {resume_id: $resume_id, language_name: $language_name, language_level: $language_level}
+  ) {
+    returning {
+      language_level
+      language_name
+      resume_id
+      language_id
+    }
+  }
+}
+    `;
+export type InsetLanguageMutationFn = Apollo.MutationFunction<InsetLanguageMutation, InsetLanguageMutationVariables>;
+
+/**
+ * __useInsetLanguageMutation__
+ *
+ * To run a mutation, you first call `useInsetLanguageMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsetLanguageMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insetLanguageMutation, { data, loading, error }] = useInsetLanguageMutation({
+ *   variables: {
+ *      resume_id: // value for 'resume_id'
+ *      language_name: // value for 'language_name'
+ *      language_level: // value for 'language_level'
+ *   },
+ * });
+ */
+export function useInsetLanguageMutation(baseOptions?: Apollo.MutationHookOptions<InsetLanguageMutation, InsetLanguageMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsetLanguageMutation, InsetLanguageMutationVariables>(InsetLanguageDocument, options);
+      }
+export type InsetLanguageMutationHookResult = ReturnType<typeof useInsetLanguageMutation>;
+export type InsetLanguageMutationResult = Apollo.MutationResult<InsetLanguageMutation>;
+export type InsetLanguageMutationOptions = Apollo.BaseMutationOptions<InsetLanguageMutation, InsetLanguageMutationVariables>;
+export const DeleteLanguagesDocument = gql`
+    mutation DeleteLanguages($_eq: uuid = "") {
+  delete_languages(where: {language_id: {_eq: $_eq}}) {
+    affected_rows
+  }
+}
+    `;
+export type DeleteLanguagesMutationFn = Apollo.MutationFunction<DeleteLanguagesMutation, DeleteLanguagesMutationVariables>;
+
+/**
+ * __useDeleteLanguagesMutation__
+ *
+ * To run a mutation, you first call `useDeleteLanguagesMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteLanguagesMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteLanguagesMutation, { data, loading, error }] = useDeleteLanguagesMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useDeleteLanguagesMutation(baseOptions?: Apollo.MutationHookOptions<DeleteLanguagesMutation, DeleteLanguagesMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteLanguagesMutation, DeleteLanguagesMutationVariables>(DeleteLanguagesDocument, options);
+      }
+export type DeleteLanguagesMutationHookResult = ReturnType<typeof useDeleteLanguagesMutation>;
+export type DeleteLanguagesMutationResult = Apollo.MutationResult<DeleteLanguagesMutation>;
+export type DeleteLanguagesMutationOptions = Apollo.BaseMutationOptions<DeleteLanguagesMutation, DeleteLanguagesMutationVariables>;
 export const GetJobseekerAllResumesDocument = gql`
     query GetJobseekerAllResumes {
   resumes {

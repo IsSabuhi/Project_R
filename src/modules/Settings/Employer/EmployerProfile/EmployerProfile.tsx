@@ -26,6 +26,7 @@ import {
 import { CheckCircleIcon, WarningIcon } from '@chakra-ui/icons'
 import { useSnackbar } from 'notistack'
 import { useFormik } from 'formik'
+import DefaultIcon from '@/assets/icons/user.png'
 
 const initialOrganizationForm: UpdateOrganizationMutationVariables = {
   legal_address: '',
@@ -297,12 +298,23 @@ const EmployerProfile = () => {
               borderTopRadius="20px"
             />
             <Flex justify={'center'} mt={-12}>
-              <Avatar
-                size={'2xl'}
-                css={{
-                  border: '2px solid white',
-                }}
-              />
+              {employerData?.organization_account.avatar ? (
+                <Avatar
+                  size={'2xl'}
+                  sx={{
+                    border: '2px solid white',
+                    borderRadius: '50%',
+                    background: '#FFF',
+                    img: {
+                      objectFit: 'contain',
+                      borderRadius: 'none',
+                    },
+                  }}
+                  src={employerData?.organization_account.avatar as string}
+                />
+              ) : (
+                <Avatar size={'2xl'} />
+              )}
             </Flex>
 
             <Box p={6}>

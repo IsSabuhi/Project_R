@@ -412,6 +412,7 @@ mutation UpdateContacts(
   }
 }
 
+# Опыт работы
 query GetExperienceWork($_eq: uuid = "") {
   experience_work(where: { resume_id: { _eq: $_eq } }) {
     date_dismissal
@@ -464,6 +465,7 @@ mutation DeleteExperienceWork($_eq: uuid = "") {
   }
 }
 
+# Проекты
 query GetProjects($_eq: uuid = "") {
   projects(where: { resume_id: { _eq: $_eq } }) {
     description
@@ -503,7 +505,7 @@ mutation DeleteProject($_eq: uuid = "") {
     affected_rows
   }
 }
-
+# Доп курсы
 query GetCourse($_eq: uuid = "") {
   course(where: { resume_id: { _eq: $_eq } }) {
     course_id
@@ -547,6 +549,7 @@ mutation DeleteCourse($_eq: uuid = "") {
   }
 }
 
+# Доп инфа
 mutation AddAdditionalInformation(
   $_eq: uuid = ""
   $about_me: String = ""
@@ -580,6 +583,7 @@ mutation AddAdditionalInformation(
   }
 }
 
+# Навыки
 query GetSkills($_eq: uuid = "") {
   skills(where: { resume_id: { _eq: $_eq } }) {
     description
@@ -604,6 +608,7 @@ mutation DeleteSkills($_eq: uuid = "") {
   }
 }
 
+# Хобби
 query GetHobby($_eq: uuid = "") {
   hobby(where: { resume_id: { _eq: $_eq } }) {
     hobby_id
@@ -626,6 +631,43 @@ mutation DeleteHobby($_eq: uuid = "") {
   }
 }
 
+# Языки владения
+query GetLanguages($_eq: uuid = "") {
+  languages(where: { resume_id: { _eq: $_eq } }) {
+    language_id
+    language_level
+    language_name
+  }
+}
+
+mutation InsetLanguage(
+  $resume_id: uuid = ""
+  $language_name: String = ""
+  $language_level: String = ""
+) {
+  insert_languages(
+    objects: {
+      resume_id: $resume_id
+      language_name: $language_name
+      language_level: $language_level
+    }
+  ) {
+    returning {
+      language_level
+      language_name
+      resume_id
+      language_id
+    }
+  }
+}
+
+mutation DeleteLanguages($_eq: uuid = "") {
+  delete_languages(where: { language_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+# Запрос получения всех резюме для работодателя
 query GetJobseekerAllResumes {
   resumes {
     about_me
