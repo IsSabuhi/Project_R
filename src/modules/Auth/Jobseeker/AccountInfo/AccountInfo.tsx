@@ -31,7 +31,6 @@ const AccountInfo = ({
   const [showPassword, setShowPassword] = useState(false)
 
   const [confirmPassword, setConfirmPassword] = useState('')
-  // const [passwordMismatch, setPasswordMismatch] = useState(false)
 
   const handlePasswordChange = (e: any) => {
     onChange(e)

@@ -8,8 +8,6 @@ const DynamicHomeContent = dynamic(() => import('@/modules/Home/HomeContent'), {
 })
 
 const User = () => {
-  const { userId } = useAuthContext()
-  console.log('home ' + userId)
   return (
     <div className={styles.container_home}>
       <Text fontWeight="semibold" fontSize="2xl" m="15px">

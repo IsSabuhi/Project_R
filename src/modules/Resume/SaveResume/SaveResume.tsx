@@ -11,7 +11,6 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import { Resumes, useGetResumesQuery } from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
-import { calculateAgeWithUnit } from '@/utils/calculateAge'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
 
 interface ISaveResume {

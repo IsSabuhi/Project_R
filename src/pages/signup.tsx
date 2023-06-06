@@ -12,12 +12,7 @@ import React, { useState } from 'react'
 import styles from '@/styles/SignUp.module.scss'
 import { APP_URLS } from '@/configs/urls'
 import { useFormik } from 'formik'
-import { object, string, ref } from 'yup'
-
-import {
-  useSignUpJobseekerMutation,
-  useSignUpOrganizationMutation,
-} from '@/generated/projectR-hasura'
+import { useSignUpOrganizationMutation } from '@/generated/projectR-hasura'
 import { useSnackbar } from 'notistack'
 import AccountInfo from '@/modules/Auth/Jobseeker/AccountInfo/AccountInfo'
 import BasicInfo from '@/modules/Auth/Jobseeker/BasicInfo/BasicInfo'
@@ -95,64 +90,40 @@ const SignUp = () => {
       },
     })
 
-  const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
-    onCompleted() {
-      return enqueueSnackbar('Регистрация прошла успешно', {
-        variant: 'success',
-      })
-    },
-    onError() {
-      return enqueueSnackbar('Не удалось зарегистрироваться', {
-        variant: 'error',
-      })
-    },
-  })
+  // const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
+  //   onCompleted() {
+  //     return enqueueSnackbar('Регистрация прошла успешно', {
+  //       variant: 'success',
+  //     })
+  //   },
+  //   onError() {
+  //     return enqueueSnackbar('Не удалось зарегистрироваться', {
+  //       variant: 'error',
+  //     })
+  //   },
+  // })
 
   const formik = useFormik({
     initialValues: initialValues,
     enableReinitialize: true,
     onSubmit: () => {
-      if (formik.values.role === 'jobseeker') {
-        signUpJobseekerMutation({
-          variables: {
-            login: formik.values.login,
-            password: formik.values.password,
-            role: formik.values.role,
-            dateBirth: formik.values.dateBirth,
-            email: formik.values.email,
-            gender: formik.values.gender,
-            education_form: formik.values.education_form,
-            end_date: formik.values.end_date,
-            faculity: formik.values.faculity,
-            group: formik.values.group,
-            name_institution: formik.values.name_institution,
-            speciality: formik.values.speciality,
-            start_date: formik.values.start_date,
-            lastName: formik.values.lastName,
-            middleName: formik.values.middleName,
-            name: formik.values.name,
-            phone: formik.values.phone,
-          },
-        })
-      } else {
-        signUpOrganizationMutation({
-          variables: {
-            email: formik.values.email,
-            inn_organization: formik.values.inn_organization,
-            login: formik.values.login,
-            name_employer:
-              formik.values.lastName +
-              ' ' +
-              formik.values.name +
-              ' ' +
-              formik.values.middleName,
-            name_organization: formik.values.name_organization,
-            password: formik.values.password,
-            phone: formik.values.phone,
-            role: formik.values.role,
-          },
-        })
-      }
+      signUpOrganizationMutation({
+        variables: {
+          email: formik.values.email,
+          inn_organization: formik.values.inn_organization,
+          login: formik.values.login,
+          name_employer:
+            formik.values.lastName +
+            ' ' +
+            formik.values.name +
+            ' ' +
+            formik.values.middleName,
+          name_organization: formik.values.name_organization,
+          password: formik.values.password,
+          phone: formik.values.phone,
+          role: formik.values.role,
+        },
+      })
     },
   })
 

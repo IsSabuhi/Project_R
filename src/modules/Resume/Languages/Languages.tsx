@@ -103,8 +103,6 @@ function Languages({ resume_id }: ILanguages) {
     getLanguagesList()
   }, [])
 
-  console.log(formik.values)
-
   return (
     <div className={styles.container}>
       <div className={styles.container_left}>

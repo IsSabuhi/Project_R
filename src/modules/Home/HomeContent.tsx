@@ -5,7 +5,6 @@ import {
   useDeleteResumeMutation,
   useGetJobseekerAllResumesQuery,
   useGetJobseekerResumesLazyQuery,
-  useGetResumesQuery,
 } from '@/generated/projectR-hasura'
 import { useAuthContext } from '@/hooks/use-auth-context'
 import { useSnackbar } from 'notistack'
@@ -60,10 +59,6 @@ function HomeContent() {
       },
     })
   }
-
-  // const { data, loading, error } = useGetResumesQuery({})
-
-  // const resumesData = data?.resumes
 
   const { data, loading, error } = useGetJobseekerAllResumesQuery({})
 

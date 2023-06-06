@@ -348,6 +348,7 @@ export type Course = {
   date_receipt?: Maybe<Scalars['String']>;
   description: Scalars['String'];
   resume_id: Scalars['uuid'];
+  role?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "course" */
@@ -409,6 +410,7 @@ export type Course_Bool_Exp = {
   date_receipt?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
+  role?: InputMaybe<String_Comparison_Exp>;
 };
 
 /** unique or primary key constraints on table "course" */
@@ -426,6 +428,7 @@ export type Course_Insert_Input = {
   date_receipt?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -437,6 +440,7 @@ export type Course_Max_Fields = {
   date_receipt?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   resume_id?: Maybe<Scalars['uuid']>;
+  role?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "course" */
@@ -447,6 +451,7 @@ export type Course_Max_Order_By = {
   date_receipt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
+  role?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -458,6 +463,7 @@ export type Course_Min_Fields = {
   date_receipt?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   resume_id?: Maybe<Scalars['uuid']>;
+  role?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "course" */
@@ -468,6 +474,7 @@ export type Course_Min_Order_By = {
   date_receipt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
+  role?: InputMaybe<Order_By>;
 };
 
 /** response of any mutation on the table "course" */
@@ -495,6 +502,7 @@ export type Course_Order_By = {
   date_receipt?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
+  role?: InputMaybe<Order_By>;
 };
 
 /** primary key columns input for table: course */
@@ -515,7 +523,9 @@ export enum Course_Select_Column {
   /** column name */
   Description = 'description',
   /** column name */
-  ResumeId = 'resume_id'
+  ResumeId = 'resume_id',
+  /** column name */
+  Role = 'role'
 }
 
 /** input type for updating data in table "course" */
@@ -526,6 +536,7 @@ export type Course_Set_Input = {
   date_receipt?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 /** Streaming cursor of the table "course" */
@@ -544,6 +555,7 @@ export type Course_Stream_Cursor_Value_Input = {
   date_receipt?: InputMaybe<Scalars['String']>;
   description?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
+  role?: InputMaybe<Scalars['String']>;
 };
 
 /** update columns of table "course" */
@@ -559,7 +571,9 @@ export enum Course_Update_Column {
   /** column name */
   Description = 'description',
   /** column name */
-  ResumeId = 'resume_id'
+  ResumeId = 'resume_id',
+  /** column name */
+  Role = 'role'
 }
 
 export type Course_Updates = {
@@ -2383,7 +2397,7 @@ export type Languages = {
   __typename?: 'languages';
   language_id: Scalars['uuid'];
   language_level: Scalars['String'];
-  language_name: Scalars['String'];
+  language_name?: Maybe<Scalars['String']>;
   /** An object relationship */
   languages_resume?: Maybe<Resumes>;
   resume_id?: Maybe<Scalars['uuid']>;
@@ -2450,6 +2464,8 @@ export type Languages_Bool_Exp = {
 
 /** unique or primary key constraints on table "languages" */
 export enum Languages_Constraint {
+  /** unique or primary key constraint on columns "language_name" */
+  LanguagesLanguageNameKey = 'languages_language_name_key',
   /** unique or primary key constraint on columns "language_id" */
   LanguagesPkey = 'languages_pkey'
 }
@@ -3532,7 +3548,8 @@ export type Mutation_RootLogin_HandlerArgs = {
 export type Mutation_RootPassword_Change_HandleArgs = {
   access_token: Scalars['String'];
   account_id: Scalars['String'];
-  refresh_token: Scalars['String'];
+  newPassword: Scalars['String'];
+  oldPassword: Scalars['String'];
 };
 
 
@@ -4956,7 +4973,7 @@ export type RefreshTokenOutput = {
 
 export type Res = {
   __typename?: 'res';
-  account_id: Scalars['String'];
+  status: Scalars['String'];
 };
 
 export type ResLogout = {
@@ -6629,28 +6646,15 @@ export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type UpdateTokenMutation = { __typename?: 'mutation_root', refreshToken?: { __typename?: 'refreshTokenOutput', access_token: string } | null };
 
-export type SignUpJobseekerMutationVariables = Exact<{
-  start_date?: InputMaybe<Scalars['date']>;
-  speciality?: InputMaybe<Scalars['String']>;
-  role?: InputMaybe<Scalars['String']>;
-  phone?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  name_institution?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
-  middleName?: InputMaybe<Scalars['String']>;
-  login?: InputMaybe<Scalars['String']>;
-  lastName?: InputMaybe<Scalars['String']>;
-  group?: InputMaybe<Scalars['String']>;
-  gender?: InputMaybe<Scalars['String']>;
-  faculity?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
-  end_date?: InputMaybe<Scalars['date']>;
-  education_form?: InputMaybe<Scalars['String']>;
-  dateBirth?: InputMaybe<Scalars['date']>;
+export type ChangePasswordMutationVariables = Exact<{
+  access_token?: InputMaybe<Scalars['String']>;
+  account_id?: InputMaybe<Scalars['String']>;
+  newPassword?: InputMaybe<Scalars['String']>;
+  oldPassword?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type SignUpJobseekerMutation = { __typename?: 'mutation_root', signUp_jobseeker?: { __typename?: 'res', account_id: string } | null };
+export type ChangePasswordMutation = { __typename?: 'mutation_root', password_change_handle?: { __typename?: 'res', status: string } | null };
 
 export type SignUpOrganizationMutationVariables = Exact<{
   email?: InputMaybe<Scalars['String']>;
@@ -6924,7 +6928,7 @@ export type GetLanguagesQueryVariables = Exact<{
 }>;
 
 
-export type GetLanguagesQuery = { __typename?: 'query_root', languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name: string }> };
+export type GetLanguagesQuery = { __typename?: 'query_root', languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }> };
 
 export type InsetLanguageMutationVariables = Exact<{
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -6933,7 +6937,7 @@ export type InsetLanguageMutationVariables = Exact<{
 }>;
 
 
-export type InsetLanguageMutation = { __typename?: 'mutation_root', insert_languages?: { __typename?: 'languages_mutation_response', returning: Array<{ __typename?: 'languages', language_level: string, language_name: string, resume_id?: string | null, language_id: string }> } | null };
+export type InsetLanguageMutation = { __typename?: 'mutation_root', insert_languages?: { __typename?: 'languages_mutation_response', returning: Array<{ __typename?: 'languages', language_level: string, language_name?: string | null, resume_id?: string | null, language_id: string }> } | null };
 
 export type DeleteLanguagesMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -6945,7 +6949,7 @@ export type DeleteLanguagesMutation = { __typename?: 'mutation_root', delete_lan
 export type GetJobseekerAllResumesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, medical_book?: boolean | null, military_service?: boolean | null, programming_languages?: string | null, resume_name: string, resume_id: string, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name: string }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }> }> };
+export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, medical_book?: boolean | null, military_service?: boolean | null, programming_languages?: string | null, resume_name: string, resume_id: string, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }> }> };
 
 
 export const AuthLoginDocument = gql`
@@ -7014,73 +7018,47 @@ export function useUpdateTokenMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMutation>;
 export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
 export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
-export const SignUpJobseekerDocument = gql`
-    mutation SignUpJobseeker($start_date: date = "", $speciality: String = "", $role: String = "", $phone: String = "", $password: String = "", $name_institution: String = "", $name: String = "", $middleName: String = "", $login: String = "", $lastName: String = "", $group: String = "", $gender: String = "", $faculity: String = "", $email: String = "", $end_date: date = "", $education_form: String = "", $dateBirth: date = "") {
-  signUp_jobseeker(
-    education_form: $education_form
-    email: $email
-    faculity: $faculity
-    gender: $gender
-    group: $group
-    lastName: $lastName
-    login: $login
-    middleName: $middleName
-    name: $name
-    name_institution: $name_institution
-    password: $password
-    phone: $phone
-    role: $role
-    speciality: $speciality
-    dateBirth: $dateBirth
-    start_date: $start_date
-    end_date: $end_date
+export const ChangePasswordDocument = gql`
+    mutation ChangePassword($access_token: String = "", $account_id: String = "", $newPassword: String = "", $oldPassword: String = "") {
+  password_change_handle(
+    access_token: $access_token
+    account_id: $account_id
+    newPassword: $newPassword
+    oldPassword: $oldPassword
   ) {
-    account_id
+    status
   }
 }
     `;
-export type SignUpJobseekerMutationFn = Apollo.MutationFunction<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>;
+export type ChangePasswordMutationFn = Apollo.MutationFunction<ChangePasswordMutation, ChangePasswordMutationVariables>;
 
 /**
- * __useSignUpJobseekerMutation__
+ * __useChangePasswordMutation__
  *
- * To run a mutation, you first call `useSignUpJobseekerMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSignUpJobseekerMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [signUpJobseekerMutation, { data, loading, error }] = useSignUpJobseekerMutation({
+ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
  *   variables: {
- *      start_date: // value for 'start_date'
- *      speciality: // value for 'speciality'
- *      role: // value for 'role'
- *      phone: // value for 'phone'
- *      password: // value for 'password'
- *      name_institution: // value for 'name_institution'
- *      name: // value for 'name'
- *      middleName: // value for 'middleName'
- *      login: // value for 'login'
- *      lastName: // value for 'lastName'
- *      group: // value for 'group'
- *      gender: // value for 'gender'
- *      faculity: // value for 'faculity'
- *      email: // value for 'email'
- *      end_date: // value for 'end_date'
- *      education_form: // value for 'education_form'
- *      dateBirth: // value for 'dateBirth'
+ *      access_token: // value for 'access_token'
+ *      account_id: // value for 'account_id'
+ *      newPassword: // value for 'newPassword'
+ *      oldPassword: // value for 'oldPassword'
  *   },
  * });
  */
-export function useSignUpJobseekerMutation(baseOptions?: Apollo.MutationHookOptions<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>) {
+export function useChangePasswordMutation(baseOptions?: Apollo.MutationHookOptions<ChangePasswordMutation, ChangePasswordMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>(SignUpJobseekerDocument, options);
+        return Apollo.useMutation<ChangePasswordMutation, ChangePasswordMutationVariables>(ChangePasswordDocument, options);
       }
-export type SignUpJobseekerMutationHookResult = ReturnType<typeof useSignUpJobseekerMutation>;
-export type SignUpJobseekerMutationResult = Apollo.MutationResult<SignUpJobseekerMutation>;
-export type SignUpJobseekerMutationOptions = Apollo.BaseMutationOptions<SignUpJobseekerMutation, SignUpJobseekerMutationVariables>;
+export type ChangePasswordMutationHookResult = ReturnType<typeof useChangePasswordMutation>;
+export type ChangePasswordMutationResult = Apollo.MutationResult<ChangePasswordMutation>;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<ChangePasswordMutation, ChangePasswordMutationVariables>;
 export const SignUpOrganizationDocument = gql`
     mutation SignUpOrganization($email: String = "", $inn_organization: String = "", $login: String = "", $name_employer: String = "", $name_organization: String = "", $password: String = "", $phone: String = "", $role: String = "") {
   signUp_employer(

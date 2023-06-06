@@ -21,6 +21,7 @@ interface ColorMap {
   [key: string]: string
 }
 
+// TODO Функция для средней оценки
 const getColorForScore = (score: string): string => {
   const averageScore = parseFloat(score)
   const colorMap: ColorMap = {

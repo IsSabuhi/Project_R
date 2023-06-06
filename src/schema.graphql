@@ -10,47 +10,63 @@ mutation UpdateToken {
   }
 }
 
-mutation SignUpJobseeker(
-  $start_date: date = ""
-  $speciality: String = ""
-  $role: String = ""
-  $phone: String = ""
-  $password: String = ""
-  $name_institution: String = ""
-  $name: String = ""
-  $middleName: String = ""
-  $login: String = ""
-  $lastName: String = ""
-  $group: String = ""
-  $gender: String = ""
-  $faculity: String = ""
-  $email: String = ""
-  $end_date: date = ""
-  $education_form: String = ""
-  $dateBirth: date = ""
+mutation ChangePassword(
+  $access_token: String = ""
+  $account_id: String = ""
+  $newPassword: String = ""
+  $oldPassword: String = ""
 ) {
-  signUp_jobseeker(
-    education_form: $education_form
-    email: $email
-    faculity: $faculity
-    gender: $gender
-    group: $group
-    lastName: $lastName
-    login: $login
-    middleName: $middleName
-    name: $name
-    name_institution: $name_institution
-    password: $password
-    phone: $phone
-    role: $role
-    speciality: $speciality
-    dateBirth: $dateBirth
-    start_date: $start_date
-    end_date: $end_date
+  password_change_handle(
+    access_token: $access_token
+    account_id: $account_id
+    newPassword: $newPassword
+    oldPassword: $oldPassword
   ) {
-    account_id
+    status
   }
 }
+
+# mutation SignUpJobseeker(
+#   $start_date: date = ""
+#   $speciality: String = ""
+#   $role: String = ""
+#   $phone: String = ""
+#   $password: String = ""
+#   $name_institution: String = ""
+#   $name: String = ""
+#   $middleName: String = ""
+#   $login: String = ""
+#   $lastName: String = ""
+#   $group: String = ""
+#   $gender: String = ""
+#   $faculity: String = ""
+#   $email: String = ""
+#   $end_date: date = ""
+#   $education_form: String = ""
+#   $dateBirth: date = ""
+# ) {
+#   signUp_jobseeker(
+#     education_form: $education_form
+#     email: $email
+#     faculity: $faculity
+#     gender: $gender
+#     group: $group
+#     lastName: $lastName
+#     login: $login
+#     middleName: $middleName
+#     name: $name
+#     name_institution: $name_institution
+#     password: $password
+#     phone: $phone
+#     role: $role
+#     speciality: $speciality
+#     dateBirth: $dateBirth
+#     start_date: $start_date
+#     end_date: $end_date
+#   ) {
+#     account_id
+#   }
+# }
 
 mutation SignUpOrganization(
   $email: String = ""
