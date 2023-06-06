@@ -1,9 +1,6 @@
 import React from 'react'
 import styles from './ResumeCardView.module.scss'
-import Link from 'next/link'
 import {
-  Avatar,
-  Box,
   Flex,
   Menu,
   MenuButton,
@@ -16,9 +13,12 @@ import {
   MdOutlineDriveFileRenameOutline,
   MdOutlineMoreVert,
 } from 'react-icons/md'
+import { Resumes } from '@/generated/projectR-hasura'
+import { calculateAgeWithUnit } from '@/utils/calculateAge'
 
 interface IResumeCardView {
   userName: string
+  resume: Resumes
 }
 
 interface ColorMap {
@@ -47,12 +47,14 @@ const getColorForScore = (score: string): string => {
   return textColor
 }
 
-function ResumeCardView({ userName }: IResumeCardView) {
+function ResumeCardView({ userName, resume }: IResumeCardView) {
   return (
     <div className={styles.container}>
       <div className={styles.main}>
         <div className={styles.main_top}>
-          <Text className={styles.main_jobPosition}>React разработчик</Text>
+          <Text className={styles.main_jobPosition}>
+            {resume.desired_position}
+          </Text>
           <Menu>
             <MenuButton>
               <MdOutlineMoreVert />
@@ -69,7 +71,12 @@ function ResumeCardView({ userName }: IResumeCardView) {
 
         <Text className={styles.main_specialty}>
           Специальность:{' '}
-          <span>Информационные системы и технологии (в строительстве)</span>
+          <span>
+            {resume.resumes_jobseeker?.jobseeker_educations &&
+            resume.resumes_jobseeker.jobseeker_educations.length > 0
+              ? resume.resumes_jobseeker.jobseeker_educations[0].speciality
+              : 'Нет данных'}
+          </span>
         </Text>
 
         <Flex alignItems="center" gap="10px">
@@ -79,9 +86,18 @@ function ResumeCardView({ userName }: IResumeCardView) {
             fontWeight="500"
             color={getColorForScore('4,78')}
           >
-            4,7
+            {resume.resumes_jobseeker?.jobseeker_educations[0].average_score}
           </Text>
         </Flex>
+        <Text className={styles.main_specialty}>
+          Возраст:{' '}
+          <span>
+            {calculateAgeWithUnit(resume.resumes_jobseeker?.dateBirth)}
+          </span>
+        </Text>
+        <Text className={styles.main_specialty}>
+          Пол: <span>{resume.resumes_jobseeker?.gender}</span>
+        </Text>
       </div>
     </div>
   )

@@ -223,7 +223,7 @@ function Experience({ resume_id }: IExperience) {
               id="workLocation"
               name="workLocation"
               type="text"
-              placeholder="Город"
+              placeholder="Страна"
               fontSize="sm"
               size="lg"
               value={formik.values.workLocation as string}

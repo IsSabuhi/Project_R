@@ -736,6 +736,23 @@ query GetJobseekerAllResumes {
       middleName
       name
       phone
+      jobseeker_educations {
+        average_score
+        degree_education
+        education_form
+        end_date
+        faculity
+        group
+        speciality
+        start_date
+        vkr
+        jobseeker_id
+        jobseeker_education_id
+        educational_institution_id
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
     }
     resumes_projects {
       description

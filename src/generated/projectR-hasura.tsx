@@ -6949,7 +6949,7 @@ export type DeleteLanguagesMutation = { __typename?: 'mutation_root', delete_lan
 export type GetJobseekerAllResumesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, medical_book?: boolean | null, military_service?: boolean | null, programming_languages?: string | null, resume_name: string, resume_id: string, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }> }> };
+export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, medical_book?: boolean | null, military_service?: boolean | null, programming_languages?: string | null, resume_name: string, resume_id: string, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, vkr?: string | null, jobseeker_id?: string | null, jobseeker_education_id: string, educational_institution_id?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }> }> };
 
 
 export const AuthLoginDocument = gql`
@@ -8640,6 +8640,23 @@ export const GetJobseekerAllResumesDocument = gql`
       middleName
       name
       phone
+      jobseeker_educations {
+        average_score
+        degree_education
+        education_form
+        end_date
+        faculity
+        group
+        speciality
+        start_date
+        vkr
+        jobseeker_id
+        jobseeker_education_id
+        educational_institution_id
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
     }
     resumes_projects {
       description

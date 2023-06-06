@@ -9,21 +9,21 @@ interface IMainLayoutProps {
 }
 
 const MainLayout = ({ children }: IMainLayoutProps) => {
-  const { asPath } = useRouter()
-  const router = useRouter()
+  // const { asPath } = useRouter()
+  // const router = useRouter()
 
-  const { id } = router.query
+  // const { id } = router.query
 
-  const hideAvatarBox = asPath === `/home/${id}`
+  // const hideAvatarBox = asPath === `/user/${id}`
 
   return (
     <div className={styles.container}>
       <Sidebar />
-      {hideAvatarBox && (
+      {/* {hideAvatarBox && (
         <div className={styles.container_avatarBox}>
           <AvatarBox />
         </div>
-      )}
+      )} */}
       <main className={styles.main}>{children}</main>
     </div>
   )

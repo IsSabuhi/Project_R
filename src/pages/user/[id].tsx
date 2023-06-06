@@ -1,19 +1,32 @@
-import { Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import styles from '@/styles/Home.module.scss'
 import dynamic from 'next/dynamic'
-import { useAuthContext } from '@/hooks/use-auth-context'
+import { useRouter } from 'next/router'
+import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
 
 const DynamicHomeContent = dynamic(() => import('@/modules/Home/HomeContent'), {
   ssr: false,
 })
 
 const User = () => {
+  const { asPath } = useRouter()
+  const router = useRouter()
+
+  const { id } = router.query
+
+  const hideAvatarBox = asPath === `/user/${id}`
   return (
     <div className={styles.container_home}>
-      <Text fontWeight="semibold" fontSize="2xl" m="15px">
-        Резюме
-      </Text>
-
+      <Flex alignItems="center" justifyContent="space-between">
+        <Text fontWeight="semibold" fontSize="2xl" m="15px">
+          Резюме
+        </Text>
+        {hideAvatarBox && (
+          <div className={styles.container_avatarBox}>
+            <AvatarBox />
+          </div>
+        )}
+      </Flex>
       <DynamicHomeContent />
     </div>
   )
