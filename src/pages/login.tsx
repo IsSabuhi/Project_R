@@ -44,7 +44,8 @@ const SignIn = () => {
   const [authLoginMutation, { data, loading, error }] = useAuthLoginMutation({
     onCompleted(data) {
       startAuthSession(data.login_handler?.access_token!)
-      router.push(APP_URLS.getHomePage(userId!))
+      // router.push(APP_URLS.getHomePage(userId!))
+      router.push('/')
       // return enqueueSnackbar('Авторизация прошла успешно', {
       //   variant: 'success',
       // })

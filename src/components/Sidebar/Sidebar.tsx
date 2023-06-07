@@ -18,7 +18,7 @@ const DynamicSidebarContent = dynamic(
 )
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(true)
   const [selected, setSelected] = useState('Dashboard')
   const { stopAuthSession } = useAuthContext()
 

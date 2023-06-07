@@ -96,6 +96,7 @@ function HomeContent() {
                   resume.resumes_jobseeker?.name!,
                   resume.resumes_jobseeker?.middleName!
                 )}
+                resume={resume as Resumes}
               />
             )
           })}
