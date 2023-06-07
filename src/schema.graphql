@@ -277,8 +277,6 @@ query GetResumes($_eq: uuid = "") {
     desired_position
     driving_categories
     jobseeker_id
-    medical_book
-    military_service
     resume_id
     resume_name
     resumes_courses {
@@ -576,8 +574,6 @@ mutation AddAdditionalInformation(
   $_eq: uuid = ""
   $about_me: String = ""
   $driving_categories: String = ""
-  $medical_book: Boolean = false
-  $military_service: Boolean = false
   $desired_position: String = ""
   $programming_languages: String = ""
 ) {
@@ -586,8 +582,6 @@ mutation AddAdditionalInformation(
     _set: {
       about_me: $about_me
       driving_categories: $driving_categories
-      medical_book: $medical_book
-      military_service: $military_service
       desired_position: $desired_position
       programming_languages: $programming_languages
     }
@@ -597,8 +591,6 @@ mutation AddAdditionalInformation(
       desired_position
       driving_categories
       jobseeker_id
-      medical_book
-      military_service
       resume_id
       resume_name
     }
@@ -696,8 +688,6 @@ query GetJobseekerAllResumes {
     data_create
     desired_position
     driving_categories
-    medical_book
-    military_service
     programming_languages
     resume_name
     resume_id

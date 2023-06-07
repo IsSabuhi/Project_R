@@ -10,7 +10,6 @@ import {
   useSignOutMutation,
   useUpdateTokenMutation,
 } from '@/generated/projectR-hasura'
-import Cookies from 'universal-cookie'
 import { useSnackbar } from 'notistack'
 
 const KEY = AUTH_TOKEN
@@ -124,8 +123,6 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
       })
       localStorage.removeItem(KEY)
       signOutMutation()
-      // const cookies = new Cookies()
-      // cookies.remove('refresh_token')
       router.push(APP_URLS.SIGN_OUT)
     }, [])
 

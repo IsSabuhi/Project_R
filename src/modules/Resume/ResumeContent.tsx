@@ -71,7 +71,10 @@ function ResumeContent({ resume_id }: IResumeContent) {
           <Skills resume_id={resume_id!} />
         </TabPanel>
         <TabPanel>
-          <AdditionalInformation resume_id={resume_id!} />
+          <AdditionalInformation
+            resume_id={resume_id!}
+            specialityJobseeker={specialityJobseeker as string}
+          />
         </TabPanel>
         <TabPanel>
           <SaveResume resume_id={resume_id!} />

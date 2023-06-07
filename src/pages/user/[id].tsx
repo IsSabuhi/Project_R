@@ -3,6 +3,7 @@ import styles from '@/styles/Home.module.scss'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
+import NotificationBadge from '@/components/Notification'
 
 const DynamicHomeContent = dynamic(() => import('@/modules/Home/HomeContent'), {
   ssr: false,
@@ -15,6 +16,7 @@ const User = () => {
   const { id } = router.query
 
   const hideAvatarBox = asPath === `/user/${id}`
+
   return (
     <div className={styles.container_home}>
       <Flex alignItems="center" justifyContent="space-between">
@@ -23,6 +25,7 @@ const User = () => {
         </Text>
         {hideAvatarBox && (
           <div className={styles.container_avatarBox}>
+            <NotificationBadge />
             <AvatarBox />
           </div>
         )}

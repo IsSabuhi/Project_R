@@ -16,9 +16,11 @@ import {
 } from '@/generated/projectR-hasura'
 import Language from './LanguageComponent/LanguageComponent'
 import ReactQuillWrapper from '@/components/ReactQuillWrapper'
+import { specialityType } from '@/constants'
 
 interface IAdditionalInformation {
   resume_id: string
+  specialityJobseeker: string
 }
 
 interface Language {
@@ -31,16 +33,12 @@ export interface AddAdditionalInformationType {
   desired_position?: string | null
   programming_languages?: string | null
   driving_categories?: string | null
-  medical_book?: boolean | null
-  military_service?: boolean | null
   languages?: Language[] | null
 }
 
 const initialFormAdditionalInformation: AddAdditionalInformationType = {
   about_me: '',
   driving_categories: '',
-  medical_book: false,
-  military_service: false,
   desired_position: '',
   programming_languages: '',
   languages: languages.map((language) => ({
@@ -49,7 +47,10 @@ const initialFormAdditionalInformation: AddAdditionalInformationType = {
   })),
 }
 
-function AdditionalInformation({ resume_id }: IAdditionalInformation) {
+function AdditionalInformation({
+  resume_id,
+  specialityJobseeker,
+}: IAdditionalInformation) {
   const { enqueueSnackbar } = useSnackbar()
 
   const [values, setValues] = React.useState(initialFormAdditionalInformation)
@@ -74,8 +75,6 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
           _eq: resume_id,
           about_me: formik.values.about_me,
           driving_categories: formik.values.driving_categories,
-          medical_book: formik.values.medical_book,
-          military_service: formik.values.military_service,
           desired_position: formik.values.desired_position,
           programming_languages: formik.values.programming_languages,
         },
@@ -95,6 +94,8 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
       },
     })
 
+  console.log(specialityJobseeker)
+
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
       <FormControl>
@@ -113,19 +114,21 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
         />
       </FormControl>
 
-      <FormControl>
-        <FormLabel as="legend" htmlFor="programming_languages">
-          Языки программирования
-        </FormLabel>
-        <ReactQuillWrapper
-          id="programming_languages"
-          placeholder="Языки программирования"
-          value={formik.values.programming_languages as string}
-          onChange={(v: string) =>
-            formik.setFieldValue('programming_languages', v)!
-          }
-        />
-      </FormControl>
+      {specialityJobseeker === specialityType.infoSystem && (
+        <FormControl>
+          <FormLabel as="legend" htmlFor="programming_languages">
+            Языки программирования
+          </FormLabel>
+          <ReactQuillWrapper
+            id="programming_languages"
+            placeholder="Языки программирования"
+            value={formik.values.programming_languages as string}
+            onChange={(v: string) =>
+              formik.setFieldValue('programming_languages', v)!
+            }
+          />
+        </FormControl>
+      )}
 
       <FormControl>
         <FormLabel as="legend" htmlFor="about_me">
@@ -138,28 +141,6 @@ function AdditionalInformation({ resume_id }: IAdditionalInformation) {
           onChange={(v: string) => formik.setFieldValue('about_me', v)!}
         />
       </FormControl>
-      {/* TODO Разобраться почему не работает Checkbox */}
-      <Checkbox
-        id="military_service"
-        name="military_service"
-        checked={checkboxData[0]}
-        onChange={(e) => {
-          formik.handleChange(e)
-          const newCheckboxData = [...checkboxData]
-          newCheckboxData[0] = e.target.checked
-          setCheckboxData(newCheckboxData)
-        }}
-      >
-        Служба в армии
-      </Checkbox>
-      <Checkbox
-        id="medical_book"
-        name="medical_book"
-        checked={formik.values.military_service || false}
-        onChange={formik.handleChange}
-      >
-        Медицинская книжка
-      </Checkbox>
 
       <Button
         type="submit"
