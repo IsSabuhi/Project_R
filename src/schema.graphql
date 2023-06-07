@@ -352,20 +352,15 @@ mutation DeleteResume($resume_id: uuid = "") {
   }
 }
 
-mutation UpdateResumeName(
-  $_eq: uuid = ""
-  $resume_name: String = ""
-  $desired_position: String = ""
-) {
+mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "") {
   update_resumes(
     where: { resume_id: { _eq: $_eq } }
-    _set: { resume_name: $resume_name, desired_position: $desired_position }
+    _set: { resume_name: $resume_name }
   ) {
     returning {
       resume_id
       resume_name
       jobseeker_id
-      desired_position
     }
   }
 }

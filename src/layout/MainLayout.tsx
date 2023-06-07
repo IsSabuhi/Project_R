@@ -1,9 +1,7 @@
 import Sidebar from '@/components/Sidebar/Sidebar'
 import React, { ReactElement } from 'react'
 import styles from './MainLayout.module.scss'
-import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
-import { useRouter } from 'next/router'
-
+;``
 interface IMainLayoutProps {
   children: ReactElement
 }

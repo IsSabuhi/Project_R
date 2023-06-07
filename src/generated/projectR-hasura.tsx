@@ -6712,11 +6712,10 @@ export type DeleteResumeMutation = { __typename?: 'mutation_root', delete_resume
 export type UpdateResumeNameMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
-  desired_position?: InputMaybe<Scalars['String']>;
 }>;
 
 
-export type UpdateResumeNameMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, resume_name: string, jobseeker_id?: string | null, desired_position?: string | null }> } | null };
+export type UpdateResumeNameMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, resume_name: string, jobseeker_id?: string | null }> } | null };
 
 export type GetResumeQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -7643,16 +7642,15 @@ export type DeleteResumeMutationHookResult = ReturnType<typeof useDeleteResumeMu
 export type DeleteResumeMutationResult = Apollo.MutationResult<DeleteResumeMutation>;
 export type DeleteResumeMutationOptions = Apollo.BaseMutationOptions<DeleteResumeMutation, DeleteResumeMutationVariables>;
 export const UpdateResumeNameDocument = gql`
-    mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "", $desired_position: String = "") {
+    mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "") {
   update_resumes(
     where: {resume_id: {_eq: $_eq}}
-    _set: {resume_name: $resume_name, desired_position: $desired_position}
+    _set: {resume_name: $resume_name}
   ) {
     returning {
       resume_id
       resume_name
       jobseeker_id
-      desired_position
     }
   }
 }
@@ -7674,7 +7672,6 @@ export type UpdateResumeNameMutationFn = Apollo.MutationFunction<UpdateResumeNam
  *   variables: {
  *      _eq: // value for '_eq'
  *      resume_name: // value for 'resume_name'
- *      desired_position: // value for 'desired_position'
  *   },
  * });
  */

@@ -30,7 +30,7 @@ const SidebarContent = ({
           />
           <Item
             title="Просмотр откликов"
-            to="/home"
+            to={APP_URLS.VACANCY}
             icon={<AiOutlineFolderView size="20px" />}
             selected={selected}
             setSelected={setSelected}
