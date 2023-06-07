@@ -6,8 +6,12 @@ import client from '../../apollo-client'
 import { APP_URLS } from '../configs/urls'
 import { AUTH_TOKEN } from '../constants'
 import { parseJwt } from '../utils/parse-jwt'
-import { useUpdateTokenMutation } from '@/generated/projectR-hasura'
+import {
+  useSignOutMutation,
+  useUpdateTokenMutation,
+} from '@/generated/projectR-hasura'
 import Cookies from 'universal-cookie'
+import { useSnackbar } from 'notistack'
 
 const KEY = AUTH_TOKEN
 
@@ -102,6 +106,15 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
     [authState]
   )
 
+  const { enqueueSnackbar } = useSnackbar()
+  const [signOutMutation] = useSignOutMutation({
+    onCompleted() {
+      return enqueueSnackbar('Запрос выполнен успешно', {
+        variant: 'success',
+      })
+    },
+  })
+
   const stopAuthSession: IAuthContext['stopAuthSession'] =
     useCallback(async () => {
       setAuthData({
@@ -110,6 +123,7 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
         accessToken: undefined,
       })
       localStorage.removeItem(KEY)
+      signOutMutation()
       // const cookies = new Cookies()
       // cookies.remove('refresh_token')
       router.push(APP_URLS.SIGN_OUT)

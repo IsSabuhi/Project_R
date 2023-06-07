@@ -2464,8 +2464,6 @@ export type Languages_Bool_Exp = {
 
 /** unique or primary key constraints on table "languages" */
 export enum Languages_Constraint {
-  /** unique or primary key constraint on columns "language_name" */
-  LanguagesLanguageNameKey = 'languages_language_name_key',
   /** unique or primary key constraint on columns "language_id" */
   LanguagesPkey = 'languages_pkey'
 }
@@ -6646,6 +6644,11 @@ export type UpdateTokenMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type UpdateTokenMutation = { __typename?: 'mutation_root', refreshToken?: { __typename?: 'refreshTokenOutput', access_token: string } | null };
 
+export type SignOutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type SignOutMutation = { __typename?: 'mutation_root', sign_out?: { __typename?: 'resLogout', status: string } | null };
+
 export type ChangePasswordMutationVariables = Exact<{
   access_token?: InputMaybe<Scalars['String']>;
   account_id?: InputMaybe<Scalars['String']>;
@@ -7018,6 +7021,38 @@ export function useUpdateTokenMutation(baseOptions?: Apollo.MutationHookOptions<
 export type UpdateTokenMutationHookResult = ReturnType<typeof useUpdateTokenMutation>;
 export type UpdateTokenMutationResult = Apollo.MutationResult<UpdateTokenMutation>;
 export type UpdateTokenMutationOptions = Apollo.BaseMutationOptions<UpdateTokenMutation, UpdateTokenMutationVariables>;
+export const SignOutDocument = gql`
+    mutation SignOut {
+  sign_out {
+    status
+  }
+}
+    `;
+export type SignOutMutationFn = Apollo.MutationFunction<SignOutMutation, SignOutMutationVariables>;
+
+/**
+ * __useSignOutMutation__
+ *
+ * To run a mutation, you first call `useSignOutMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignOutMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signOutMutation, { data, loading, error }] = useSignOutMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSignOutMutation(baseOptions?: Apollo.MutationHookOptions<SignOutMutation, SignOutMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignOutMutation, SignOutMutationVariables>(SignOutDocument, options);
+      }
+export type SignOutMutationHookResult = ReturnType<typeof useSignOutMutation>;
+export type SignOutMutationResult = Apollo.MutationResult<SignOutMutation>;
+export type SignOutMutationOptions = Apollo.BaseMutationOptions<SignOutMutation, SignOutMutationVariables>;
 export const ChangePasswordDocument = gql`
     mutation ChangePassword($access_token: String = "", $account_id: String = "", $newPassword: String = "", $oldPassword: String = "") {
   password_change_handle(

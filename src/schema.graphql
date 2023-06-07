@@ -10,6 +10,12 @@ mutation UpdateToken {
   }
 }
 
+mutation SignOut {
+  sign_out {
+    status
+  }
+}
+
 mutation ChangePassword(
   $access_token: String = ""
   $account_id: String = ""
