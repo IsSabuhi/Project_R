@@ -9,7 +9,11 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Resumes, useGetResumesQuery } from '@/generated/projectR-hasura'
+import {
+  Resumes,
+  useGetResumesLazyQuery,
+  useGetResumesQuery,
+} from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
 
@@ -18,20 +22,29 @@ interface ISaveResume {
 }
 
 function SaveResume({ resume_id }: ISaveResume) {
-  const { data, loading, error } = useGetResumesQuery({
+  const [resumesData, setResumeData] = React.useState<Resumes[]>()
+
+  const [getResumeList] = useGetResumesLazyQuery({
     variables: {
       _eq: resume_id,
     },
+    onCompleted(data) {
+      setResumeData(data.resumes as Resumes[])
+    },
   })
 
-  const userResumeData = data?.resumes[0]
+  console.log(resumesData)
+
+  React.useEffect(() => {
+    getResumeList()
+  }, [])
 
   return (
     <div className={styles.container}>
       <div className={styles.container_main}>
         <div className={styles.container_main_header}>
           <Text fontSize="20px" fontWeight="bold" textTransform="uppercase">
-            {userResumeData?.resume_name}
+            {resumesData && resumesData[0]?.resume_name}
           </Text>
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
@@ -43,11 +56,12 @@ function SaveResume({ resume_id }: ISaveResume) {
           </Menu>
         </div>
         <Text className={styles.container_main_text}>
-          Резюме создано: {normalizeDate(userResumeData?.data_create!)}
+          Резюме создано:{' '}
+          {resumesData && normalizeDate(resumesData[0]?.data_create as string)}
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            <ClassicTemplate userResumeData={userResumeData as Resumes} />
+            <ClassicTemplate />
           </div>
         </div>
       </div>

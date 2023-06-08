@@ -59,13 +59,13 @@ const SidebarContent = ({
             selected={selected}
             setSelected={setSelected}
           />
-          <Item
+          {/* <Item
             title="Резюме"
             to="/home"
             icon={<BsCardChecklist size="20px" />}
             selected={selected}
             setSelected={setSelected}
-          />
+          /> */}
           <Item
             title="Настройки"
             to={APP_URLS.getSettingsPage(userId!)}

@@ -337,6 +337,210 @@ export type Account_Updates = {
   where: Account_Bool_Exp;
 };
 
+/** columns and relationships of "certification" */
+export type Certification = {
+  __typename?: 'certification';
+  certification_id: Scalars['uuid'];
+  certification_name: Scalars['String'];
+  /** An object relationship */
+  certification_resume: Resumes;
+  date_of_receipt?: Maybe<Scalars['String']>;
+  resume_id: Scalars['uuid'];
+};
+
+/** aggregated selection of "certification" */
+export type Certification_Aggregate = {
+  __typename?: 'certification_aggregate';
+  aggregate?: Maybe<Certification_Aggregate_Fields>;
+  nodes: Array<Certification>;
+};
+
+export type Certification_Aggregate_Bool_Exp = {
+  count?: InputMaybe<Certification_Aggregate_Bool_Exp_Count>;
+};
+
+export type Certification_Aggregate_Bool_Exp_Count = {
+  arguments?: InputMaybe<Array<Certification_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Certification_Bool_Exp>;
+  predicate: Int_Comparison_Exp;
+};
+
+/** aggregate fields of "certification" */
+export type Certification_Aggregate_Fields = {
+  __typename?: 'certification_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Certification_Max_Fields>;
+  min?: Maybe<Certification_Min_Fields>;
+};
+
+
+/** aggregate fields of "certification" */
+export type Certification_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Certification_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "certification" */
+export type Certification_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Certification_Max_Order_By>;
+  min?: InputMaybe<Certification_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "certification" */
+export type Certification_Arr_Rel_Insert_Input = {
+  data: Array<Certification_Insert_Input>;
+  /** upsert condition */
+  on_conflict?: InputMaybe<Certification_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "certification". All fields are combined with a logical 'AND'. */
+export type Certification_Bool_Exp = {
+  _and?: InputMaybe<Array<Certification_Bool_Exp>>;
+  _not?: InputMaybe<Certification_Bool_Exp>;
+  _or?: InputMaybe<Array<Certification_Bool_Exp>>;
+  certification_id?: InputMaybe<Uuid_Comparison_Exp>;
+  certification_name?: InputMaybe<String_Comparison_Exp>;
+  certification_resume?: InputMaybe<Resumes_Bool_Exp>;
+  date_of_receipt?: InputMaybe<String_Comparison_Exp>;
+  resume_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "certification" */
+export enum Certification_Constraint {
+  /** unique or primary key constraint on columns "certification_id" */
+  CertificationPkey = 'certification_pkey'
+}
+
+/** input type for inserting data into table "certification" */
+export type Certification_Insert_Input = {
+  certification_id?: InputMaybe<Scalars['uuid']>;
+  certification_name?: InputMaybe<Scalars['String']>;
+  certification_resume?: InputMaybe<Resumes_Obj_Rel_Insert_Input>;
+  date_of_receipt?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type Certification_Max_Fields = {
+  __typename?: 'certification_max_fields';
+  certification_id?: Maybe<Scalars['uuid']>;
+  certification_name?: Maybe<Scalars['String']>;
+  date_of_receipt?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "certification" */
+export type Certification_Max_Order_By = {
+  certification_id?: InputMaybe<Order_By>;
+  certification_name?: InputMaybe<Order_By>;
+  date_of_receipt?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Certification_Min_Fields = {
+  __typename?: 'certification_min_fields';
+  certification_id?: Maybe<Scalars['uuid']>;
+  certification_name?: Maybe<Scalars['String']>;
+  date_of_receipt?: Maybe<Scalars['String']>;
+  resume_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "certification" */
+export type Certification_Min_Order_By = {
+  certification_id?: InputMaybe<Order_By>;
+  certification_name?: InputMaybe<Order_By>;
+  date_of_receipt?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "certification" */
+export type Certification_Mutation_Response = {
+  __typename?: 'certification_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Certification>;
+};
+
+/** on_conflict condition type for table "certification" */
+export type Certification_On_Conflict = {
+  constraint: Certification_Constraint;
+  update_columns?: Array<Certification_Update_Column>;
+  where?: InputMaybe<Certification_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "certification". */
+export type Certification_Order_By = {
+  certification_id?: InputMaybe<Order_By>;
+  certification_name?: InputMaybe<Order_By>;
+  certification_resume?: InputMaybe<Resumes_Order_By>;
+  date_of_receipt?: InputMaybe<Order_By>;
+  resume_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: certification */
+export type Certification_Pk_Columns_Input = {
+  certification_id: Scalars['uuid'];
+};
+
+/** select columns of table "certification" */
+export enum Certification_Select_Column {
+  /** column name */
+  CertificationId = 'certification_id',
+  /** column name */
+  CertificationName = 'certification_name',
+  /** column name */
+  DateOfReceipt = 'date_of_receipt',
+  /** column name */
+  ResumeId = 'resume_id'
+}
+
+/** input type for updating data in table "certification" */
+export type Certification_Set_Input = {
+  certification_id?: InputMaybe<Scalars['uuid']>;
+  certification_name?: InputMaybe<Scalars['String']>;
+  date_of_receipt?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** Streaming cursor of the table "certification" */
+export type Certification_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Certification_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Certification_Stream_Cursor_Value_Input = {
+  certification_id?: InputMaybe<Scalars['uuid']>;
+  certification_name?: InputMaybe<Scalars['String']>;
+  date_of_receipt?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+};
+
+/** update columns of table "certification" */
+export enum Certification_Update_Column {
+  /** column name */
+  CertificationId = 'certification_id',
+  /** column name */
+  CertificationName = 'certification_name',
+  /** column name */
+  DateOfReceipt = 'date_of_receipt',
+  /** column name */
+  ResumeId = 'resume_id'
+}
+
+export type Certification_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Certification_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Certification_Bool_Exp;
+};
+
 /** columns and relationships of "course" */
 export type Course = {
   __typename?: 'course';
@@ -2888,6 +3092,10 @@ export type Mutation_Root = {
   delete_account?: Maybe<Account_Mutation_Response>;
   /** delete single row from the table: "account" */
   delete_account_by_pk?: Maybe<Account>;
+  /** delete data from the table: "certification" */
+  delete_certification?: Maybe<Certification_Mutation_Response>;
+  /** delete single row from the table: "certification" */
+  delete_certification_by_pk?: Maybe<Certification>;
   /** delete data from the table: "course" */
   delete_course?: Maybe<Course_Mutation_Response>;
   /** delete single row from the table: "course" */
@@ -2952,6 +3160,10 @@ export type Mutation_Root = {
   insert_account?: Maybe<Account_Mutation_Response>;
   /** insert a single row into the table: "account" */
   insert_account_one?: Maybe<Account>;
+  /** insert data into the table: "certification" */
+  insert_certification?: Maybe<Certification_Mutation_Response>;
+  /** insert a single row into the table: "certification" */
+  insert_certification_one?: Maybe<Certification>;
   /** insert data into the table: "course" */
   insert_course?: Maybe<Course_Mutation_Response>;
   /** insert a single row into the table: "course" */
@@ -3026,6 +3238,12 @@ export type Mutation_Root = {
   update_account_by_pk?: Maybe<Account>;
   /** update multiples rows of table: "account" */
   update_account_many?: Maybe<Array<Maybe<Account_Mutation_Response>>>;
+  /** update data of the table: "certification" */
+  update_certification?: Maybe<Certification_Mutation_Response>;
+  /** update single row of the table: "certification" */
+  update_certification_by_pk?: Maybe<Certification>;
+  /** update multiples rows of table: "certification" */
+  update_certification_many?: Maybe<Array<Maybe<Certification_Mutation_Response>>>;
   /** update data of the table: "course" */
   update_course?: Maybe<Course_Mutation_Response>;
   /** update single row of the table: "course" */
@@ -3128,6 +3346,18 @@ export type Mutation_RootDelete_AccountArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Account_By_PkArgs = {
   account_id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_CertificationArgs = {
+  where: Certification_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Certification_By_PkArgs = {
+  certification_id: Scalars['uuid'];
 };
 
 
@@ -3322,6 +3552,20 @@ export type Mutation_RootInsert_AccountArgs = {
 export type Mutation_RootInsert_Account_OneArgs = {
   object: Account_Insert_Input;
   on_conflict?: InputMaybe<Account_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_CertificationArgs = {
+  objects: Array<Certification_Insert_Input>;
+  on_conflict?: InputMaybe<Certification_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Certification_OneArgs = {
+  object: Certification_Insert_Input;
+  on_conflict?: InputMaybe<Certification_On_Conflict>;
 };
 
 
@@ -3603,6 +3847,26 @@ export type Mutation_RootUpdate_Account_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Account_ManyArgs = {
   updates: Array<Account_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_CertificationArgs = {
+  _set?: InputMaybe<Certification_Set_Input>;
+  where: Certification_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Certification_By_PkArgs = {
+  _set?: InputMaybe<Certification_Set_Input>;
+  pk_columns: Certification_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Certification_ManyArgs = {
+  updates: Array<Certification_Updates>;
 };
 
 
@@ -4504,6 +4768,12 @@ export type Query_Root = {
   account_aggregate: Account_Aggregate;
   /** fetch data from the table: "account" using primary key columns */
   account_by_pk?: Maybe<Account>;
+  /** fetch data from the table: "certification" */
+  certification: Array<Certification>;
+  /** fetch aggregated fields from the table: "certification" */
+  certification_aggregate: Certification_Aggregate;
+  /** fetch data from the table: "certification" using primary key columns */
+  certification_by_pk?: Maybe<Certification>;
   /** fetch data from the table: "course" */
   course: Array<Course>;
   /** fetch aggregated fields from the table: "course" */
@@ -4617,6 +4887,29 @@ export type Query_RootAccount_AggregateArgs = {
 
 export type Query_RootAccount_By_PkArgs = {
   account_id: Scalars['uuid'];
+};
+
+
+export type Query_RootCertificationArgs = {
+  distinct_on?: InputMaybe<Array<Certification_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Certification_Order_By>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
+};
+
+
+export type Query_RootCertification_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Certification_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Certification_Order_By>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
+};
+
+
+export type Query_RootCertification_By_PkArgs = {
+  certification_id: Scalars['uuid'];
 };
 
 
@@ -4995,6 +5288,7 @@ export type Resumes = {
   experience_works: Array<Experience_Work>;
   /** An aggregate relationship */
   experience_works_aggregate: Experience_Work_Aggregate;
+  isConfirmed: Scalars['Boolean'];
   jobseeker_id?: Maybe<Scalars['uuid']>;
   /** An array relationship */
   languages: Array<Languages>;
@@ -5003,6 +5297,10 @@ export type Resumes = {
   programming_languages?: Maybe<Scalars['String']>;
   resume_id: Scalars['uuid'];
   resume_name: Scalars['String'];
+  /** An array relationship */
+  resumes_certifications: Array<Certification>;
+  /** An aggregate relationship */
+  resumes_certifications_aggregate: Certification_Aggregate;
   /** An array relationship */
   resumes_courses: Array<Course>;
   /** An aggregate relationship */
@@ -5061,6 +5359,26 @@ export type ResumesLanguages_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Languages_Order_By>>;
   where?: InputMaybe<Languages_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resumes" */
+export type ResumesResumes_CertificationsArgs = {
+  distinct_on?: InputMaybe<Array<Certification_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Certification_Order_By>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
+};
+
+
+/** columns and relationships of "resumes" */
+export type ResumesResumes_Certifications_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Certification_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Certification_Order_By>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
 };
 
 
@@ -5151,7 +5469,23 @@ export type Resumes_Aggregate = {
 };
 
 export type Resumes_Aggregate_Bool_Exp = {
+  bool_and?: InputMaybe<Resumes_Aggregate_Bool_Exp_Bool_And>;
+  bool_or?: InputMaybe<Resumes_Aggregate_Bool_Exp_Bool_Or>;
   count?: InputMaybe<Resumes_Aggregate_Bool_Exp_Count>;
+};
+
+export type Resumes_Aggregate_Bool_Exp_Bool_And = {
+  arguments: Resumes_Select_Column_Resumes_Aggregate_Bool_Exp_Bool_And_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Resumes_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
+};
+
+export type Resumes_Aggregate_Bool_Exp_Bool_Or = {
+  arguments: Resumes_Select_Column_Resumes_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns;
+  distinct?: InputMaybe<Scalars['Boolean']>;
+  filter?: InputMaybe<Resumes_Bool_Exp>;
+  predicate: Boolean_Comparison_Exp;
 };
 
 export type Resumes_Aggregate_Bool_Exp_Count = {
@@ -5201,12 +5535,15 @@ export type Resumes_Bool_Exp = {
   driving_categories?: InputMaybe<String_Comparison_Exp>;
   experience_works?: InputMaybe<Experience_Work_Bool_Exp>;
   experience_works_aggregate?: InputMaybe<Experience_Work_Aggregate_Bool_Exp>;
+  isConfirmed?: InputMaybe<Boolean_Comparison_Exp>;
   jobseeker_id?: InputMaybe<Uuid_Comparison_Exp>;
   languages?: InputMaybe<Languages_Bool_Exp>;
   languages_aggregate?: InputMaybe<Languages_Aggregate_Bool_Exp>;
   programming_languages?: InputMaybe<String_Comparison_Exp>;
   resume_id?: InputMaybe<Uuid_Comparison_Exp>;
   resume_name?: InputMaybe<String_Comparison_Exp>;
+  resumes_certifications?: InputMaybe<Certification_Bool_Exp>;
+  resumes_certifications_aggregate?: InputMaybe<Certification_Aggregate_Bool_Exp>;
   resumes_courses?: InputMaybe<Course_Bool_Exp>;
   resumes_courses_aggregate?: InputMaybe<Course_Aggregate_Bool_Exp>;
   resumes_hobbies?: InputMaybe<Hobby_Bool_Exp>;
@@ -5233,11 +5570,13 @@ export type Resumes_Insert_Input = {
   desired_position?: InputMaybe<Scalars['String']>;
   driving_categories?: InputMaybe<Scalars['String']>;
   experience_works?: InputMaybe<Experience_Work_Arr_Rel_Insert_Input>;
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   languages?: InputMaybe<Languages_Arr_Rel_Insert_Input>;
   programming_languages?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
   resume_name?: InputMaybe<Scalars['String']>;
+  resumes_certifications?: InputMaybe<Certification_Arr_Rel_Insert_Input>;
   resumes_courses?: InputMaybe<Course_Arr_Rel_Insert_Input>;
   resumes_hobbies?: InputMaybe<Hobby_Arr_Rel_Insert_Input>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Obj_Rel_Insert_Input>;
@@ -5325,11 +5664,13 @@ export type Resumes_Order_By = {
   desired_position?: InputMaybe<Order_By>;
   driving_categories?: InputMaybe<Order_By>;
   experience_works_aggregate?: InputMaybe<Experience_Work_Aggregate_Order_By>;
+  isConfirmed?: InputMaybe<Order_By>;
   jobseeker_id?: InputMaybe<Order_By>;
   languages_aggregate?: InputMaybe<Languages_Aggregate_Order_By>;
   programming_languages?: InputMaybe<Order_By>;
   resume_id?: InputMaybe<Order_By>;
   resume_name?: InputMaybe<Order_By>;
+  resumes_certifications_aggregate?: InputMaybe<Certification_Aggregate_Order_By>;
   resumes_courses_aggregate?: InputMaybe<Course_Aggregate_Order_By>;
   resumes_hobbies_aggregate?: InputMaybe<Hobby_Aggregate_Order_By>;
   resumes_jobseeker?: InputMaybe<Jobseeker_Order_By>;
@@ -5353,6 +5694,8 @@ export enum Resumes_Select_Column {
   /** column name */
   DrivingCategories = 'driving_categories',
   /** column name */
+  IsConfirmed = 'isConfirmed',
+  /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
   ProgrammingLanguages = 'programming_languages',
@@ -5362,12 +5705,25 @@ export enum Resumes_Select_Column {
   ResumeName = 'resume_name'
 }
 
+/** select "resumes_aggregate_bool_exp_bool_and_arguments_columns" columns of table "resumes" */
+export enum Resumes_Select_Column_Resumes_Aggregate_Bool_Exp_Bool_And_Arguments_Columns {
+  /** column name */
+  IsConfirmed = 'isConfirmed'
+}
+
+/** select "resumes_aggregate_bool_exp_bool_or_arguments_columns" columns of table "resumes" */
+export enum Resumes_Select_Column_Resumes_Aggregate_Bool_Exp_Bool_Or_Arguments_Columns {
+  /** column name */
+  IsConfirmed = 'isConfirmed'
+}
+
 /** input type for updating data in table "resumes" */
 export type Resumes_Set_Input = {
   about_me?: InputMaybe<Scalars['String']>;
   data_create?: InputMaybe<Scalars['timestamp']>;
   desired_position?: InputMaybe<Scalars['String']>;
   driving_categories?: InputMaybe<Scalars['String']>;
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   programming_languages?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -5388,6 +5744,7 @@ export type Resumes_Stream_Cursor_Value_Input = {
   data_create?: InputMaybe<Scalars['timestamp']>;
   desired_position?: InputMaybe<Scalars['String']>;
   driving_categories?: InputMaybe<Scalars['String']>;
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
   jobseeker_id?: InputMaybe<Scalars['uuid']>;
   programming_languages?: InputMaybe<Scalars['String']>;
   resume_id?: InputMaybe<Scalars['uuid']>;
@@ -5404,6 +5761,8 @@ export enum Resumes_Update_Column {
   DesiredPosition = 'desired_position',
   /** column name */
   DrivingCategories = 'driving_categories',
+  /** column name */
+  IsConfirmed = 'isConfirmed',
   /** column name */
   JobseekerId = 'jobseeker_id',
   /** column name */
@@ -5621,6 +5980,14 @@ export type Subscription_Root = {
   account_by_pk?: Maybe<Account>;
   /** fetch data from the table in a streaming manner: "account" */
   account_stream: Array<Account>;
+  /** fetch data from the table: "certification" */
+  certification: Array<Certification>;
+  /** fetch aggregated fields from the table: "certification" */
+  certification_aggregate: Certification_Aggregate;
+  /** fetch data from the table: "certification" using primary key columns */
+  certification_by_pk?: Maybe<Certification>;
+  /** fetch data from the table in a streaming manner: "certification" */
+  certification_stream: Array<Certification>;
   /** fetch data from the table: "course" */
   course: Array<Course>;
   /** fetch aggregated fields from the table: "course" */
@@ -5771,6 +6138,36 @@ export type Subscription_RootAccount_StreamArgs = {
   batch_size: Scalars['Int'];
   cursor: Array<InputMaybe<Account_Stream_Cursor_Input>>;
   where?: InputMaybe<Account_Bool_Exp>;
+};
+
+
+export type Subscription_RootCertificationArgs = {
+  distinct_on?: InputMaybe<Array<Certification_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Certification_Order_By>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
+};
+
+
+export type Subscription_RootCertification_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Certification_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  order_by?: InputMaybe<Array<Certification_Order_By>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
+};
+
+
+export type Subscription_RootCertification_By_PkArgs = {
+  certification_id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootCertification_StreamArgs = {
+  batch_size: Scalars['Int'];
+  cursor: Array<InputMaybe<Certification_Stream_Cursor_Input>>;
+  where?: InputMaybe<Certification_Bool_Exp>;
 };
 
 
@@ -6871,6 +7268,29 @@ export type DeleteHobbyMutationVariables = Exact<{
 
 export type DeleteHobbyMutation = { __typename?: 'mutation_root', delete_hobby?: { __typename?: 'hobby_mutation_response', affected_rows: number } | null };
 
+export type GetCertificationsQueryVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type GetCertificationsQuery = { __typename?: 'query_root', certification: Array<{ __typename?: 'certification', certification_id: string, certification_name: string, date_of_receipt?: string | null }> };
+
+export type InsertCertificationMutationVariables = Exact<{
+  certification_name?: InputMaybe<Scalars['String']>;
+  date_of_receipt?: InputMaybe<Scalars['String']>;
+  resume_id?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type InsertCertificationMutation = { __typename?: 'mutation_root', insert_certification?: { __typename?: 'certification_mutation_response', returning: Array<{ __typename?: 'certification', certification_id: string, certification_name: string, date_of_receipt?: string | null, resume_id: string }> } | null };
+
+export type DeleteCertificationMutationVariables = Exact<{
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type DeleteCertificationMutation = { __typename?: 'mutation_root', delete_certification?: { __typename?: 'certification_mutation_response', affected_rows: number } | null };
+
 export type GetLanguagesQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
 }>;
@@ -6897,7 +7317,7 @@ export type DeleteLanguagesMutation = { __typename?: 'mutation_root', delete_lan
 export type GetJobseekerAllResumesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, programming_languages?: string | null, resume_name: string, resume_id: string, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, vkr?: string | null, jobseeker_id?: string | null, jobseeker_education_id: string, educational_institution_id?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }> }> };
+export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, programming_languages?: string | null, resume_name: string, resume_id: string, isConfirmed: boolean, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }>, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, date_receipt?: string | null, description: string }>, resumes_hobbies: Array<{ __typename?: 'hobby', hobby_id: string, description: string }>, resumes_jobseeker?: { __typename?: 'jobseeker', dateBirth?: string | null, email?: string | null, gender?: string | null, jobseeker_id: string, lastName: string, middleName: string, name: string, phone?: string | null, account?: { __typename?: 'account', account_id: string, avatar?: string | null, expired_token_time?: string | null, login: string, role?: string | null } | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, end_date?: string | null, faculity: string, group: string, speciality: string, start_date?: string | null, vkr?: string | null, jobseeker_id?: string | null, jobseeker_education_id: string, educational_institution_id?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_id: string, project_name: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }>, resumes_certifications: Array<{ __typename?: 'certification', certification_name: string, date_of_receipt?: string | null, certification_id: string }> }> };
 
 
 export const AuthLoginDocument = gql`
@@ -8447,6 +8867,118 @@ export function useDeleteHobbyMutation(baseOptions?: Apollo.MutationHookOptions<
 export type DeleteHobbyMutationHookResult = ReturnType<typeof useDeleteHobbyMutation>;
 export type DeleteHobbyMutationResult = Apollo.MutationResult<DeleteHobbyMutation>;
 export type DeleteHobbyMutationOptions = Apollo.BaseMutationOptions<DeleteHobbyMutation, DeleteHobbyMutationVariables>;
+export const GetCertificationsDocument = gql`
+    query GetCertifications($_eq: uuid = "") {
+  certification(where: {resume_id: {_eq: $_eq}}) {
+    certification_id
+    certification_name
+    date_of_receipt
+  }
+}
+    `;
+
+/**
+ * __useGetCertificationsQuery__
+ *
+ * To run a query within a React component, call `useGetCertificationsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCertificationsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCertificationsQuery({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useGetCertificationsQuery(baseOptions?: Apollo.QueryHookOptions<GetCertificationsQuery, GetCertificationsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCertificationsQuery, GetCertificationsQueryVariables>(GetCertificationsDocument, options);
+      }
+export function useGetCertificationsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCertificationsQuery, GetCertificationsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCertificationsQuery, GetCertificationsQueryVariables>(GetCertificationsDocument, options);
+        }
+export type GetCertificationsQueryHookResult = ReturnType<typeof useGetCertificationsQuery>;
+export type GetCertificationsLazyQueryHookResult = ReturnType<typeof useGetCertificationsLazyQuery>;
+export type GetCertificationsQueryResult = Apollo.QueryResult<GetCertificationsQuery, GetCertificationsQueryVariables>;
+export const InsertCertificationDocument = gql`
+    mutation InsertCertification($certification_name: String = "", $date_of_receipt: String = "", $resume_id: uuid = "") {
+  insert_certification(
+    objects: {certification_name: $certification_name, date_of_receipt: $date_of_receipt, resume_id: $resume_id}
+  ) {
+    returning {
+      certification_id
+      certification_name
+      date_of_receipt
+      resume_id
+    }
+  }
+}
+    `;
+export type InsertCertificationMutationFn = Apollo.MutationFunction<InsertCertificationMutation, InsertCertificationMutationVariables>;
+
+/**
+ * __useInsertCertificationMutation__
+ *
+ * To run a mutation, you first call `useInsertCertificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useInsertCertificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [insertCertificationMutation, { data, loading, error }] = useInsertCertificationMutation({
+ *   variables: {
+ *      certification_name: // value for 'certification_name'
+ *      date_of_receipt: // value for 'date_of_receipt'
+ *      resume_id: // value for 'resume_id'
+ *   },
+ * });
+ */
+export function useInsertCertificationMutation(baseOptions?: Apollo.MutationHookOptions<InsertCertificationMutation, InsertCertificationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<InsertCertificationMutation, InsertCertificationMutationVariables>(InsertCertificationDocument, options);
+      }
+export type InsertCertificationMutationHookResult = ReturnType<typeof useInsertCertificationMutation>;
+export type InsertCertificationMutationResult = Apollo.MutationResult<InsertCertificationMutation>;
+export type InsertCertificationMutationOptions = Apollo.BaseMutationOptions<InsertCertificationMutation, InsertCertificationMutationVariables>;
+export const DeleteCertificationDocument = gql`
+    mutation DeleteCertification($_eq: uuid = "") {
+  delete_certification(where: {certification_id: {_eq: $_eq}}) {
+    affected_rows
+  }
+}
+    `;
+export type DeleteCertificationMutationFn = Apollo.MutationFunction<DeleteCertificationMutation, DeleteCertificationMutationVariables>;
+
+/**
+ * __useDeleteCertificationMutation__
+ *
+ * To run a mutation, you first call `useDeleteCertificationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteCertificationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteCertificationMutation, { data, loading, error }] = useDeleteCertificationMutation({
+ *   variables: {
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useDeleteCertificationMutation(baseOptions?: Apollo.MutationHookOptions<DeleteCertificationMutation, DeleteCertificationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteCertificationMutation, DeleteCertificationMutationVariables>(DeleteCertificationDocument, options);
+      }
+export type DeleteCertificationMutationHookResult = ReturnType<typeof useDeleteCertificationMutation>;
+export type DeleteCertificationMutationResult = Apollo.MutationResult<DeleteCertificationMutation>;
+export type DeleteCertificationMutationOptions = Apollo.BaseMutationOptions<DeleteCertificationMutation, DeleteCertificationMutationVariables>;
 export const GetLanguagesDocument = gql`
     query GetLanguages($_eq: uuid = "") {
   languages(where: {resume_id: {_eq: $_eq}}) {
@@ -8561,7 +9093,7 @@ export type DeleteLanguagesMutationResult = Apollo.MutationResult<DeleteLanguage
 export type DeleteLanguagesMutationOptions = Apollo.BaseMutationOptions<DeleteLanguagesMutation, DeleteLanguagesMutationVariables>;
 export const GetJobseekerAllResumesDocument = gql`
     query GetJobseekerAllResumes {
-  resumes {
+  resumes(where: {isConfirmed: {_eq: true}}) {
     about_me
     data_create
     desired_position
@@ -8637,6 +9169,12 @@ export const GetJobseekerAllResumesDocument = gql`
     resumes_skills {
       description
       skills_id
+    }
+    isConfirmed
+    resumes_certifications {
+      certification_name
+      date_of_receipt
+      certification_id
     }
   }
 }

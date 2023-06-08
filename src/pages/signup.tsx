@@ -121,7 +121,7 @@ const SignUp = () => {
           name_organization: formik.values.name_organization,
           password: formik.values.password,
           phone: formik.values.phone,
-          role: formik.values.role,
+          role: 'employer',
         },
       })
     },

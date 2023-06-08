@@ -16,7 +16,7 @@ import { joinName } from '@/utils/joinName'
 import { calculateAgeWithUnit } from '@/utils/calculateAge'
 
 interface IClassicTemplate {
-  userResumeData: Resumes
+  userResumeData?: Resumes
 }
 
 function ClassicTemplate({ userResumeData }: IClassicTemplate) {

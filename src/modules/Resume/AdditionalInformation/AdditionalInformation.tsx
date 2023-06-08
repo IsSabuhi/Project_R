@@ -94,8 +94,6 @@ function AdditionalInformation({
       },
     })
 
-  console.log(specialityJobseeker)
-
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
       <FormControl>
@@ -108,7 +106,7 @@ function AdditionalInformation({
           type="text"
           fontSize="sm"
           size="lg"
-          placeholder="React разработчик, администратор баз данных ..."
+          placeholder="Введите должность"
           value={formik.values.desired_position as string}
           onChange={formik.handleChange}
         />

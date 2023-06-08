@@ -12,6 +12,10 @@ import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Home.module.scss'
 import ResumeCardView from '@/components/Resume/ResumeCardView/ResumeCardView'
 import { joinName } from '@/utils/joinName'
+import JobseekerHomeContent from './JobseekerHomeContent/JobseekerHomeContent'
+import EmployerHomeContent from './EmployerHomeContent/EmployerHomeContent'
+import { Flex, Text } from '@chakra-ui/react'
+import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
 
 function HomeContent() {
   const { userProfileId, role } = useAuthContext()
@@ -71,36 +75,15 @@ function HomeContent() {
   return (
     <>
       {role === 'jobseeker' ? (
-        <div className={styles.main_cards}>
-          <ResumeNewCard getResumeList={getResumeList} />
-
-          {resumeData?.map((item, index) => {
-            return (
-              <ResumeCard
-                key={index}
-                resume_name={item.resume_name}
-                resume_id={item.resume_id}
-                deleteResume={() => deleteResume(item.resume_id)}
-              />
-            )
-          })}
-        </div>
+        <JobseekerHomeContent
+          getResumeList={getResumeList}
+          resumeData={resumeData}
+          deleteResume={deleteResume}
+        />
       ) : (
-        <div className={styles.main_cards}>
-          {resumesJobseekerData?.map((resume, index) => {
-            return (
-              <ResumeCardView
-                key={index}
-                userName={joinName(
-                  resume.resumes_jobseeker?.lastName!,
-                  resume.resumes_jobseeker?.name!,
-                  resume.resumes_jobseeker?.middleName!
-                )}
-                resume={resume as Resumes}
-              />
-            )
-          })}
-        </div>
+        <EmployerHomeContent
+          resumesJobseekerData={resumesJobseekerData as Resumes[]}
+        />
       )}
     </>
   )

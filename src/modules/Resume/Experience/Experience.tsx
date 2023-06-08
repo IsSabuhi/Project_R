@@ -234,12 +234,12 @@ function Experience({ resume_id }: IExperience) {
 
         <FormControl>
           <FormLabel as="legend" htmlFor="description">
-            Чем вы занимались в компании ?
+            Должностные обязанности
           </FormLabel>
           <Textarea
             id="description"
             name="description"
-            placeholder="Напишите чем вы занимались на прошлой работе"
+            placeholder="Напишите чем вы занимались и какие обязанности у вас были на прошлой работе"
             fontSize="sm"
             size="lg"
             value={formik.values.description as string}

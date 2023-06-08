@@ -640,6 +640,41 @@ mutation DeleteHobby($_eq: uuid = "") {
   }
 }
 
+query GetCertifications($_eq: uuid = "") {
+  certification(where: { resume_id: { _eq: $_eq } }) {
+    certification_id
+    certification_name
+    date_of_receipt
+  }
+}
+
+mutation InsertCertification(
+  $certification_name: String = ""
+  $date_of_receipt: String = ""
+  $resume_id: uuid = ""
+) {
+  insert_certification(
+    objects: {
+      certification_name: $certification_name
+      date_of_receipt: $date_of_receipt
+      resume_id: $resume_id
+    }
+  ) {
+    returning {
+      certification_id
+      certification_name
+      date_of_receipt
+      resume_id
+    }
+  }
+}
+
+mutation DeleteCertification($_eq: uuid = "") {
+  delete_certification(where: { certification_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
 # Языки владения
 query GetLanguages($_eq: uuid = "") {
   languages(where: { resume_id: { _eq: $_eq } }) {
@@ -678,7 +713,7 @@ mutation DeleteLanguages($_eq: uuid = "") {
 
 # Запрос получения всех резюме для работодателя
 query GetJobseekerAllResumes {
-  resumes {
+  resumes(where: { isConfirmed: { _eq: true } }) {
     about_me
     data_create
     desired_position
@@ -754,6 +789,12 @@ query GetJobseekerAllResumes {
     resumes_skills {
       description
       skills_id
+    }
+    isConfirmed
+    resumes_certifications {
+      certification_name
+      date_of_receipt
+      certification_id
     }
   }
 }

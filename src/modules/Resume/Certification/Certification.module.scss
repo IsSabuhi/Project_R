@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin-top: 25px;
+
+    .container_left {
+        width: 80%;
+        height: fit-content;
+        max-width: 350px;
+        background: #f9f9f9;
+        box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.1);
+        border-radius: 0.5em;
+        padding: 1.5rem !important;
+
+        .container_left_title {
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            gap: 15px;
+            align-items: center;
+
+            .container_left_titleText {
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+
+        .container_left_collapse {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .container_left_collapse_cards {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    }
+
+    .container_right {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+
+        .container_right_dateInput {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            gap: 20px;
+        }
+    }
+}

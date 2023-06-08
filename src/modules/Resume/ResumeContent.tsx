@@ -14,10 +14,15 @@ import Skills from './Skills/Skills'
 import AdditionalInformation from './AdditionalInformation/AdditionalInformation'
 import SaveResume from './SaveResume/SaveResume'
 import Сourse from '@/modules/Resume/Сourse/Сourse'
-import { useGetResumeQuery } from '@/generated/projectR-hasura'
+import {
+  useGetResumeLazyQuery,
+  useGetResumeQuery,
+} from '@/generated/projectR-hasura'
 import styles from '@/styles/Resume.module.scss'
 import Hobby from './Hobby/Hobby'
 import Languages from './Languages/Languages'
+import { specialityType } from '@/constants'
+import Certification from './Certification/Certification'
 
 interface IResumeContent {
   resume_id: string
@@ -42,9 +47,17 @@ function ResumeContent({ resume_id }: IResumeContent) {
           </Text>
         </Tooltip>
         <Tab>Опыт работы</Tab>
-        <Tab>Проекты</Tab>
+        {specialityJobseeker === specialityType.infoSystem && (
+          <Tab>Проекты</Tab>
+        )}
+
         <Tab>Курсы</Tab>
-        <Tab>Хобби</Tab>
+        {specialityJobseeker !== specialityType.electric && <Tab>Хобби</Tab>}
+
+        {specialityJobseeker === specialityType.electric && (
+          <Tab>Сертификаты</Tab>
+        )}
+
         <Tab>Владение языками</Tab>
         <Tab>Навыки</Tab>
         <Tab>Дополнительная информация</Tab>
@@ -55,15 +68,27 @@ function ResumeContent({ resume_id }: IResumeContent) {
         <TabPanel>
           <Experience resume_id={resume_id!} />
         </TabPanel>
-        <TabPanel>
-          <Project resume_id={resume_id!} />
-        </TabPanel>
+        {specialityJobseeker === specialityType.infoSystem && (
+          <TabPanel>
+            <Project resume_id={resume_id!} />
+          </TabPanel>
+        )}
+
         <TabPanel>
           <Сourse resume_id={resume_id!} />
         </TabPanel>
-        <TabPanel>
-          <Hobby resume_id={resume_id!} />
-        </TabPanel>
+        {specialityJobseeker !== specialityType.electric && (
+          <TabPanel>
+            <Hobby resume_id={resume_id!} />
+          </TabPanel>
+        )}
+
+        {specialityJobseeker === specialityType.electric && (
+          <TabPanel>
+            <Certification resume_id={resume_id!} />
+          </TabPanel>
+        )}
+
         <TabPanel>
           <Languages resume_id={resume_id!} />
         </TabPanel>

@@ -12,15 +12,6 @@ const DynamicHomeContent = dynamic(() => import('@/modules/Home/HomeContent'), {
 const User = () => {
   return (
     <div className={styles.container_home}>
-      <Flex alignItems="center" justifyContent="space-between">
-        <Text fontWeight="semibold" fontSize="2xl" m="15px">
-          Резюме
-        </Text>
-        <div className={styles.container_avatarBox}>
-          {/* <NotificationBadge /> */}
-          <AvatarBox />
-        </div>
-      </Flex>
       <DynamicHomeContent />
     </div>
   )
