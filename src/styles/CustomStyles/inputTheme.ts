@@ -10,7 +10,6 @@ const baseStyle = definePartsStyle({
       opacity: 1,
     },
   },
-  
 })
 
 export const inputTheme = defineMultiStyleConfig({ baseStyle })

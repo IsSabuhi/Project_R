@@ -8,17 +8,16 @@ import {
   MenuList,
   Text,
 } from '@chakra-ui/react'
-import {
-  MdOutlineDeleteOutline,
-  MdOutlineDriveFileRenameOutline,
-  MdOutlineMoreVert,
-} from 'react-icons/md'
+import { MdOutlineMoreVert } from 'react-icons/md'
 import { Resumes } from '@/generated/projectR-hasura'
 import { calculateAgeWithUnit } from '@/utils/calculateAge'
+import { useRouter } from 'next/router'
 
 interface IResumeCardView {
+  resume_id: string
   userName: string
   resume: Resumes
+  isVerified: boolean
 }
 
 interface ColorMap {
@@ -47,7 +46,14 @@ const getColorForScore = (score: string): string => {
   return textColor
 }
 
-function ResumeCardView({ userName, resume }: IResumeCardView) {
+function ResumeCardView({
+  resume_id,
+  userName,
+  resume,
+  isVerified,
+}: IResumeCardView) {
+  const router = useRouter()
+
   return (
     <div className={styles.container}>
       <div className={styles.main}>
@@ -55,17 +61,20 @@ function ResumeCardView({ userName, resume }: IResumeCardView) {
           <Text className={styles.main_jobPosition}>
             {resume.desired_position}
           </Text>
-          <Menu>
-            <MenuButton>
-              <MdOutlineMoreVert />
-            </MenuButton>
-            <MenuList>
-              <MenuItem icon={<MdOutlineDriveFileRenameOutline />}>
-                Изменить
-              </MenuItem>
-              <MenuItem icon={<MdOutlineDeleteOutline />}>Удалить</MenuItem>
-            </MenuList>
-          </Menu>
+          {isVerified && (
+            <Menu>
+              <MenuButton>
+                <MdOutlineMoreVert />
+              </MenuButton>
+              <MenuList>
+                <MenuItem
+                  onClick={() => router.push(`/resumeView/${resume_id}`)}
+                >
+                  Открыть
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </div>
         <Text className={styles.main_jobseekerName}>{userName}</Text>
 

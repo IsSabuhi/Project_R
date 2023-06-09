@@ -1,5 +1,3 @@
-import ResumeCard from '@/components/Resume/ResumeCard/ResumeCard'
-import ResumeNewCard from '@/components/Resume/ResumeNewCard/ResumeNewCard'
 import {
   Resumes,
   useDeleteResumeMutation,
@@ -10,12 +8,8 @@ import { useAuthContext } from '@/hooks/use-auth-context'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Home.module.scss'
-import ResumeCardView from '@/components/Resume/ResumeCardView/ResumeCardView'
-import { joinName } from '@/utils/joinName'
 import JobseekerHomeContent from './JobseekerHomeContent/JobseekerHomeContent'
 import EmployerHomeContent from './EmployerHomeContent/EmployerHomeContent'
-import { Flex, Text } from '@chakra-ui/react'
-import AvatarBox from '@/components/Sidebar/AvatarBox/AvatarBox'
 
 function HomeContent() {
   const { userProfileId, role } = useAuthContext()
