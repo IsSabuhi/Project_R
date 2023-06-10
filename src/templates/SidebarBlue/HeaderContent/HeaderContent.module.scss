@@ -1,0 +1,22 @@
+.colorBold {
+    color: #054276;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px;
+
+    .container_userName {
+        font-size: 24px;
+        @extend .colorBold;
+    }
+
+    .container_jobPosition {
+        font-size: 19px;
+        @extend .colorBold;
+    }
+}

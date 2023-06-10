@@ -23,6 +23,7 @@ import template2 from '@/assets/images/resumesTemplate/template2.png'
 import ResumesTemplateImage from './ResumesTemplate/ResumesTemplateImage'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
 import { v4 as uuidv4 } from 'uuid'
+import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
 
 interface ISaveResume {
   resume_id: string
@@ -69,7 +70,7 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
 
     if (!isSharingResume) {
       // Генерация уникальной ссылки на резюме при включении опции
-      const newResumeUrl = `http://localhost:3000/resumeView/${uuidv4()}`
+      const newResumeUrl = `http://localhost:3000/resumeView/${resume_id}`
       setResumeUrl(newResumeUrl)
     } else {
       setResumeUrl('')
@@ -117,7 +118,8 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            <ClassicTemplate />
+            {/* <ClassicTemplate /> */}
+            <SidebarBlue />
             {/* <ResumesTemplateImage
               image={template1}
               onSelect={() => selectTemplate('Шаблон 1')}
@@ -150,12 +152,17 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
               {isSharingResume && (
                 <Box mt="4">
                   {resumeUrl ? (
-                    <>
+                    <Box whiteSpace="nowrap">
                       Ссылка на ваше резюме:
-                      <Link href={resumeUrl} isExternal ml="2">
+                      <Link
+                        href={resumeUrl}
+                        isExternal
+                        ml="2"
+                        whiteSpace="pre-wrap"
+                      >
                         {resumeUrl}
                       </Link>
-                    </>
+                    </Box>
                   ) : (
                     'Ссылка на резюме ещё не сгенерирована.'
                   )}

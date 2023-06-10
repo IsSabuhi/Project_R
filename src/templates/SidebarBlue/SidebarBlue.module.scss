@@ -1,0 +1,100 @@
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.section_block {
+    background: rgba(255,255,255,.4);
+    padding-inline: 0px;
+}
+
+.section_block_title {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-inline: 30px;
+}
+
+.container {
+    // max-width: 790px;
+    @extend .flexRow;
+    width: 100%;
+    min-height: calc(28cm + 4rem);
+    border: 1.5rem solid #e7e7e7;
+    border-radius: 10px;
+
+    .sidebar {
+        @extend .flexColumn;
+        max-width: 300px;
+        width: 100%;
+        background-color: #054276;
+        color: #fff;
+        gap: 5px;
+
+        .sidebar_avatar {
+            @extend .flexColumn;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            max-height: 125px;
+            height: 100%;
+        }
+
+        .sidebar_contacts {
+            @extend .flexColumn;
+            gap: 5px;
+
+            .sidebar_contacts_title {
+                @extend .section_block;
+
+                .sidebar_contacts_title_text {
+                    @extend .section_block_title;
+                }
+            }
+        }
+
+        .sidebar_languages {
+            @extend .flexColumn;
+            gap: 5px;
+            margin-top: 20px;
+
+            .sidebar_languages_title {
+                @extend .section_block;
+
+                .sidebar_languages_title_text {
+                    @extend .section_block_title;
+                }
+            }
+        }
+
+        .sidebar_hobby {
+            @extend .flexColumn;
+            gap: 5px;
+            margin-top: 20px;
+
+            .sidebar_hobby_title {
+                @extend .section_block;
+
+                .sidebar_hobby_title_text {
+                    @extend .section_block_title;
+                }
+            }
+
+            .sidebar_hobby_content {
+                padding-inline: 8px;
+            }
+        }
+    }
+
+    .main {
+        @extend .flexColumn;
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -22,5 +22,16 @@
         align-items: center;
         justify-content: space-between;
         flex-direction: row;
+
+        .container_footer_text {
+            
+
+            .container_footer_text_resumeName {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: 235px;
+            }
+        }
     }
 }

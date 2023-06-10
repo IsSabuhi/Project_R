@@ -17,14 +17,22 @@ import Link from 'next/link'
 import { APP_URLS } from '@/configs/urls'
 import ResumeDeleteModal from './ResumeDeleteModal/ResumeDeleteModal'
 import ResumeUpdateModal from './ResumeUpdateModal/ResumeUpdateModal'
+import { normalizeDate } from '@/utils/normalizeDate'
+import { AiOutlineDownload } from 'react-icons/ai'
 
 interface IResumeCard {
   resume_name: string
+  data_create: string
   resume_id: string
   deleteResume: () => void
 }
 
-function ResumeCard({ resume_name, resume_id, deleteResume }: IResumeCard) {
+function ResumeCard({
+  resume_name,
+  data_create,
+  resume_id,
+  deleteResume,
+}: IResumeCard) {
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
@@ -47,8 +55,11 @@ function ResumeCard({ resume_name, resume_id, deleteResume }: IResumeCard) {
         <div className={styles.main}>Нажмите чтобы открыть резюме</div>
       </Link>
       <div className={styles.container_footer}>
-        <div>
-          <Text>{resume_name || 'Название резюме'}</Text>
+        <div className={styles.container_footer_text}>
+          <Text className={styles.container_footer_text_resumeName}>
+            Название резюме: {resume_name || ''}
+          </Text>
+          <Text>Дата создания: {normalizeDate(data_create || '')}</Text>
         </div>
 
         <Menu>
@@ -56,6 +67,7 @@ function ResumeCard({ resume_name, resume_id, deleteResume }: IResumeCard) {
             <MdOutlineMoreVert />
           </MenuButton>
           <MenuList>
+            <MenuItem icon={<AiOutlineDownload />}>Скачать</MenuItem>
             <MenuItem
               icon={<MdOutlineDriveFileRenameOutline />}
               onClick={onEditOpen}

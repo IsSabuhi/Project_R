@@ -14,10 +14,7 @@ import Skills from './Skills/Skills'
 import AdditionalInformation from './AdditionalInformation/AdditionalInformation'
 import SaveResume from './SaveResume/SaveResume'
 import Сourse from '@/modules/Resume/Сourse/Сourse'
-import {
-  useGetResumeLazyQuery,
-  useGetResumeQuery,
-} from '@/generated/projectR-hasura'
+import { useGetResumeQuery } from '@/generated/projectR-hasura'
 import styles from '@/styles/Resume.module.scss'
 import Hobby from './Hobby/Hobby'
 import Languages from './Languages/Languages'
