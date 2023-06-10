@@ -24,10 +24,30 @@
 
         .container_main_viewResume {
             display: flex;
-            justify-content: center;
+            flex-direction: row;
+            justify-content: space-between;
 
             .container_main_viewResume_main {
-          
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                flex-basis: 60%;
+            }
+
+            .container_main_viewResume_sidebar {
+                flex: 0;
+                flex-basis: 30%;
+
+                .container_main_viewResume_sidebar_isPublic {
+
+                }
+
+                .container_main_viewResume_sidebar_checkbox {
+                    background: #f1f1f1;
+                    padding: 10px;
+                    border-radius: 0.5em;
+                    box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.1);
+                }   
             }
         }
 

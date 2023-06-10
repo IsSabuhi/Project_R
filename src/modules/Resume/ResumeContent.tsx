@@ -23,6 +23,7 @@ import Hobby from './Hobby/Hobby'
 import Languages from './Languages/Languages'
 import { specialityType } from '@/constants'
 import Certification from './Certification/Certification'
+import { useRouter } from 'next/router'
 
 interface IResumeContent {
   resume_id: string
@@ -38,8 +39,29 @@ function ResumeContent({ resume_id }: IResumeContent) {
   const specialityJobseeker =
     data?.resumes[0].resumes_jobseeker?.jobseeker_educations[0].speciality
 
+  const router = useRouter()
+  const [activeTab, setActiveTab] = React.useState(0)
+
+  // Функция для обработки изменения активной вкладки
+  const handleTabChange = (index: number) => {
+    setActiveTab(index)
+    router.push(`/resume/${resume_id}?tab=${index}`)
+  }
+
+  React.useEffect(() => {
+    const tab = Number(router.query.tab)
+    if (!isNaN(tab) && tab >= 0) {
+      setActiveTab(tab)
+    }
+  }, [])
+
   return (
-    <Tabs position="relative" variant="unstyled">
+    <Tabs
+      position="relative"
+      variant="unstyled"
+      index={activeTab}
+      onChange={handleTabChange}
+    >
       <TabList>
         <Tooltip label={data?.resumes[0].resume_name}>
           <Text className={styles.container_resume_title}>
