@@ -3,9 +3,13 @@ import styles from './SidebarBlue.module.scss'
 import { Avatar, Flex, Icon, Text } from '@chakra-ui/react'
 import { HiOutlinePhone } from 'react-icons/hi'
 import { AiOutlineMail } from 'react-icons/ai'
-import { FaInfo } from 'react-icons/fa'
-import { BiMap } from 'react-icons/bi'
 import HeaderContent from './HeaderContent/HeaderContent'
+import ExperienceWork from './ExperienceWork/ExperienceWork'
+import Education from './Education/Education'
+import Course from './Course/Course'
+import Project from './Project/Project'
+import Skills from './Skills/Skills'
+import AboutMe from './AboutMe/AboutMe'
 
 const SidebarBlue = () => {
   return (
@@ -50,6 +54,24 @@ const SidebarBlue = () => {
       </div>
       <div className={styles.main}>
         <HeaderContent />
+        <section className={styles.main_experienceWork}>
+          <ExperienceWork />
+        </section>
+        <section className={styles.main_educations}>
+          <Education />
+        </section>
+        <section className={styles.main_course}>
+          <Course />
+        </section>
+        <section className={styles.main_project}>
+          <Project />
+        </section>
+        <section className={styles.main_skills}>
+          <Skills />
+        </section>
+        <section className={styles.main_skills}>
+          <AboutMe />
+        </section>
       </div>
     </div>
   )

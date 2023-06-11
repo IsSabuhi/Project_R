@@ -1,12 +1,6 @@
 import React from 'react'
 import styles from './AdditionalInformation.module.scss'
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormLabel,
-  Input,
-} from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { languages } from '@/configs'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
@@ -55,9 +49,7 @@ function AdditionalInformation({
 
   const [values, setValues] = React.useState(initialFormAdditionalInformation)
 
-  const [checkboxData, setCheckboxData] = React.useState<boolean[]>([])
-
-  const { data, loading, error } = useGetResumesQuery({
+  const { data, error } = useGetResumesQuery({
     variables: {
       _eq: resume_id,
     },
@@ -82,7 +74,7 @@ function AdditionalInformation({
     },
   })
 
-  const [addAdditionalInformationMutation] =
+  const [addAdditionalInformationMutation, { loading }] =
     useAddAdditionalInformationMutation({
       onCompleted() {
         return enqueueSnackbar('Данные сохранены', {
@@ -145,6 +137,7 @@ function AdditionalInformation({
         colorScheme="blue"
         variant="solid"
         loadingText="Сохранение"
+        isLoading={loading}
         bg="teal.300"
         h="45"
         mb="5px"

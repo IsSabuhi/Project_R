@@ -1,0 +1,72 @@
+.main {
+    padding: 10px;
+
+    .main_content {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+
+        .main_content_left {
+            max-width: 102px;
+            width: 100%;
+         
+            .main_content_left_date {
+                font-size: 13px;
+                white-space: nowrap;
+            }
+        }
+
+        .main_content_right {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .main_content_right_univerName {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .main_content_right_degree_education {
+                font-size: 14px;
+                font-weight: bold;
+                font-style: italic;
+            }
+
+            .main_content_right_faculity {
+                font-size: 14px;
+                font-weight: normal;
+                font-style: italic;
+            }
+
+            .main_content_right_speciality {
+                font-size: 14px;
+                font-weight: normal;
+                font-style: italic;
+            }
+
+            .main_content_right_education_form {
+                font-size: 15px;
+                font-weight: 500;
+                font-style: italic;
+
+                & span {
+                    font-size: 15px;
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
+
+            .main_content_right_average_score {
+                font-size: 15px;
+                font-weight: 500;
+                font-style: italic;
+
+                & span {
+                    font-size: 15px;
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
+        }
+    }
+}

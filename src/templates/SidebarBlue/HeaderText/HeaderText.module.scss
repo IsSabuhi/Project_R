@@ -1,0 +1,31 @@
+.title {
+    font-size: 14px;
+    color: #054276;
+    text-transform: uppercase;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.liner {
+    width: 100%;
+    border-bottom: 1px solid currentColor;
+    height: 2px;
+    border-top: none;
+}
+
+.iconBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    border: 1px solid currentColor;
+    color: currentColor;
+    border-radius: 50%;
+    font-size: 16px !important;
+    text-align: center;
+    min-width: 38px;
+    max-width: 38px;
+    width: 38px;
+    height: 38px;
+    line-height: 22px;
+}

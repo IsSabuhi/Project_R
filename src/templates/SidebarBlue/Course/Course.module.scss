@@ -1,0 +1,36 @@
+.main {
+    padding: 10px;
+
+    .main_content {
+        display: flex;
+        flex-direction: row;
+        gap: 40px;
+        margin-top: 10px;
+
+        .main_content_left {
+            max-width: 102px;
+            width: 100%;
+
+            .main_content_left_date {
+                font-size: 13px;
+                white-space: nowrap;
+            }
+        }
+
+        .main_content_right {
+            display: flex;
+            flex-direction: column;
+
+            .main_content_right_courseName {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .main_content_right_courseDescription {
+                font-size: 14px;
+                font-weight: normal;
+                font-style: italic;
+            }
+        }
+    }
+}

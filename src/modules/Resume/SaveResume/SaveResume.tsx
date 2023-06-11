@@ -22,12 +22,11 @@ import template1 from '@/assets/images/resumesTemplate/template1.png'
 import template2 from '@/assets/images/resumesTemplate/template2.png'
 import ResumesTemplateImage from './ResumesTemplate/ResumesTemplateImage'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
-import { v4 as uuidv4 } from 'uuid'
 import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
 
 interface ISaveResume {
   resume_id: string
-  onTemplateSelect: (template: string) => void
+  onTemplateSelect?: (template: string) => void
 }
 
 function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
@@ -56,11 +55,11 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
   }
 
   // Функция для обработки выбора шаблона пользователем
-  const handleTemplateSelect = () => {
-    if (selectedTemplate) {
-      onTemplateSelect(selectedTemplate)
-    }
-  }
+  // const handleTemplateSelect = () => {
+  //   if (selectedTemplate) {
+  //     onTemplateSelect(selectedTemplate)
+  //   }
+  // }
 
   const [isSharingResume, setIsSharingResume] = useState(false)
   const [resumeUrl, setResumeUrl] = useState('')
@@ -69,7 +68,6 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
     setIsSharingResume(!isSharingResume)
 
     if (!isSharingResume) {
-      // Генерация уникальной ссылки на резюме при включении опции
       const newResumeUrl = `http://localhost:3000/resumeView/${resume_id}`
       setResumeUrl(newResumeUrl)
     } else {
@@ -152,14 +150,9 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
               {isSharingResume && (
                 <Box mt="4">
                   {resumeUrl ? (
-                    <Box whiteSpace="nowrap">
-                      Ссылка на ваше резюме:
-                      <Link
-                        href={resumeUrl}
-                        isExternal
-                        ml="2"
-                        whiteSpace="pre-wrap"
-                      >
+                    <Box>
+                      <Text>Ссылка на ваше резюме:</Text>
+                      <Link href={resumeUrl} isExternal ml="2">
                         {resumeUrl}
                       </Link>
                     </Box>

@@ -96,5 +96,21 @@
         @extend .flexColumn;
         width: 100%;
         height: 100%;
+
+        .main_experienceWork {
+            @extend .flexColumn;
+        }
+
+        .main_educations {
+            @extend .flexColumn;
+        }
+
+        .main_course {
+            @extend .flexColumn;
+        }
+
+        .main_skills {
+            @extend .flexColumn;
+        }
     }
 }
