@@ -11,3 +11,9 @@ export function normalizeDate(dateString: string): string {
     
     return getDate(date);
   }
+
+export function getYearFromDate(dateString: string): string {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  return `${year}`;
+}

@@ -156,24 +156,6 @@ function Skills({ resume_id }: ISkills) {
           type="submit"
           variant="solid"
           loadingText="Сохранение"
-          bg="#868dfb"
-          h="45"
-          mb="5px"
-          color="white"
-          _hover={{
-            bg: '#b5b9ee',
-          }}
-          _active={{
-            bg: '#868dfb',
-          }}
-          marginLeft="auto"
-        >
-          Исследователь навыков ИИ
-        </Button>
-        <Button
-          type="submit"
-          variant="solid"
-          loadingText="Сохранение"
           bg="teal.300"
           h="45"
           mb="5px"

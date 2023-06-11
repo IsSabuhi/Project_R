@@ -331,6 +331,21 @@ query GetResumes($_eq: uuid = "") {
       }
     }
     programming_languages
+    isConfirmed
+    resumes_hobbies {
+      description
+      hobby_id
+    }
+    resumes_certifications {
+      certification_name
+      certification_id
+      date_of_receipt
+    }
+    languages {
+      language_id
+      language_level
+      language_name
+    }
   }
 }
 
@@ -796,5 +811,30 @@ query GetJobseekerAllResumes {
       date_of_receipt
       certification_id
     }
+  }
+}
+
+mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "") {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { template: $template }
+  ) {
+    returning {
+      resume_id
+      resume_name
+      isConfirmed
+      jobseeker_id
+      desired_position
+      data_create
+      about_me
+      programming_languages
+      template
+    }
+  }
+}
+
+mutation AiGenerationSkills($resume_id: String = "") {
+  ai_generation_skills(resume_id: $resume_id) {
+    status
   }
 }

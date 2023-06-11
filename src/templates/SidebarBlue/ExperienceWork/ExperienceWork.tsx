@@ -3,26 +3,42 @@ import styles from './ExperienceWork.module.scss'
 import HeaderText from '../HeaderText/HeaderText'
 import { MdOutlineWork } from 'react-icons/md'
 import { Text } from '@chakra-ui/react'
+import { Resumes } from '@/generated/projectR-hasura'
+import { normalizeDate } from '@/utils/normalizeDate'
 
-const ExperienceWork = () => {
+interface IExperienceWork {
+  resumeData: Resumes[]
+}
+
+const ExperienceWork = ({ resumeData }: IExperienceWork) => {
+  const experienceWorks = resumeData[0].experience_works
+
   return (
     <div className={styles.main}>
       <HeaderText title="Опыт работы" icon={MdOutlineWork} />
-      <div className={styles.main_content}>
-        <Text className={styles.main_content_left_date}>01.2020 - 10.2022</Text>
-        <div className={styles.main_content_right}>
-          <Text className={styles.main_content_right_jobName}>
-            ООО HowToWork
-          </Text>
-          <Text className={styles.main_content_right_jobPosition}>
-            Программист
-          </Text>
-          <Text className={styles.main_content_right_description}>
-            Оптимизировал код разработчика с 60 до 35 тыс. строк. Улучшил
-            скорость сайта 95-98 PageSpeed
-          </Text>
-        </div>
-      </div>
+      {experienceWorks.map((experienceWork, index) => {
+        return (
+          <div className={styles.main_content} key={index}>
+            <Text className={styles.main_content_left_date}>
+              {normalizeDate(experienceWork.date_employment as string)} -
+              {experienceWork.date_dismissal === ''
+                ? ' по н.в'
+                : normalizeDate(experienceWork.date_dismissal as string)}
+            </Text>
+            <div className={styles.main_content_right}>
+              <Text className={styles.main_content_right_jobName}>
+                {experienceWork.name_company}
+              </Text>
+              <Text className={styles.main_content_right_jobPosition}>
+                {experienceWork.jobposition}
+              </Text>
+              <Text className={styles.main_content_right_description}>
+                {experienceWork.description}
+              </Text>
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }

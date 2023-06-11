@@ -1,21 +1,28 @@
 .main {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-inline: 10px;
 
     .main_content {
         display: flex;
         flex-direction: row;
-        gap: 40px;
+        gap: 20px;
         margin-top: 10px;
 
         .main_content_left_date {
             font-size: 13px;
             white-space: nowrap;
+            max-width: 150px;
+            width: 100%;
         }
 
         .main_content_right {
             display: flex;
             flex-direction: column;
             gap: 5px;
+            max-width: 415px;
+            width: 100%;
             
             .main_content_right_jobName {
                 font-size: 14px;

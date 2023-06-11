@@ -16,21 +16,36 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Resumes, useGetResumesLazyQuery } from '@/generated/projectR-hasura'
+import {
+  Resumes,
+  UpdateResumeAddTemplateMutationVariables,
+  useAiGenerationSkillsMutation,
+  useGetResumesLazyQuery,
+  useUpdateResumeAddTemplateMutation,
+} from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
 import template1 from '@/assets/images/resumesTemplate/template1.png'
 import template2 from '@/assets/images/resumesTemplate/template2.png'
 import ResumesTemplateImage from './ResumesTemplate/ResumesTemplateImage'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
 import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
+import Loader from '@/components/Loader'
+import { useSnackbar } from 'notistack'
+import { useFormik } from 'formik'
 
 interface ISaveResume {
   resume_id: string
   onTemplateSelect?: (template: string) => void
 }
 
+const initialFormTemplate: UpdateResumeAddTemplateMutationVariables = {
+  template: '',
+}
+
 function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
   const [resumesData, setResumeData] = React.useState<Resumes[]>()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const [getResumeList] = useGetResumesLazyQuery({
     variables: {
@@ -74,6 +89,62 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
       setResumeUrl('')
     }
   }
+
+  // const [loading, setLoading] = useState(true)
+
+  const [aiGenerationSkillsMutation, { data, loading, error }] =
+    useAiGenerationSkillsMutation({
+      onCompleted(data) {
+        return enqueueSnackbar('Резюме сгенерировано успешно', {
+          variant: 'success',
+        })
+      },
+      onError(error) {
+        enqueueSnackbar('Ошибка', { variant: 'error' })
+      },
+    })
+
+  // React.useEffect(() => {
+  //   // Имитируем задержку загрузки в течение 3 секунд
+  //   setTimeout(() => {
+  //     setLoading(false)
+  //   }, 3000)
+  // }, [])
+
+  const formik = useFormik({
+    initialValues: initialFormTemplate,
+    enableReinitialize: true,
+    onSubmit: () => {},
+  })
+
+  const [updateResumeAddTemplateMutation] = useUpdateResumeAddTemplateMutation({
+    onCompleted() {
+      return enqueueSnackbar('Данные сохранены', {
+        variant: 'success',
+      })
+    },
+    onError() {
+      enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+    },
+  })
+
+  const handleUpdateResume = () => {
+    updateResumeAddTemplateMutation({
+      variables: {
+        _eq: resume_id,
+        template: formik.values.template,
+      },
+    })
+
+    aiGenerationSkillsMutation({
+      variables: {
+        resume_id: resume_id,
+      },
+    })
+  }
+
+  console.log(formik.values)
+
   return (
     <div className={styles.container}>
       <div className={styles.container_main}>
@@ -83,7 +154,6 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
           </Text>
           <Flex gap={5} alignItems="center">
             <Button
-              type="submit"
               variant="solid"
               loadingText="Загрузка..."
               bg="#868dfb"
@@ -97,6 +167,7 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
                 bg: '#868dfb',
               }}
               marginLeft="auto"
+              onClick={() => handleUpdateResume()}
             >
               Сгенерировать резюме
             </Button>
@@ -117,23 +188,23 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
             {/* <ClassicTemplate /> */}
-            <SidebarBlue />
-            {/* <ResumesTemplateImage
+            {/* {loading ? (
+              <Loader />
+            ) : (
+              <SidebarBlue resumesData={resumesData as Resumes[]} />
+            )} */}
+            <ResumesTemplateImage
               image={template1}
-              onSelect={() => selectTemplate('Шаблон 1')}
-              isSelected={selectedTemplate === 'Шаблон 1'}
+              onSelect={() => formik.setFieldValue('template', 'template1')}
+              isSelected={formik.values.template === 'template1'}
             />
             <ResumesTemplateImage
               image={template2}
-              onSelect={() => selectTemplate('Шаблон 2')}
-              isSelected={selectedTemplate === 'Шаблон 2'}
+              onSelect={() => formik.setFieldValue('template', 'template2')}
+              isSelected={formik.values.template === 'template2'}
             />
-            <ResumesTemplateImage
-              image={template2}
-              onSelect={() => selectTemplate('Шаблон 3')}
-              isSelected={selectedTemplate === 'Шаблон 3'}
-            /> */}
           </div>
+
           <div className={styles.container_main_viewResume_sidebar}>
             <div className={styles.container_main_viewResume_sidebar_isPublic}>
               <FormControl display="flex" alignItems="center">

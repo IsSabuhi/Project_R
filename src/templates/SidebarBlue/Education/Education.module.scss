@@ -4,10 +4,10 @@
     .main_content {
         display: flex;
         flex-direction: row;
-        gap: 40px;
+        gap: 20px;
 
         .main_content_left {
-            max-width: 102px;
+            max-width: 150px;
             width: 100%;
          
             .main_content_left_date {
@@ -20,16 +20,18 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            max-width: 415px;
+            width: 100%;
 
             .main_content_right_univerName {
                 font-size: 14px;
                 font-weight: bold;
-            }
 
-            .main_content_right_degree_education {
-                font-size: 14px;
-                font-weight: bold;
-                font-style: italic;
+                & span { 
+                    font-size: 14px;
+                    font-weight: bold;
+                    font-style: italic;
+                }
             }
 
             .main_content_right_faculity {

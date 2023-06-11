@@ -30,10 +30,11 @@
 
             .container_main_viewResume_main {
                 display: flex;
-                flex-direction: column;
-                flex: 1;
-                flex-basis: 60%;
-                align-items: center;
+                flex-direction: row;
+                gap: 30px;
+                // flex: 1;
+                // flex-basis: 60%;
+                // align-items: center;
             }
 
             .container_main_viewResume_sidebar {

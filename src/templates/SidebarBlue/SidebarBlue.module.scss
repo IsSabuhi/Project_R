@@ -73,6 +73,36 @@
             }
         }
 
+        .sidebar_course {
+            @extend .flexColumn;
+            gap: 15px;
+            margin-top: 20px;
+
+            .sidebar_course_title {
+                @extend .section_block;
+
+                .sidebar_course_title_text {
+                    @extend .section_block_title;
+                }
+            }
+
+            .sidebar_course_content {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding-inline: 8px;
+
+                .sidebar_course_content_title {
+                    font-size: 16px;
+                }
+
+                .sidebar_course_content_name {
+                    font-size: 14px;
+                    padding-left: 10px
+                }
+            }
+        }
+
         .sidebar_hobby {
             @extend .flexColumn;
             gap: 5px;
