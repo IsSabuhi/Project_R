@@ -1,14 +1,21 @@
 import { Text } from '@chakra-ui/react'
 import React from 'react'
 import styles from './ProgrammingLanguages.module.scss'
+import { Resumes } from '@/generated/projectR-hasura'
+import parse from 'html-react-parser'
 
-function ProgrammingLanguages() {
+interface IProgrammingLanguages {
+  userData: Resumes
+}
+
+function ProgrammingLanguages({ userData }: IProgrammingLanguages) {
+  const programmingLanguagesData = userData.programming_languages
+
   return (
     <div className={styles.container}>
       <Text className={styles.container_title}>Языки программирования</Text>
       <div className={styles.container_content}>
-        <li>Python</li>
-        <li>C#</li>
+        <Text>{parse(programmingLanguagesData as string)}</Text>
       </div>
     </div>
   )

@@ -14,12 +14,15 @@ import Hobby from './Hobby/Hobby'
 import { Resumes } from '@/generated/projectR-hasura'
 import { joinName } from '@/utils/joinName'
 import { calculateAgeWithUnit } from '@/utils/calculateAge'
+import { normalizeDate } from '@/utils/normalizeDate'
 
 interface IClassicTemplate {
-  userResumeData?: Resumes
+  resumesData: Resumes[]
 }
 
-function ClassicTemplate({ userResumeData }: IClassicTemplate) {
+function ClassicTemplate({ resumesData }: IClassicTemplate) {
+  const userData = resumesData[0]
+
   return (
     <div className={styles.container}>
       <div className={styles.container_top}>
@@ -32,12 +35,11 @@ function ClassicTemplate({ userResumeData }: IClassicTemplate) {
               textTransform="uppercase"
               maxWidth="500px"
             >
-              {/* {joinName(
-                userResumeData.resumes_jobseeker?.lastName!,
-                userResumeData.resumes_jobseeker?.name!,
-                userResumeData.resumes_jobseeker?.middleName!
-              ) || ''} */}
-              Исрафилов Сабухи Мадад оглы
+              {joinName(
+                userData.resumes_jobseeker?.lastName!,
+                userData.resumes_jobseeker?.name!,
+                userData.resumes_jobseeker?.middleName!
+              ) || ''}
             </Text>
             <Text
               fontSize="22px"
@@ -45,8 +47,7 @@ function ClassicTemplate({ userResumeData }: IClassicTemplate) {
               color="#525252"
               textTransform="uppercase"
             >
-              {/* {userResumeData.desired_position || ''} */}
-              React Developer
+              {userData.desired_position || ''}
             </Text>
             <div className={styles.container_top__text_bottom}>
               <Box
@@ -59,7 +60,7 @@ function ClassicTemplate({ userResumeData }: IClassicTemplate) {
               >
                 <BiMap />
                 <Text fontSize="14px" color="#525252">
-                  Норильск
+                  Россия, Норильск
                 </Text>
               </Box>
               <Box
@@ -72,10 +73,8 @@ function ClassicTemplate({ userResumeData }: IClassicTemplate) {
               >
                 <FaInfo />
                 <Text fontSize="14px" color="#525252">
-                  Возраст:
-                  {/* {calculateAgeWithUnit(
-                    userResumeData.resumes_jobseeker?.dateBirth!
-                  )} */}
+                  Возраст:{' '}
+                  {calculateAgeWithUnit(userData.resumes_jobseeker?.dateBirth!)}
                 </Text>
               </Box>
             </div>
@@ -102,62 +101,77 @@ function ClassicTemplate({ userResumeData }: IClassicTemplate) {
                 Опыт работы
               </Text>
             </div>
-            <div className={styles.main_left_experienceWork_content}>
-              <div
-                className={styles.main_left_experienceWork_content_companyName}
-              >
-                <Text
-                  className={
-                    styles.main_left_experienceWork_content_companyName_text
-                  }
+            {userData.experience_works.map((experienceWork, index) => {
+              return (
+                <div
+                  className={styles.main_left_experienceWork_content}
+                  key={index}
                 >
-                  IT Developers
-                </Text>
-                <Text
-                  className={
-                    styles.main_left_experienceWork_content_companyName_textDate
-                  }
-                >
-                  Январь 2020 - Август 2020
-                </Text>
-              </div>
-              <Text
-                className={
-                  styles.main_left_experienceWork_content_jobseekerPosition
-                }
-              >
-                Программист
-              </Text>
-              <div
-                className={styles.main_left_experienceWork_content_description}
-              >
-                <Text
-                  className={
-                    styles.main_left_experienceWork_content_description_text
-                  }
-                >
-                  Доработка сайта и создания веб-приложений с нуля на React;
-                  Занимался рефакторингом; Использовал Django, Celery, DRF,
-                  MySQL.
-                </Text>
-              </div>
-            </div>
+                  <div
+                    className={
+                      styles.main_left_experienceWork_content_companyName
+                    }
+                  >
+                    <Text
+                      className={
+                        styles.main_left_experienceWork_content_companyName_text
+                      }
+                    >
+                      {experienceWork.name_company}
+                    </Text>
+                    <Text
+                      className={
+                        styles.main_left_experienceWork_content_companyName_textDate
+                      }
+                    >
+                      {normalizeDate(experienceWork.date_employment as string)}{' '}
+                      -{' '}
+                      {experienceWork.date_dismissal === ''
+                        ? ' по н.в'
+                        : normalizeDate(
+                            experienceWork.date_dismissal as string
+                          )}
+                    </Text>
+                  </div>
+                  <Text
+                    className={
+                      styles.main_left_experienceWork_content_jobseekerPosition
+                    }
+                  >
+                    {experienceWork.jobposition}
+                  </Text>
+                  <div
+                    className={
+                      styles.main_left_experienceWork_content_description
+                    }
+                  >
+                    <Text
+                      className={
+                        styles.main_left_experienceWork_content_description_text
+                      }
+                    >
+                      {experienceWork.description}
+                    </Text>
+                  </div>
+                </div>
+              )
+            })}
           </section>
           {/* Образование */}
           <section className={styles.main_left_educations}>
-            <Educations />
+            <Educations userData={userData} />
           </section>
           {/* Курсы */}
           <section className={styles.main_left_course}>
-            <Course />
+            <Course userData={userData} />
           </section>
           {/* Навыки */}
           <section>
-            <Skills />
+            <Skills userData={userData} />
           </section>
           {/* О себе */}
           <section>
-            <AboutMe />
+            <AboutMe userData={userData} />
           </section>
         </div>
 
@@ -165,36 +179,54 @@ function ClassicTemplate({ userResumeData }: IClassicTemplate) {
           {/* Контакты */}
           <section className={styles.main_right_contacts}>
             <Text className={styles.main_right_contacts_title}>Контакты</Text>
-            <div className={styles.main_right_contacts_block}>
-              <ImPhone />
-              <Text>89999999999</Text>
-            </div>
-            <div className={styles.main_right_contacts_block}>
-              <MdEmail />
-              <Text>qwerty@gmail.com</Text>
-            </div>
+            {userData.resumes_jobseeker?.phone && (
+              <div className={styles.main_right_contacts_block}>
+                <ImPhone />
+                <Text>{userData.resumes_jobseeker?.phone as string}</Text>
+              </div>
+            )}
+            {userData.resumes_jobseeker?.email && (
+              <div className={styles.main_right_contacts_block}>
+                <MdEmail />
+                <Text>{userData.resumes_jobseeker?.email as string}</Text>
+              </div>
+            )}
           </section>
           {/* Языки */}
           <section className={styles.main_right_languages}>
             <Text className={styles.main_right_languages_title}>Языки</Text>
-            <div className={styles.main_right_languages_content}>
-              <Text className={styles.main_right_languages_content_language}>
-                Английский
-              </Text>
-              -
-              <Text className={styles.main_right_languages_content_level}>
-                A1 - Начальный
-              </Text>
-            </div>
+            {userData.languages.map((language, index) => {
+              return (
+                <div
+                  className={styles.main_right_languages_content}
+                  key={index}
+                >
+                  <Text
+                    className={styles.main_right_languages_content_language}
+                  >
+                    {language.language_name}
+                  </Text>
+                  -
+                  <Text className={styles.main_right_languages_content_level}>
+                    {language.language_level}
+                  </Text>
+                </div>
+              )
+            })}
           </section>
           {/* Хобби */}
-          <section className={styles.main_right_hobby}>
-            <Hobby />
-          </section>
+          {userData.resumes_hobbies && (
+            <section className={styles.main_right_hobby}>
+              <Hobby userData={userData} />
+            </section>
+          )}
+
           {/* Языки программирования */}
-          <section className={styles.main_right_programmingLanguages}>
-            <ProgrammingLanguages />
-          </section>
+          {userData.programming_languages && (
+            <section className={styles.main_right_programmingLanguages}>
+              <ProgrammingLanguages userData={userData} />
+            </section>
+          )}
         </div>
       </div>
     </div>

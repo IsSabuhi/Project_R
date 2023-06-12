@@ -59,6 +59,7 @@
 
         .container_top_line {
             padding: 10px;
+            padding-bottom: 0;
 
             .container_top_line_hr {
                 border-bottom: 2px solid black;
@@ -73,7 +74,6 @@
         .main_left {
             display: flex;
             flex-direction: column;
-            gap: 5px;
             width: 100%;
             height: 100%;
 
@@ -135,7 +135,7 @@
                         font-size: 14px;
                         text-decoration: none;
                         line-height: 1.2em;
-                        padding: 5px 0 10px 15px;
+                        padding: 5px 0 5px 15px;
                     }
 
                     .main_left_experienceWork_content_description {

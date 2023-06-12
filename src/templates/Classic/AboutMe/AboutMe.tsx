@@ -1,8 +1,14 @@
 import React from 'react'
 import styles from './AboutMe.module.scss'
 import { Text } from '@chakra-ui/react'
+import { Resumes } from '@/generated/projectR-hasura'
+import parse from 'html-react-parser'
 
-function AboutMe() {
+interface IAboutMe {
+  userData: Resumes
+}
+
+function AboutMe({ userData }: IAboutMe) {
   return (
     <div className={styles.container}>
       <div className={styles.container_top}>
@@ -10,9 +16,7 @@ function AboutMe() {
       </div>
 
       <div className={styles.main}>
-        Работаю по различным методологиям: Waterfall, Agile, Scrum. Умею
-        разбираться в чужом коде. Опыт работы в мультиязычной команде,
-        проведение ретроспектив. Веду деловую переписку на английском языке.
+        <Text>{parse(userData.about_me as string)}</Text>
       </div>
     </div>
   )

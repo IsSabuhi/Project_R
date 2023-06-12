@@ -39,6 +39,7 @@ interface ISaveResume {
 
 const initialFormTemplate: UpdateResumeAddTemplateMutationVariables = {
   template: '',
+  isConfirmed: false,
 }
 
 function SaveResume({ resume_id }: ISaveResume) {
@@ -52,6 +53,8 @@ function SaveResume({ resume_id }: ISaveResume) {
 
   const [isSharingResume, setIsSharingResume] = useState(false)
   const [resumeUrl, setResumeUrl] = useState('')
+
+  const [isResumeGenerated, setIsResumeGenerated] = useState(false)
 
   const [getResumeList] = useGetResumesLazyQuery({
     variables: {
@@ -120,6 +123,7 @@ function SaveResume({ resume_id }: ISaveResume) {
         variables: {
           _eq: resume_id,
           template: formik.values.template,
+          isConfirmed: formik.values.isConfirmed,
         },
       })
 
@@ -130,6 +134,7 @@ function SaveResume({ resume_id }: ISaveResume) {
       })
 
       setLoading(false)
+      setIsResumeGenerated(true)
       enqueueSnackbar('Данные сохранены', {
         variant: 'success',
       })
@@ -162,7 +167,7 @@ function SaveResume({ resume_id }: ISaveResume) {
                 bg: '#868dfb',
               }}
               marginLeft="auto"
-              isDisabled={!isCheckboxChecked}
+              isDisabled={!isCheckboxChecked || !formik.values.template}
               onClick={() => handleUpdateResume()}
             >
               Сгенерировать резюме
@@ -183,29 +188,70 @@ function SaveResume({ resume_id }: ISaveResume) {
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            <ResumesTemplateImage
-              image={template1}
-              onSelect={() => formik.setFieldValue('template', 'template1')}
-              isSelected={formik.values.template === 'template1'}
-            />
-            <ResumesTemplateImage
-              image={template2}
-              onSelect={() => formik.setFieldValue('template', 'template2')}
-              isSelected={formik.values.template === 'template2'}
-            />
-
             {loading ? (
-              <Loader />
-            ) : (
+              <Box
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <Loader />
+              </Box>
+            ) : isResumeGenerated ? (
               <>
                 {resumesData && resumesData[0].template === 'template1' && (
-                  <ClassicTemplate />
+                  <ClassicTemplate resumesData={resumesData as Resumes[]} />
                 )}
                 {resumesData && resumesData[0].template === 'template2' && (
                   <SidebarBlue resumesData={resumesData as Resumes[]} />
                 )}
               </>
+            ) : (
+              <>
+                <ResumesTemplateImage
+                  image={template1}
+                  onSelect={() => formik.setFieldValue('template', 'template1')}
+                  isSelected={formik.values.template === 'template1'}
+                />
+                <ResumesTemplateImage
+                  image={template2}
+                  onSelect={() => formik.setFieldValue('template', 'template2')}
+                  isSelected={formik.values.template === 'template2'}
+                />
+              </>
             )}
+
+            {/* {!isResumeGenerated ? (
+              <>
+                <ResumesTemplateImage
+                  image={template1}
+                  onSelect={() => formik.setFieldValue('template', 'template1')}
+                  isSelected={formik.values.template === 'template1'}
+                />
+                <ResumesTemplateImage
+                  image={template2}
+                  onSelect={() => formik.setFieldValue('template', 'template2')}
+                  isSelected={formik.values.template === 'template2'}
+                />
+              </>
+            ) : (
+              <>
+                {loading ? (
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Loader />
+                  </Box>
+                ) : (
+                  <SidebarBlue resumesData={resumesData as Resumes[]} />
+                )}
+              </>
+            )} */}
           </div>
 
           <div className={styles.container_main_viewResume_sidebar}>
@@ -238,6 +284,8 @@ function SaveResume({ resume_id }: ISaveResume) {
             </div>
             <div className={styles.container_main_viewResume_sidebar_checkbox}>
               <Checkbox
+                id="isConfirmed"
+                name="isConfirmed"
                 onChange={handleCheckboxChange}
                 isChecked={isCheckboxChecked}
               >

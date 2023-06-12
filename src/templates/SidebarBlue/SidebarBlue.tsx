@@ -26,27 +26,30 @@ const SidebarBlue = ({ resumesData }: ISidebarBlue) => {
         </div>
 
         {/* Контакты */}
-        {resumesData[0]?.resumes_jobseeker && (
-          <section className={styles.sidebar_contacts}>
-            <div className={styles.sidebar_contacts_title}>
-              <Text className={styles.sidebar_contacts_title_text}>
-                Контакты
+        <section className={styles.sidebar_contacts}>
+          <div className={styles.sidebar_contacts_title}>
+            <Text className={styles.sidebar_contacts_title_text}>Контакты</Text>
+          </div>
+          <Flex gap={4} alignItems="center" paddingInline="10px" mt={2}>
+            <Icon as={HiOutlinePhone} />
+            {resumesData[0]?.resumes_jobseeker?.phone && (
+              <Text>
+                {resumesData[0].resumes_jobseeker?.phone || 'Номер не указан'}
               </Text>
-            </div>
-            <Flex gap={4} alignItems="center" paddingInline="10px" mt={2}>
-              <Icon as={HiOutlinePhone} />
-              {resumesData[0]?.resumes_jobseeker?.phone && (
-                <Text>{resumesData[0].resumes_jobseeker?.phone}</Text>
-              )}
-            </Flex>
+            )}
+          </Flex>
+          {resumesData[0].resumes_jobseeker?.email && (
             <Flex gap={4} alignItems="center" paddingInline="10px">
               <Icon as={AiOutlineMail} />
               {resumesData[0].resumes_jobseeker?.email && (
-                <Text>{resumesData[0].resumes_jobseeker?.email}</Text>
+                <Text>
+                  {resumesData[0].resumes_jobseeker?.email ||
+                    'Почта не указана'}
+                </Text>
               )}
             </Flex>
-          </section>
-        )}
+          )}
+        </section>
 
         {/* Языки */}
         {resumesData[0].languages.length != 0 && (
@@ -71,7 +74,7 @@ const SidebarBlue = ({ resumesData }: ISidebarBlue) => {
         )}
 
         {/* Курсы */}
-        {resumesData[0].resumes_courses && (
+        {resumesData[0].resumes_courses.length != 0 && (
           <section className={styles.sidebar_course}>
             <div className={styles.sidebar_course_title}>
               <Text className={styles.sidebar_course_title_text}>Курсы</Text>

@@ -7154,7 +7154,7 @@ export type GetResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, jobseeker_id?: string | null, resume_id: string, resume_name: string, programming_languages?: string | null, isConfirmed: boolean, template?: string | null, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, description: string, date_receipt?: string | null }>, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_name: string, project_id: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string }>, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, resumes_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, jobseeker_education_id: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null, resumes_hobbies: Array<{ __typename?: 'hobby', description: string, hobby_id: string }>, resumes_certifications: Array<{ __typename?: 'certification', certification_name: string, certification_id: string, date_of_receipt?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }> }> };
+export type GetResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', about_me?: string | null, data_create?: string | null, desired_position?: string | null, driving_categories?: string | null, jobseeker_id?: string | null, resume_id: string, resume_name: string, programming_languages?: string | null, isConfirmed: boolean, template?: string | null, resumes_courses: Array<{ __typename?: 'course', course_id: string, course_location: string, course_name: string, description: string, date_receipt?: string | null }>, resumes_projects: Array<{ __typename?: 'projects', description: string, name_organization: string, project_name: string, project_id: string }>, resumes_skills: Array<{ __typename?: 'skills', description: string, skills_id: string, isGenerated?: boolean | null }>, experience_works: Array<{ __typename?: 'experience_work', date_dismissal?: string | null, date_employment?: string | null, description?: string | null, experience_work_id: string, jobposition?: string | null, name_company: string, workLocation?: string | null }>, resumes_jobseeker?: { __typename?: 'jobseeker', account_id?: string | null, dateBirth?: string | null, email?: string | null, gender?: string | null, lastName: string, middleName: string, name: string, phone?: string | null, jobseeker_educations: Array<{ __typename?: 'jobseeker_education', average_score?: string | null, degree_education?: string | null, education_form: string, educational_institution_id?: string | null, end_date?: string | null, faculity: string, group: string, jobseeker_education_id: string, speciality: string, start_date?: string | null, jobseeker_education_educational_institution?: { __typename?: 'educational_institution', name_institution: string } | null }> } | null, resumes_hobbies: Array<{ __typename?: 'hobby', description: string, hobby_id: string }>, resumes_certifications: Array<{ __typename?: 'certification', certification_name: string, certification_id: string, date_of_receipt?: string | null }>, languages: Array<{ __typename?: 'languages', language_id: string, language_level: string, language_name?: string | null }> }> };
 
 export type InsertResumeMutationVariables = Exact<{
   resume_name?: InputMaybe<Scalars['String']>;
@@ -7387,6 +7387,7 @@ export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: 
 export type UpdateResumeAddTemplateMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
   template?: InputMaybe<Scalars['String']>;
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
@@ -8001,6 +8002,7 @@ export const GetResumesDocument = gql`
     resumes_skills {
       description
       skills_id
+      isGenerated
     }
     experience_works {
       date_dismissal
@@ -9303,8 +9305,11 @@ export type GetJobseekerAllResumesQueryHookResult = ReturnType<typeof useGetJobs
 export type GetJobseekerAllResumesLazyQueryHookResult = ReturnType<typeof useGetJobseekerAllResumesLazyQuery>;
 export type GetJobseekerAllResumesQueryResult = Apollo.QueryResult<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>;
 export const UpdateResumeAddTemplateDocument = gql`
-    mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "") {
-  update_resumes(where: {resume_id: {_eq: $_eq}}, _set: {template: $template}) {
+    mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "", $isConfirmed: Boolean = false) {
+  update_resumes(
+    where: {resume_id: {_eq: $_eq}}
+    _set: {template: $template, isConfirmed: $isConfirmed}
+  ) {
     returning {
       resume_id
       resume_name
@@ -9336,6 +9341,7 @@ export type UpdateResumeAddTemplateMutationFn = Apollo.MutationFunction<UpdateRe
  *   variables: {
  *      _eq: // value for '_eq'
  *      template: // value for 'template'
+ *      isConfirmed: // value for 'isConfirmed'
  *   },
  * });
  */

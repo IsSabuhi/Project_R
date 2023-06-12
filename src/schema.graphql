@@ -295,6 +295,7 @@ query GetResumes($_eq: uuid = "") {
     resumes_skills {
       description
       skills_id
+      isGenerated
     }
     experience_works {
       date_dismissal
@@ -815,10 +816,14 @@ query GetJobseekerAllResumes {
   }
 }
 
-mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "") {
+mutation UpdateResumeAddTemplate(
+  $_eq: uuid = ""
+  $template: String = ""
+  $isConfirmed: Boolean = false
+) {
   update_resumes(
     where: { resume_id: { _eq: $_eq } }
-    _set: { template: $template }
+    _set: { template: $template, isConfirmed: $isConfirmed }
   ) {
     returning {
       resume_id
