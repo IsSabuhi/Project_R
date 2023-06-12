@@ -346,6 +346,7 @@ query GetResumes($_eq: uuid = "") {
       language_level
       language_name
     }
+    template
   }
 }
 
@@ -609,7 +610,7 @@ mutation AddAdditionalInformation(
 
 # Навыки
 query GetSkills($_eq: uuid = "") {
-  skills(where: { resume_id: { _eq: $_eq } }) {
+  skills(where: { resume_id: { _eq: $_eq }, isGenerated: { _eq: false } }) {
     description
     resume_id
     skills_id

@@ -35,17 +35,23 @@ import { useFormik } from 'formik'
 
 interface ISaveResume {
   resume_id: string
-  onTemplateSelect?: (template: string) => void
 }
 
 const initialFormTemplate: UpdateResumeAddTemplateMutationVariables = {
   template: '',
 }
 
-function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
+function SaveResume({ resume_id }: ISaveResume) {
+  const { enqueueSnackbar } = useSnackbar()
+
   const [resumesData, setResumeData] = React.useState<Resumes[]>()
 
-  const { enqueueSnackbar } = useSnackbar()
+  const [loading, setLoading] = useState(false)
+
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
+
+  const [isSharingResume, setIsSharingResume] = useState(false)
+  const [resumeUrl, setResumeUrl] = useState('')
 
   const [getResumeList] = useGetResumesLazyQuery({
     variables: {
@@ -60,25 +66,6 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
     getResumeList()
   }, [])
 
-  const [selectedTemplate, setSelectedTemplate] = React.useState<string | null>(
-    null
-  )
-
-  // Функция для выбора шаблона
-  const selectTemplate = (template: string) => {
-    setSelectedTemplate(template)
-  }
-
-  // Функция для обработки выбора шаблона пользователем
-  // const handleTemplateSelect = () => {
-  //   if (selectedTemplate) {
-  //     onTemplateSelect(selectedTemplate)
-  //   }
-  // }
-
-  const [isSharingResume, setIsSharingResume] = useState(false)
-  const [resumeUrl, setResumeUrl] = useState('')
-
   const handleResumeSharingToggle = () => {
     setIsSharingResume(!isSharingResume)
 
@@ -90,26 +77,16 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
     }
   }
 
-  // const [loading, setLoading] = useState(true)
-
-  const [aiGenerationSkillsMutation, { data, loading, error }] =
-    useAiGenerationSkillsMutation({
-      onCompleted(data) {
-        return enqueueSnackbar('Резюме сгенерировано успешно', {
-          variant: 'success',
-        })
-      },
-      onError(error) {
-        enqueueSnackbar('Ошибка', { variant: 'error' })
-      },
-    })
-
-  // React.useEffect(() => {
-  //   // Имитируем задержку загрузки в течение 3 секунд
-  //   setTimeout(() => {
-  //     setLoading(false)
-  //   }, 3000)
-  // }, [])
+  const [aiGenerationSkillsMutation] = useAiGenerationSkillsMutation({
+    onCompleted(data) {
+      return enqueueSnackbar('Резюме сгенерировано успешно', {
+        variant: 'success',
+      })
+    },
+    onError(error) {
+      enqueueSnackbar('Ошибка', { variant: 'error' })
+    },
+  })
 
   const formik = useFormik({
     initialValues: initialFormTemplate,
@@ -118,32 +95,49 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
   })
 
   const [updateResumeAddTemplateMutation] = useUpdateResumeAddTemplateMutation({
-    onCompleted() {
-      return enqueueSnackbar('Данные сохранены', {
-        variant: 'success',
-      })
-    },
-    onError() {
-      enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
-    },
+    // onCompleted() {
+    //   return enqueueSnackbar('Данные сохранены', {
+    //     variant: 'success',
+    //   })
+    // },
+    // onError() {
+    //   enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+    // },
   })
 
-  const handleUpdateResume = () => {
-    updateResumeAddTemplateMutation({
-      variables: {
-        _eq: resume_id,
-        template: formik.values.template,
-      },
-    })
-
-    aiGenerationSkillsMutation({
-      variables: {
-        resume_id: resume_id,
-      },
-    })
+  const handleCheckboxChange = () => {
+    setIsCheckboxChecked(!isCheckboxChecked)
   }
 
-  console.log(formik.values)
+  const handleUpdateResume = async () => {
+    if (!isCheckboxChecked) {
+      return
+    }
+    setLoading(true)
+
+    try {
+      await updateResumeAddTemplateMutation({
+        variables: {
+          _eq: resume_id,
+          template: formik.values.template,
+        },
+      })
+
+      await aiGenerationSkillsMutation({
+        variables: {
+          resume_id: resume_id,
+        },
+      })
+
+      setLoading(false)
+      enqueueSnackbar('Данные сохранены', {
+        variant: 'success',
+      })
+    } catch (error) {
+      setLoading(false)
+      enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -156,6 +150,7 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
             <Button
               variant="solid"
               loadingText="Загрузка..."
+              isLoading={loading}
               bg="#868dfb"
               h="45"
               mb="5px"
@@ -167,6 +162,7 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
                 bg: '#868dfb',
               }}
               marginLeft="auto"
+              isDisabled={!isCheckboxChecked}
               onClick={() => handleUpdateResume()}
             >
               Сгенерировать резюме
@@ -187,12 +183,6 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            {/* <ClassicTemplate /> */}
-            {/* {loading ? (
-              <Loader />
-            ) : (
-              <SidebarBlue resumesData={resumesData as Resumes[]} />
-            )} */}
             <ResumesTemplateImage
               image={template1}
               onSelect={() => formik.setFieldValue('template', 'template1')}
@@ -203,6 +193,19 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
               onSelect={() => formik.setFieldValue('template', 'template2')}
               isSelected={formik.values.template === 'template2'}
             />
+
+            {loading ? (
+              <Loader />
+            ) : (
+              <>
+                {resumesData && resumesData[0].template === 'template1' && (
+                  <ClassicTemplate />
+                )}
+                {resumesData && resumesData[0].template === 'template2' && (
+                  <SidebarBlue resumesData={resumesData as Resumes[]} />
+                )}
+              </>
+            )}
           </div>
 
           <div className={styles.container_main_viewResume_sidebar}>
@@ -234,7 +237,10 @@ function SaveResume({ resume_id, onTemplateSelect }: ISaveResume) {
               )}
             </div>
             <div className={styles.container_main_viewResume_sidebar_checkbox}>
-              <Checkbox>
+              <Checkbox
+                onChange={handleCheckboxChange}
+                isChecked={isCheckboxChecked}
+              >
                 <Text>
                   Подтверждаю и соглашаюсь, что моё резюме может быть
                   просмотрено другими пользователями
