@@ -119,19 +119,17 @@ const SidebarBlue = ({ resumesData }: ISidebarBlue) => {
       <div className={styles.main}>
         <HeaderContent resumeData={resumesData} />
 
-        {resumesData[0].experience_works && (
+        {resumesData[0].experience_works.length !== 0 && (
           <section className={styles.main_experienceWork}>
             <ExperienceWork resumeData={resumesData} />
           </section>
         )}
 
-        {resumesData[0].resumes_jobseeker?.jobseeker_educations && (
-          <section className={styles.main_educations}>
-            <Education resumeData={resumesData} />
-          </section>
-        )}
+        <section className={styles.main_educations}>
+          <Education resumeData={resumesData} />
+        </section>
 
-        {resumesData[0].resumes_projects && (
+        {resumesData[0].resumes_projects.length !== 0 && (
           <section className={styles.main_project}>
             <Project resumeData={resumesData} />
           </section>

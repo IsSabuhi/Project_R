@@ -15,7 +15,9 @@ function ProgrammingLanguages({ userData }: IProgrammingLanguages) {
     <div className={styles.container}>
       <Text className={styles.container_title}>Языки программирования</Text>
       <div className={styles.container_content}>
-        <Text>{parse(programmingLanguagesData as string)}</Text>
+        {programmingLanguagesData && (
+          <Text>{parse(programmingLanguagesData)}</Text>
+        )}
       </div>
     </div>
   )

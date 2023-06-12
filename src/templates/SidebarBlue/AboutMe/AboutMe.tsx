@@ -17,7 +17,11 @@ const AboutMe = ({ resumeData }: IAboutMe) => {
     <div className={styles.main}>
       <HeaderText title="О себе" icon={RiAccountCircleLine} />
       <div className={styles.main_content}>
-        <Text>{parse(aboutMeData as string)}</Text>
+        {aboutMeData ? (
+          <Text>{parse(aboutMeData)}</Text>
+        ) : (
+          <Text>Не указано</Text>
+        )}
       </div>
     </div>
   )

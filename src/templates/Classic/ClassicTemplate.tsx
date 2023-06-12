@@ -15,6 +15,7 @@ import { Resumes } from '@/generated/projectR-hasura'
 import { joinName } from '@/utils/joinName'
 import { calculateAgeWithUnit } from '@/utils/calculateAge'
 import { normalizeDate } from '@/utils/normalizeDate'
+import Projects from './Projects/Projects'
 
 interface IClassicTemplate {
   resumesData: Resumes[]
@@ -22,6 +23,8 @@ interface IClassicTemplate {
 
 function ClassicTemplate({ resumesData }: IClassicTemplate) {
   const userData = resumesData[0]
+
+  console.log(userData.resumes_courses)
 
   return (
     <div className={styles.container}>
@@ -95,84 +98,93 @@ function ClassicTemplate({ resumesData }: IClassicTemplate) {
       <div className={styles.main}>
         <div className={styles.main_left}>
           {/* Опыт работы */}
-          <section className={styles.main_left_experienceWork}>
-            <div className={styles.main_left_experienceWork_header}>
-              <Text className={styles.main_left_experienceWork_header_title}>
-                Опыт работы
-              </Text>
-            </div>
-            {userData.experience_works.map((experienceWork, index) => {
-              return (
-                <div
-                  className={styles.main_left_experienceWork_content}
-                  key={index}
-                >
+          {userData.experience_works.length !== 0 && (
+            <section className={styles.main_left_experienceWork}>
+              <div className={styles.main_left_experienceWork_header}>
+                <Text className={styles.main_left_experienceWork_header_title}>
+                  Опыт работы
+                </Text>
+              </div>
+              {userData.experience_works.map((experienceWork, index) => {
+                return (
                   <div
-                    className={
-                      styles.main_left_experienceWork_content_companyName
-                    }
+                    className={styles.main_left_experienceWork_content}
+                    key={index}
                   >
-                    <Text
+                    <div
                       className={
-                        styles.main_left_experienceWork_content_companyName_text
+                        styles.main_left_experienceWork_content_companyName
                       }
                     >
-                      {experienceWork.name_company}
-                    </Text>
+                      <Text
+                        className={
+                          styles.main_left_experienceWork_content_companyName_text
+                        }
+                      >
+                        {experienceWork.name_company}
+                      </Text>
+                      <Text
+                        className={
+                          styles.main_left_experienceWork_content_companyName_textDate
+                        }
+                      >
+                        {normalizeDate(
+                          experienceWork.date_employment as string
+                        )}{' '}
+                        -{' '}
+                        {experienceWork.date_dismissal === ''
+                          ? ' по н.в'
+                          : normalizeDate(
+                              experienceWork.date_dismissal as string
+                            )}
+                      </Text>
+                    </div>
                     <Text
                       className={
-                        styles.main_left_experienceWork_content_companyName_textDate
+                        styles.main_left_experienceWork_content_jobseekerPosition
                       }
                     >
-                      {normalizeDate(experienceWork.date_employment as string)}{' '}
-                      -{' '}
-                      {experienceWork.date_dismissal === ''
-                        ? ' по н.в'
-                        : normalizeDate(
-                            experienceWork.date_dismissal as string
-                          )}
+                      {experienceWork.jobposition}
                     </Text>
+                    <div
+                      className={
+                        styles.main_left_experienceWork_content_description
+                      }
+                    >
+                      <Text
+                        className={
+                          styles.main_left_experienceWork_content_description_text
+                        }
+                      >
+                        {experienceWork.description}
+                      </Text>
+                    </div>
                   </div>
-                  <Text
-                    className={
-                      styles.main_left_experienceWork_content_jobseekerPosition
-                    }
-                  >
-                    {experienceWork.jobposition}
-                  </Text>
-                  <div
-                    className={
-                      styles.main_left_experienceWork_content_description
-                    }
-                  >
-                    <Text
-                      className={
-                        styles.main_left_experienceWork_content_description_text
-                      }
-                    >
-                      {experienceWork.description}
-                    </Text>
-                  </div>
-                </div>
-              )
-            })}
-          </section>
+                )
+              })}
+            </section>
+          )}
+
           {/* Образование */}
           <section className={styles.main_left_educations}>
             <Educations userData={userData} />
           </section>
-          {/* Курсы */}
-          <section className={styles.main_left_course}>
-            <Course userData={userData} />
-          </section>
+          {userData.resumes_projects.length !== 0 && (
+            <section className={styles.main_left_educations}>
+              <Projects userData={userData} />
+            </section>
+          )}
+
           {/* Навыки */}
           <section>
             <Skills userData={userData} />
           </section>
           {/* О себе */}
-          <section>
-            <AboutMe userData={userData} />
-          </section>
+          {userData.about_me && (
+            <section>
+              <AboutMe userData={userData} />
+            </section>
+          )}
         </div>
 
         <div className={styles.main_right}>
@@ -193,31 +205,41 @@ function ClassicTemplate({ resumesData }: IClassicTemplate) {
             )}
           </section>
           {/* Языки */}
-          <section className={styles.main_right_languages}>
-            <Text className={styles.main_right_languages_title}>Языки</Text>
-            {userData.languages.map((language, index) => {
-              return (
-                <div
-                  className={styles.main_right_languages_content}
-                  key={index}
-                >
-                  <Text
-                    className={styles.main_right_languages_content_language}
+          {userData.languages.length !== 0 && (
+            <section className={styles.main_right_languages}>
+              <Text className={styles.main_right_languages_title}>Языки</Text>
+              {userData.languages.map((language, index) => {
+                return (
+                  <div
+                    className={styles.main_right_languages_content}
+                    key={index}
                   >
-                    {language.language_name}
-                  </Text>
-                  -
-                  <Text className={styles.main_right_languages_content_level}>
-                    {language.language_level}
-                  </Text>
-                </div>
-              )
-            })}
-          </section>
+                    <Text
+                      className={styles.main_right_languages_content_language}
+                    >
+                      {language.language_name}
+                    </Text>
+                    -
+                    <Text className={styles.main_right_languages_content_level}>
+                      {language.language_level}
+                    </Text>
+                  </div>
+                )
+              })}
+            </section>
+          )}
+
           {/* Хобби */}
-          {userData.resumes_hobbies && (
+          {userData.resumes_hobbies.length !== 0 && (
             <section className={styles.main_right_hobby}>
               <Hobby userData={userData} />
+            </section>
+          )}
+
+          {/* Курсы */}
+          {userData.resumes_courses.length !== 0 && (
+            <section className={styles.main_left_course}>
+              <Course userData={userData} />
             </section>
           )}
 

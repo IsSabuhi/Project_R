@@ -16,7 +16,11 @@ function AboutMe({ userData }: IAboutMe) {
       </div>
 
       <div className={styles.main}>
-        <Text>{parse(userData.about_me as string)}</Text>
+        {userData.about_me ? (
+          <Text>{parse(userData.about_me)}</Text>
+        ) : (
+          <Text>Не указано</Text>
+        )}
       </div>
     </div>
   )
