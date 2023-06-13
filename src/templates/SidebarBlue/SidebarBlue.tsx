@@ -12,6 +12,7 @@ import Skills from './Skills/Skills'
 import AboutMe from './AboutMe/AboutMe'
 import { Resumes } from '@/generated/projectR-hasura'
 import { getYearFromDate } from '@/utils/normalizeDate'
+import parse from 'html-react-parser'
 
 interface ISidebarBlue {
   resumesData: Resumes[]
@@ -111,6 +112,22 @@ const SidebarBlue = ({ resumesData }: ISidebarBlue) => {
                   </Text>
                 )
               })}
+            </div>
+          </section>
+        )}
+
+        {/* Языки программирования */}
+        {resumesData[0].programming_languages && (
+          <section className={styles.sidebar_programming_languages}>
+            <div className={styles.sidebar_programming_languages_title}>
+              <Text className={styles.sidebar_programming_languages_title_text}>
+                Языки программирования
+              </Text>
+            </div>
+            <div className={styles.sidebar_programming_languages_content}>
+              {resumesData[0].programming_languages ? (
+                <Text>{parse(resumesData[0].programming_languages)}</Text>
+              ) : null}
             </div>
           </section>
         )}

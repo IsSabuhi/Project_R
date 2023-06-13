@@ -20,7 +20,6 @@ import {
   Resumes,
   UpdateResumeAddTemplateMutationVariables,
   useAiGenerationSkillsMutation,
-  useGetResumesLazyQuery,
   useGetResumesQuery,
   useUpdateResumeAddTemplateMutation,
 } from '@/generated/projectR-hasura'
@@ -33,7 +32,7 @@ import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
 import Loader from '@/components/Loader'
 import { useSnackbar } from 'notistack'
 import { useFormik } from 'formik'
-import { Document, Page, View } from '@react-pdf/renderer'
+import { useRouter } from 'next/router'
 
 interface ISaveResume {
   resume_id: string
@@ -47,6 +46,8 @@ const initialFormTemplate: UpdateResumeAddTemplateMutationVariables = {
 function SaveResume({ resume_id }: ISaveResume) {
   const { enqueueSnackbar } = useSnackbar()
 
+  const router = useRouter()
+
   const [template, setTemplate] = useState<string | null>()
 
   const [resumesData, setResumeData] = React.useState<Resumes[]>()
@@ -58,7 +59,7 @@ function SaveResume({ resume_id }: ISaveResume) {
 
   const [isResumeGenerated, setIsResumeGenerated] = useState(false)
 
-  const { data, loading, error } = useGetResumesQuery({
+  const { data, loading, error, refetch } = useGetResumesQuery({
     variables: {
       _eq: resume_id,
     },
@@ -124,6 +125,8 @@ function SaveResume({ resume_id }: ISaveResume) {
           resume_id: resume_id,
         },
       })
+
+      await refetch()
       setTemplate(formik.values.template)
       setIsResumeGenerated(true)
     } catch (error) {
@@ -188,7 +191,11 @@ function SaveResume({ resume_id }: ISaveResume) {
                 Скачать
               </MenuButton>
               <MenuList>
-                <MenuItem>Экспорт .PDF</MenuItem>
+                <MenuItem
+                  onClick={() => router.push(`/resumeView/${resume_id}`)}
+                >
+                  Экспорт .PDF
+                </MenuItem>
               </MenuList>
             </Menu>
           </Flex>
@@ -199,7 +206,7 @@ function SaveResume({ resume_id }: ISaveResume) {
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            {totalLoading ? (
+            {aiGenerationSkillsLoading ? (
               <Box
                 sx={{
                   width: '100%',

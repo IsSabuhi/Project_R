@@ -24,8 +24,6 @@ interface IClassicTemplate {
 function ClassicTemplate({ resumesData }: IClassicTemplate) {
   const userData = resumesData[0]
 
-  console.log(userData.resumes_courses)
-
   return (
     <div className={styles.container}>
       <div className={styles.container_top}>

@@ -120,6 +120,24 @@
                 padding-inline: 8px;
             }
         }
+
+        .sidebar_programming_languages {
+            @extend .flexColumn;
+            gap: 5px;
+            margin-top: 20px;
+
+            .sidebar_programming_languages_title {
+                @extend .section_block;
+
+                .sidebar_programming_languages_title_text {
+                    @extend .section_block_title;
+                }
+            }
+
+            .sidebar_programming_languages_content {
+                padding-inline: 25px;
+            }
+        }
     }
 
     .main {
