@@ -23,7 +23,9 @@ const HeaderContent = ({ resumeData }: IHeaderContent) => {
   return (
     <div className={styles.container}>
       <Text className={styles.container_userName}>{jobseekerName}</Text>
-      <Text className={styles.container_jobPosition}>Frontend developer</Text>
+      <Text className={styles.container_jobPosition}>
+        {resumeData[0].desired_position || 'Должность не указана'}
+      </Text>
       <Flex gap="55px">
         <Flex gap={2} alignItems="center">
           <Icon as={BiMap} />

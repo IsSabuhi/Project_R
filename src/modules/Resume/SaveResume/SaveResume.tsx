@@ -21,6 +21,7 @@ import {
   UpdateResumeAddTemplateMutationVariables,
   useAiGenerationSkillsMutation,
   useGetResumesLazyQuery,
+  useGetResumesQuery,
   useUpdateResumeAddTemplateMutation,
 } from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
@@ -32,6 +33,7 @@ import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
 import Loader from '@/components/Loader'
 import { useSnackbar } from 'notistack'
 import { useFormik } from 'formik'
+import { Document, Page, View } from '@react-pdf/renderer'
 
 interface ISaveResume {
   resume_id: string
@@ -45,9 +47,9 @@ const initialFormTemplate: UpdateResumeAddTemplateMutationVariables = {
 function SaveResume({ resume_id }: ISaveResume) {
   const { enqueueSnackbar } = useSnackbar()
 
-  const [resumesData, setResumeData] = React.useState<Resumes[]>()
+  const [template, setTemplate] = useState<string | null>()
 
-  const [loading, setLoading] = useState(false)
+  const [resumesData, setResumeData] = React.useState<Resumes[]>()
 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
 
@@ -56,18 +58,15 @@ function SaveResume({ resume_id }: ISaveResume) {
 
   const [isResumeGenerated, setIsResumeGenerated] = useState(false)
 
-  const [getResumeList] = useGetResumesLazyQuery({
+  const { data, loading, error } = useGetResumesQuery({
     variables: {
       _eq: resume_id,
     },
     onCompleted(data) {
       setResumeData(data.resumes as Resumes[])
+      setTemplate(data.resumes[0].template)
     },
   })
-
-  React.useEffect(() => {
-    getResumeList()
-  }, [])
 
   const handleResumeSharingToggle = () => {
     setIsSharingResume(!isSharingResume)
@@ -80,16 +79,17 @@ function SaveResume({ resume_id }: ISaveResume) {
     }
   }
 
-  const [aiGenerationSkillsMutation] = useAiGenerationSkillsMutation({
-    onCompleted(data) {
-      return enqueueSnackbar('Резюме сгенерировано успешно', {
-        variant: 'success',
-      })
-    },
-    onError(error) {
-      enqueueSnackbar('Ошибка', { variant: 'error' })
-    },
-  })
+  const [aiGenerationSkillsMutation, { loading: aiGenerationSkillsLoading }] =
+    useAiGenerationSkillsMutation({
+      onCompleted(data) {
+        return enqueueSnackbar('Резюме сгенерировано успешно', {
+          variant: 'success',
+        })
+      },
+      onError(error) {
+        enqueueSnackbar('Ошибка', { variant: 'error' })
+      },
+    })
 
   const formik = useFormik({
     initialValues: initialFormTemplate,
@@ -97,15 +97,19 @@ function SaveResume({ resume_id }: ISaveResume) {
     onSubmit: () => {},
   })
 
-  const [updateResumeAddTemplateMutation] = useUpdateResumeAddTemplateMutation()
+  const [
+    updateResumeAddTemplateMutation,
+    { loading: updateResumeAddTemplateLoading },
+  ] = useUpdateResumeAddTemplateMutation()
 
   const handleCheckboxChange = () => {
     setIsCheckboxChecked(!isCheckboxChecked)
   }
 
-  const handleUpdateResume = async () => {
-    setLoading(true)
+  const totalLoading =
+    aiGenerationSkillsLoading || updateResumeAddTemplateLoading || loading
 
+  const handleUpdateResume = async () => {
     try {
       await updateResumeAddTemplateMutation({
         variables: {
@@ -120,13 +124,15 @@ function SaveResume({ resume_id }: ISaveResume) {
           resume_id: resume_id,
         },
       })
-
-      setLoading(false)
+      setTemplate(formik.values.template)
       setIsResumeGenerated(true)
     } catch (error) {
-      setLoading(false)
       enqueueSnackbar('Произошла непредвиденная ошибка', { variant: 'error' })
     }
+  }
+
+  const handleChangeSetTamplate = () => {
+    setTemplate(null)
   }
 
   return (
@@ -140,7 +146,27 @@ function SaveResume({ resume_id }: ISaveResume) {
             <Button
               variant="solid"
               loadingText="Загрузка..."
-              isLoading={loading}
+              bg="#868dfb"
+              h="45"
+              mb="5px"
+              color="white"
+              _hover={{
+                bg: '#b5b9ee',
+              }}
+              _active={{
+                bg: '#868dfb',
+              }}
+              marginLeft="auto"
+              onClick={handleChangeSetTamplate}
+            >
+              Шаблоны
+            </Button>
+            <Button
+              variant="solid"
+              loadingText="Загрузка..."
+              isLoading={
+                aiGenerationSkillsLoading || updateResumeAddTemplateLoading
+              }
               bg="#868dfb"
               h="45"
               mb="5px"
@@ -173,7 +199,7 @@ function SaveResume({ resume_id }: ISaveResume) {
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
-            {loading ? (
+            {totalLoading ? (
               <Box
                 sx={{
                   width: '100%',
@@ -183,12 +209,12 @@ function SaveResume({ resume_id }: ISaveResume) {
               >
                 <Loader />
               </Box>
-            ) : isResumeGenerated ? (
+            ) : template != null || template != undefined ? (
               <div className={styles.container_main_viewResume_main_view}>
-                {resumesData && resumesData[0].template === 'template1' && (
+                {template === 'template1' && (
                   <ClassicTemplate resumesData={resumesData as Resumes[]} />
                 )}
-                {resumesData && resumesData[0].template === 'template2' && (
+                {template === 'template2' && (
                   <SidebarBlue resumesData={resumesData as Resumes[]} />
                 )}
               </div>
