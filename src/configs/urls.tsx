@@ -7,4 +7,5 @@ export const APP_URLS = {
   getSettingsPage: (userId: string) => `/settings/${userId}`,
   getHomePage: (userId: string) => `/user/${userId}`,
   getResumePage: (resumeId: string) => `/resume/${resumeId}`,
+  getResumeViewPage: (resumeId: string) => `/resumeView/${resumeId}`,
 }

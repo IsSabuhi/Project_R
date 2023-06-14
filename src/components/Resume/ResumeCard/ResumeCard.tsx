@@ -19,6 +19,7 @@ import ResumeDeleteModal from './ResumeDeleteModal/ResumeDeleteModal'
 import ResumeUpdateModal from './ResumeUpdateModal/ResumeUpdateModal'
 import { normalizeDate } from '@/utils/normalizeDate'
 import { AiOutlineDownload } from 'react-icons/ai'
+import { useRouter } from 'next/router'
 
 interface IResumeCard {
   resume_name: string
@@ -49,6 +50,8 @@ function ResumeCard({
     onDeleteClose()
   }
 
+  const router = useRouter()
+
   return (
     <div className={styles.container}>
       <Link href={APP_URLS.getResumePage(resume_id)} style={{ height: '100%' }}>
@@ -67,7 +70,12 @@ function ResumeCard({
             <MdOutlineMoreVert />
           </MenuButton>
           <MenuList>
-            <MenuItem icon={<AiOutlineDownload />}>Скачать</MenuItem>
+            <MenuItem
+              icon={<AiOutlineDownload />}
+              onClick={() => router.push(APP_URLS.getResumeViewPage(resume_id))}
+            >
+              Скачать
+            </MenuItem>
             <MenuItem
               icon={<MdOutlineDriveFileRenameOutline />}
               onClick={onEditOpen}
