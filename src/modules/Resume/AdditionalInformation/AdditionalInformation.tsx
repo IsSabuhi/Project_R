@@ -5,6 +5,7 @@ import { languages } from '@/configs'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 import {
+  AddAdditionalInformationMutationVariables,
   useAddAdditionalInformationMutation,
   useGetResumesQuery,
 } from '@/generated/projectR-hasura'
@@ -30,16 +31,13 @@ export interface AddAdditionalInformationType {
   languages?: Language[] | null
 }
 
-const initialFormAdditionalInformation: AddAdditionalInformationType = {
-  about_me: '',
-  driving_categories: '',
-  desired_position: '',
-  programming_languages: '',
-  languages: languages.map((language) => ({
-    language: language.name,
-    level: '',
-  })),
-}
+const initialFormAdditionalInformation: AddAdditionalInformationMutationVariables =
+  {
+    about_me: '',
+    driving_categories: '',
+    desired_position: '',
+    programming_languages: '',
+  }
 
 function AdditionalInformation({
   resume_id,

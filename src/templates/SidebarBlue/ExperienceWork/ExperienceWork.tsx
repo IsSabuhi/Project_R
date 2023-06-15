@@ -5,6 +5,7 @@ import { MdOutlineWork } from 'react-icons/md'
 import { Text } from '@chakra-ui/react'
 import { Resumes } from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
+import parse from 'html-react-parser'
 
 interface IExperienceWork {
   resumeData: Resumes[]
@@ -33,7 +34,7 @@ const ExperienceWork = ({ resumeData }: IExperienceWork) => {
                 {experienceWork.jobposition}
               </Text>
               <Text className={styles.main_content_right_description}>
-                {experienceWork.description}
+                {parse(experienceWork.description as string)}
               </Text>
             </div>
           </div>

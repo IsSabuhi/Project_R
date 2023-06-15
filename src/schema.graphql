@@ -267,6 +267,8 @@ query GetJobseekerResumes($_eq: uuid = "") {
     about_me
     data_create
     desired_position
+    template
+    isConfirmed
   }
 }
 
@@ -816,14 +818,10 @@ query GetJobseekerAllResumes {
   }
 }
 
-mutation UpdateResumeAddTemplate(
-  $_eq: uuid = ""
-  $template: String = ""
-  $isConfirmed: Boolean = false
-) {
+mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "") {
   update_resumes(
     where: { resume_id: { _eq: $_eq } }
-    _set: { template: $template, isConfirmed: $isConfirmed }
+    _set: { template: $template }
   ) {
     returning {
       resume_id
@@ -835,6 +833,21 @@ mutation UpdateResumeAddTemplate(
       about_me
       programming_languages
       template
+    }
+  }
+}
+
+mutation UpdateResumesIsConfirmed(
+  $isConfirmed: Boolean = false
+  $_eq: uuid = ""
+) {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { isConfirmed: $isConfirmed }
+  ) {
+    returning {
+      resume_id
+      isConfirmed
     }
   }
 }

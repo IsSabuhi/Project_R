@@ -6,3 +6,4 @@ export const specialityType = {
     management: 'Менеджмент',
     electric: 'Электроэнергетика и электротехника'
 }
+

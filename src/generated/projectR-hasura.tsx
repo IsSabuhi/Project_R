@@ -7147,7 +7147,7 @@ export type GetJobseekerResumesQueryVariables = Exact<{
 }>;
 
 
-export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, about_me?: string | null, data_create?: string | null, desired_position?: string | null }> };
+export type GetJobseekerResumesQuery = { __typename?: 'query_root', resumes: Array<{ __typename?: 'resumes', jobseeker_id?: string | null, resume_id: string, resume_name: string, about_me?: string | null, data_create?: string | null, desired_position?: string | null, template?: string | null, isConfirmed: boolean }> };
 
 export type GetResumesQueryVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
@@ -7387,11 +7387,18 @@ export type GetJobseekerAllResumesQuery = { __typename?: 'query_root', resumes: 
 export type UpdateResumeAddTemplateMutationVariables = Exact<{
   _eq?: InputMaybe<Scalars['uuid']>;
   template?: InputMaybe<Scalars['String']>;
-  isConfirmed?: InputMaybe<Scalars['Boolean']>;
 }>;
 
 
 export type UpdateResumeAddTemplateMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, resume_name: string, isConfirmed: boolean, jobseeker_id?: string | null, desired_position?: string | null, data_create?: string | null, about_me?: string | null, programming_languages?: string | null, template?: string | null }> } | null };
+
+export type UpdateResumesIsConfirmedMutationVariables = Exact<{
+  isConfirmed?: InputMaybe<Scalars['Boolean']>;
+  _eq?: InputMaybe<Scalars['uuid']>;
+}>;
+
+
+export type UpdateResumesIsConfirmedMutation = { __typename?: 'mutation_root', update_resumes?: { __typename?: 'resumes_mutation_response', returning: Array<{ __typename?: 'resumes', resume_id: string, isConfirmed: boolean }> } | null };
 
 export type AiGenerationSkillsMutationVariables = Exact<{
   resume_id?: InputMaybe<Scalars['String']>;
@@ -7945,6 +7952,8 @@ export const GetJobseekerResumesDocument = gql`
     about_me
     data_create
     desired_position
+    template
+    isConfirmed
   }
 }
     `;
@@ -9305,11 +9314,8 @@ export type GetJobseekerAllResumesQueryHookResult = ReturnType<typeof useGetJobs
 export type GetJobseekerAllResumesLazyQueryHookResult = ReturnType<typeof useGetJobseekerAllResumesLazyQuery>;
 export type GetJobseekerAllResumesQueryResult = Apollo.QueryResult<GetJobseekerAllResumesQuery, GetJobseekerAllResumesQueryVariables>;
 export const UpdateResumeAddTemplateDocument = gql`
-    mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "", $isConfirmed: Boolean = false) {
-  update_resumes(
-    where: {resume_id: {_eq: $_eq}}
-    _set: {template: $template, isConfirmed: $isConfirmed}
-  ) {
+    mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "") {
+  update_resumes(where: {resume_id: {_eq: $_eq}}, _set: {template: $template}) {
     returning {
       resume_id
       resume_name
@@ -9341,7 +9347,6 @@ export type UpdateResumeAddTemplateMutationFn = Apollo.MutationFunction<UpdateRe
  *   variables: {
  *      _eq: // value for '_eq'
  *      template: // value for 'template'
- *      isConfirmed: // value for 'isConfirmed'
  *   },
  * });
  */
@@ -9352,6 +9357,46 @@ export function useUpdateResumeAddTemplateMutation(baseOptions?: Apollo.Mutation
 export type UpdateResumeAddTemplateMutationHookResult = ReturnType<typeof useUpdateResumeAddTemplateMutation>;
 export type UpdateResumeAddTemplateMutationResult = Apollo.MutationResult<UpdateResumeAddTemplateMutation>;
 export type UpdateResumeAddTemplateMutationOptions = Apollo.BaseMutationOptions<UpdateResumeAddTemplateMutation, UpdateResumeAddTemplateMutationVariables>;
+export const UpdateResumesIsConfirmedDocument = gql`
+    mutation UpdateResumesIsConfirmed($isConfirmed: Boolean = false, $_eq: uuid = "") {
+  update_resumes(
+    where: {resume_id: {_eq: $_eq}}
+    _set: {isConfirmed: $isConfirmed}
+  ) {
+    returning {
+      resume_id
+      isConfirmed
+    }
+  }
+}
+    `;
+export type UpdateResumesIsConfirmedMutationFn = Apollo.MutationFunction<UpdateResumesIsConfirmedMutation, UpdateResumesIsConfirmedMutationVariables>;
+
+/**
+ * __useUpdateResumesIsConfirmedMutation__
+ *
+ * To run a mutation, you first call `useUpdateResumesIsConfirmedMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateResumesIsConfirmedMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateResumesIsConfirmedMutation, { data, loading, error }] = useUpdateResumesIsConfirmedMutation({
+ *   variables: {
+ *      isConfirmed: // value for 'isConfirmed'
+ *      _eq: // value for '_eq'
+ *   },
+ * });
+ */
+export function useUpdateResumesIsConfirmedMutation(baseOptions?: Apollo.MutationHookOptions<UpdateResumesIsConfirmedMutation, UpdateResumesIsConfirmedMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateResumesIsConfirmedMutation, UpdateResumesIsConfirmedMutationVariables>(UpdateResumesIsConfirmedDocument, options);
+      }
+export type UpdateResumesIsConfirmedMutationHookResult = ReturnType<typeof useUpdateResumesIsConfirmedMutation>;
+export type UpdateResumesIsConfirmedMutationResult = Apollo.MutationResult<UpdateResumesIsConfirmedMutation>;
+export type UpdateResumesIsConfirmedMutationOptions = Apollo.BaseMutationOptions<UpdateResumesIsConfirmedMutation, UpdateResumesIsConfirmedMutationVariables>;
 export const AiGenerationSkillsDocument = gql`
     mutation AiGenerationSkills($resume_id: String = "") {
   ai_generation_skills(resume_id: $resume_id) {

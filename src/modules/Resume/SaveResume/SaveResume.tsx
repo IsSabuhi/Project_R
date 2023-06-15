@@ -22,6 +22,7 @@ import {
   useAiGenerationSkillsMutation,
   useGetResumesQuery,
   useUpdateResumeAddTemplateMutation,
+  useUpdateResumesIsConfirmedMutation,
 } from '@/generated/projectR-hasura'
 import { normalizeDate } from '@/utils/normalizeDate'
 import template1 from '@/assets/images/resumesTemplate/template1.png'
@@ -38,7 +39,12 @@ interface ISaveResume {
   resume_id: string
 }
 
-const initialFormTemplate: UpdateResumeAddTemplateMutationVariables = {
+type initialFormTemplateType = {
+  template: string
+  isConfirmed: boolean | undefined
+}
+
+const initialFormTemplate: initialFormTemplateType = {
   template: '',
   isConfirmed: false,
 }
@@ -50,7 +56,7 @@ function SaveResume({ resume_id }: ISaveResume) {
 
   const [template, setTemplate] = useState<string | null>()
 
-  const [resumesData, setResumeData] = React.useState<Resumes[]>()
+  // const [resumesData, setResumeData] = React.useState<Resumes[]>()
 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false)
 
@@ -59,12 +65,18 @@ function SaveResume({ resume_id }: ISaveResume) {
 
   const [isResumeGenerated, setIsResumeGenerated] = useState(false)
 
-  const { data, loading, error, refetch } = useGetResumesQuery({
+  const {
+    data: resumesData,
+    loading,
+    error,
+    refetch,
+  } = useGetResumesQuery({
     variables: {
       _eq: resume_id,
     },
     onCompleted(data) {
-      setResumeData(data.resumes as Resumes[])
+      // setResumeData(data.resumes as Resumes[])
+      setIsCheckboxChecked(data.resumes[0].isConfirmed)
       setTemplate(data.resumes[0].template)
     },
   })
@@ -103,9 +115,32 @@ function SaveResume({ resume_id }: ISaveResume) {
     { loading: updateResumeAddTemplateLoading },
   ] = useUpdateResumeAddTemplateMutation()
 
+  const [updateResumesIsConfirmedMutation] =
+    useUpdateResumesIsConfirmedMutation({
+      onCompleted() {
+        return enqueueSnackbar('Данные обновлены', {
+          variant: 'success',
+        })
+      },
+      onError(error) {
+        enqueueSnackbar('Ошибка', { variant: 'error' })
+      },
+    })
+
   const handleCheckboxChange = () => {
-    setIsCheckboxChecked(!isCheckboxChecked)
+    setIsCheckboxChecked((old) => {
+      updateResumesIsConfirmedMutation({
+        variables: {
+          isConfirmed: !old,
+          _eq: resume_id,
+        },
+      })
+
+      return !old
+    })
   }
+
+  console.log(isCheckboxChecked)
 
   const totalLoading =
     aiGenerationSkillsLoading || updateResumeAddTemplateLoading || loading
@@ -116,7 +151,6 @@ function SaveResume({ resume_id }: ISaveResume) {
         variables: {
           _eq: resume_id,
           template: formik.values.template,
-          isConfirmed: formik.values.isConfirmed,
         },
       })
 
@@ -143,7 +177,7 @@ function SaveResume({ resume_id }: ISaveResume) {
       <div className={styles.container_main}>
         <div className={styles.container_main_header}>
           <Text fontSize="20px" fontWeight="bold" textTransform="uppercase">
-            {resumesData && resumesData[0]?.resume_name}
+            {resumesData && resumesData.resumes[0]?.resume_name}
           </Text>
           <Flex gap={5} alignItems="center">
             <Button
@@ -202,7 +236,8 @@ function SaveResume({ resume_id }: ISaveResume) {
         </div>
         <Text className={styles.container_main_text}>
           Резюме создано:{' '}
-          {resumesData && normalizeDate(resumesData[0]?.data_create as string)}
+          {resumesData &&
+            normalizeDate(resumesData.resumes[0]?.data_create as string)}
         </Text>
         <div className={styles.container_main_viewResume}>
           <div className={styles.container_main_viewResume_main}>
@@ -219,10 +254,14 @@ function SaveResume({ resume_id }: ISaveResume) {
             ) : template != null || template != undefined ? (
               <div className={styles.container_main_viewResume_main_view}>
                 {template === 'template1' && (
-                  <ClassicTemplate resumesData={resumesData as Resumes[]} />
+                  <ClassicTemplate
+                    resumesData={resumesData?.resumes as Resumes[]}
+                  />
                 )}
                 {template === 'template2' && (
-                  <SidebarBlue resumesData={resumesData as Resumes[]} />
+                  <SidebarBlue
+                    resumesData={resumesData?.resumes as Resumes[]}
+                  />
                 )}
               </div>
             ) : (
@@ -243,7 +282,11 @@ function SaveResume({ resume_id }: ISaveResume) {
 
           <div className={styles.container_main_viewResume_sidebar}>
             <div className={styles.container_main_viewResume_sidebar_isPublic}>
-              <FormControl display="flex" alignItems="center">
+              <FormControl
+                display="flex"
+                alignItems="center"
+                justifyContent="flex-end"
+              >
                 <FormLabel htmlFor="resume-sharing" mb="0">
                   Готов делиться резюме
                 </FormLabel>
@@ -269,19 +312,24 @@ function SaveResume({ resume_id }: ISaveResume) {
                 </Box>
               )}
             </div>
-            <div className={styles.container_main_viewResume_sidebar_checkbox}>
-              <Checkbox
-                id="isConfirmed"
-                name="isConfirmed"
-                onChange={handleCheckboxChange}
-                isChecked={isCheckboxChecked}
+            {template == null && (
+              <form
+                onSubmit={formik.handleSubmit}
+                className={styles.container_main_viewResume_sidebar_checkbox}
               >
-                <Text>
-                  Подтверждаю и соглашаюсь, что моё резюме может быть
-                  просмотрено другими пользователями
-                </Text>
-              </Checkbox>
-            </div>
+                <Checkbox
+                  id="isConfirmed"
+                  name="isConfirmed"
+                  onChange={handleCheckboxChange}
+                  isChecked={isCheckboxChecked}
+                >
+                  <Text>
+                    Подтверждаю и соглашаюсь, что моё резюме может быть
+                    просмотрено другими пользователями
+                  </Text>
+                </Checkbox>
+              </form>
+            )}
           </div>
         </div>
       </div>

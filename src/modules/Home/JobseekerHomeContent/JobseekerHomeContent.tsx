@@ -49,6 +49,8 @@ const JobseekerHomeContent = ({
               resume_name={item.resume_name}
               data_create={item.data_create as string}
               resume_id={item.resume_id}
+              isConfirmed={item.isConfirmed}
+              template={item.template as string}
               deleteResume={() => deleteResume(item.resume_id)}
             />
           )

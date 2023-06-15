@@ -22,6 +22,7 @@ import {
   useInsertExperienceWorkMutation,
 } from '@/generated/projectR-hasura'
 import ExperienceWorkCard from './ExperienceWorkCard/ExperienceWorkCard'
+import ReactQuillWrapper from '@/components/ReactQuillWrapper'
 
 interface IExperience {
   resume_id: string
@@ -236,16 +237,14 @@ function Experience({ resume_id }: IExperience) {
           <FormLabel as="legend" htmlFor="description">
             Должностные обязанности
           </FormLabel>
-          <Textarea
+          <ReactQuillWrapper
             id="description"
-            name="description"
-            placeholder="Напишите чем вы занимались и какие обязанности у вас были на прошлой работе"
-            fontSize="sm"
-            size="lg"
+            placeholder="Языки программирования"
             value={formik.values.description as string}
-            onChange={formik.handleChange}
+            onChange={(v: string) => formik.setFieldValue('description', v)}
           />
         </FormControl>
+
         <Button
           type="submit"
           colorScheme="blue"

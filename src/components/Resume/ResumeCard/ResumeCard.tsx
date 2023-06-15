@@ -1,11 +1,14 @@
 import React from 'react'
 import styles from './ResumeCard.module.scss'
 import {
+  Box,
+  Icon,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Text,
+  Tooltip,
   useDisclosure,
 } from '@chakra-ui/react'
 import {
@@ -20,9 +23,12 @@ import ResumeUpdateModal from './ResumeUpdateModal/ResumeUpdateModal'
 import { normalizeDate } from '@/utils/normalizeDate'
 import { AiOutlineDownload } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import { CheckIcon } from '@chakra-ui/icons'
 
 interface IResumeCard {
   resume_name: string
+  isConfirmed: Boolean
+  template: string
   data_create: string
   resume_id: string
   deleteResume: () => void
@@ -31,6 +37,8 @@ interface IResumeCard {
 function ResumeCard({
   resume_name,
   data_create,
+  isConfirmed,
+  template,
   resume_id,
   deleteResume,
 }: IResumeCard) {
@@ -49,13 +57,21 @@ function ResumeCard({
     deleteResume()
     onDeleteClose()
   }
-
   const router = useRouter()
 
   return (
     <div className={styles.container}>
       <Link href={APP_URLS.getResumePage(resume_id)} style={{ height: '100%' }}>
-        <div className={styles.main}>Нажмите чтобы открыть резюме</div>
+        <div className={styles.main}>
+          <Text>Нажмите чтобы открыть резюме</Text>
+          {isConfirmed && (
+            <Box sx={{ position: 'absolute', top: '0', right: '0' }}>
+              <Tooltip label="Подтвержденное резюме">
+                <Icon as={CheckIcon} />
+              </Tooltip>
+            </Box>
+          )}
+        </div>
       </Link>
       <div className={styles.container_footer}>
         <div className={styles.container_footer_text}>
@@ -70,12 +86,17 @@ function ResumeCard({
             <MdOutlineMoreVert />
           </MenuButton>
           <MenuList>
-            <MenuItem
-              icon={<AiOutlineDownload />}
-              onClick={() => router.push(APP_URLS.getResumeViewPage(resume_id))}
-            >
-              Скачать
-            </MenuItem>
+            {template && (
+              <MenuItem
+                icon={<AiOutlineDownload />}
+                onClick={() =>
+                  router.push(APP_URLS.getResumeViewPage(resume_id))
+                }
+              >
+                Скачать
+              </MenuItem>
+            )}
+
             <MenuItem
               icon={<MdOutlineDriveFileRenameOutline />}
               onClick={onEditOpen}

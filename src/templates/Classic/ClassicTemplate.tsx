@@ -16,6 +16,7 @@ import { joinName } from '@/utils/joinName'
 import { calculateAgeWithUnit } from '@/utils/calculateAge'
 import { normalizeDate } from '@/utils/normalizeDate'
 import Projects from './Projects/Projects'
+import parse from 'html-react-parser'
 
 interface IClassicTemplate {
   resumesData: Resumes[]
@@ -154,7 +155,7 @@ function ClassicTemplate({ resumesData }: IClassicTemplate) {
                           styles.main_left_experienceWork_content_description_text
                         }
                       >
-                        {experienceWork.description}
+                        {parse(experienceWork.description as string)}
                       </Text>
                     </div>
                   </div>

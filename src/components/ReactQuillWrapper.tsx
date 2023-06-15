@@ -8,9 +8,7 @@ interface IReactQuillWrapper {
   id: string
   value: string
   placeholder?: string
-  onChange: (
-    v: string
-  ) => Promise<void> | Promise<FormikErrors<AddAdditionalInformationType>>
+  onChange: (v: string) => void
 }
 
 const ReactQuillWrapper = ({

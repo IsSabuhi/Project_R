@@ -31,14 +31,17 @@ const SidebarBlue = ({ resumesData }: ISidebarBlue) => {
           <div className={styles.sidebar_contacts_title}>
             <Text className={styles.sidebar_contacts_title_text}>Контакты</Text>
           </div>
-          <Flex gap={4} alignItems="center" paddingInline="10px" mt={2}>
-            <Icon as={HiOutlinePhone} />
-            {resumesData[0]?.resumes_jobseeker?.phone && (
-              <Text>
-                {resumesData[0].resumes_jobseeker?.phone || 'Номер не указан'}
-              </Text>
-            )}
-          </Flex>
+          {resumesData[0].resumes_jobseeker?.phone && (
+            <Flex gap={4} alignItems="center" paddingInline="10px" mt={2}>
+              <Icon as={HiOutlinePhone} />
+              {resumesData[0]?.resumes_jobseeker?.phone && (
+                <Text>
+                  {resumesData[0].resumes_jobseeker?.phone || 'Номер не указан'}
+                </Text>
+              )}
+            </Flex>
+          )}
+
           {resumesData[0].resumes_jobseeker?.email && (
             <Flex gap={4} alignItems="center" paddingInline="10px">
               <Icon as={AiOutlineMail} />
