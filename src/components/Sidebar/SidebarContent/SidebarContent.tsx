@@ -28,13 +28,13 @@ const SidebarContent = ({
             selected={selected}
             setSelected={setSelected}
           />
-          <Item
+          {/* <Item
             title="Просмотр откликов"
             to={APP_URLS.VACANCY}
             icon={<AiOutlineFolderView size="20px" />}
             selected={selected}
             setSelected={setSelected}
-          />
+          /> */}
           {/* <Item
             title="Шаблоны резюме"
             to="/home"

@@ -101,7 +101,9 @@ function ResumeCardView({
         <Text className={styles.main_specialty}>
           Возраст:{' '}
           <span>
-            {calculateAgeWithUnit(resume.resumes_jobseeker?.dateBirth)}
+            {calculateAgeWithUnit(
+              resume.resumes_jobseeker?.dateBirth as string
+            )}
           </span>
         </Text>
         <Text className={styles.main_specialty}>
