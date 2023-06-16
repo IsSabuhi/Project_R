@@ -1,0 +1,18 @@
+overwrite: true
+schema:
+  - 'http://172.30.30.132:8080/v1/graphql':
+      headers: { x-hasura-admin-secret: 'admin' }
+documents: ./src/*.graphql
+extensions:
+  codegen:
+    config:
+      scalars:
+        time: string
+        timestamp: string
+        uuid: string
+    generates:
+      ./src/generated/projectR-hasura.tsx:
+        plugins:
+          - 'typescript'
+          - 'typescript-operations'
+          - 'typescript-react-apollo'

@@ -1,0 +1,859 @@
+mutation AuthLogin($login: String = "", $password: String = "") {
+  login_handler(login: $login, password: $password) {
+    access_token
+  }
+}
+
+mutation UpdateToken {
+  refreshToken {
+    access_token
+  }
+}
+
+mutation SignOut {
+  sign_out {
+    status
+  }
+}
+
+mutation ChangePassword(
+  $access_token: String = ""
+  $account_id: String = ""
+  $newPassword: String = ""
+  $oldPassword: String = ""
+) {
+  password_change_handle(
+    access_token: $access_token
+    account_id: $account_id
+    newPassword: $newPassword
+    oldPassword: $oldPassword
+  ) {
+    status
+  }
+}
+
+# mutation SignUpJobseeker(
+#   $start_date: date = ""
+#   $speciality: String = ""
+#   $role: String = ""
+#   $phone: String = ""
+#   $password: String = ""
+#   $name_institution: String = ""
+#   $name: String = ""
+#   $middleName: String = ""
+#   $login: String = ""
+#   $lastName: String = ""
+#   $group: String = ""
+#   $gender: String = ""
+#   $faculity: String = ""
+#   $email: String = ""
+#   $end_date: date = ""
+#   $education_form: String = ""
+#   $dateBirth: date = ""
+# ) {
+#   signUp_jobseeker(
+#     education_form: $education_form
+#     email: $email
+#     faculity: $faculity
+#     gender: $gender
+#     group: $group
+#     lastName: $lastName
+#     login: $login
+#     middleName: $middleName
+#     name: $name
+#     name_institution: $name_institution
+#     password: $password
+#     phone: $phone
+#     role: $role
+#     speciality: $speciality
+#     dateBirth: $dateBirth
+#     start_date: $start_date
+#     end_date: $end_date
+#   ) {
+#     account_id
+#   }
+# }
+
+mutation SignUpOrganization(
+  $email: String = ""
+  $inn_organization: String = ""
+  $login: String = ""
+  $name_employer: String = ""
+  $name_organization: String = ""
+  $password: String = ""
+  $phone: String = ""
+  $role: String = ""
+) {
+  signUp_employer(
+    email: $email
+    inn_organization: $inn_organization
+    login: $login
+    name_employer: $name_employer
+    name_organization: $name_organization
+    password: $password
+    phone: $phone
+    role: $role
+  ) {
+    status
+  }
+}
+
+query GetAccountById($_eq: uuid = "") {
+  account(where: { account_id: { _eq: $_eq } }) {
+    account_id
+    avatar
+    login
+    role
+  }
+}
+
+query GetJobseekerById($_eq: uuid = "") {
+  jobseeker(where: { account_id: { _eq: $_eq } }) {
+    dateBirth
+    email
+    gender
+    jobseeker_id
+    lastName
+    middleName
+    name
+    phone
+    jobseeker_educations {
+      average_score
+      education_form
+      educational_institution_id
+      end_date
+      faculity
+      group
+      speciality
+      start_date
+      jobseeker_education_id
+      jobseeker_education_educational_institution {
+        educational_institution_jobseeker_educations {
+          average_score
+          education_form
+          educational_institution_id
+          end_date
+          faculity
+          group
+          speciality
+          start_date
+          jobseeker_id
+          jobseeker_education_id
+        }
+        name_institution
+      }
+    }
+    account_id
+    account {
+      login
+      role
+      avatar
+    }
+  }
+}
+
+query GetOrganizationById($_eq: uuid = "") {
+  organization(where: { account_id: { _eq: $_eq } }) {
+    account_id
+    date_registration
+    employer_id
+    id_organization
+    inn_organization
+    kpp_organization
+    main_activity
+    name_organization
+    ogrn
+    status
+    verified
+    legal_address
+    organization_account {
+      avatar
+      login
+      role
+    }
+    organization_employer {
+      email
+      name_employer
+      phone
+    }
+  }
+}
+
+query GetJobseekerEducations($_eq: uuid = "") {
+  jobseeker_education(where: { jobseeker: { account_id: { _eq: $_eq } } }) {
+    average_score
+    education_form
+    end_date
+    faculity
+    group
+    jobseeker_education_educational_institution {
+      icon
+      name_institution
+      educational_institution_id
+    }
+    speciality
+    start_date
+    jobseeker_education_id
+    jobseeker_id
+    degree_education
+  }
+}
+
+mutation UpdateOrganization($_eq: uuid = "", $legal_address: String = "") {
+  update_organization(
+    where: { account_id: { _eq: $_eq } }
+    _set: { legal_address: $legal_address }
+  ) {
+    returning {
+      account_id
+      employer_id
+      id_organization
+      legal_address
+    }
+  }
+}
+
+mutation UpdateEmployer(
+  $_eq: uuid = ""
+  $email: String = ""
+  $phone: String = ""
+) {
+  update_employer(
+    where: { employer_organizations: { account_id: { _eq: $_eq } } }
+    _set: { email: $email, phone: $phone }
+  ) {
+    returning {
+      id_employer
+      phone
+      email
+    }
+  }
+}
+
+mutation UpdateJobseekerProfile(
+  $dateBirth: String = ""
+  $email: String = ""
+  $gender: String = ""
+  $lastName: String = ""
+  $middleName: String = ""
+  $name: String = ""
+  $phone: String = ""
+  $_eq: uuid = ""
+) {
+  update_jobseeker(
+    where: { account_id: { _eq: $_eq } }
+    _set: {
+      dateBirth: $dateBirth
+      email: $email
+      gender: $gender
+      lastName: $lastName
+      middleName: $middleName
+      name: $name
+      phone: $phone
+    }
+  ) {
+    returning {
+      account_id
+      jobseeker_id
+    }
+  }
+}
+
+query GetJobseekerResumes($_eq: uuid = "") {
+  resumes(where: { jobseeker_id: { _eq: $_eq } }) {
+    jobseeker_id
+    resume_id
+    resume_name
+    about_me
+    data_create
+    desired_position
+    template
+    isConfirmed
+  }
+}
+
+query GetResumes($_eq: uuid = "") {
+  resumes(where: { resume_id: { _eq: $_eq } }) {
+    about_me
+    data_create
+    desired_position
+    driving_categories
+    jobseeker_id
+    resume_id
+    resume_name
+    resumes_courses {
+      course_id
+      course_location
+      course_name
+      description
+      date_receipt
+    }
+    resumes_projects {
+      description
+      name_organization
+      project_name
+      project_id
+    }
+    resumes_skills {
+      description
+      skills_id
+      isGenerated
+    }
+    experience_works {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+      workLocation
+    }
+    resumes_jobseeker {
+      account_id
+      dateBirth
+      email
+      gender
+      lastName
+      middleName
+      name
+      phone
+      jobseeker_educations {
+        average_score
+        degree_education
+        education_form
+        educational_institution_id
+        end_date
+        faculity
+        group
+        jobseeker_education_id
+        speciality
+        start_date
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
+    }
+    programming_languages
+    isConfirmed
+    resumes_hobbies {
+      description
+      hobby_id
+    }
+    resumes_certifications {
+      certification_name
+      certification_id
+      date_of_receipt
+    }
+    languages {
+      language_id
+      language_level
+      language_name
+    }
+    template
+  }
+}
+
+mutation InsertResume($resume_name: String = "", $jobseeker_id: uuid = "") {
+  insert_resumes(
+    objects: { resume_name: $resume_name, jobseeker_id: $jobseeker_id }
+  ) {
+    returning {
+      jobseeker_id
+      resume_name
+      resume_id
+    }
+  }
+}
+
+mutation DeleteResume($resume_id: uuid = "") {
+  delete_resumes(where: { resume_id: { _eq: $resume_id } }) {
+    affected_rows
+  }
+}
+
+mutation UpdateResumeName($_eq: uuid = "", $resume_name: String = "") {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { resume_name: $resume_name }
+  ) {
+    returning {
+      resume_id
+      resume_name
+      jobseeker_id
+    }
+  }
+}
+
+query GetResume($_eq: uuid = "") {
+  resumes(where: { resume_id: { _eq: $_eq } }) {
+    jobseeker_id
+    resume_id
+    resume_name
+    resumes_jobseeker {
+      jobseeker_educations {
+        average_score
+        education_form
+        end_date
+        faculity
+        group
+        speciality
+        start_date
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
+      lastName
+      name
+      phone
+      middleName
+      dateBirth
+      email
+      gender
+    }
+  }
+}
+
+query GetJobseekerContacts($_eq: uuid = "") {
+  jobseeker(where: { jobseeker_resumes: { resume_id: { _eq: $_eq } } }) {
+    account_id
+    dateBirth
+    email
+    gender
+    lastName
+    jobseeker_id
+    middleName
+    name
+    phone
+  }
+}
+
+mutation UpdateContacts(
+  $_eq: uuid = ""
+  $phone: String = ""
+  $email: String = ""
+) {
+  update_jobseeker(
+    where: { account_id: { _eq: $_eq } }
+    _set: { phone: $phone, email: $email }
+  ) {
+    returning {
+      phone
+      name
+      middleName
+      lastName
+      jobseeker_id
+    }
+  }
+}
+
+# Опыт работы
+query GetExperienceWork($_eq: uuid = "") {
+  experience_work(where: { resume_id: { _eq: $_eq } }) {
+    date_dismissal
+    date_employment
+    description
+    experience_work_id
+    jobposition
+    name_company
+    resume_id
+    workLocation
+  }
+}
+
+mutation InsertExperienceWork(
+  $date_dismissal: String = ""
+  $date_employment: String = ""
+  $description: String = ""
+  $jobposition: String = ""
+  $name_company: String = ""
+  $resume_id: uuid = ""
+  $workLocation: String = ""
+) {
+  insert_experience_work(
+    objects: {
+      date_dismissal: $date_dismissal
+      date_employment: $date_employment
+      description: $description
+      jobposition: $jobposition
+      name_company: $name_company
+      resume_id: $resume_id
+      workLocation: $workLocation
+    }
+  ) {
+    returning {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+      resume_id
+      workLocation
+    }
+  }
+}
+
+mutation DeleteExperienceWork($_eq: uuid = "") {
+  delete_experience_work(where: { experience_work_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+# Проекты
+query GetProjects($_eq: uuid = "") {
+  projects(where: { resume_id: { _eq: $_eq } }) {
+    description
+    name_organization
+    project_id
+    project_name
+    resume_id
+  }
+}
+
+mutation InsertProject(
+  $description: String = ""
+  $name_organization: String = ""
+  $project_name: String = ""
+  $resume_id: uuid = ""
+) {
+  insert_projects(
+    objects: {
+      description: $description
+      name_organization: $name_organization
+      project_name: $project_name
+      resume_id: $resume_id
+    }
+  ) {
+    returning {
+      description
+      name_organization
+      project_id
+      project_name
+      resume_id
+    }
+  }
+}
+
+mutation DeleteProject($_eq: uuid = "") {
+  delete_projects(where: { project_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+# Доп курсы
+query GetCourse($_eq: uuid = "") {
+  course(where: { resume_id: { _eq: $_eq } }) {
+    course_id
+    course_location
+    course_name
+    date_receipt
+    description
+    resume_id
+  }
+}
+
+mutation InsertCourse(
+  $course_location: String = ""
+  $course_name: String = ""
+  $date_receipt: String = ""
+  $description: String = ""
+  $resume_id: uuid = ""
+) {
+  insert_course(
+    objects: {
+      course_location: $course_location
+      course_name: $course_name
+      date_receipt: $date_receipt
+      description: $description
+      resume_id: $resume_id
+    }
+  ) {
+    returning {
+      course_location
+      course_id
+      course_name
+      date_receipt
+      description
+    }
+  }
+}
+
+mutation DeleteCourse($_eq: uuid = "") {
+  delete_course(where: { course_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+# Доп инфа
+mutation AddAdditionalInformation(
+  $_eq: uuid = ""
+  $about_me: String = ""
+  $driving_categories: String = ""
+  $desired_position: String = ""
+  $programming_languages: String = ""
+) {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: {
+      about_me: $about_me
+      driving_categories: $driving_categories
+      desired_position: $desired_position
+      programming_languages: $programming_languages
+    }
+  ) {
+    returning {
+      about_me
+      desired_position
+      driving_categories
+      jobseeker_id
+      resume_id
+      resume_name
+    }
+  }
+}
+
+# Навыки
+query GetSkills($_eq: uuid = "") {
+  skills(where: { resume_id: { _eq: $_eq }, isGenerated: { _eq: false } }) {
+    description
+    resume_id
+    skills_id
+  }
+}
+
+mutation InsertSkills($description: String = "", $resume_id: uuid = "") {
+  insert_skills(objects: { description: $description, resume_id: $resume_id }) {
+    returning {
+      description
+      resume_id
+      skills_id
+    }
+  }
+}
+
+mutation DeleteSkills($_eq: uuid = "") {
+  delete_skills(where: { skills_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+# Хобби
+query GetHobby($_eq: uuid = "") {
+  hobby(where: { resume_id: { _eq: $_eq } }) {
+    hobby_id
+    description
+  }
+}
+
+mutation InsertHobby($description: String = "", $resume_id: uuid = "") {
+  insert_hobby(objects: { description: $description, resume_id: $resume_id }) {
+    returning {
+      hobby_id
+      description
+    }
+  }
+}
+
+mutation DeleteHobby($_eq: uuid = "") {
+  delete_hobby(where: { hobby_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+query GetCertifications($_eq: uuid = "") {
+  certification(where: { resume_id: { _eq: $_eq } }) {
+    certification_id
+    certification_name
+    date_of_receipt
+  }
+}
+
+mutation InsertCertification(
+  $certification_name: String = ""
+  $date_of_receipt: String = ""
+  $resume_id: uuid = ""
+) {
+  insert_certification(
+    objects: {
+      certification_name: $certification_name
+      date_of_receipt: $date_of_receipt
+      resume_id: $resume_id
+    }
+  ) {
+    returning {
+      certification_id
+      certification_name
+      date_of_receipt
+      resume_id
+    }
+  }
+}
+
+mutation DeleteCertification($_eq: uuid = "") {
+  delete_certification(where: { certification_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+# Языки владения
+query GetLanguages($_eq: uuid = "") {
+  languages(where: { resume_id: { _eq: $_eq } }) {
+    language_id
+    language_level
+    language_name
+  }
+}
+
+mutation InsetLanguage(
+  $resume_id: uuid = ""
+  $language_name: String = ""
+  $language_level: String = ""
+) {
+  insert_languages(
+    objects: {
+      resume_id: $resume_id
+      language_name: $language_name
+      language_level: $language_level
+    }
+  ) {
+    returning {
+      language_level
+      language_name
+      resume_id
+      language_id
+    }
+  }
+}
+
+mutation DeleteLanguages($_eq: uuid = "") {
+  delete_languages(where: { language_id: { _eq: $_eq } }) {
+    affected_rows
+  }
+}
+
+# Запрос получения всех резюме для работодателя
+query GetJobseekerAllResumes {
+  resumes(where: { isConfirmed: { _eq: true } }) {
+    about_me
+    data_create
+    desired_position
+    driving_categories
+    programming_languages
+    resume_name
+    resume_id
+    experience_works {
+      date_dismissal
+      date_employment
+      description
+      experience_work_id
+      jobposition
+      name_company
+      workLocation
+    }
+    languages {
+      language_id
+      language_level
+      language_name
+    }
+    resumes_courses {
+      course_id
+      course_location
+      course_name
+      date_receipt
+      description
+    }
+    resumes_hobbies {
+      hobby_id
+      description
+    }
+    resumes_jobseeker {
+      account {
+        account_id
+        avatar
+        expired_token_time
+        login
+        role
+      }
+      dateBirth
+      email
+      gender
+      jobseeker_id
+      lastName
+      middleName
+      name
+      phone
+      jobseeker_educations {
+        average_score
+        degree_education
+        education_form
+        end_date
+        faculity
+        group
+        speciality
+        start_date
+        vkr
+        jobseeker_id
+        jobseeker_education_id
+        educational_institution_id
+        jobseeker_education_educational_institution {
+          name_institution
+        }
+      }
+    }
+    resumes_projects {
+      description
+      name_organization
+      project_id
+      project_name
+    }
+    resumes_skills {
+      description
+      skills_id
+    }
+    isConfirmed
+    resumes_certifications {
+      certification_name
+      date_of_receipt
+      certification_id
+    }
+  }
+}
+
+mutation UpdateResumeAddTemplate($_eq: uuid = "", $template: String = "") {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { template: $template }
+  ) {
+    returning {
+      resume_id
+      resume_name
+      isConfirmed
+      jobseeker_id
+      desired_position
+      data_create
+      about_me
+      programming_languages
+      template
+    }
+  }
+}
+
+mutation UpdateResumesIsConfirmed(
+  $isConfirmed: Boolean = false
+  $_eq: uuid = ""
+) {
+  update_resumes(
+    where: { resume_id: { _eq: $_eq } }
+    _set: { isConfirmed: $isConfirmed }
+  ) {
+    returning {
+      resume_id
+      isConfirmed
+    }
+  }
+}
+
+mutation AiGenerationSkills($resume_id: String = "") {
+  ai_generation_skills(resume_id: $resume_id) {
+    status
+  }
+}
