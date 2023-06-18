@@ -5,6 +5,7 @@ import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
 import { Document, Page, StyleSheet } from '@react-pdf/renderer'
 import React from 'react'
 import GenericPdfDownloader from './GenericPdfDownloader/GenericPdfDownloader'
+import StandardSidebar from '@/templates/StandardSidebar/StandardSidebar'
 
 export interface IResumesViewContent {
   resume_id: string
@@ -45,7 +46,7 @@ const ResumesViewContent = ({ resume_id }: IResumesViewContent) => {
           />
 
           <Page size="A4" style={styles.page}>
-            {template === 'template1' && (
+            {/* {template === 'template1' && (
               <div id="testId">
                 <ClassicTemplate resumesData={resumesData as Resumes[]} />
               </div>
@@ -54,7 +55,8 @@ const ResumesViewContent = ({ resume_id }: IResumesViewContent) => {
               <div id="testId">
                 <SidebarBlue resumesData={resumesData as Resumes[]} />
               </div>
-            )}
+            )} */}
+            <StandardSidebar />
           </Page>
         </Document>
       )}

@@ -1,0 +1,67 @@
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    @extend .flexRow;
+    width: 100%;
+    min-height: calc(28cm + 4rem);
+    border: 1.5rem solid #e7e7e7;
+    border-radius: 10px;
+    max-width: 800px;
+
+
+    .main {
+        @extend .flexColumn;
+        flex-basis: 80%;
+        padding: 15px;
+
+        .main_header {
+            @extend .flexRow;
+            gap: 20px;
+            padding-bottom: 20px;
+
+            .main_header_text {
+                
+                .main_header_text_userName {
+                    color: #48c4ca;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 23px;
+                    line-height: 34px;
+                }
+
+                .main_header_text_jobPosition {
+                    color: black;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    font-size: 18px;
+                }
+
+                .main_header_text_city {
+                    font-size: 12px;
+                }
+
+                .main_header_text_age {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    .sidebar {
+        @extend .flexColumn;
+        flex-basis: 40%;
+        padding: 15px;
+
+        .sidebar_contacts {
+            
+        }
+    }
+}

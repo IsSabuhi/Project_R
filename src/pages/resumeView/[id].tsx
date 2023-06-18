@@ -1,6 +1,7 @@
 import Loader from '@/components/Loader'
 import { Resumes, useGetResumesQuery } from '@/generated/projectR-hasura'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
+import StandardSidebar from '@/templates/StandardSidebar/StandardSidebar'
 import { Text } from '@chakra-ui/react'
 import {
   Document,

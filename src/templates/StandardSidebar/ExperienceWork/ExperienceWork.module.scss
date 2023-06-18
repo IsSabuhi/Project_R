@@ -1,0 +1,79 @@
+.container {
+
+    .container_header {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        .container_header_icon {
+            width: 34px;
+            height: 34px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #48c4ca;
+            border-radius: 50%;
+        }
+        
+        .container_header_text {
+            font-size: 18px;
+            color: #48c4ca;
+            font-weight: 600;
+            line-height: 34px;
+        }
+    }
+    
+    .main {
+        display: flex;
+        flex-direction: column;
+
+        .main_content {
+            display: flex;
+            flex-direction: column;
+
+            .main_content_work {
+                padding-left: 25px;
+                border-left: 1px solid #48c4ca;
+                margin-left: 17px;
+
+                .main_content_workDate {
+                    position: relative;
+                    font-size: 12px;
+                    line-height: 1.4em;
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        left: -29px;
+                        width: 7px;
+                        height: 7px;
+                        top: 6px;
+                        border-radius: 50%;
+                        background-color: #48c4ca;
+                    }
+                }
+
+                .main_content_work_text {
+                    display: flex;
+                    flex-direction: row;
+                    text-transform: none;
+                    padding: 0 0 10px 15px;
+
+                    .main_content_work_text_company {
+                        font-weight: 600;
+                        font-size: 15px;
+                        color: black;
+                    }
+
+                    .main_content_work_text_jobPosition {
+                        font-size: 15px;
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+}

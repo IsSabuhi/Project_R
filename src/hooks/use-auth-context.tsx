@@ -165,11 +165,11 @@ export const AuthProvider = (props: { children: React.ReactNode }) => {
   }, [])
 
   // TODO не забыть вернуть обратно, дома не работает
-  // useEffect(() => {
-  //   if (!authState.isAuthorized) {
-  //     router.push(APP_URLS.SIGN_IN)
-  //   }
-  // }, [authState.isAuthorized])
+  useEffect(() => {
+    if (!authState.isAuthorized) {
+      router.push(APP_URLS.SIGN_IN)
+    }
+  }, [authState.isAuthorized])
 
   return (
     <authContext.Provider
