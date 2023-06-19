@@ -47,7 +47,7 @@ const ResumeView = () => {
     // Имитируем задержку загрузки в течение 3 секунд
     setTimeout(() => {
       setLoading(false)
-    }, 3000)
+    }, 2000)
   }, [])
 
   return (

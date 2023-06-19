@@ -46,7 +46,7 @@ const ResumesViewContent = ({ resume_id }: IResumesViewContent) => {
           />
 
           <Page size="A4" style={styles.page}>
-            {/* {template === 'template1' && (
+            {template === 'template1' && (
               <div id="testId">
                 <ClassicTemplate resumesData={resumesData as Resumes[]} />
               </div>
@@ -55,8 +55,8 @@ const ResumesViewContent = ({ resume_id }: IResumesViewContent) => {
               <div id="testId">
                 <SidebarBlue resumesData={resumesData as Resumes[]} />
               </div>
-            )} */}
-            <StandardSidebar />
+            )}
+            {/* <StandardSidebar /> */}
           </Page>
         </Document>
       )}

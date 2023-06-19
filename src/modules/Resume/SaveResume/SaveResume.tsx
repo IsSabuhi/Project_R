@@ -27,6 +27,7 @@ import {
 import { normalizeDate } from '@/utils/normalizeDate'
 import template1 from '@/assets/images/resumesTemplate/template1.png'
 import template2 from '@/assets/images/resumesTemplate/template2.png'
+import template3 from '@/assets/images/resumesTemplate/template3.png'
 import ResumesTemplateImage from './ResumesTemplate/ResumesTemplateImage'
 import ClassicTemplate from '@/templates/Classic/ClassicTemplate'
 import SidebarBlue from '@/templates/SidebarBlue/SidebarBlue'
@@ -275,6 +276,11 @@ function SaveResume({ resume_id }: ISaveResume) {
                   image={template2}
                   onSelect={() => formik.setFieldValue('template', 'template2')}
                   isSelected={formik.values.template === 'template2'}
+                />
+                <ResumesTemplateImage
+                  image={template3}
+                  onSelect={() => formik.setFieldValue('template', 'template3')}
+                  isSelected={formik.values.template === 'template3'}
                 />
               </div>
             )}

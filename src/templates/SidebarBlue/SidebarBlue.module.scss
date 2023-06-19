@@ -26,11 +26,11 @@
     min-height: calc(28cm + 4rem);
     border: 1.5rem solid #e7e7e7;
     border-radius: 10px;
-    max-width: 900px;
+    max-width: 800px;
 
     .sidebar {
         @extend .flexColumn;
-        max-width: 300px;
+        max-width: 295px;
         width: 100%;
         background-color: #054276;
         color: #fff;
