@@ -114,9 +114,8 @@ const AccountInfo = ({
         placeholder="Выберите роль"
         id="role"
         name="role"
-        value="employer"
+        value={formData.role}
         onChange={onChange}
-        disabled
       >
         <option value="jobseeker">Соискатель</option>
         <option value="employer">Работодатель</option>

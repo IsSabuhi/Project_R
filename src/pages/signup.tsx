@@ -12,7 +12,10 @@ import React, { useState } from 'react'
 import styles from '@/styles/SignUp.module.scss'
 import { APP_URLS } from '@/configs/urls'
 import { useFormik } from 'formik'
-import { useSignUpOrganizationMutation } from '@/generated/projectR-hasura'
+import {
+  useSignUpJobseekerMutation,
+  useSignUpOrganizationMutation,
+} from '@/generated/projectR-hasura'
 import { useSnackbar } from 'notistack'
 import AccountInfo from '@/modules/Auth/Jobseeker/AccountInfo/AccountInfo'
 import BasicInfo from '@/modules/Auth/Jobseeker/BasicInfo/BasicInfo'
@@ -90,18 +93,18 @@ const SignUp = () => {
       },
     })
 
-  // const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
-  //   onCompleted() {
-  //     return enqueueSnackbar('Регистрация прошла успешно', {
-  //       variant: 'success',
-  //     })
-  //   },
-  //   onError() {
-  //     return enqueueSnackbar('Не удалось зарегистрироваться', {
-  //       variant: 'error',
-  //     })
-  //   },
-  // })
+  const [signUpJobseekerMutation] = useSignUpJobseekerMutation({
+    onCompleted() {
+      return enqueueSnackbar('Регистрация прошла успешно', {
+        variant: 'success',
+      })
+    },
+    onError() {
+      return enqueueSnackbar('Не удалось зарегистрироваться', {
+        variant: 'error',
+      })
+    },
+  })
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -121,7 +124,7 @@ const SignUp = () => {
           name_organization: formik.values.name_organization,
           password: formik.values.password,
           phone: formik.values.phone,
-          role: 'employer',
+          role: formik.values.role,
         },
       })
     },
@@ -142,6 +145,8 @@ const SignUp = () => {
 
   const titleColor = useColorModeValue('teal.300', 'teal.200')
 
+  console.log(formik.values)
+
   return (
     <div className={styles.sign_up_container}>
       <Box
@@ -161,11 +166,13 @@ const SignUp = () => {
           isAnimated
         ></Progress>
         <form onSubmit={formik.handleSubmit}>
-          {/* {step === 1 ? (
+          {step === 1 ? (
             <AccountInfo
               formData={formik.values}
               onChange={handleInputChange}
               isInputDisabled={!isFirstInputFilled}
+              passwordMismatch={passwordMismatch}
+              setPasswordMismatch={setPasswordMismatch}
             />
           ) : step === 2 ? (
             isJobseeker ? (
@@ -181,7 +188,10 @@ const SignUp = () => {
             ) : null
           ) : step === 3 ? (
             isJobseeker ? (
-              <EducationsInfo />
+              <EducationsInfo
+                formData={formik.values}
+                onChange={formik.handleChange}
+              />
             ) : isEmployer ? (
               <Organization
                 formData={formik.values}
@@ -223,7 +233,17 @@ const SignUp = () => {
                 </Button>
               </Flex>
               {step === 3 ? (
-                <Button colorScheme="red" variant="solid" type="submit">
+                <Button
+                  colorScheme="red"
+                  variant="solid"
+                  type="submit"
+                  isDisabled={
+                    !formik.values.name_institution ||
+                    !formik.values.speciality ||
+                    !formik.values.education_form ||
+                    !formik.values.faculity
+                  }
+                >
                   Зарегистрироваться
                 </Button>
               ) : null}
@@ -241,9 +261,9 @@ const SignUp = () => {
                 </Text>
               )}
             </Flex>
-          </ButtonGroup> */}
+          </ButtonGroup>
           {/* TODO пока будет регистрация только для работодателя */}
-          {step === 1 ? (
+          {/* {step === 1 ? (
             <AccountInfo
               formData={formik.values}
               onChange={handleInputChange}
@@ -316,7 +336,7 @@ const SignUp = () => {
                 </Text>
               )}
             </Flex>
-          </ButtonGroup>
+          </ButtonGroup> */}
         </form>
       </Box>
     </div>

@@ -8,8 +8,14 @@ import {
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import styles from './EducationsInfo.module.scss'
+import { ISignUpProps } from '@/pages/signup'
 
-const EducationsInfo = () => {
+interface IEducationsInfo {
+  formData: ISignUpProps
+  onChange: any
+}
+
+const EducationsInfo = ({ formData, onChange }: IEducationsInfo) => {
   const [isChecked, setIsChecked] = useState(false)
 
   return (
@@ -19,68 +25,102 @@ const EducationsInfo = () => {
       </Heading>
       <Flex flexDirection="column">
         <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="name_institution" fontWeight={'normal'}>
             Наименование образовательного учреждения
           </FormLabel>
           <Input
-            id="first-name"
+            id="name_institution"
+            name="name_institution"
             isRequired
             placeholder="Наименование образовательного учреждения"
+            value={formData.name_institution}
+            onChange={onChange}
           />
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="faculity" fontWeight={'normal'}>
             Наименование факультета
           </FormLabel>
-          <Input id="first-name" isRequired placeholder="Факультет" />
+          <Input
+            id="faculity"
+            name="faculity"
+            isRequired
+            placeholder="Факультет"
+            value={formData.faculity}
+            onChange={onChange}
+          />
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="speciality" fontWeight={'normal'}>
             Наименование специальности
           </FormLabel>
-          <Input id="first-name" isRequired placeholder="Специальность" />
+          <Input
+            id="speciality"
+            name="speciality"
+            isRequired
+            placeholder="Специальность"
+            value={formData.speciality}
+            onChange={onChange}
+          />
         </FormControl>
       </Flex>
 
       <Flex>
         <FormControl mr="2%">
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="education_form" fontWeight={'normal'}>
             Форма обучения
           </FormLabel>
-          <Input id="first-name" isRequired placeholder="Форма обучения" />
+          <Input
+            id="education_form"
+            isRequired
+            placeholder="Форма обучения"
+            value={formData.education_form}
+            onChange={onChange}
+          />
         </FormControl>
-        <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+        {/* <FormControl>
+          <FormLabel htmlFor="group" fontWeight={'normal'}>
             Группа
           </FormLabel>
-          <Input id="first-name" placeholder="Группа" />
-        </FormControl>
+          <Input
+            id="group"
+            placeholder="Группа"
+            value={formData.group}
+            onChange={onChange}
+          />
+        </FormControl> */}
       </Flex>
 
       <Flex display="flex" alignItems="center">
         <FormControl mr="2%">
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="start_date" fontWeight={'normal'}>
             Дата поступления
           </FormLabel>
           <Input
-            id="first-name"
+            id="start_date"
+            name="start_date"
             isRequired
             placeholder="Дата поступления"
             type="date"
+            value={formData.start_date}
+            onChange={onChange}
           />
         </FormControl>
 
         <FormControl>
-          <FormLabel htmlFor="first-name" fontWeight={'normal'}>
+          <FormLabel htmlFor="end_date" fontWeight={'normal'}>
             Дата окончания
           </FormLabel>
           <Input
-            id="first-name"
+            id="end_date"
+            name="end_date"
             placeholder="Дата окончания"
             type="date"
             disabled={isChecked}
+            value={formData.end_date}
+            onChange={onChange}
           />
         </FormControl>
       </Flex>

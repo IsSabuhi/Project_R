@@ -203,6 +203,7 @@ function Experience({ resume_id }: IExperience) {
                 size="lg"
                 value={formik.values.date_employment as string}
                 onChange={formik.handleChange}
+                required
               />
               <Input
                 id="date_dismissal"
