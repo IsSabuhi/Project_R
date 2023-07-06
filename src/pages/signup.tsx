@@ -110,6 +110,28 @@ const SignUp = () => {
     initialValues: initialValues,
     enableReinitialize: true,
     onSubmit: () => {
+      if (formik.values.role === 'jobseeker') {
+      signUpJobseekerMutation({
+        variables: {
+          start_date: formik.values.start_date,
+          speciality: formik.values.speciality,
+          role: formik.values.role,
+          phone: formik.values.phone,
+          password: formik.values.password,
+          name_institution: formik.values.name_institution,
+          name: formik.values.name,
+          middleName: formik.values.middleName,
+          login: formik.values.login,
+          lastName: formik.values.lastName,
+          group: formik.values.group,
+          gender: formik.values.gender,
+          faculity: formik.values.faculity,
+          email: formik.values.email,
+          end_date: formik.values.end_date,
+          education_form: formik.values.education_form,
+          dateBirth: formik.values.dateBirth,
+        },
+      })} else {
       signUpOrganizationMutation({
         variables: {
           email: formik.values.email,
@@ -126,7 +148,7 @@ const SignUp = () => {
           phone: formik.values.phone,
           role: formik.values.role,
         },
-      })
+      })}
     },
   })
 
