@@ -21,6 +21,7 @@ import Languages from './Languages/Languages'
 import { specialityType } from '@/constants'
 import Certification from './Certification/Certification'
 import { useRouter } from 'next/router'
+import Contact from './Contact/Contact'
 
 interface IResumeContent {
   resume_id: string
@@ -65,6 +66,7 @@ function ResumeContent({ resume_id }: IResumeContent) {
             {data?.resumes[0].resume_name}
           </Text>
         </Tooltip>
+        <Tab>Контакты</Tab>
         <Tab>Опыт работы</Tab>
         {specialityJobseeker === specialityType.infoSystem && (
           <Tab>Проекты</Tab>
@@ -84,6 +86,9 @@ function ResumeContent({ resume_id }: IResumeContent) {
       </TabList>
 
       <TabPanels>
+        <TabPanel>
+          <Contact resume_id={resume_id!} />
+        </TabPanel>
         <TabPanel>
           <Experience resume_id={resume_id!} />
         </TabPanel>

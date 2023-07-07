@@ -10,6 +10,7 @@ import {
   FormControl,
   FormLabel,
   Icon,
+  IconButton,
   Input,
   Select,
   Text,
@@ -27,6 +28,7 @@ import { useAuthContext } from '@/hooks/use-auth-context'
 import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 import { contactsItem } from '@/configs'
+import { CloseIcon } from '@chakra-ui/icons'
 
 interface IContact {
   resume_id: string
@@ -37,7 +39,13 @@ const initialFormContact: UpdateContactsMutationVariables = {
   phone: '',
 }
 
+type Contact = {
+  socialNetwork: string;
+  url: string;
+};
+
 function Contact({ resume_id }: IContact) {
+
   const { enqueueSnackbar } = useSnackbar()
 
   const { userId } = useAuthContext()
@@ -47,6 +55,31 @@ function Contact({ resume_id }: IContact) {
     enableReinitialize: true,
     onSubmit: () => {},
   })
+
+  const [contacts, setContacts] = React.useState<Contact[]>([]);
+
+  const handleAddContact = () => {
+    setContacts([...contacts, { socialNetwork: '', url: '' }]);
+  };
+
+  const handleSocialNetworkChange = (index: number, value: string) => {
+    const updatedContacts = [...contacts];
+    updatedContacts[index].socialNetwork = value;
+    setContacts(updatedContacts);
+  };
+
+  const handleUrlChange = (index: number, value: string) => {
+    const updatedContacts = [...contacts];
+    updatedContacts[index].url = value;
+    setContacts(updatedContacts);
+  };
+
+   const handleRemoveContact = (index: number) => {
+    const updatedContacts = [...contacts];
+    updatedContacts.splice(index, 1);
+    setContacts(updatedContacts);
+  };
+
 
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
@@ -80,7 +113,42 @@ function Contact({ resume_id }: IContact) {
         </FormControl>
       </Flex>
 
-      <Accordion allowToggle>
+          <div>
+      {contacts.map((contact, index) => (
+        <Flex gap={4} key={index} >
+          <Input
+            id='socialNetwork'
+            name='socialNetwork'
+            type="text"
+            value={contact.socialNetwork}
+            onChange={(e) => handleSocialNetworkChange(index, e.target.value)}
+            placeholder="Social Network"
+          />
+          <Input
+            id='URL'
+            name='URL'
+            type="text"
+            value={contact.url}
+            onChange={(e) => handleUrlChange(index, e.target.value)}
+            placeholder="URL"
+          />
+          <IconButton aria-label='removeSocNetwork' as={Button} icon={<CloseIcon />} onClick={() => handleRemoveContact(index)} />
+        </Flex>
+      ))}
+      <Button  colorScheme="blue"
+        variant="solid"   bg="teal.300"
+        h="45"
+        mt="5px"
+        color="white"
+        _hover={{
+          bg: 'teal.200',
+        }}
+        _active={{
+          bg: 'teal.400',
+        }} onClick={handleAddContact}>Добавить контакт</Button>
+    </div>
+
+      {/* <Accordion allowToggle>
         <AccordionItem>
           <h2>
             <AccordionButton>
@@ -103,12 +171,12 @@ function Contact({ resume_id }: IContact) {
                     </option>
                   )
                 })}
-              </Select>
+              </Select> 
               <Input type="text" />
             </Flex>
           </AccordionPanel>
         </AccordionItem>
-      </Accordion>
+      </Accordion> */}
 
       <Button
         type="submit"
