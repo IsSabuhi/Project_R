@@ -9,7 +9,6 @@ import {
   FormLabel,
   Input,
   Text,
-  Textarea,
 } from '@chakra-ui/react'
 import { ArrowDownIcon, ArrowForwardIcon } from '@chakra-ui/icons'
 import { useFormik } from 'formik'

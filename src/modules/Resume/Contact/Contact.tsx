@@ -3,11 +3,8 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  Icon,
   IconButton,
   Input,
-  Select,
-  Text,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import styles from './Contacts.module.scss'
@@ -17,40 +14,39 @@ import { useFormik } from 'formik'
 import { useSnackbar } from 'notistack'
 import { AddIcon, CloseIcon } from '@chakra-ui/icons'
 import { socialNetworkOptions } from '@/configs'
+import { Select } from 'chakra-react-select'
 
 interface IContact {
   resume_id: string
 }
 
-const initialFormContact: UpdateContactsMutationVariables = {
+type socialNetworkType = {
+  value: string
+  label: string
+  icon: JSX.Element | undefined | null
+}
+
+type formContacts = {
+  email: string
+  phone: string
+  socialNetwork: socialNetworkType
+}
+
+const initialFormContact: formContacts = {
   email: '',
   phone: '',
+  socialNetwork: { value: '', label: '', icon: null },
 }
 
 type Contact = {
-  socialNetwork: string
+  socialNetwork: socialNetworkType
   url: string
-}
-
-const CustomOption: React.FC<{
-  value: string
-  label: string
-  icon: string
-}> = ({ value, label, icon }) => {
-  return (
-    <option value={value}>
-      <Flex alignItems="center">
-        <img src={icon} alt={label} />
-        <Text>{label}</Text>
-      </Flex>
-    </option>
-  )
 }
 
 function Contact({ resume_id }: IContact) {
   const { enqueueSnackbar } = useSnackbar()
 
-  const { userId } = useAuthContext()
+  const { userProfileId } = useAuthContext()
 
   const formik = useFormik({
     initialValues: initialFormContact,
@@ -60,14 +56,13 @@ function Contact({ resume_id }: IContact) {
 
   const [contacts, setContacts] = useState<Contact[]>([])
 
-  const handleAddContact = () => {
-    setContacts([...contacts, { socialNetwork: '', url: '' }])
-  }
+  const [selectedOption, setSelectedOption] = useState<formContacts[]>([])
 
-  const handleSocialNetworkChange = (index: number, value: string) => {
-    const updatedContacts = [...contacts]
-    updatedContacts[index].socialNetwork = value
-    setContacts(updatedContacts)
+  const handleAddContact = () => {
+    setContacts([
+      ...contacts,
+      { socialNetwork: { value: '', label: '', icon: null }, url: '' },
+    ])
   }
 
   const handleUrlChange = (index: number, value: string) => {
@@ -82,6 +77,14 @@ function Contact({ resume_id }: IContact) {
     setContacts(updatedContacts)
   }
 
+  const handleChange = (e: any, index: number) => {
+    const updatedContacts = [...contacts]
+    updatedContacts[index].socialNetwork = e
+    setContacts(updatedContacts)
+  }
+
+  console.log(formik.values)
+
   return (
     <form className={styles.container} onSubmit={formik.handleSubmit}>
       <FormControl as="fieldset">
@@ -95,6 +98,8 @@ function Contact({ resume_id }: IContact) {
           fontSize="sm"
           size="lg"
           placeholder="Введите ваш email"
+          value={formik.values.email as string}
+          onChange={formik.handleChange}
         />
       </FormControl>
 
@@ -109,6 +114,8 @@ function Contact({ resume_id }: IContact) {
           fontSize="sm"
           size="lg"
           placeholder="Введите ваш номер телефона"
+          value={formik.values.phone as string}
+          onChange={formik.handleChange}
         />
       </FormControl>
 
@@ -116,21 +123,21 @@ function Contact({ resume_id }: IContact) {
         {contacts.map((contact, index) => (
           <Flex gap={4} key={index}>
             <Select
+              id="socialNetwork"
+              name="socialNetwork"
+              placeholder="Социальная сеть"
+              isSearchable={false}
               value={contact.socialNetwork}
-              onChange={(e) => handleSocialNetworkChange(index, e.target.value)}
-              bg="white"
-              flex="20%"
-            >
-              <option value="">Выберите соцсеть</option>
-              {socialNetworkOptions.map((option) => (
-                <CustomOption
-                  key={option.value}
-                  value={option.value}
-                  label={option.label}
-                  icon={option.icon}
-                />
-              ))}
-            </Select>
+              options={socialNetworkOptions}
+              onChange={(e) => handleChange(e, index)}
+              className={styles.socialNetworks_select}
+              getOptionLabel={(option: socialNetworkType) => (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  {option.icon}
+                  <span style={{ marginLeft: 5 }}>{option.label}</span>
+                </div>
+              )}
+            />
 
             <Input
               id="URL"
