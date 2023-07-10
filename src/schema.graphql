@@ -33,7 +33,7 @@ mutation ChangePassword(
 }
 
 mutation SignUpJobseeker(
-  $start_date: date = ""
+  $start_date: String = ""
   $speciality: String = ""
   $role: String = ""
   $phone: String = ""
@@ -47,9 +47,9 @@ mutation SignUpJobseeker(
   $gender: String = ""
   $faculity: String = ""
   $email: String = ""
-  $end_date: date = ""
+  $end_date: String = ""
   $education_form: String = ""
-  $dateBirth: date = ""
+  $dateBirth: String = ""
 ) {
   signUp_jobseeker(
     education_form: $education_form
@@ -128,26 +128,20 @@ query GetJobseekerById($_eq: uuid = "") {
       start_date
       jobseeker_education_id
       jobseeker_education_educational_institution {
-        educational_institution_jobseeker_educations {
-          average_score
-          education_form
-          educational_institution_id
-          end_date
-          faculity
-          group
-          speciality
-          start_date
-          jobseeker_id
-          jobseeker_education_id
-        }
         name_institution
       }
+      vkr
     }
     account_id
     account {
       login
       role
       avatar
+    }
+    jobseeker_contacts {
+      contact_id
+      email
+      phone
     }
   }
 }
@@ -332,6 +326,12 @@ query GetResumes($_eq: uuid = "") {
           name_institution
         }
       }
+      jobseeker_contacts {
+        contact_id
+        email
+        jobseeker_id
+        phone
+      }
     }
     programming_languages
     isConfirmed
@@ -413,6 +413,7 @@ query GetResume($_eq: uuid = "") {
   }
 }
 
+# TODO: Надо нахер удалить потом этот запрос
 query GetJobseekerContacts($_eq: uuid = "") {
   jobseeker(where: { jobseeker_resumes: { resume_id: { _eq: $_eq } } }) {
     account_id
@@ -427,6 +428,37 @@ query GetJobseekerContacts($_eq: uuid = "") {
   }
 }
 
+mutation InsertContacts(
+  $jobseeker_id: uuid = ""
+  $email: String = ""
+  $phone: String = ""
+) {
+  insert_contacts(
+    objects: { jobseeker_id: $jobseeker_id, email: $email, phone: $phone }
+  ) {
+    returning {
+      contact_id
+      email
+      phone
+      jobseeker_id
+    }
+  }
+}
+
+mutation UpdateContact(
+  $_eq: uuid = ""
+  $email: String = ""
+  $phone: String = ""
+) {
+  update_contacts(
+    where: { contact_id: { _eq: $_eq } }
+    _set: { email: $email, phone: $phone }
+  ) {
+    affected_rows
+  }
+}
+
+# TODO: это говно тоже надо потом удалить (мутация обновления контактных данных)
 mutation UpdateContacts(
   $_eq: uuid = ""
   $phone: String = ""
