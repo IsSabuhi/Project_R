@@ -1,25 +1,40 @@
-import { AiFillFacebook } from "react-icons/ai";
-import { BsGithub, BsTelegram } from "react-icons/bs";
-import {SlSocialVkontakte} from 'react-icons/sl'
 
-export const contactsItem = [
+import facebookIcon from '@/assets/icons/socialNetwork/facebook.svg' 
+
+
+
+export const socialNetworkOptions = [
     {
-        icon: BsGithub,
-        label: 'Github'
+        value: 'YouTube',
+        label: 'YouTube',
+        icon: facebookIcon,
     },
-    {
-        icon: BsTelegram,
-        label: 'Telegram'
-    },
-    {
-        icon: SlSocialVkontakte,
-        label: 'VK'
-    },
-    {
-        icon: AiFillFacebook,
-        label: 'Facebook'
-    },
-]
+    // {
+    //     value: 'Facebook',
+    //     label: 'Facebook',
+    //     icon: ,
+    // },
+    // {
+    //     value: 'Twitter',
+    //     label: 'Twitter',
+    //     icon: ,
+    // },
+    // {
+    //     value: 'Instagram',
+    //     label: 'Instagram',
+    //     icon: ,
+    // },
+    // {
+    //     value: 'GitHub',
+    //     label: 'GitHub',
+    //     icon: ,
+    // },
+    // {
+    //     value: 'YouTube',
+    //     label: 'YouTube',
+    //     icon: ,
+    // },
+  ]
 
 export const drivingCategories = [
     {

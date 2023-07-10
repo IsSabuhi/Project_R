@@ -6,6 +6,7 @@ import Contacts from './Contacts/Contacts'
 import { BiMap } from 'react-icons/bi'
 import { FaInfo } from 'react-icons/fa'
 import ExperienceWork from './ExperienceWork/ExperienceWork'
+import Languages from './Languages/Languages'
 
 const StandardSidebar = () => {
   return (
@@ -46,6 +47,9 @@ const StandardSidebar = () => {
       <div className={styles.sidebar}>
         <section className={styles.sidebar_contacts}>
           <Contacts />
+        </section>
+        <section className={styles.sidebar_contacts}>
+          <Languages />
         </section>
       </div>
     </div>

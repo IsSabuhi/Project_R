@@ -35,6 +35,7 @@ import Loader from '@/components/Loader'
 import { useSnackbar } from 'notistack'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
+import StandardSidebar from '@/templates/StandardSidebar/StandardSidebar'
 
 interface ISaveResume {
   resume_id: string
@@ -264,6 +265,7 @@ function SaveResume({ resume_id }: ISaveResume) {
                     resumesData={resumesData?.resumes as Resumes[]}
                   />
                 )}
+                {template === 'template3' && <StandardSidebar />}
               </div>
             ) : (
               <div className={styles.container_main_viewResume_main_tempaltes}>
